@@ -54,11 +54,17 @@ export const assignFlowProspectsTool: ToolConfig<
       'Content-Type': 'application/json',
       Authorization: `Basic ${btoa(`${params.accessKey}:${params.accessKeySecret}`)}`,
     }),
-    body: (params) => ({
-      flowId: params.flowId.trim(),
-      crmProspectsIds: parseGongIdList(params.crmProspectsIds) ?? [],
-      flowInstanceOwnerEmail: params.flowInstanceOwnerEmail.trim(),
-    }),
+    body: (params) => {
+      const crmProspectsIds = parseGongIdList(params.crmProspectsIds)
+      if (!crmProspectsIds) {
+        throw new Error('crmProspectsIds must contain at least one CRM prospect ID')
+      }
+      return {
+        flowId: params.flowId.trim(),
+        crmProspectsIds,
+        flowInstanceOwnerEmail: params.flowInstanceOwnerEmail.trim(),
+      }
+    },
   },
 
   transformResponse: async (response: Response) => {
