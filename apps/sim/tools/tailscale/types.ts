@@ -129,6 +129,7 @@ export interface TailscaleSetDeviceRoutesResponse extends ToolResponse {
 export interface TailscaleListDnsNameserversResponse extends ToolResponse {
   output: {
     dns: string[]
+    magicDNS: boolean
   }
 }
 

@@ -39,7 +39,7 @@ export const tailscaleListDnsNameserversTool: ToolConfig<
       const data = await response.json().catch(() => ({}))
       return {
         success: false,
-        output: { dns: [] },
+        output: { dns: [], magicDNS: false },
         error: (data as Record<string, string>).message ?? 'Failed to list DNS nameservers',
       }
     }
@@ -49,11 +49,17 @@ export const tailscaleListDnsNameserversTool: ToolConfig<
       success: true,
       output: {
         dns: data.dns ?? [],
+        magicDNS: false,
       },
     }
   },
 
   outputs: {
     dns: { type: 'array', description: 'List of DNS nameserver addresses' },
+    magicDNS: {
+      type: 'boolean',
+      description:
+        'Always false — this endpoint does not report MagicDNS status. Use Get DNS Preferences for the actual value.',
+    },
   },
 }
