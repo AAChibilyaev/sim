@@ -18,10 +18,11 @@ export const openClawProfile: CompetitorProfile = {
     "OpenClaw is a free, open-source, self-hosted personal AI agent that runs on a user's own machine or server and connects to messaging platforms (WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams, and others) as its primary interface, extensible via a Skills plugin system and the ClawHub marketplace. It is not a visual workflow/automation builder like Sim, n8n, or Power Automate.",
   standoutFeatures: [
     {
-      title: '22+ messaging channels as the native interface',
+      title: '22+ messaging channels as the primary interface',
       description:
-        'OpenClaw ships a multi-channel inbox connecting one assistant to WhatsApp, Telegram, Slack, Discord, Google Chat, Signal, iMessage, Microsoft Teams, IRC, Matrix, Feishu, LINE, Mattermost, Nextcloud Talk, and more. Users talk to the same agent from whichever chat app they already use, not a dedicated web builder UI.',
-      shortDescription: 'One agent reachable from 22+ chat apps, not a dedicated builder UI.',
+        'OpenClaw ships a multi-channel inbox connecting one assistant to WhatsApp, Telegram, Slack, Discord, Google Chat, Signal, iMessage, and Microsoft Teams, plus bundled plugin channels (shipped by default, not separately installed) including IRC, Matrix, Feishu, LINE, Mattermost, Nextcloud Talk, Nostr, Twitch, Zalo, and more. Users talk to the same agent from whichever chat app they already use, not a dedicated web builder UI.',
+      shortDescription:
+        'One agent reachable from 22+ chat apps (core plus bundled plugins), not a dedicated builder UI.',
       source: {
         url: 'https://docs.openclaw.ai/start/openclaw',
         label: 'OpenClaw Docs: Personal assistant setup',
@@ -53,14 +54,14 @@ export const openClawProfile: CompetitorProfile = {
       },
     },
     {
-      title: 'Native MCP client over stdio and HTTP/SSE',
+      title: 'Dynamic runtime tool and skill dispatch, not pre-wired at build time',
       description:
-        'OpenClaw connects to external Model Context Protocol servers by adding an mcpServers block to its config, giving the agent tool access to any published MCP server (GitHub, Notion, Postgres, Slack, and others) without custom integration code.',
+        "OpenClaw's agent decides which tools, connectors, and installed Skills to use at runtime based on the incoming request, rather than following a pre-wired sequence of steps chosen when a workflow was built. Skills become eligible per session based on gating rules (OS, environment variables, config flags) and a documented precedence order, and the agent dispatches among them dynamically instead of a builder wiring each tool call in advance.",
       shortDescription:
-        'Connects to any MCP server (stdio or HTTP/SSE) by editing one config block.',
+        'Agent picks tools and skills dynamically at runtime, not pre-wired at build time.',
       source: {
-        url: 'https://docs.openclaw.ai/cli/mcp',
-        label: 'OpenClaw Docs: MCP',
+        url: 'https://docs.openclaw.ai/tools/skills',
+        label: 'OpenClaw Docs: Skills',
         asOf: '2026-07-02',
       },
     },
@@ -531,14 +532,14 @@ export const openClawProfile: CompetitorProfile = {
         value:
           'N/A: OpenClaw\'s entire product is a chat surface (messaging-platform channels), so there is no separate "deploy as a public chat widget" feature the way a workflow builder has. Chat is the interface itself, not an optional deployment target.',
         detail:
-          'The agent is reached through the messaging channels the operator has connected it to (WhatsApp, Telegram, Slack, etc.) or a local Web Control UI. There is no feature to publish a standalone, unauthenticated public-facing chat widget for arbitrary website visitors.',
+          'The agent is reached through the messaging channels the operator has connected it to (WhatsApp, Telegram, Slack, etc.) or the built-in WebChat surface, which the docs describe as requiring authentication (a gateway auth path, shared-secret by default) rather than a standalone, unauthenticated public-facing chat widget for arbitrary website visitors.',
         shortValue: 'N/A: chat is the native interface, not a separate deploy target',
         confidence: 'estimated',
         sources: [
           {
-            url: 'https://docs.openclaw.ai/',
-            label: 'OpenClaw Docs home',
-            asOf: '2026-07-02',
+            url: 'https://docs.openclaw.ai/web/webchat',
+            label: 'OpenClaw Docs: WebChat',
+            asOf: '2026-07-04',
           },
         ],
       },
@@ -674,7 +675,7 @@ export const openClawProfile: CompetitorProfile = {
         value:
           'Skill-authoring specification (AgentSkills/SKILL.md) plus a plugin system for channels/providers, and an open-source GitHub organization (~70 repos spanning SDKs, hosted agents, crawlers, and skill registries), not one single unified SDK product',
         detail:
-          'The docs describe skill authoring (frontmatter, gating, tool dispatch), a plugin mechanism used for channels like Matrix/Nostr/Twitch/Zalo, and a broader open-source "federation" of related projects under the openclaw GitHub org.',
+          'The docs describe skill authoring (frontmatter, gating, tool dispatch), a plugin mechanism used for bundled-by-default channels like Matrix/Nostr/Twitch/Zalo (shipped in normal releases, not separately installed by the user), and a broader open-source "federation" of related projects under the openclaw GitHub org.',
         shortValue: 'Skill spec, plugin system, and a ~70-repo OSS ecosystem',
         confidence: 'estimated',
         sources: [
@@ -1066,7 +1067,7 @@ export const openClawProfile: CompetitorProfile = {
           {
             url: 'https://docs.openclaw.ai/',
             label: 'OpenClaw Docs home',
-            asOf: '2026-07-04',
+            asOf: '2026-07-02',
           },
         ],
       },

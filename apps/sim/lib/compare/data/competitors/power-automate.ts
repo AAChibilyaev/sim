@@ -41,13 +41,12 @@ export const powerAutomateProfile: CompetitorProfile = {
     {
       title: 'MCP support in Copilot Studio agents',
       description:
-        'Copilot Studio agents (the agent-building surface adjacent to Power Automate) connect to external Model Context Protocol servers as tools, and Microsoft ships an MCP server capability for Power Automate flows themselves (public preview March 2025, GA May 2025).',
-      shortDescription:
-        'Agents connect to external MCP servers, and flows can expose MCP tools themselves.',
+        'Copilot Studio agents (the agent-building surface adjacent to Power Automate) can connect to external Model Context Protocol servers and add their tools/resources to an agent. This is consumption only: there is no feature that publishes a Power Automate flow itself as an MCP server for external AI clients to call.',
+      shortDescription: 'Agents can connect to external MCP servers as tools, consumption only.',
       source: {
         url: 'https://learn.microsoft.com/en-us/microsoft-copilot-studio/mcp-add-existing-server-to-agent',
         label: 'Connect your agent to an existing MCP server - Microsoft Learn',
-        asOf: '2026-07-02',
+        asOf: '2026-07-04',
       },
     },
     {
@@ -170,9 +169,14 @@ export const powerAutomateProfile: CompetitorProfile = {
         confidence: 'estimated',
         sources: [
           {
-            url: 'https://learn.microsoft.com/en-us/compliance/regulatory/offering-soc-2',
-            label: 'SOC 2 Type 2 - Microsoft Compliance | Microsoft Learn',
-            asOf: '2026-07-02',
+            url: 'https://learn.microsoft.com/en-us/data-integration/gateway/service-gateway-onprem',
+            label: 'What is an on-premises data gateway? - Microsoft Learn',
+            asOf: '2026-07-04',
+          },
+          {
+            url: 'https://learn.microsoft.com/en-us/power-automate/desktop-flows/introduction',
+            label: 'Introduction to desktop flows - Power Automate | Microsoft Learn',
+            asOf: '2026-07-04',
           },
         ],
       },
@@ -424,10 +428,10 @@ export const powerAutomateProfile: CompetitorProfile = {
       },
       mcpSupport: {
         value:
-          'Yes: Copilot Studio agents can connect to external MCP servers as tools (public preview March 2025, GA May 2025), and Power Automate flows can themselves be exposed as MCP tools/resources',
+          'No, only consumption: Copilot Studio agents can connect to external MCP servers and add their tools/resources, but Power Automate has no feature that publishes a flow as its own MCP server for external AI clients to call. See integrations.mcpPublishing for the reverse-direction detail.',
         detail:
-          'Requires generative orchestration to be enabled on the agent; tools/resources dynamically update as the connected MCP server changes.',
-        shortValue: 'Agents connect to external MCP servers; flows can expose MCP tools',
+          'Requires generative orchestration to be enabled on the agent; tools/resources dynamically update as the connected MCP server changes. The separate Power Apps MCP Server is a fixed, Microsoft-defined server with a small predefined toolset, not a way to publish a custom flow as an MCP endpoint.',
+        shortValue: 'Consumes external MCP servers only; cannot publish a flow as one',
         confidence: 'verified',
         sources: [
           {
@@ -504,10 +508,16 @@ export const powerAutomateProfile: CompetitorProfile = {
         value:
           'Yes: Copilot Studio automatically falls back to the default OpenAI GPT-4o model when a selected alternate model (such as Anthropic Claude) is disabled or unavailable',
         detail:
-          "This fallback behavior is documented for Copilot Studio's multi-model support; a separate confirmation specific to Power Automate flows was not found.",
+          "Documented directly for Copilot Studio's multi-model support ('If Anthropic models are disabled, agents built with it will automatically switch to the default model, OpenAI GPT-4o, with no additional configuration required'); a separate confirmation specific to Power Automate flows themselves was not found.",
         shortValue: 'Falls back to default OpenAI GPT-4o model',
-        confidence: 'unknown',
-        sources: [],
+        confidence: 'verified',
+        sources: [
+          {
+            url: 'https://www.microsoft.com/en-us/microsoft-copilot/blog/copilot-studio/anthropic-joins-the-multi-model-lineup-in-microsoft-copilot-studio/',
+            label: 'Anthropic joins the multi-model lineup in Microsoft Copilot Studio',
+            asOf: '2026-07-04',
+          },
+        ],
       },
       agentSkills: {
         value:

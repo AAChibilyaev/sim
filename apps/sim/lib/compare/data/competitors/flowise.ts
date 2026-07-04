@@ -85,7 +85,7 @@ export const flowiseProfile: CompetitorProfile = {
           'Flowise is primarily a drag-and-drop visual canvas for wiring chatflow and agentflow nodes together, supplemented by Custom JS Function nodes for arbitrary code and a Custom Tool node for JS-based tools. There is no natural-language "describe it and I\'ll build it" flow generator.',
         detail: 'No natural-language workflow generation feature.',
         shortValue: 'Visual canvas plus custom-code nodes',
-        confidence: 'verified',
+        confidence: 'estimated',
         sources: [
           {
             url: 'https://docs.flowiseai.com/integrations/utilities/custom-js-function',
@@ -153,8 +153,8 @@ export const flowiseProfile: CompetitorProfile = {
       },
       license: {
         value:
-          "Flowise's Community Edition is licensed under the Apache License, Version 2.0. Enterprise-only modules (SSO, RBAC, audit logs, organization workspaces) ship under a separate Commercial License.",
-        shortValue: 'Apache 2.0 (core), commercial license for enterprise modules',
+          "Flowise's Community Edition is licensed under the Apache License, Version 2.0. Paid-tier-only modules ship under a separate Commercial License: RBAC, audit/login-activity logs, and organization workspaces are available on both the Cloud and Enterprise plans, while SSO is restricted to the Enterprise plan only.",
+        shortValue: 'Apache 2.0 (core); RBAC/audit on Cloud+Enterprise, SSO Enterprise-only',
         confidence: 'verified',
         sources: [
           {
@@ -268,10 +268,16 @@ export const flowiseProfile: CompetitorProfile = {
       },
       naturalLanguageBuilding: {
         value:
-          'Unknown: no documented feature lets a user describe an automation in plain language and have Flowise generate or edit the flow automatically.',
-        shortValue: 'Unknown, not documented',
-        confidence: 'unknown',
-        sources: [],
+          'No: no documented feature lets a user describe an automation in plain language and have Flowise generate or edit the flow automatically. Flowise is primarily a drag-and-drop visual canvas, supplemented by Custom JS Function nodes for arbitrary code, with no natural-language "describe it and I\'ll build it" flow generator.',
+        shortValue: 'No, not documented as a feature',
+        confidence: 'estimated',
+        sources: [
+          {
+            url: 'https://docs.flowiseai.com/integrations/utilities/custom-js-function',
+            label: 'Flowise Docs: Custom JS Function',
+            asOf: '2026-07-02',
+          },
+        ],
       },
       knowledgeBaseRag: {
         value:
@@ -838,7 +844,7 @@ export const flowiseProfile: CompetitorProfile = {
           {
             url: 'https://docs.flowiseai.com/configuration/running-flowise-using-queue',
             label: 'Flowise Docs: Running Flowise using Queue',
-            asOf: '2026-07-04',
+            asOf: '2026-07-02',
           },
         ],
       },

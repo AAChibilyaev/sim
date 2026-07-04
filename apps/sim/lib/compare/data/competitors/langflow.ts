@@ -389,15 +389,16 @@ export const langflowProfile: CompetitorProfile = {
       },
       dynamicToolUse: {
         value:
-          "Yes: Langflow agents receive a registered list of tools at setup, and the connected LLM decides at run time which registered tool to call based on each tool's description. This includes flows exposed as tools and MCP-server tools.",
-        detail: 'Tool pool is whatever is registered to that agent, not the entire platform.',
-        shortValue: 'Yes, agent picks among registered tools at inference',
+          "No: tools are connected to the Agent component's Tools input at build time in the flow editor, and the connected LLM only chooses among that pre-wired set at run time based on each tool's description. It does not browse or select from a broader catalog, such as an entire MCP server's tool list, at inference time.",
+        detail:
+          "Same closed-list function-calling mechanism as Sim's Agent block: the pool is whatever is wired into the flow, not the entire platform or an MCP catalog.",
+        shortValue: 'No, agent picks only among tools wired in at build time',
         confidence: 'verified',
         sources: [
           {
             url: 'https://docs.langflow.org/agents-tools',
             label: 'Langflow Docs: Configure tools for agents',
-            asOf: '2026-07-02',
+            asOf: '2026-07-04',
           },
         ],
       },
@@ -462,7 +463,7 @@ export const langflowProfile: CompetitorProfile = {
       },
       a2aProtocol: {
         value:
-          'No. Native A2A protocol support is not shipped in Langflow core. A community member submitted a working implementation and feature request in November 2025, but it remains an open enhancement request (closed as a duplicate of an earlier tracking issue), not a merged feature. The only path to A2A interoperability is third-party custom components.',
+          'No: native A2A protocol support is not shipped in Langflow core. A community member submitted a working implementation and feature request in November 2025, but it remains an open enhancement request (closed as a duplicate of an earlier tracking issue), not a merged feature. The only path to A2A interoperability is third-party custom components.',
         shortValue: 'No, open feature request only, not shipped in core',
         confidence: 'estimated',
         sources: [
@@ -880,12 +881,12 @@ export const langflowProfile: CompetitorProfile = {
           {
             url: 'https://docs.langflow.org/get-started-installation',
             label: 'Langflow Docs: Install Langflow',
-            asOf: '2026-07-04',
+            asOf: '2026-07-02',
           },
           {
             url: 'https://docs.langflow.org/webhook',
             label: 'Langflow Docs: Trigger flows with webhooks',
-            asOf: '2026-07-04',
+            asOf: '2026-07-02',
           },
         ],
       },

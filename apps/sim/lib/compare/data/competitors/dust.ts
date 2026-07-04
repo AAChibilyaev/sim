@@ -706,16 +706,21 @@ export const dustProfile: CompetitorProfile = {
       },
       freeTier: {
         value:
-          'Yes: a free Business tier for up to 5 users, 3 connectors, and 5 Spaces, no credit card required',
+          'Yes: a free Business tier for new workspaces, capped at 5 users, 3 connectors, and 5 Spaces, no credit card required',
         detail:
-          'Downgrading from a paid plan retains data but restricts the workspace to a single user, no connections, and limited agent interactions.',
-        shortValue: 'Free for up to 5 users, 3 connectors, 5 Spaces',
+          'This free tier is what a new workspace gets by default without a paid subscription. It is distinct from what happens when an existing paid workspace downgrades: canceling removes all users except the earliest-assigned admin, deletes existing connections, and deletes data sources over 50MB combined after a 7-day warning period, while original source data in the connected provider itself is untouched.',
+        shortValue: 'Free for new workspaces: up to 5 users, 3 connectors, 5 Spaces',
         confidence: 'verified',
         sources: [
           {
             url: 'https://dust.tt/home/pricing',
             label: 'Dust Pricing',
             asOf: '2026-07-02',
+          },
+          {
+            url: 'https://docs.dust.tt/docs/subscriptions',
+            label: 'Subscriptions & Payments | Dust Docs',
+            asOf: '2026-07-04',
           },
         ],
       },
@@ -780,16 +785,16 @@ export const dustProfile: CompetitorProfile = {
       },
       auditLogging: {
         value:
-          'Yes: audit logs available on the Enterprise plan, documented with 365-day retention',
+          'Yes: audit logs available on the Enterprise plan, admin-only, with CSV export and continuous streaming to a SIEM (Datadog, Splunk, AWS S3, GCP GCS, custom HTTPS endpoint); no retention period is documented',
         detail:
-          "The Enterprise plan lists audit logs among its named features. A third-party enterprise summary specifies 365-day retention, though this figure isn't independently confirmed on Dust's own pricing/security pages.",
-        shortValue: 'Enterprise-tier audit logs, ~365-day retention',
+          "Dust's Audit Logs docs confirm the feature is Enterprise-only, accessible to workspace admins under Admin > People & Security > Audit Logs, with full-text search, time-range filtering, manual CSV export, and continuous streaming to external SIEM destinations. No page specifies how many days of audit history are retained.",
+        shortValue: 'Enterprise-tier audit logs with SIEM export; retention period not documented',
         confidence: 'estimated',
         sources: [
           {
-            url: 'https://dust.tt/home/pricing',
-            label: 'Dust Pricing',
-            asOf: '2026-07-02',
+            url: 'https://docs.dust.tt/docs/audit-logs',
+            label: 'Audit Logs | Dust Docs',
+            asOf: '2026-07-04',
           },
         ],
       },
@@ -1030,7 +1035,7 @@ export const dustProfile: CompetitorProfile = {
         value:
           'Dust, Inc. Founded 2022 in Paris by two former Stripe employees (one also ex-OpenAI). Raised a $40M Series B in May 2026 (co-led by Sequoia and Abstract, with Datadog and Snowflake participating), total funding over $60M. Reports 300,000+ agents deployed across 3,000+ organizations, 70% weekly active usage, and zero churn as of the raise',
         detail:
-          "Customers named in Dust's own materials include Datadog, 1Password, and Qonto (Qonto reports 50+ specialized agents and 50,000+ hours saved annually). As a 2022-founded, venture-backed private company, it carries materially more switching risk than an incumbent like Microsoft, though it has real enterprise traction and revenue-retention metrics (240% net revenue retention reported at the raise).",
+          "Customers named in Dust's own materials include Datadog, 1Password, and Qonto (Qonto reports 50+ specialized agents and 50,000+ hours saved annually). As a 2022-founded, venture-backed private company, it carries materially more switching risk than a large, publicly traded incumbent vendor, though it has real enterprise traction and revenue-retention metrics (240% net revenue retention reported at the raise).",
         shortValue: 'Founded 2022, Paris; $60M+ raised; 3,000+ orgs, 300,000+ agents',
         confidence: 'verified',
         sources: [

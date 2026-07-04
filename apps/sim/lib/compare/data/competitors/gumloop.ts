@@ -761,7 +761,7 @@ export const gumloopProfile: CompetitorProfile = {
         value:
           'SOC 2 Type II attested; also HIPAA-compliant with BAAs available on eligible plans, and GDPR-aligned with EU-U.S. Data Privacy Framework (incl. UK Extension) certification',
         shortValue: 'SOC 2 Type II, HIPAA, GDPR-aligned',
-        confidence: 'estimated',
+        confidence: 'verified',
         sources: [
           {
             url: 'https://www.gumloop.com/solutions/security',
@@ -835,12 +835,24 @@ export const gumloopProfile: CompetitorProfile = {
         ],
       },
       modelAndToolGovernance: {
-        value: 'Unknown',
+        value:
+          'Yes for models: an org-wide AI Model Control setting lets admins restrict members to an allow-list or block-list of models, set automatic fallback models (including a separate fallback for image generation), and override the default Recommended/Smartest/Fastest presets so all agents use consistent model choices. Tool governance is handled separately via the per-tool authorization policies covered under RBAC/ABAC, not a distinct model-and-tool control surface.',
         detail:
-          'Not documented as a distinct capability beyond the per-tool authorization policies covered under RBAC and the model allow/deny controls covered under generativeMedia.',
-        shortValue: 'Not separately documented',
-        confidence: 'unknown',
-        sources: [],
+          "Gumloop's docs describe AI Model Control as an Enterprise admin feature applying platform-wide to every member ('Allow Only Selected' or 'Block Selected' modes), not scoped per-team or per-agent. It covers only which LLMs are usable and their fallback/preset routing; it makes no mention of restricting access to non-model tools, which is instead covered by the RBAC/ABAC per-tool authorization policies documented separately.",
+        shortValue: 'Yes: org-wide model allow/deny with fallback; tool governance via RBAC',
+        confidence: 'verified',
+        sources: [
+          {
+            url: 'https://docs.gumloop.com/enterprise-features/ai_model_control',
+            label: 'Gumloop Docs: AI Model Control',
+            asOf: '2026-07-04',
+          },
+          {
+            url: 'https://www.gumloop.com/solutions/security',
+            label: 'Gumloop Security & Trust',
+            asOf: '2026-07-02',
+          },
+        ],
       },
       credentialGovernance: {
         value:
@@ -1078,7 +1090,7 @@ export const gumloopProfile: CompetitorProfile = {
           {
             url: 'https://docs.gumloop.com/core-concepts/workflow_triggers',
             label: 'Gumloop docs: Workflow Triggers',
-            asOf: '2026-07-04',
+            asOf: '2026-07-02',
           },
         ],
       },

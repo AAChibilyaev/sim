@@ -51,8 +51,9 @@ export const retoolProfile: CompetitorProfile = {
     {
       title: 'Bidirectional MCP support',
       description:
-        'Retool Agents can connect outbound to external MCP servers (a standard for plugging AI agents into outside tools) to pull in tools like GitHub or Jira. Retool also exposes its own workspace as an MCP server, so apps, workflows, and users can be managed directly from Claude, Cursor, Codex, or Kiro.',
-      shortDescription: 'Connects to external MCP servers and exposes Retool itself as one.',
+        'Retool Agents can connect outbound to external MCP servers (a standard for plugging AI agents into outside tools) to pull in tools like GitHub or Jira. Retool also exposes its own workspace as an MCP server (public beta), so build and management actions, such as creating apps, running queries, and managing users, can be performed directly from Claude, Cursor, Codex, or Kiro. This does not let you publish an individual deployed app or workflow as its own standalone MCP tool for outside consumption.',
+      shortDescription:
+        'Connects to external MCP servers and exposes workspace management actions as one.',
       source: {
         url: 'https://retool.com/blog/how-to-use-mcp-in-retool',
         label: 'How to use MCP in Retool',
@@ -804,7 +805,7 @@ export const retoolProfile: CompetitorProfile = {
         value:
           'Yes: Retool (Business/Enterprise plans) supports resource-level permissions with Use, Edit, and Own tiers. Enterprise orgs can go further and set per-environment permissions on the same resource (for example, allow Use on staging credentials but deny production credentials), independent of feature-level RBAC.',
         detail:
-          "Permission control for Resources requires the Enterprise plan; per-environment override requires selecting 'Define specific resource access' on a resource.",
+          "Permission control for Resources (Use/Edit/Own tiers) is available starting on the Business plan; per-environment override, selecting 'Define specific resource access' on a resource, is an Enterprise-only capability.",
         shortValue: 'Yes, Use/Edit/Own permissions per resource per env',
         confidence: 'verified',
         sources: [
@@ -823,6 +824,7 @@ export const retoolProfile: CompetitorProfile = {
             label: 'Advanced permissions in Retool: The Fundamentals',
             asOf: '2026-07-02',
           },
+          { url: 'https://retool.com/pricing', label: 'Retool Pricing', asOf: '2026-07-04' },
         ],
       },
       whiteLabeling: {

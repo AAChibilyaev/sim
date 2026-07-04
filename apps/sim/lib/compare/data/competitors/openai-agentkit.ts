@@ -163,14 +163,18 @@ export const openaiAgentkitProfile: CompetitorProfile = {
         value:
           'OpenAI-hosted cloud only for Agent Builder/Evals (being shut down); Agents SDK code can be deployed anywhere that runs Python/TypeScript (e.g., AWS Lambda, Cloudflare Workers, FastAPI servers)',
         detail:
-          'There is no official Docker/Kubernetes distribution of AgentKit itself; deployment flexibility comes from the open-source Agents SDK being ordinary application code.',
+          'There is no official Docker/Kubernetes distribution of AgentKit itself; deployment flexibility comes from the open-source Agents SDK being ordinary application code, as demonstrated by third-party deployment guides running it on Cloudflare Workers/Durable Objects and on AWS Lambda behind a FastAPI wrapper.',
         shortValue: 'OpenAI-hosted only; Agents SDK deploys anywhere',
         confidence: 'estimated',
         sources: [
           {
-            url: 'https://community.openai.com/t/deprecation-notice-agent-builder/1382650',
-            label:
-              'OpenAI Community: Deprecation notice - Agent Builder (community-reported deployment patterns)',
+            url: 'https://blog.cloudflare.com/building-agents-with-openai-and-cloudflares-agents-sdk/',
+            label: 'Cloudflare Blog: Building agents with OpenAI and Cloudflare Agents SDK',
+            asOf: '2026-07-04',
+          },
+          {
+            url: 'https://developers.openai.com/api/docs/guides/agents',
+            label: 'OpenAI API: Agents SDK guide',
             asOf: '2026-07-02',
           },
         ],
@@ -349,16 +353,27 @@ export const openaiAgentkitProfile: CompetitorProfile = {
     },
     aiCapabilities: {
       multiLlmSupport: {
-        value: 'OpenAI models only (GPT-5 family, e.g. gpt-5.5, gpt-5.4, gpt-5.4-mini)',
+        value:
+          "Agent Builder's Agent node model selector is OpenAI models only (GPT-5 family, e.g. gpt-5.5, gpt-5.4, gpt-5.4-mini); the separate, code-first Agents SDK is provider-agnostic, with built-in extension points plus best-effort beta LiteLLM/Any-LLM adapters covering 100+ providers (Anthropic, Google, Mistral, and others)",
         detail:
-          "AgentKit and the Agents SDK are built around OpenAI's own model lineup; no vendor documentation offers native first-party support for non-OpenAI LLM providers (e.g., Anthropic, Google) inside Agent Builder or ChatKit.",
-        shortValue: 'OpenAI models only',
+          "Agent Builder's visual canvas only lets you pick from OpenAI's own model lineup. The Agents SDK is a different product: it ships official, built-in provider-integration points (set_default_openai_client, a custom ModelProvider, or per-agent Agent.model) for calling any OpenAI-compatible endpoint, plus best-effort beta adapters for LiteLLM and Any-LLM that route to 100+ non-OpenAI providers. OpenAI's own docs note that adapters add a compatibility layer, so feature support and request semantics can vary by provider and should be validated independently.",
+        shortValue: 'Agent Builder: OpenAI only. Agents SDK: provider-agnostic via adapters',
         confidence: 'verified',
         sources: [
           {
             url: 'https://developers.openai.com/api/docs/pricing',
             label: 'OpenAI API Pricing (model list)',
             asOf: '2026-07-02',
+          },
+          {
+            url: 'https://openai.github.io/openai-agents-python/models/',
+            label: 'OpenAI Agents SDK: Models (provider integration points)',
+            asOf: '2026-07-04',
+          },
+          {
+            url: 'https://openai.github.io/openai-agents-python/models/litellm/',
+            label: 'OpenAI Agents SDK: LiteLLM extension (beta, 100+ providers)',
+            asOf: '2026-07-04',
           },
         ],
       },
@@ -661,7 +676,7 @@ export const openaiAgentkitProfile: CompetitorProfile = {
         value:
           'Official Agents SDK (Python + TypeScript/JS); Apps SDK (MCP-based) for building integrations; ChatGPT Apps directory as a community marketplace',
         detail:
-          "Agents SDK ships as open-source client libraries for Python (openai-agents-python) and TypeScript/JavaScript (openai-agents-js), provider-agnostic (works with 100+ LLMs via the Responses/Chat Completions APIs). Custom integrations are built as MCP servers using the Apps SDK, an open standard on the Model Context Protocol; Agent Builder's MCP node connects to any third-party MCP server. A Connector Registry centralizes admin-managed connectors (Dropbox, Google Drive, SharePoint, Teams) plus third-party MCPs. Community apps go through a dashboard-based submission and review flow and, once approved, are listed in the ChatGPT Apps directory.",
+          "Agents SDK ships as open-source client libraries for Python (openai-agents-python) and TypeScript/JavaScript (openai-agents-js). It defaults to OpenAI's own Responses/Chat Completions APIs but is provider-agnostic in practice: built-in provider-integration points plus best-effort beta LiteLLM/Any-LLM adapters let it call 100+ non-OpenAI providers (this is a code-level capability, distinct from Agent Builder's OpenAI-only model selector). Custom integrations are built as MCP servers using the Apps SDK, an open standard on the Model Context Protocol; Agent Builder's MCP node connects to any third-party MCP server. A Connector Registry centralizes admin-managed connectors (Dropbox, Google Drive, SharePoint, Teams) plus third-party MCPs. Community apps go through a dashboard-based submission and review flow and, once approved, are listed in the ChatGPT Apps directory.",
         shortValue: 'Agents SDK, Apps SDK, and app directory',
         confidence: 'verified',
         sources: [
@@ -674,6 +689,11 @@ export const openaiAgentkitProfile: CompetitorProfile = {
             url: 'https://github.com/openai/openai-agents-python',
             label: 'openai-agents-python GitHub repo',
             asOf: '2026-07-02',
+          },
+          {
+            url: 'https://openai.github.io/openai-agents-python/models/litellm/',
+            label: 'OpenAI Agents SDK: LiteLLM extension (beta, 100+ providers)',
+            asOf: '2026-07-04',
           },
           {
             url: 'https://developers.openai.com/apps-sdk',
@@ -815,7 +835,7 @@ export const openaiAgentkitProfile: CompetitorProfile = {
         sources: [
           {
             url: 'https://developers.openai.com/api/docs/guides/admin-apis',
-            label: 'OpenAI AgentKit verification source',
+            label: 'Admin APIs | OpenAI API',
             asOf: '2026-07-02',
           },
         ],
@@ -830,7 +850,7 @@ export const openaiAgentkitProfile: CompetitorProfile = {
         sources: [
           {
             url: 'https://help.openai.com/en/articles/9687866-admin-and-audit-logs-api-for-the-api-platform',
-            label: 'OpenAI AgentKit verification source',
+            label: 'Admin and Audit Logs API for the API Platform | OpenAI Help Center',
             asOf: '2026-07-02',
           },
         ],

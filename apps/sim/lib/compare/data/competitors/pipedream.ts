@@ -44,9 +44,9 @@ export const pipedreamProfile: CompetitorProfile = {
         "An 'Edit with AI' button in the workflow builder header or any code step lets users modify an existing workflow using natural-language instructions.",
       shortDescription: "An 'Edit with AI' button lets users modify workflows by prompt.",
       source: {
-        url: 'https://pipedream.com/blog/',
-        label: 'Pipedream Blog / Changelog',
-        asOf: '2026-07-02',
+        url: 'https://pipedream.com/blog/build-workflows-faster-with-ai/',
+        label: 'Pipedream Blog: Build workflows faster with AI',
+        asOf: '2026-07-04',
       },
     },
     {
@@ -358,7 +358,11 @@ export const pipedreamProfile: CompetitorProfile = {
         shortValue: "'Edit with AI' modifies workflows via prompt",
         confidence: 'estimated',
         sources: [
-          { url: 'https://pipedream.com/blog/', label: 'Pipedream Blog', asOf: '2026-07-02' },
+          {
+            url: 'https://pipedream.com/blog/build-workflows-faster-with-ai/',
+            label: 'Pipedream Blog: Build workflows faster with AI',
+            asOf: '2026-07-04',
+          },
         ],
       },
       knowledgeBaseRag: {
@@ -369,9 +373,9 @@ export const pipedreamProfile: CompetitorProfile = {
         confidence: 'estimated',
         sources: [
           {
-            url: 'https://pipedream.com/blog/',
-            label: 'Pipedream Blog (RAG implementation post)',
-            asOf: '2026-07-02',
+            url: 'https://pipedream.com/blog/build-your-own-chat-bot-with-openai-and-pipedream/',
+            label: 'Pipedream Blog: Build your own chat bot with OpenAI and Pipedream',
+            asOf: '2026-07-04',
           },
         ],
       },
@@ -550,9 +554,9 @@ export const pipedreamProfile: CompetitorProfile = {
             asOf: '2026-07-02',
           },
           {
-            url: 'https://docs-proxy.pipedream.net/docs/sources/',
-            label: 'Pipedream Docs: Sources',
-            asOf: '2026-07-02',
+            url: 'https://pipedream.com/docs/sources',
+            label: 'Pipedream Docs: Triggers (event sources)',
+            asOf: '2026-07-04',
           },
         ],
       },

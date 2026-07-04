@@ -5,7 +5,7 @@ import type { CompetitorProfile } from '@/lib/compare/data/types'
 export const stackaiProfile: CompetitorProfile = {
   id: 'stack-ai',
   name: 'StackAI',
-  website: 'https://www.stack-ai.com',
+  website: 'https://www.stackai.com',
   brand: {
     icon: StackAIIcon,
     selfFramed: true,
@@ -300,10 +300,15 @@ export const stackaiProfile: CompetitorProfile = {
       multiLlmSupport: {
         value: 'Yes, broad support across major LLM providers',
         detail:
-          'Supports a wide range of LLMs, with documented data processing agreements with OpenAI and Anthropic.',
+          'The LLM node is provider-agnostic with a model dropdown, and StackAI docs confirm OpenAI models directly and via Azure hosting, plus AWS Bedrock-hosted models including Anthropic Claude, AI21, Cohere, and Amazon Titan. StackAI also documents data processing agreements with OpenAI and Anthropic.',
         shortValue: 'Broad LLM provider support',
         confidence: 'estimated',
         sources: [
+          {
+            url: 'https://docs.stackai.com/workflow-builder/core-nodes/ai-agent-node/llm-hosting-and-governance/llms-hosted-on-azure-and-aws-bedrock',
+            label: 'LLMs Hosted on Azure & AWS Bedrock - StackAI Docs',
+            asOf: '2026-07-04',
+          },
           {
             url: 'https://trust.stackai.com/',
             label: 'StackAI Trust Center (OpenAI/Anthropic DPAs)',
@@ -383,13 +388,13 @@ export const stackaiProfile: CompetitorProfile = {
         confidence: 'verified',
         sources: [
           {
-            url: 'https://docs.stack-ai.com/stack-ai/workflow-builder/outputs/image-node',
+            url: 'https://docs.stackai.com/workflow-builder/outputs/image-node',
             label: 'Image Node - StackAI Docs',
             asOf: '2026-07-02',
           },
           {
-            url: 'https://www.stack-ai.com/docs/builder-guide/actions/text-to-audio',
-            label: 'Text to Audio - StackAI Docs',
+            url: 'https://docs.stackai.com/workflow-builder/outputs/audio-node',
+            label: 'Audio Node - StackAI Docs',
             asOf: '2026-07-02',
           },
         ],
@@ -478,7 +483,7 @@ export const stackaiProfile: CompetitorProfile = {
             asOf: '2026-07-02',
           },
           {
-            url: 'https://docs.stack-ai.com/stack-ai/logic/if-else-node',
+            url: 'https://docs.stackai.com/workflow-builder/utils-logic-and-others/logic/if-else-node',
             label: 'If/Else Node docs',
             asOf: '2026-07-02',
           },
@@ -517,15 +522,15 @@ export const stackaiProfile: CompetitorProfile = {
     },
     integrations: {
       integrationCount: {
-        value: '100+ enterprise integrations',
+        value: '70+ enterprise integrations',
         detail:
-          'Includes Notion, Airtable, AWS, BigQuery, GitHub, Google Workspace, HubSpot, MongoDB, and MCP.',
-        shortValue: '100+ integrations',
+          'StackAI documentation states it connects to 70+ apps and services, including Notion, Airtable, AWS, BigQuery, GitHub, Google Workspace, HubSpot, MongoDB, and MCP. Some marketing pages cite a higher "100+" figure, but the documented apps list supports 70+.',
+        shortValue: '70+ integrations',
         confidence: 'estimated',
         sources: [
           {
-            url: 'https://www.stackai.com/integrations',
-            label: 'StackAI Integrations page',
+            url: 'https://docs.stackai.com/workflow-builder/apps',
+            label: 'StackAI Apps documentation (70+ apps and services)',
             asOf: '2026-07-02',
           },
         ],
@@ -693,7 +698,7 @@ export const stackaiProfile: CompetitorProfile = {
           {
             url: 'https://docs.stackai.com/interface-and-deployment/api-reference/analytics.md',
             label: 'StackAI API Reference: Analytics',
-            asOf: '2026-07-04',
+            asOf: '2026-07-02',
           },
         ],
       },
@@ -933,7 +938,7 @@ export const stackaiProfile: CompetitorProfile = {
           {
             url: 'https://www.stackai.com/insights/how-to-set-up-scheduled-ai-workflows-and-automated-reports-on-stackai',
             label: 'Scheduled AI Workflows - StackAI insights',
-            asOf: '2026-07-04',
+            asOf: '2026-07-02',
           },
         ],
       },

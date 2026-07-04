@@ -28,14 +28,14 @@ export const tinesProfile: CompetitorProfile = {
       },
     },
     {
-      title: 'Story Copilot natural-language builder',
+      title: 'Workbench natural-language builder',
       description:
-        'Launched February 2026, Story Copilot lets users describe an automation in plain language and generates the workflow automatically, alongside "Workbench," a platform-wide AI copilot.',
+        'Users describe an automation in plain language and Workbench, the platform-wide AI assistant, generates the Story automatically. Workbench absorbed the former "Story Copilot," which was renamed "Workbench for Storyboard" on June 2, 2026.',
       shortDescription: 'Workbench turns plain-language descriptions into working automations.',
       source: {
-        url: 'https://www.tines.com/platform/ai/',
-        label: 'AI Agents, Copilots & MCP | Tines',
-        asOf: '2026-07-02',
+        url: 'https://www.tines.com/whats-new/workbench-for-stories/',
+        label: "Tines What's New",
+        asOf: '2026-07-04',
       },
     },
     {
@@ -600,6 +600,11 @@ export const tinesProfile: CompetitorProfile = {
             url: 'https://www.tines.com/docs/actions/types/webhook/',
             label: 'Webhook action docs',
             asOf: '2026-07-02',
+          },
+          {
+            url: 'https://www.tines.com/whats-new/schedule-with-cron-expressions/',
+            label: 'Schedule with cron expressions',
+            asOf: '2026-07-04',
           },
           {
             url: 'https://www.tines.com/docs/actions/types/receive-email/',

@@ -647,37 +647,52 @@ export const vellumProfile: CompetitorProfile = {
     pricing: {
       pricingModel: {
         value:
-          'Prepaid/pay-as-you-go credits ($1 credit = $1 of underlying LLM/API cost, no markup) plus a tiered monthly subscription for compute/storage',
+          "Not publicly listed for the B2B enterprise platform: Vellum's current pricing page has been fully replaced by the unrelated consumer 'Personal Intelligence' product's plans. A September 2025 third-party pricing analysis, published before that switch, described the enterprise platform as execution-credit-based with per-tier seat caps (Free, Pro, Enterprise) rather than the prepaid-credit model now shown.",
         detail:
-          "Current pricing pages describe the consumer 'Personal Intelligence' product's plans (Base/Free and Pro $50/mo tiers with configurable vCPU/RAM/storage add-ons) rather than the original enterprise workflow platform's seat/usage-based pricing.",
-        shortValue: 'Pass-through LLM credits + subscription',
-        confidence: 'verified',
+          "Current pricing pages (vellum.ai/pricing, vellum.ai/docs/pricing) describe the consumer 'Personal Intelligence' product's plans (Base/Free and Pro $50/mo tiers with configurable vCPU/RAM/storage add-ons), not the enterprise workflow platform. The last third-party description of the enterprise platform's model itself states Vellum 'does not publicly list pricing details on its website,' so the figures below are third-party estimates, not Vellum-published prices.",
+        shortValue: 'Not publicly listed; third-party analysis describes credit-based tiers',
+        confidence: 'unknown',
         sources: [
-          { url: 'https://www.vellum.ai/pricing', label: 'Vellum Pricing', asOf: '2026-07-02' },
           {
-            url: 'https://www.vellum.ai/docs/pricing',
-            label: 'Vellum Docs: Pricing',
+            url: 'https://www.zenml.io/blog/vellum-ai-pricing',
+            label: 'Vellum AI Pricing: ZenML Blog',
+            asOf: '2026-07-04',
+          },
+          {
+            url: 'https://www.vellum.ai/pricing',
+            label: 'Vellum Pricing (now shows the consumer product)',
             asOf: '2026-07-02',
           },
         ],
       },
       entryPaidPlan: {
-        value: 'Around $50/month for a typical Pro-tier setup, plus usage credits',
+        value:
+          'Unconfirmed: a third-party analysis reports a Pro tier around $500/month for the enterprise platform, but Vellum does not publish this figure itself',
         detail:
-          "The Pro plan has a $10/month platform fee (includes custom subdomain and priority support). Actual monthly cost depends on the compute tier chosen ($35-$125/mo) and storage tier chosen ($5-$120/mo); Vellum's own example configuration totals $50/month before usage credits.",
-        shortValue: '~$50/mo example configuration plus usage credits',
-        confidence: 'verified',
+          "The cited third-party breakdown describes Pro at roughly $500/month with 5,000 prompt executions/day, 250 workflow executions/day, RBAC, and monitoring integrations, still capped at 5 users; Enterprise tiers above that are custom/'Contact us' pricing. None of this is confirmed on Vellum's own site, which currently shows only the unrelated consumer product's $50/mo Pro plan.",
+        shortValue: '~$500/mo reported by a third party, unconfirmed by Vellum',
+        confidence: 'unknown',
         sources: [
-          { url: 'https://www.vellum.ai/pricing', label: 'Vellum Pricing', asOf: '2026-07-02' },
+          {
+            url: 'https://www.zenml.io/blog/vellum-ai-pricing',
+            label: 'Vellum AI Pricing: ZenML Blog',
+            asOf: '2026-07-04',
+          },
         ],
       },
       freeTier: {
         value:
-          "Yes: free 'Base' plan with small fixed compute and 4 GiB storage, no credit card required",
-        shortValue: 'Free Base plan, no card required',
-        confidence: 'verified',
+          "Reportedly yes: a third-party analysis describes a Free tier (50 prompt executions/day, 25 workflow executions/day, up to 5 users, no RBAC) for the enterprise platform, but this is not confirmed on Vellum's current site",
+        detail:
+          "Vellum's own pricing page no longer shows this tier; it now presents only the unrelated consumer 'Personal Intelligence' product's free 'Base' plan.",
+        shortValue: 'Reported by a third party, unconfirmed by Vellum',
+        confidence: 'unknown',
         sources: [
-          { url: 'https://www.vellum.ai/pricing', label: 'Vellum Pricing', asOf: '2026-07-02' },
+          {
+            url: 'https://www.zenml.io/blog/vellum-ai-pricing',
+            label: 'Vellum AI Pricing: ZenML Blog',
+            asOf: '2026-07-04',
+          },
         ],
       },
       byok: {
@@ -1025,9 +1040,9 @@ export const vellumProfile: CompetitorProfile = {
       },
       companyMaturity: {
         value:
-          'Founded 2023 (Y Combinator W23) by Noa Flaherty, Sidd Seethepalli, and Akash Sharma. Raised a $5M seed (2023) and a $20M Series A (July 2025, led by Leaders Fund), for about $25.5M total. Based in New York City, with 150+ reported customers as of the Series A announcement.',
-        shortValue: 'YC W23, ~$25.5M raised, NYC-based',
-        confidence: 'verified',
+          'Founded 2023 (Y Combinator W23) by Noa Flaherty, Sidd Seethepalli, and Akash Sharma. Raised a $5M seed (2023) and a $20M Series A (July 2025, led by Leaders Fund). Crunchbase reports $25.5M raised in total across three funding rounds, implying additional undisclosed funding beyond these two rounds. Based in New York City, with 150+ reported customers as of the Series A announcement.',
+        shortValue: 'YC W23, ~$25.5M raised across 3 rounds, NYC-based',
+        confidence: 'estimated',
         sources: [
           {
             url: 'https://www.vellum.ai/blog/announcing-our-20m-series-a',

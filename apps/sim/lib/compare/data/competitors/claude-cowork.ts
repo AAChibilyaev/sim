@@ -577,7 +577,8 @@ export const claudeCoworkProfile: CompetitorProfile = {
     },
     integrations: {
       integrationCount: {
-        value: '200+ connectors (third-party estimate; Anthropic does not publish an exact figure)',
+        value:
+          "200+ connectors (estimated from Anthropic's own Connectors Directory; Anthropic does not publish an exact figure)",
         detail:
           "Anthropic's Connectors Directory lists connectors like Linear, Slack, Google Drive, Google Workspace, and Microsoft 365, but no primary Anthropic page states a total count.",
         shortValue: '200+ connectors (estimated)',
@@ -876,10 +877,10 @@ export const claudeCoworkProfile: CompetitorProfile = {
       },
       thirdPartyVetting: {
         value:
-          'Partial: Anthropic maintains first-party catalogs (anthropics/skills, anthropics/knowledge-work-plugins, the 11 plugins bundled into Cowork), but the plugin/skill ecosystem is open by design. Any developer can host a plugin marketplace as a git repo, and users add it via `/plugin marketplace add`, with no Anthropic approval queue or review gate before installation. Two independent third-party security audits have already found large numbers of malicious skills in that open ecosystem: Snyk\'s ToxicSkills audit found 76 confirmed-malicious skills (1,467 flagged with security issues) out of ~3,984 scanned on ClawHub and skills.sh, and Koi Security separately flagged 341 malicious skills (335 tied to one coordinated "ClawHavoc" campaign) out of all 2,857 skills on ClawHub.',
+          "Partial: Anthropic maintains first-party catalogs (anthropics/skills, anthropics/knowledge-work-plugins, the 11 plugins bundled into Cowork), but the plugin/skill ecosystem is open by design. Any developer can host a plugin marketplace as a git repo, and users add it via `/plugin marketplace add`, with no Anthropic approval queue or review gate before installation. A third-party security audit has already found malicious entries in that broader ecosystem: Snyk's ToxicSkills research scanned ~3,984 skills on ClawHub and skills.sh (third-party marketplaces that also serve Claude Code users) and confirmed 76 malicious skills, with 1,467 flagged for security issues.",
         detail:
-          "These incidents sit in the broader Claude Skills/plugin ecosystem, not Anthropic's own first-party catalog, but they show real, sourced supply-chain risk in Cowork's installable-skill model. By contrast, every one of Sim's blocks is first-party authored and code-reviewed through the standard pull-request process in the main Sim repository; there is no public marketplace where an arbitrary third party can publish and have other users install executable block code without going through Sim's own review.",
-        shortValue: 'Partial: open plugin ecosystem with documented malicious-skill incidents',
+          "This incident sits in the broader Agent Skills ecosystem across third-party marketplaces, not Anthropic's own first-party catalog, but it shows real, sourced supply-chain risk adjacent to Cowork's installable-skill model. By contrast, every one of Sim's blocks is first-party authored and code-reviewed through the standard pull-request process in the main Sim repository; there is no public marketplace where an arbitrary third party can publish and have other users install executable block code without going through Sim's own review.",
+        shortValue: 'Partial: open plugin ecosystem with a documented malicious-skill incident',
         confidence: 'verified',
         sources: [
           {

@@ -204,7 +204,11 @@ export const workatoProfile: CompetitorProfile = {
         shortValue: 'Proprietary',
         confidence: 'verified',
         sources: [
-          { url: 'https://www.workato.com/', label: 'Workato homepage', asOf: '2026-07-02' },
+          {
+            url: 'https://www.workato.com/legal/terms-of-service',
+            label: 'Terms of Service | Workato',
+            asOf: '2026-07-04',
+          },
         ],
       },
       environmentPromotion: {
@@ -657,14 +661,9 @@ export const workatoProfile: CompetitorProfile = {
         confidence: 'verified',
         sources: [
           {
-            url: 'https://www.prowesssoft.com/workato-recipes/',
-            label: 'Workato Recipes Explained for Enterprise Automation',
-            asOf: '2026-07-02',
-          },
-          {
             url: 'https://docs.workato.com/recipes.html',
             label: 'Recipes | Workato docs',
-            asOf: '2026-07-02',
+            asOf: '2026-07-04',
           },
         ],
       },
@@ -683,14 +682,14 @@ export const workatoProfile: CompetitorProfile = {
       },
       apiPublishing: {
         value:
-          'Yes: Workato supports "API recipes" that expose a recipe as a REST API endpoint, callable by external clients',
+          'Yes: Workato supports "API recipes" built on its API Platform, which expose a recipe as a REST API endpoint that external users, other recipes, or integrated systems can call to access and exchange data',
         shortValue: 'API recipes expose workflows as REST endpoints',
         confidence: 'verified',
         sources: [
           {
-            url: 'https://www.prowesssoft.com/workato-recipes/',
-            label: 'Workato Recipes Explained for Enterprise Automation',
-            asOf: '2026-07-02',
+            url: 'https://docs.workato.com/api-management.html',
+            label: 'API Platform | Workato Docs',
+            asOf: '2026-07-04',
           },
         ],
       },
@@ -828,21 +827,21 @@ export const workatoProfile: CompetitorProfile = {
           },
           {
             url: 'https://www.workato.com/legal/security',
-            label: "Workato's security and compliance nature",
+            label: 'Workato Security Overview',
             asOf: '2026-07-02',
           },
         ],
       },
       dataResidency: {
         value:
-          'Workato operates multiple regional data centers (for example, an Israel data center that uses OpenAI GPT-4o mini instead of the Anthropic Sonnet 4 used elsewhere) and documents data-protection and residency options for customers. The on-prem agent additionally lets customers keep on-prem application data behind their own firewall, tunneling only authorized traffic to the Workato cloud.',
-        shortValue: 'Multiple regional data centers; on-prem agent option',
+          "Yes, at signup: customers choose one data residency region per account from Workato's regional data centers (US, EU/Frankfurt, UK, Japan, Singapore, Australia, Israel, China, South Korea). That choice is fixed once the account is created; data cannot later be migrated to another region, and there is no ongoing per-workspace or per-project residency toggle. Using more than one region requires signing up for and maintaining a separate Workato account in each desired region. The on-prem agent additionally lets customers keep on-prem application data behind their own firewall, tunneling only authorized traffic to the Workato cloud.",
+        shortValue: 'Region chosen once at signup, fixed per account, not ongoing/toggleable',
         confidence: 'verified',
         sources: [
           {
-            url: 'https://www.workato.com/the-connector/data-protection-measures/',
-            label: 'A Guide to Workato Data Residency, Security, and Compliance',
-            asOf: '2026-07-02',
+            url: 'https://docs.workato.com/datacenter/datacenter-overview.html',
+            label: 'Data center overview | Workato Docs',
+            asOf: '2026-07-04',
           },
           {
             url: 'https://docs.workato.com/connectors/ai-by-workato.html',
