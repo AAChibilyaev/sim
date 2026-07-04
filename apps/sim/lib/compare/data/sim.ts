@@ -1057,6 +1057,26 @@ export const simProfile: CompetitorProfile = {
           },
         ],
       },
+      unattendedExecution: {
+        value:
+          "Yes: scheduled, webhook, and chat-triggered runs execute as background jobs on trigger.dev workers, entirely on Sim's servers",
+        detail:
+          'No client device needs to be open, awake, or connected for a run to fire or complete; closing the browser tab or shutting down a laptop has no effect on a scheduled or triggered workflow.',
+        shortValue: 'Runs server-side; no dependency on a client device staying open',
+        confidence: 'verified',
+        sources: [
+          {
+            url: 'https://github.com/simstudioai/sim/blob/main/apps/sim/lib/core/async-jobs/backends/trigger-dev.ts',
+            label: 'Sim codebase: trigger.dev background job backend',
+            asOf: '2026-07-02',
+          },
+          {
+            url: 'https://docs.sim.ai/triggers',
+            label: 'Sim Docs: Triggers',
+            asOf: '2026-07-02',
+          },
+        ],
+      },
     },
     support: {
       supportChannels: {

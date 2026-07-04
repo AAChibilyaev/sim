@@ -1003,6 +1003,26 @@ export const crewaiProfile: CompetitorProfile = {
           },
         ],
       },
+      unattendedExecution: {
+        value:
+          'Yes for crews deployed to CrewAI AMP; the self-hosted open-source framework has no built-in scheduler of its own',
+        detail:
+          "A crew deployed to CrewAI AMP runs as a server-side job on CrewAI's own infrastructure, triggered by its kickoff API, a webhook, or a third-party scheduler (ActivePieces, Zapier, Make.com) calling that API; no client device needs to stay open for that run to fire or complete. The self-hosted open-source framework, by contrast, has no first-party scheduling daemon: a crew or flow only runs when something (a cron job, a long-running script, or a developer's own process) invokes it on a machine the operator keeps running, so unattended execution there depends on infrastructure the developer sets up themselves, not a client device.",
+        shortValue: 'Yes on AMP (server-side); self-hosted OSS needs your own scheduler/server',
+        confidence: 'estimated',
+        sources: [
+          {
+            url: 'https://docs.crewai.com/en/enterprise/guides/webhook-automation',
+            label: 'Webhook Automation - CrewAI Docs',
+            asOf: '2026-07-02',
+          },
+          {
+            url: 'https://docs.crewai.com/enterprise/guides/use-crew-api',
+            label: 'Trigger Deployed Crew API - CrewAI Docs',
+            asOf: '2026-07-02',
+          },
+        ],
+      },
     },
     support: {
       supportChannels: {

@@ -1014,6 +1014,26 @@ export const langchainProfile: CompetitorProfile = {
           },
         ],
       },
+      unattendedExecution: {
+        value:
+          'Yes, once deployed: a run started against the LangGraph Agent Server (managed LangSmith Deployment cloud, a self-hosted container, or hybrid) executes entirely server-side against its Redis/Postgres backend, with no dependency on a client device staying open, awake, or connected; interrupt()-paused runs likewise sit server-side across an arbitrary human-response gap.',
+        detail:
+          "This requires the graph to already be deployed to the Agent Server; LangChain/LangGraph itself has no built-in trigger picker (schedule, webhook, connector event), so a developer's own cron job, webhook handler, or queue consumer is what calls the Agent Server API to start the run in the first place. Once that call is made, the run's execution has no further tie to the caller's device.",
+        shortValue: 'Yes once deployed to the Agent Server; the trigger itself is hand-wired',
+        confidence: 'estimated',
+        sources: [
+          {
+            url: 'https://docs.langchain.com/langsmith/assistants',
+            label: 'Assistants - Docs by LangChain',
+            asOf: '2026-07-02',
+          },
+          {
+            url: 'https://github.com/langchain-ai/langgraph/blob/main/docs/docs/cloud/deployment/standalone_container.md',
+            label: 'Standalone container deployment docs (langgraph GitHub)',
+            asOf: '2026-07-04',
+          },
+        ],
+      },
     },
     support: {
       supportChannels: {

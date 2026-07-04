@@ -511,10 +511,10 @@ export const powerAutomateProfile: CompetitorProfile = {
       },
       agentSkills: {
         value:
-          "Yes: Microsoft Copilot Studio (the Power Platform's agent-building surface) supports 'Skills', reusable capabilities defined once (name, description, Markdown instructions), exported as portable Markdown/ZIP packages, and reused across multiple agents, distinct from a one-off system prompt.",
+          "Yes: Microsoft Copilot Studio (the same agent layer Power Automate's agentic flows build on) supports 'Skills', reusable capabilities defined once (name, description, Markdown instructions) using the same open, portable Markdown/SKILL.md-style format underlying the broader Agent Skills ecosystem, exported as Markdown/ZIP packages and reused across multiple agents, distinct from a one-off system prompt.",
         detail:
-          'This is a preview feature in the new Copilot Studio agent experience (part of the Power Platform, adjacent to Power Automate); skills are self-contained instruction sets separate from tools/knowledge.',
-        shortValue: "Copilot Studio 'Skills' are reusable, named, cross-agent",
+          'This is a preview feature in the new Copilot Studio agent experience (part of the Power Platform, adjacent to Power Automate); skills are self-contained, portable instruction sets separate from tools/knowledge, the same open-format approach Sim uses, rather than a proprietary lock-in format.',
+        shortValue: "Copilot Studio 'Skills': reusable, portable, cross-agent (open format)",
         confidence: 'verified',
         sources: [
           {
@@ -1145,6 +1145,32 @@ export const powerAutomateProfile: CompetitorProfile = {
             url: 'https://learn.microsoft.com/en-us/power-automate/guidance/coding-guidelines/error-handling',
             label: 'Employ robust error handling - Power Automate | Microsoft Learn',
             asOf: '2026-07-02',
+          },
+        ],
+      },
+      unattendedExecution: {
+        value:
+          "Yes for cloud flows: scheduled, connector-event, and webhook-triggered cloud flows run entirely on Microsoft's multi-tenant cloud service, with no dependency on any client device staying open, awake, or connected. Desktop flows (RPA) are the documented exception: unattended desktop flows still require a persistent Windows machine, either a customer-managed on-premises machine kept logged in, or a Microsoft-hosted unattended bot (the $215/bot/month tier) that removes the customer-managed-device requirement but is still a distinct, higher-cost execution mode from ordinary cloud flows.",
+        detail:
+          'Cloud flows are the default and most common Power Automate scenario; desktop flows only apply when automating legacy desktop/UI-based applications via RPA, and even the Microsoft-hosted unattended option runs on a machine instance rather than a lightweight, always-on cloud function.',
+        shortValue: 'Yes for cloud flows; unattended RPA needs a persistent machine',
+        confidence: 'verified',
+        sources: [
+          {
+            url: 'https://learn.microsoft.com/en-us/compliance/regulatory/offering-soc-2',
+            label: 'SOC 2 Type 2 - Microsoft Compliance | Microsoft Learn',
+            asOf: '2026-07-02',
+          },
+          {
+            url: 'https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing',
+            label: 'Power Automate pricing page',
+            asOf: '2026-07-02',
+          },
+          {
+            url: 'https://learn.microsoft.com/en-us/power-automate/desktop-flows/unattended-mode-cloud-flow',
+            label:
+              'Run desktop flows unattended via cloud flows - Power Automate | Microsoft Learn',
+            asOf: '2026-07-04',
           },
         ],
       },

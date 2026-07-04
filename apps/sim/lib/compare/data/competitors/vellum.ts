@@ -252,10 +252,10 @@ export const vellumProfile: CompetitorProfile = {
       },
       dataTables: {
         value:
-          'No: Vellum has no native spreadsheet-like data table primitive (row/column limits, spreadsheet keyboard navigation). Its tabular-data handling is limited to processing uploaded CSV/XLS files and extracting or generating structured output within workflow nodes.',
+          'No: Vellum has no native, spreadsheet-like data-table feature (persistent rows/columns, keyboard navigation, per-row writes from workflows) comparable to a built-in database. Its only tabular-data handling is uploading CSV/XLS files and extracting or generating structured output within workflow nodes.',
         detail:
-          'Vellum supports CSV/XLS upload and structured JSON extraction, and has blog content on converting PDFs to CSV, but no editable in-platform spreadsheet/data-table object comparable to a native DB feature.',
-        shortValue: 'No native spreadsheet-style data table feature',
+          'Vellum supports CSV/XLS upload and structured JSON extraction, and has blog content on converting PDFs to CSV, but no editable in-platform spreadsheet/data-table object exists; Executions tables are read-only run logs, not a general-purpose data store.',
+        shortValue: 'No native table/spreadsheet feature; CSV upload and extraction only',
         confidence: 'estimated',
         sources: [
           {
@@ -425,10 +425,11 @@ export const vellumProfile: CompetitorProfile = {
       },
       agentSkills: {
         value:
-          "No: Vellum has no named, reusable prompt or knowledge-snippet feature invoked by reference across multiple agents. Its reuse primitives are Subworkflows (reusable workflow logic blocks) and shared Prompt Sandboxes, not a discrete 'skill' object referenced by name across agents.",
+          "No: Vellum's B2B workflow/agent platform (docs.vellum.ai) has no named, reusable prompt or skill object invoked by reference across multiple agents. Its reuse primitives are Subworkflows (reusable workflow logic blocks) and shared Prompt Sandboxes, not a discrete 'skill' package referenced by name.",
         detail:
-          "Reuse happens via Subflows/subworkflows and deployed prompts, a different mechanism than a discrete named prompt-snippet library referenced across agents. The separate Vellum personal-assistant product does have a 'Skills' concept, but it is not documented as part of the B2B workflow platform compared here.",
-        shortValue: 'Only subworkflows, no named skill objects',
+          "Reuse happens via Subflows/subworkflows and deployed prompts, a different mechanism than a discrete named skill library referenced across agents. Vellum's separate consumer 'Personal Intelligence' assistant product (vellum.ai/docs, a different product from the B2B workflow platform compared here) does have a 'Skills' feature, built on the same open convention as other agent platforms: a directory containing a SKILL.md file (YAML frontmatter plus a markdown instruction body, with optional bundled scripts/reference files), extended with Vellum-namespaced metadata fields like metadata.vellum.display-name.",
+        shortValue:
+          'Only subworkflows on the workflow platform; open SKILL.md format lives in a separate consumer product',
         confidence: 'estimated',
         sources: [
           {
@@ -440,6 +441,11 @@ export const vellumProfile: CompetitorProfile = {
             url: 'https://www.vellum.ai/blog/built-in-tool-calling-for-complex-agent-workflows',
             label: 'Built-In Tool Calling for Complex Agent Workflows',
             asOf: '2026-07-02',
+          },
+          {
+            url: 'https://www.vellum.ai/docs/extensibility/skills',
+            label: 'Skills - Vellum Docs (Personal Intelligence consumer product)',
+            asOf: '2026-07-04',
           },
         ],
       },
@@ -957,6 +963,26 @@ export const vellumProfile: CompetitorProfile = {
             url: 'https://docs.vellum.ai/product/workflows/nodes/overview',
             label: 'Vellum Docs: Nodes Overview (adornments, error handling)',
             asOf: '2026-07-02',
+          },
+        ],
+      },
+      unattendedExecution: {
+        value:
+          "Yes, by inference: Scheduled Triggers (cron-based) and Integration Triggers (webhook-based, introduced November 2025) fire a deployed Workflow automatically on Vellum's own Cloud, self-hosted, or VPC infrastructure, the same server-side execution path already documented for API and async calls. No Vellum documentation for the B2B workflow/agent platform ties a scheduled or triggered run's reliability to a client device, browser tab, or desktop app staying open.",
+        detail:
+          "Vellum's changelog states a deployed Workflow Deployment containing a Trigger 'executes automatically based on that configuration' but does not spell out the runtime location in those words. This is inferred from the deployment/API execution model (deploymentOptions, apiPublishing, asyncExecution facts) rather than an explicit doc statement. Note Vellum's separate consumer 'Personal Intelligence' assistant product explicitly ties its own schedule reliability to a locally running daemon on self-hosted installs; that client-dependent model is a different product from the B2B workflow platform compared here.",
+        shortValue: 'Runs server-side on deployment infra; no documented client dependency',
+        confidence: 'estimated',
+        sources: [
+          {
+            url: 'https://docs.vellum.ai/changelog/2025/2025-11',
+            label: 'Vellum Changelog, November 2025 (Scheduled and Integration Triggers)',
+            asOf: '2026-07-04',
+          },
+          {
+            url: 'https://docs.vellum.ai/product/workflows/api-integration',
+            label: 'Vellum Docs: Easy Integration with Vellum API for Workflows',
+            asOf: '2026-07-04',
           },
         ],
       },

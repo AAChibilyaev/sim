@@ -408,11 +408,11 @@ export const stackaiProfile: CompetitorProfile = {
       },
       agentSkills: {
         value:
-          'Yes: StackAI has a Prompt Library where builders save and reuse named prompts/instructions (e.g. a saved "Market Analyst Persona") across agents, rather than re-writing a one-off system prompt each time.',
+          'Yes, but proprietary and platform-locked: a Prompt Library where builders save and reuse named prompts/instructions (e.g. a saved "Market Analyst Persona") across agents, rather than re-writing a one-off system prompt each time.',
         detail:
-          'Documented as a prompt/instruction library, not explicitly branded as "skills" with structured knowledge attachments the way some competitors frame it.',
-        shortValue: 'Yes, via reusable Prompt Library',
-        confidence: 'verified',
+          "Documented as a prompt/instruction library stored inside a StackAI workspace, not an open, portable file format. StackAI's docs do not describe exporting a saved prompt as a standalone file or importing one from an external source or repository URL, the way some competitors build reusable skills on an open, version-controllable format. There is also no documented progressive-disclosure loading mechanism (only a short name/description surfaced until needed); the full prompt appears to load in full whenever it's attached.",
+        shortValue: 'Yes, but a proprietary Prompt Library, not an open/portable format',
+        confidence: 'estimated',
         sources: [
           {
             url: 'https://docs.stackai.com/other-views/prompt-library',
@@ -678,14 +678,22 @@ export const stackaiProfile: CompetitorProfile = {
         ],
       },
       auditLogging: {
-        value: 'Yes: automatic logs of every run, capturing input/output, token usage, and runtime',
-        shortValue: 'Automatic per-run execution logs',
-        confidence: 'verified',
+        value:
+          'Yes: automatic logs of every run, capturing input/output, token usage, and runtime, queryable through a pull-based Analytics API (filterable by run ID, status, user, and date range)',
+        detail:
+          'The Analytics API is request/response only: a builder calls it to list flow runs or an org-level run summary. There is no documented continuous push/export of these logs to an external destination such as S3, BigQuery, Datadog, or a generic webhook sink, and no separate public audit-log API distinct from execution logs.',
+        shortValue: 'Automatic per-run logs via a pull-based API, no export destination',
+        confidence: 'estimated',
         sources: [
           {
             url: 'https://docs.stackai.com/welcome-to-stackai/overview/platform-overview',
             label: 'StackAI Platform Overview docs',
             asOf: '2026-07-02',
+          },
+          {
+            url: 'https://docs.stackai.com/interface-and-deployment/api-reference/analytics.md',
+            label: 'StackAI API Reference: Analytics',
+            asOf: '2026-07-04',
           },
         ],
       },
@@ -906,6 +914,26 @@ export const stackaiProfile: CompetitorProfile = {
             url: 'https://docs.stackai.com/guides-and-tips/stackai-hacks/handling-errors-and-fallback.md',
             label: 'StackAI: Handling Errors & Fallback (Fallback Branch, Retry on Failure)',
             asOf: '2026-07-02',
+          },
+        ],
+      },
+      unattendedExecution: {
+        value:
+          "Yes: StackAI is a multi-tenant cloud SaaS (each org gets an isolated partition on shared AWS/Azure/GCP infrastructure, or a dedicated VPC/on-prem deployment on Enterprise), and scheduled, chat, form, Slack, Teams, and API-triggered runs are executed and logged (runtime, tokens, input/output) through that hosted infrastructure rather than a builder's own machine.",
+        detail:
+          "StackAI's docs do not use explicit language like 'no client device dependency' the way some competitors do; this is inferred from its documented deployment model (cloud SaaS or Enterprise VPC/on-prem) and its scheduled-workflow and execution-log features, none of which describe or require a desktop app, browser tab, or local session staying open.",
+        shortValue: 'Yes, inferred from its hosted SaaS/VPC execution model',
+        confidence: 'estimated',
+        sources: [
+          {
+            url: 'https://www.stackai.com/solutions/self-hosted',
+            label: 'StackAI Self-Hosted Solutions page',
+            asOf: '2026-07-02',
+          },
+          {
+            url: 'https://www.stackai.com/insights/how-to-set-up-scheduled-ai-workflows-and-automated-reports-on-stackai',
+            label: 'Scheduled AI Workflows - StackAI insights',
+            asOf: '2026-07-04',
           },
         ],
       },

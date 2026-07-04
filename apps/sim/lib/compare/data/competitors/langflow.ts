@@ -764,11 +764,11 @@ export const langflowProfile: CompetitorProfile = {
       },
       thirdPartyVetting: {
         value:
-          'Partial: most built-in integration bundles are contributed as pull requests to the official langflow-ai/langflow codebase and merged by core maintainers, but Langflow also ships a community Store where users can share and install flows and components with lighter, informal vetting, plus a custom-component system that lets any user author and run their own Python code with full server access. This code-execution model has a disclosed security incident: CVE-2025-3248, an unauthenticated remote code execution flaw in the custom-component code-validation endpoint (fixed in 1.3.0), actively exploited in the wild to deploy the Flodrix botnet on unpatched instances.',
+          'Partial: Langflow disclosed CVE-2025-3248, an unauthenticated remote code execution flaw in the custom-component code-validation endpoint, actively exploited in the wild to deploy the Flodrix botnet on unpatched instances before it was fixed in version 1.3.0. That incident reflects the underlying trust model: most built-in integration bundles are contributed as pull requests to the official langflow-ai/langflow codebase and merged by core maintainers, but Langflow also ships a community Store where users can share and install flows and components with lighter, informal vetting, plus a custom-component system that lets any user author and run their own Python code with full server access, the same trust level as the core server itself.',
         detail:
-          'Langflow documents that it does not enforce isolation between users or restrict local disk/network access, so both bundle and custom-component code run with the same trust level as the core server.',
+          "Langflow documents that it does not enforce isolation between users or restrict local disk/network access, so both bundle and custom-component code run with the same trust level as the core server. By contrast, every one of Sim's blocks is first-party authored and code-reviewed through Sim's own pull-request process, and Sim has no public marketplace where a third party can publish installable executable tool code.",
         shortValue:
-          'Partial: reviewed bundles plus a lighter-vetted community Store and custom code',
+          'Partial: disclosed CVE-2025-3248 RCE; lighter-vetted community Store and custom code',
         confidence: 'verified',
         sources: [
           {
@@ -868,6 +868,26 @@ export const langflowProfile: CompetitorProfile = {
         shortValue: 'Unknown, no documented per-step error-routing feature',
         confidence: 'unknown',
         sources: [],
+      },
+      unattendedExecution: {
+        value:
+          'Partial: when Langflow is deployed as a server, self-hosted via Docker/Kubernetes or on Langflow Cloud, triggered runs (webhook, API call, or external cron/Airflow calling the API) execute on that server with no dependency on any particular client device staying open. But Langflow can also be run as a desktop app, and a flow triggered through that installation depends on the desktop app process itself staying running on that machine, since there is no separate always-on server component in that deployment mode.',
+        detail:
+          'The dependency is on the chosen deployment mode: a Docker/Kubernetes/Cloud deployment behaves like Sim (server-side, client-independent), while the desktop app is a local process that must stay running to serve triggers.',
+        shortValue: 'Yes if server-deployed; desktop app requires that app to stay running',
+        confidence: 'estimated',
+        sources: [
+          {
+            url: 'https://docs.langflow.org/get-started-installation',
+            label: 'Langflow Docs: Install Langflow',
+            asOf: '2026-07-04',
+          },
+          {
+            url: 'https://docs.langflow.org/webhook',
+            label: 'Langflow Docs: Trigger flows with webhooks',
+            asOf: '2026-07-04',
+          },
+        ],
       },
     },
     support: {

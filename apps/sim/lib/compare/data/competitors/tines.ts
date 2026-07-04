@@ -1068,6 +1068,26 @@ export const tinesProfile: CompetitorProfile = {
           },
         ],
       },
+      unattendedExecution: {
+        value:
+          "Yes: standard Stories (webhook, scheduled HTTP Request actions, Receive Email) run entirely server-side on Tines infrastructure, cloud-hosted or self-hosted, with no dependency on a browser tab or desktop client staying open. The one documented exception is a Story explicitly set to 'Workbench' mode, which can only be invoked interactively through Workbench chat and will not fire on its own schedule or accept external webhook events unless switched to a standard or 'Workbench and Send to Story' mode.",
+        detail:
+          'Workbench-only stories are intentionally excluded from license story limits precisely because they cannot run autonomously, confirming that autonomous (non-Workbench) stories are the default, unattended execution model.',
+        shortValue: 'Yes: runs server-side; Workbench-only mode is the one exception',
+        confidence: 'verified',
+        sources: [
+          {
+            url: 'https://www.tines.com/docs/actions/types/webhook/',
+            label: 'Webhook | Docs | Tines',
+            asOf: '2026-07-02',
+          },
+          {
+            url: 'https://explained.tines.com/en/articles/9855926-using-stories-with-workbench',
+            label: 'Using stories with Workbench | Tines Explained',
+            asOf: '2026-07-04',
+          },
+        ],
+      },
     },
     support: {
       supportChannels: {

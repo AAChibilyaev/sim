@@ -1134,6 +1134,26 @@ export const zapierProfile: CompetitorProfile = {
           },
         ],
       },
+      unattendedExecution: {
+        value:
+          "Yes: scheduled, webhook, and polling-triggered Zaps run entirely on Zapier's own cloud servers, with no desktop app, local agent, or open browser tab required",
+        detail:
+          "Zapier is a cloud SaaS platform, not installed local software. Once a Zap is turned on, Zapier's servers poll connected apps or listen for pushed webhook events on its own infrastructure; the user's device can be closed or disconnected without affecting a scheduled or triggered run.",
+        shortValue: 'Runs server-side; no dependency on a client device staying open',
+        confidence: 'verified',
+        sources: [
+          {
+            url: 'https://help.zapier.com/hc/en-us/articles/37518970271245-What-is-Zapier',
+            label: 'What is Zapier?',
+            asOf: '2026-07-04',
+          },
+          {
+            url: 'https://help.zapier.com/hc/en-us/articles/8496244568589-How-Zap-triggers-work',
+            label: 'How Zap triggers work',
+            asOf: '2026-07-04',
+          },
+        ],
+      },
     },
     support: {
       supportChannels: {

@@ -299,10 +299,10 @@ export const gumloopProfile: CompetitorProfile = {
       },
       dataTables: {
         value:
-          'No: Gumloop does not appear to have a native, first-class spreadsheet-like data table with its own row/column limits and keyboard navigation. Tabular work runs through external integrations (Google Sheets, Airtable, Postgres, Supabase) and a "List of Lists" data type for passing table-shaped data between nodes, rather than an in-app database/table object.',
+          'No: Gumloop has no native, first-class spreadsheet-like data-grid primitive with its own typed columns, row/column limits, and keyboard navigation (arrow keys, Tab, copy-paste, undo) wired directly into agent runs. Tabular work instead runs through external connector nodes (Google Sheets, Airtable, Postgres, Supabase) and a "List of Lists" data type for passing table-shaped data between nodes, not an in-app database/table object a workflow can read from and write to as storage.',
         detail:
-          'Gumloop added "table support ... for better data visualization," per its changelog, but no documentation describes a persistent, spreadsheet-navigable data table entity comparable to a native DB feature.',
-        shortValue: 'No: relies on external Sheets/Airtable, no native tables',
+          'Gumloop added "table support ... for better data visualization," per its changelog, which is a display/rendering feature for showing tabular data in the UI, not a persistent, spreadsheet-navigable data table entity a workflow can use as its own storage layer. This is a real capability gap versus a native, spreadsheet-like data-grid feature built into the product.',
+        shortValue: 'No: no native data-grid; only external Sheets/Airtable connectors',
         confidence: 'estimated',
         sources: [
           {
@@ -1059,6 +1059,26 @@ export const gumloopProfile: CompetitorProfile = {
             url: 'https://docs.gumloop.com/nodes/flow_basics/error_shield',
             label: 'Gumloop Docs: Error Shield node',
             asOf: '2026-07-02',
+          },
+        ],
+      },
+      unattendedExecution: {
+        value:
+          "Yes: scheduled, webhook, and API-triggered runs execute on Gumloop's own cloud infrastructure with no dependency on a client device staying open, awake, or connected",
+        detail:
+          "Gumloop's own asyncExecution pattern confirms this: a POST to the start_pipeline API returns a run_id immediately and the run continues on Gumloop's servers, polled later via get_pl_run. Schedule, webhook, and API triggers documented under integrations.triggerTypes are server-side entry points into the same hosted platform, not a desktop app or local agent; there is no published requirement for a browser tab, desktop client, or local session to stay active for a triggered run to fire or finish.",
+        shortValue: 'Yes: runs execute on Gumloop servers, no client dependency',
+        confidence: 'estimated',
+        sources: [
+          {
+            url: 'https://docs.gumloop.com/api-reference/getting-started',
+            label: 'Gumloop API Reference: Getting Started',
+            asOf: '2026-07-02',
+          },
+          {
+            url: 'https://docs.gumloop.com/core-concepts/workflow_triggers',
+            label: 'Gumloop docs: Workflow Triggers',
+            asOf: '2026-07-04',
           },
         ],
       },

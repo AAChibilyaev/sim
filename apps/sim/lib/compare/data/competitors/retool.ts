@@ -276,10 +276,11 @@ export const retoolProfile: CompetitorProfile = {
       },
       dataTables: {
         value:
-          "Yes: Retool Database is a built-in, Postgres-backed data table (separate from connecting your own external database) with a spreadsheet-style Edit Table view for inline editing. Retool's Table component can also render and scroll through 100,000+ rows and hundreds of columns without slowing down.",
+          "Yes: Retool Database is a real, built-in Postgres-backed database (not a spreadsheet-like store), so tables can be queried with actual SQL and joined against other Resources, in addition to a spreadsheet-style Edit Table view for inline editing. Retool's Table UI component separately renders and scrolls through 100,000+ rows and hundreds of columns without slowing down.",
         detail:
-          'Retool does not publish hard row/column caps for Retool Database itself (forum threads mention plan-dependent limits like 50,000 records, unconfirmed as current). The Table UI component is documented to handle 100K+ rows.',
-        shortValue: 'Yes, Retool Database plus a Table component for large datasets',
+          "Because it's genuine Postgres under the hood, Retool Database supports relational features (foreign keys, SQL joins/queries) that a typed-column grid like Sim's Tables does not expose; Retool does not publish hard row/column caps for Retool Database itself (forum threads mention plan-dependent limits like 50,000 records, unconfirmed as current). The Table UI component is documented to handle 100K+ rows.",
+        shortValue:
+          'Yes, real Postgres database (SQL-queryable), plus a large-dataset Table component',
         confidence: 'verified',
         sources: [
           {
@@ -758,11 +759,18 @@ export const retoolProfile: CompetitorProfile = {
       },
       auditLogging: {
         value:
-          'Yes: available starting on the Business plan (audit logging listed as a Business-tier feature), with expanded audit logging on Enterprise.',
-        shortValue: 'From Business plan up, expanded on Enterprise',
+          'Yes: available starting on the Business plan (audit logging listed as a Business-tier feature), with expanded audit logging on Enterprise; Enterprise orgs can also continuously stream audit log events to Datadog, or output them to stdout for ingestion by any external pipeline on self-hosted deployments.',
+        detail:
+          'Cloud Business/Enterprise can additionally download audit logs from the UI in batch. No direct S3/BigQuery/generic-webhook drain is documented; Datadog streaming and self-hosted stdout are the only continuous-export mechanisms Retool publishes.',
+        shortValue: 'From Business plan up; continuous export limited to Datadog/stdout',
         confidence: 'verified',
         sources: [
           { url: 'https://retool.com/pricing', label: 'Retool Pricing', asOf: '2026-07-02' },
+          {
+            url: 'https://docs.retool.com/changelog/audit-logs-in-datadog',
+            label: 'Send audit log events to Datadog',
+            asOf: '2026-07-02',
+          },
         ],
       },
       additionalCompliance: {
@@ -1038,6 +1046,26 @@ export const retoolProfile: CompetitorProfile = {
           {
             url: 'https://docs.retool.com/workflows/guides/error-handlers',
             label: 'Retool Docs: Configure workflow error handlers',
+            asOf: '2026-07-02',
+          },
+        ],
+      },
+      unattendedExecution: {
+        value:
+          "Yes: scheduled and webhook-triggered Retool Workflow runs execute entirely on Retool's servers (Cloud) or the self-hosted deployment's own infrastructure, not on a builder's browser or device.",
+        detail:
+          'A triggered run continues executing after the initial request returns and can be polled later via the Get Workflow Run Details API, exactly as documented for asynchronous runs. No client device needs to stay open, awake, or connected for a scheduled or webhook-triggered run to fire or complete.',
+        shortValue: 'Yes, runs server-side; no client device dependency',
+        confidence: 'verified',
+        sources: [
+          {
+            url: 'https://docs.retool.com/workflows/concepts/limits',
+            label: 'Retool Docs: Workflow limits (sync vs async execution modes)',
+            asOf: '2026-07-02',
+          },
+          {
+            url: 'https://docs.retool.com/workflows/guides/webhooks',
+            label: 'Retool Docs: Trigger workflows with webhooks',
             asOf: '2026-07-02',
           },
         ],

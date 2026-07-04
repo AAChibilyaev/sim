@@ -1168,6 +1168,26 @@ export const microsoftCopilotProfile: CompetitorProfile = {
           },
         ],
       },
+      unattendedExecution: {
+        value:
+          "Yes: autonomous event-triggered agent runs and agent flows execute on Microsoft-operated cloud infrastructure (the same Commercial/GCC/GCC High/DoD environments Copilot Studio's authoring and runtime services run in), not on a maker's own device or browser session",
+        detail:
+          "Autonomous triggers let an agent proactively respond to a connector event or schedule without a live conversation open, and agent flows run on the Power Automate flow engine's server-side runtime. Closing the authoring browser tab or shutting down a laptop has no effect on a published agent's ability to fire on a trigger or complete a run.",
+        shortValue: 'Yes, runs server-side on Microsoft-operated infrastructure',
+        confidence: 'estimated',
+        sources: [
+          {
+            url: 'https://learn.microsoft.com/en-us/compliance/regulatory/offering-soc-2',
+            label: 'SOC 2 Type 2 - Microsoft Compliance | Microsoft Learn',
+            asOf: '2026-07-02',
+          },
+          {
+            url: 'https://adoption.microsoft.com/files/copilot-studio/Autonomous-agents-with-Microsoft-Copilot-Studio.pdf',
+            label: 'Autonomous Agents with Microsoft Copilot Studio',
+            asOf: '2026-07-04',
+          },
+        ],
+      },
     },
     support: {
       supportChannels: {

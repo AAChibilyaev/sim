@@ -723,9 +723,9 @@ export const flowiseProfile: CompetitorProfile = {
         value:
           "Yes: Flowise's nodes (LLMs, tools, vector stores, document loaders) live in the packages/components/nodes folder of the core FlowiseAI/Flowise monorepo. New nodes are contributed via GitHub pull request and reviewed/merged by the Flowise team before shipping in an official release, rather than published independently by third parties into an open, unreviewed marketplace. The separate Marketplace feature distributes JSON chatflow/agentflow templates, not installable executable code.",
         detail:
-          'Flowise has still had first-party security issues: CVE-2025-59528 (CVSS 10.0) was a critical unauthenticated remote code execution flaw in the official CustomMCP node, where user-supplied mcpServerConfig input was passed into a JavaScript Function() constructor. It was patched in 3.0.6, but VulnCheck observed in-the-wild exploitation starting April 2026 against thousands of still-exposed instances. This was a bug in vetted, first-party code, not a malicious third-party community node.',
+          "That PR-review process has not stopped a critical incident in vetted, first-party code: CVE-2025-59528 (CVSS 10.0) was an unauthenticated remote code execution flaw in the official CustomMCP node, where user-supplied mcpServerConfig input was passed into a JavaScript Function() constructor. Patched in 3.0.6, but VulnCheck observed in-the-wild exploitation starting April 2026 against thousands of still-exposed instances. By contrast, Sim documents its own thirdPartyVetting fact as every one of its 302 blocks being first-party authored and code-reviewed with no public marketplace for third-party executable code either, so the two products share the same no-open-marketplace posture; the difference is that Flowise's own review pipeline has already shipped one CVSS-10 RCE into a first-party node, which is the concrete cost of that model rather than of an unreviewed community ecosystem.",
         shortValue:
-          'Yes, nodes are PR-reviewed into the core repo, no open community-node marketplace',
+          'Yes, PR-reviewed into the core repo, but that pipeline already shipped a CVSS-10 RCE',
         confidence: 'verified',
         sources: [
           {
@@ -819,6 +819,26 @@ export const flowiseProfile: CompetitorProfile = {
             url: 'https://docs.flowiseai.com/using-flowise/agentflowv2',
             label: 'Flowise Docs: Agentflow V2',
             asOf: '2026-07-02',
+          },
+        ],
+      },
+      unattendedExecution: {
+        value:
+          'Yes, for the triggers Flowise has: a chat message, a REST API prediction call, or an MCP tool invocation all execute entirely on the Flowise server (self-hosted or Flowise Cloud), with no dependency on a client device staying open, awake, or connected. Flowise has no dedicated cron/schedule trigger of its own, so a genuinely unattended, time-based run has to come from an external scheduler (e.g. a cron job or another system calling the prediction API) rather than a built-in scheduling engine.',
+        detail:
+          'Once a run is invoked by any supported means, closing the browser tab or disconnecting the calling client has no effect on that run completing server-side; the caveat is only that Flowise itself cannot originate a scheduled run without an outside trigger.',
+        shortValue: 'Yes for triggered runs; no built-in scheduler to originate one unattended',
+        confidence: 'estimated',
+        sources: [
+          {
+            url: 'https://agentsapis.com/flowise-api/',
+            label: 'Flowise API: Complete Developer Guide',
+            asOf: '2026-07-02',
+          },
+          {
+            url: 'https://docs.flowiseai.com/configuration/running-flowise-using-queue',
+            label: 'Flowise Docs: Running Flowise using Queue',
+            asOf: '2026-07-04',
           },
         ],
       },

@@ -924,11 +924,10 @@ export const openClawProfile: CompetitorProfile = {
       },
       thirdPartyVetting: {
         value:
-          'No: Skills mainly come from ClawHub, an open marketplace where any third-party developer can publish and any user can install executable Markdown/code Skill packages, not a first-party catalog authored by OpenClaw. Researchers documented 283 ClawHub skills (about 7.1% of the registry) leaking API keys and other credentials, and a separate scan found 24 accounts distributing over 600 malicious skills before scanning existed.',
+          "No: researchers documented 283 ClawHub skills (about 7.1% of the registry) leaking API keys and other credentials, plus a separate scan finding 24 accounts distributing over 600 malicious skills before scanning existed, roughly 900 skills total with a documented credential-leak or malware finding. That is a direct consequence of ClawHub's structure: it is an open marketplace where any third-party developer can publish, and any user can install, an executable Markdown/code Skill package, not a first-party catalog authored and code-reviewed by OpenClaw itself. This is the opposite trust boundary from Sim, where all 302 blocks are first-party authored and code-reviewed through the standard pull-request process, with no public marketplace for installing arbitrary third-party executable code.",
         detail:
-          'OpenClaw has since added a ClawScan pipeline (static analysis, VirusTotal, and NVIDIA SkillSpector as of June 2026) that assigns each published skill a Clean/Suspicious/Malicious verdict and a Skill Card, but its docs still tell users to treat third-party skills as untrusted code, and the marketplace remains open to any publisher rather than vendor-authored.',
-        shortValue:
-          'No: open ClawHub marketplace, documented credential-leak and malware incidents',
+          'OpenClaw has since added a ClawScan pipeline (static analysis, VirusTotal, and NVIDIA SkillSpector as of June 2026) that assigns each published skill a Clean/Suspicious/Malicious verdict and a Skill Card, but its docs still tell users to treat third-party skills as untrusted code, and the marketplace remains open to any publisher rather than vendor-authored. Sim avoids this class of incident structurally: custom code steps run inside its own isolated-vm sandbox rather than as an installable third-party skill package.',
+        shortValue: 'No: ~900 ClawHub skills with a documented credential-leak or malware finding',
         confidence: 'verified',
         sources: [
           {
@@ -1048,6 +1047,26 @@ export const openClawProfile: CompetitorProfile = {
             url: 'https://docs.openclaw.ai/tools/subagents',
             label: 'OpenClaw Docs: Sub-agents',
             asOf: '2026-07-02',
+          },
+        ],
+      },
+      unattendedExecution: {
+        value:
+          "Partial: cron-scheduled jobs run independently of any open chat window, but they still depend on the self-hosted Gateway process itself staying up on whatever machine the operator chose to run it on. If that machine is a personal laptop, the schedule requires the laptop to stay on, awake, and connected; only running the Gateway on an always-on server/VPS gets behavior comparable to a cloud-hosted platform's zero-client-dependency execution. There is no OpenClaw-managed cloud execution layer independent of the self-hosted process.",
+        detail:
+          'This mirrors the asyncExecution and durabilityModel facts above: OpenClaw has no separate hosted execution tier, so unattended reliability is entirely a function of the uptime of whichever machine the operator picked to run the Gateway on, not a property OpenClaw itself guarantees.',
+        shortValue: 'Partial: depends on the self-hosted Gateway machine staying up',
+        confidence: 'estimated',
+        sources: [
+          {
+            url: 'https://docs.openclaw.ai/automation/cron-jobs',
+            label: 'OpenClaw Docs: Scheduled tasks (cron jobs)',
+            asOf: '2026-07-02',
+          },
+          {
+            url: 'https://docs.openclaw.ai/',
+            label: 'OpenClaw Docs home',
+            asOf: '2026-07-04',
           },
         ],
       },

@@ -967,6 +967,26 @@ export const dustProfile: CompetitorProfile = {
         confidence: 'unknown',
         sources: [],
       },
+      unattendedExecution: {
+        value:
+          "Yes: Dust is a hosted, multi-tenant (or single-tenant Enterprise) cloud product, and scheduled/event-based Triggers run an agent in the background on Dust's own servers with no client device involved",
+        detail:
+          "Dust offers no desktop app or local agent; the product is used through a web chat interface, Slack, and Teams, and scheduled triggers (e.g. a daily pipeline review posted to Slack every morning) fire on Dust's cloud infrastructure regardless of whether any user has a browser tab, laptop, or session open at the time.",
+        shortValue: "Runs server-side on Dust's cloud; no client device dependency",
+        confidence: 'estimated',
+        sources: [
+          {
+            url: 'https://docs.dust.tt/docs/triggers',
+            label: 'Triggers | Dust Docs',
+            asOf: '2026-07-04',
+          },
+          {
+            url: 'https://docs.dust.tt/docs/scheduling-your-agent-beta',
+            label: 'Schedules | Dust Docs',
+            asOf: '2026-07-04',
+          },
+        ],
+      },
     },
     support: {
       supportChannels: {

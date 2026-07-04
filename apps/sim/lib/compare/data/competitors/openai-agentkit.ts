@@ -285,8 +285,10 @@ export const openaiAgentkitProfile: CompetitorProfile = {
       },
       dataTables: {
         value:
-          "No: Agent Builder's 'State' and 'Data' nodes function as global/persistent variables and data-reshaping steps within a workflow, not a native spreadsheet-like data table UI with defined row/column limits or spreadsheet keyboard navigation (arrow keys, copy-paste across cells).",
-        shortValue: 'No, state/data nodes are variables, not a spreadsheet',
+          "No: AgentKit has no equivalent to a native Tables feature. Agent Builder's 'State' and 'Data' nodes are in-workflow variables and data-reshaping steps scoped to a single run, not a persistent, spreadsheet-like data store with typed columns, rows, or keyboard navigation (arrow keys, copy-paste across cells) that other workflows or runs can read and write.",
+        detail:
+          'Set State defines counters, flags, or contextual values referenced by later nodes in the same run; Data nodes reshape outputs (e.g., object to array) or define global variables for that run. Neither persists rows across separate workflow executions or exposes a spreadsheet UI. Structured, persistent storage that outlives a single run has to come from an external system reached through a connector or MCP server (e.g., a Google Sheets or database connector), not a database or table feature built into AgentKit itself.',
+        shortValue: 'No, state/data nodes are per-run variables, not a persistent table store',
         confidence: 'estimated',
         sources: [
           {
@@ -298,6 +300,11 @@ export const openaiAgentkitProfile: CompetitorProfile = {
             url: 'https://developers.openai.com/api/docs/guides/agent-builder',
             label: 'Agent Builder | OpenAI API',
             asOf: '2026-07-02',
+          },
+          {
+            url: 'https://community.openai.com/t/agent-builder-while-loop-transform-and-set-state-an-example/1362386',
+            label: 'OpenAI Community: Agent Builder - While Loop, Transform and Set State example',
+            asOf: '2026-07-04',
           },
         ],
       },
@@ -1123,6 +1130,31 @@ export const openaiAgentkitProfile: CompetitorProfile = {
             url: 'https://platform.openai.com/docs/guides/agent-builder-safety',
             label: 'OpenAI: Safety in building agents (guardrail failure handling guidance)',
             asOf: '2026-07-02',
+          },
+        ],
+      },
+      unattendedExecution: {
+        value:
+          "No native scheduler ships with AgentKit; a scheduled or triggered run only executes with zero dependency on a client device if the developer deploys their own Agents SDK code on always-on server or serverless infrastructure themselves. Agent Builder's own trigger surface covers API calls and ChatKit chat sessions, not a built-in cron/schedule trigger",
+        detail:
+          "Neither Agent Builder's node reference nor its documented trigger types include a schedule/cron trigger; time-based, run-without-a-human execution is described for a separate product, ChatGPT Workspace Agents, not AgentKit. Because Agents SDK code is ordinary Python/TypeScript, whether a run survives a closed laptop or a disconnected client depends entirely on where the developer hosts that code (e.g. AWS Lambda, a container, or a cron-triggered server process) and whether they add a third-party durability layer, such as Temporal, Dapr, Restate, or DBOS, for crash recovery and long-running execution. There is no first-party, always-on worker fleet or scheduler bundled with AgentKit itself.",
+        shortValue: 'No native scheduler; depends on the developer hosting it themselves',
+        confidence: 'estimated',
+        sources: [
+          {
+            url: 'https://developers.openai.com/api/docs/guides/node-reference',
+            label: 'Node reference | OpenAI API',
+            asOf: '2026-07-02',
+          },
+          {
+            url: 'https://openai.github.io/openai-agents-js/guides/running-agents/',
+            label: 'OpenAI Agents SDK: Running agents',
+            asOf: '2026-07-02',
+          },
+          {
+            url: 'https://temporal.io/blog/announcing-openai-agents-sdk-integration',
+            label: 'Temporal: Production-ready agents with the OpenAI Agents SDK',
+            asOf: '2026-07-04',
           },
         ],
       },

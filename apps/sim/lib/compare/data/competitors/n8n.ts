@@ -1173,6 +1173,27 @@ export const n8nProfile: CompetitorProfile = {
           },
         ],
       },
+      unattendedExecution: {
+        value:
+          "Yes: scheduled, webhook, and other trigger-based executions run on n8n's own servers (n8n Cloud) or on the self-hosted n8n server process, not on a user's local machine",
+        detail:
+          "On n8n Cloud, n8n operates the infrastructure, so a trigger-based workflow fires and completes with no dependency on any user's browser tab or device staying open. Self-hosted n8n instead depends on the operator's own server/container (Docker, Kubernetes, or a host machine) staying up, since n8n is a server process rather than a desktop app; as long as that server process is running, individual client devices can disconnect freely.",
+        shortValue:
+          "Runs on n8n's server (Cloud) or the operator's own server (self-hosted); no client device dependency",
+        confidence: 'verified',
+        sources: [
+          {
+            url: 'https://docs.n8n.io/choose-how-to-use-n8n.md',
+            label: 'n8n docs: Choose how to use n8n',
+            asOf: '2026-07-04',
+          },
+          {
+            url: 'https://docs.n8n.io/hosting/',
+            label: 'n8n Docs: Hosting n8n',
+            asOf: '2026-07-04',
+          },
+        ],
+      },
     },
     support: {
       supportChannels: {

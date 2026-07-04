@@ -876,10 +876,10 @@ export const claudeCoworkProfile: CompetitorProfile = {
       },
       thirdPartyVetting: {
         value:
-          'Partial: Anthropic maintains first-party catalogs (anthropics/skills, anthropics/knowledge-work-plugins, the 11 plugins bundled into Cowork), but the plugin/skill ecosystem is open by design. Any developer can host a plugin marketplace as a git repo, and users add it via `/plugin marketplace add`, with no Anthropic approval queue or review gate before installation.',
+          'Partial: Anthropic maintains first-party catalogs (anthropics/skills, anthropics/knowledge-work-plugins, the 11 plugins bundled into Cowork), but the plugin/skill ecosystem is open by design. Any developer can host a plugin marketplace as a git repo, and users add it via `/plugin marketplace add`, with no Anthropic approval queue or review gate before installation. Two independent third-party security audits have already found large numbers of malicious skills in that open ecosystem: Snyk\'s ToxicSkills audit found 76 confirmed-malicious skills (1,467 flagged with security issues) out of ~3,984 scanned on ClawHub and skills.sh, and Koi Security separately flagged 341 malicious skills (335 tied to one coordinated "ClawHavoc" campaign) out of all 2,857 skills on ClawHub.',
         detail:
-          'Third-party community sites (ClawHub, skills.sh, and others) distribute unvetted, community-authored skills for Claude Code/Cowork. Snyk\'s ToxicSkills audit of ~3,984 skills on ClawHub and skills.sh found 1,467 with security flaws and confirmed 76 active malicious payloads built for credential theft, backdoors, and data exfiltration. Koi Security separately audited all 2,857 skills on ClawHub and flagged 341 as malicious, 335 tied to one coordinated campaign ("ClawHavoc"). These incidents sit in the broader Claude Skills/plugin ecosystem, not Anthropic\'s own first-party catalog.',
-        shortValue: 'Partial: first-party catalog + open, unvetted plugin ecosystem',
+          "These incidents sit in the broader Claude Skills/plugin ecosystem, not Anthropic's own first-party catalog, but they show real, sourced supply-chain risk in Cowork's installable-skill model. By contrast, every one of Sim's blocks is first-party authored and code-reviewed through the standard pull-request process in the main Sim repository; there is no public marketplace where an arbitrary third party can publish and have other users install executable block code without going through Sim's own review.",
+        shortValue: 'Partial: open plugin ecosystem with documented malicious-skill incidents',
         confidence: 'verified',
         sources: [
           {
@@ -1041,6 +1041,21 @@ export const claudeCoworkProfile: CompetitorProfile = {
             url: 'https://github.com/anthropics/claude-code/issues/60577',
             label:
               'Transient 529 Overloaded API errors abort long-running tasks with no auto-recovery (GitHub issue)',
+            asOf: '2026-07-02',
+          },
+        ],
+      },
+      unattendedExecution: {
+        value:
+          'No: scheduled tasks require the Claude Desktop app open and the computer awake on the client device',
+        detail:
+          "There is no server-side execution path independent of the client. A scheduled/recurring task only fires while the desktop app is running and the machine is awake; if the device sleeps or the app is closed when a run is due, that run is skipped and auto-executed on next wake, with a notification, rather than firing on schedule from infrastructure independent of the user's machine.",
+        shortValue: 'No: requires desktop app open and computer awake',
+        confidence: 'verified',
+        sources: [
+          {
+            url: 'https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork',
+            label: 'Schedule recurring tasks in Claude Cowork',
             asOf: '2026-07-02',
           },
         ],

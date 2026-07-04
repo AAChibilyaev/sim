@@ -1196,6 +1196,26 @@ export const makeProfile: CompetitorProfile = {
           },
         ],
       },
+      unattendedExecution: {
+        value:
+          "Yes: Make is a fully managed multi-tenant SaaS running on Amazon AWS, so scheduled, webhook, and MCP-triggered scenarios execute entirely on Make's own servers with zero dependency on any client device staying open, awake, or connected.",
+        detail:
+          "Scenario execution happens on Make's AWS infrastructure regardless of trigger type (scheduled, instant/webhook, or MCP tool call); closing the browser tab or shutting down a laptop has no effect on a scheduled or triggered scenario. The only local component Make offers is an optional on-premise agent that bridges Make's cloud to a private network for connectivity, not a requirement for scenarios themselves to run.",
+        shortValue: "Yes: runs server-side on Make's AWS infrastructure, no client dependency",
+        confidence: 'verified',
+        sources: [
+          {
+            url: 'https://www.make.com/en/security',
+            label: 'Make Security page',
+            asOf: '2026-07-02',
+          },
+          {
+            url: 'https://www.make.com/en/on-prem-agents',
+            label: 'Make on-prem agents page',
+            asOf: '2026-07-04',
+          },
+        ],
+      },
     },
     support: {
       supportChannels: {
