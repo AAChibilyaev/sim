@@ -17,11 +17,11 @@ export const flowiseProfile: CompetitorProfile = {
     'Flowise is an open-source, low-code visual builder for LLM chains, RAG pipelines, and multi-agent AI workflows, available self-hosted or as a managed cloud service, and owned by Workday since August 2025.',
   standoutFeatures: [
     {
-      title: 'Native RAG / Document Store pipeline',
+      title: 'Choice of vector-store backend, with the broadest native text-splitter menu',
       description:
-        "Flowise's Document Store handles the full RAG pipeline in one place: multiple document loaders, the broadest range of native text-splitter types (character, token, recursive character, markdown, code, HTML-to-markdown) with configurable chunk size and overlap, a live preview before processing, per-chunk editing, and upsert into a wide range of vector store backends.",
+        "Flowise's Document Store lets a builder pick from a wide range of vector store backends to upsert into (Pinecone, Weaviate, Milvus, FAISS, and more), and offers the broadest range of native text-splitter types (character, token, recursive character, markdown, code, HTML-to-markdown) with configurable chunk size and overlap, a live preview before processing, and per-chunk editing.",
       shortDescription:
-        'Native RAG pipeline with the broadest built-in text-splitter and chunking options.',
+        'Pick your own vector-store backend, with the broadest built-in text-splitter menu.',
       source: {
         url: 'https://docs.flowiseai.com/using-flowise/document-stores',
         label: 'Flowise Docs: Document Stores',

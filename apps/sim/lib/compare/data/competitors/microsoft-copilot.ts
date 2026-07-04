@@ -17,6 +17,19 @@ export const microsoftCopilotProfile: CompetitorProfile = {
     'Microsoft Copilot Studio is a low-code Microsoft tool for building, testing, and publishing conversational and autonomous AI agents with topics or LLM-driven generative orchestration, connectors, agent flows, and Dataverse-grounded knowledge.',
   standoutFeatures: [
     {
+      title: 'Generative orchestration picks topics, tools, and knowledge dynamically',
+      description:
+        "Generative orchestration replaces fixed decision-tree topic flows with an LLM-driven planning layer. It interprets user intent, selects from an agent's topics, tools, knowledge sources, and child agents at runtime, and executes multistep plans, instead of requiring every path hand-authored with trigger phrases in advance.",
+      shortDescription:
+        'An LLM planning layer selects topics/tools/knowledge at runtime, not a fixed script.',
+      source: {
+        url: 'https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/generative-orchestration',
+        label:
+          'Apply generative orchestration capabilities - Microsoft Copilot Studio | Microsoft Learn',
+        asOf: '2026-07-02',
+      },
+    },
+    {
       title: 'Reusable, portable Agent Skills',
       description:
         'A Skill is a named capability defined once as a SKILL.md file (YAML front matter plus Markdown instructions, optionally bundled with scripts, templates, or reference documents into a ZIP package). Skills are authored in Copilot Studio or a text editor, attached to multiple agents, and exported to share with others, unlike a one-off system prompt tied to a single agent.',
@@ -60,19 +73,6 @@ export const microsoftCopilotProfile: CompetitorProfile = {
       source: {
         url: 'https://learn.microsoft.com/en-us/microsoft-copilot-studio/admin-certification',
         label: 'Review ISO, SOC, and HIPAA compliance - Microsoft Copilot Studio | Microsoft Learn',
-        asOf: '2026-07-02',
-      },
-    },
-    {
-      title: 'Generative orchestration picks topics, tools, and knowledge dynamically',
-      description:
-        "Generative orchestration replaces fixed decision-tree topic flows with an LLM-driven planning layer. It interprets user intent, selects from an agent's topics, tools, knowledge sources, and child agents at runtime, and executes multistep plans, instead of requiring every path hand-authored with trigger phrases in advance.",
-      shortDescription:
-        'An LLM planning layer selects topics/tools/knowledge at runtime, not a fixed script.',
-      source: {
-        url: 'https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/generative-orchestration',
-        label:
-          'Apply generative orchestration capabilities - Microsoft Copilot Studio | Microsoft Learn',
         asOf: '2026-07-02',
       },
     },

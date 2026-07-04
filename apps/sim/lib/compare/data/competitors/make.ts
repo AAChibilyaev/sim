@@ -31,17 +31,6 @@ export const makeProfile: CompetitorProfile = {
     'Make (make.com) is a closed-source, cloud-only visual workflow-automation platform where users connect app "modules" on a canvas into scenarios. It now also offers AI Agent blocks, an MCP server, and a JS/Python code step, billed on a per-module-execution credit model.',
   standoutFeatures: [
     {
-      title: 'Native MCP Server',
-      description:
-        'Make ships a first-party, cloud-hosted Model Context Protocol server that exposes any scenario as a callable tool to external AI agents/clients (Claude, Cursor, etc.) via a generated token and URL, with no local infrastructure to manage.',
-      shortDescription: 'Cloud-hosted MCP server exposes scenarios as tools with zero setup.',
-      source: {
-        url: 'https://www.make.com/en/blog/model-context-protocol-mcp-server',
-        label: 'Make blog: What is MCP Server?',
-        asOf: '2026-07-02',
-      },
-    },
-    {
       title: 'Visual AI Agent reasoning panel',
       description:
         "AI Agent blocks run inside the same canvas as regular scenarios and expose a step-by-step 'Reasoning panel' showing every decision the agent makes, plus configurable manual-approval/stop points so agents run alongside deterministic logic rather than replacing it.",
@@ -49,6 +38,17 @@ export const makeProfile: CompetitorProfile = {
       source: {
         url: 'https://www.make.com/en/ai-agents',
         label: 'Make AI Agents page',
+        asOf: '2026-07-02',
+      },
+    },
+    {
+      title: 'Native MCP Server',
+      description:
+        'Make ships a first-party, cloud-hosted Model Context Protocol server that exposes any scenario as a callable tool to external AI agents/clients (Claude, Cursor, etc.) via a generated token and URL, with no local infrastructure to manage.',
+      shortDescription: 'Cloud-hosted MCP server exposes scenarios as tools with zero setup.',
+      source: {
+        url: 'https://www.make.com/en/blog/model-context-protocol-mcp-server',
+        label: 'Make blog: What is MCP Server?',
         asOf: '2026-07-02',
       },
     },

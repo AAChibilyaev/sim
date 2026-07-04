@@ -25,6 +25,18 @@ export const retoolProfile: CompetitorProfile = {
     'Retool is a low-code platform for building, deploying, and managing internal software (apps, workflows, and AI agents) that connect to databases, APIs, and LLMs.',
   standoutFeatures: [
     {
+      title: 'Natural-language app generation (AppGen)',
+      description:
+        "Users describe an app in plain English and Retool generates pages, queries, components, data bindings, and event handlers already wired to production data and inheriting the org's existing SSO/RBAC/audit policies, rather than producing raw exportable code.",
+      shortDescription:
+        'Generates full apps from a prompt, wired to live data and existing security policies.',
+      source: {
+        url: 'https://retool.com/ai-app-generation',
+        label: 'Retool AI App Generation',
+        asOf: '2026-07-02',
+      },
+    },
+    {
       title: 'Retool Vectors (managed vector store)',
       description:
         "A Retool-managed vector database that automatically indexes uploaded text, PDFs, or web pages, so AI apps and agents can look up relevant content with one click instead of building a custom search pipeline. The lookups always run through OpenAI's embedding API, even when the chat model is a different provider.",
@@ -44,18 +56,6 @@ export const retoolProfile: CompetitorProfile = {
       source: {
         url: 'https://retool.com/blog/how-to-use-mcp-in-retool',
         label: 'How to use MCP in Retool',
-        asOf: '2026-07-02',
-      },
-    },
-    {
-      title: 'Natural-language app generation (AppGen)',
-      description:
-        "Users describe an app in plain English and Retool generates pages, queries, components, data bindings, and event handlers already wired to production data and inheriting the org's existing SSO/RBAC/audit policies, rather than producing raw exportable code.",
-      shortDescription:
-        'Generates full apps from a prompt, wired to live data and existing security policies.',
-      source: {
-        url: 'https://retool.com/ai-app-generation',
-        label: 'Retool AI App Generation',
         asOf: '2026-07-02',
       },
     },

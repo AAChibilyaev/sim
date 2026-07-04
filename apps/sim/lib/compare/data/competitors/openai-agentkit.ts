@@ -33,13 +33,13 @@ export const openaiAgentkitProfile: CompetitorProfile = {
     "OpenAI AgentKit bundled a visual Agent Builder, ChatKit embeddable chat UI, Connector Registry, Guardrails, and Evals for building agentic workflows on OpenAI's models. But OpenAI is winding down Agent Builder and Evals, with full shutdown November 30, 2026, in favor of the code-first Agents SDK or ChatGPT Workspace Agents.",
   standoutFeatures: [
     {
-      title: 'Guardrails open-source safety layer',
+      title: 'Agents SDK open-source multi-agent framework',
       description:
-        'Agent Builder shipped an open-source, modular guardrails layer that can mask/flag PII, detect jailbreaks, and apply other safety checks around agent behavior.',
-      shortDescription: 'Open-source guardrails layer masks PII and detects jailbreaks.',
+        'The code-first alternative and successor, openai-agents-python, is open source under the MIT license with over 27,500 GitHub stars.',
+      shortDescription: 'Open-source multi-agent framework with 27,500+ GitHub stars.',
       source: {
-        url: 'https://openai.com/index/introducing-agentkit/',
-        label: 'Introducing AgentKit (via search excerpt)',
+        url: 'https://github.com/openai/openai-agents-python',
+        label: 'GitHub: openai/openai-agents-python',
         asOf: '2026-07-02',
       },
     },
@@ -66,13 +66,13 @@ export const openaiAgentkitProfile: CompetitorProfile = {
       },
     },
     {
-      title: 'Agents SDK open-source multi-agent framework',
+      title: 'Guardrails open-source safety layer',
       description:
-        'The code-first alternative and successor, openai-agents-python, is open source under the MIT license with over 27,500 GitHub stars.',
-      shortDescription: 'Open-source multi-agent framework with 27,500+ GitHub stars.',
+        'Agent Builder shipped an open-source, modular guardrails layer that can mask/flag PII, detect jailbreaks, and apply other safety checks around agent behavior.',
+      shortDescription: 'Open-source guardrails layer masks PII and detects jailbreaks.',
       source: {
-        url: 'https://github.com/openai/openai-agents-python',
-        label: 'GitHub: openai/openai-agents-python',
+        url: 'https://openai.com/index/introducing-agentkit/',
+        label: 'Introducing AgentKit (via search excerpt)',
         asOf: '2026-07-02',
       },
     },

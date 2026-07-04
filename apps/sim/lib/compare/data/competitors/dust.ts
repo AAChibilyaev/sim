@@ -17,6 +17,17 @@ export const dustProfile: CompetitorProfile = {
     'Dust is an enterprise AI agent platform where teams build no-code agents connected to company data and tools in a shared, multiplayer workspace, then deploy them to chat, Slack, and other surfaces.',
   standoutFeatures: [
     {
+      title: 'GitOps sync for Skills and agent configurations via GitHub Action',
+      description:
+        'An official dust-github-action lets teams define Skills and agent configurations as files in a Git repository, then sync them into a Dust workspace from a CI/CD pipeline. This gives agent configuration the same change history, pull-request review, and rollback workflow as application code.',
+      shortDescription: 'Agent/Skill configs can live in Git with PR review and CI/CD sync.',
+      source: {
+        url: 'https://docs.dust.tt/changelog/gitops-sync-for-skills-agent-configurations-with-github-action',
+        label: 'GitOps sync for Skills & Agent configurations | Dust changelog',
+        asOf: '2026-07-02',
+      },
+    },
+    {
       title: "'Skills' as reusable, shared agent instruction/tool packages",
       description:
         "Skills are named, reusable packages of instructions, knowledge, and tools that can be attached to multiple agents at once. Updating a Skill's instructions automatically propagates the improvement to every agent using it, rather than requiring each agent to be edited individually.",
@@ -25,17 +36,6 @@ export const dustProfile: CompetitorProfile = {
       source: {
         url: 'https://docs.dust.tt/docs/skills',
         label: 'Skills | Dust Docs',
-        asOf: '2026-07-02',
-      },
-    },
-    {
-      title: 'GitOps sync for Skills and agent configurations via GitHub Action',
-      description:
-        'An official dust-github-action lets teams define Skills and agent configurations as files in a Git repository, then sync them into a Dust workspace from a CI/CD pipeline. This gives agent configuration the same change history, pull-request review, and rollback workflow as application code.',
-      shortDescription: 'Agent/Skill configs can live in Git with PR review and CI/CD sync.',
-      source: {
-        url: 'https://docs.dust.tt/changelog/gitops-sync-for-skills-agent-configurations-with-github-action',
-        label: 'GitOps sync for Skills & Agent configurations | Dust changelog',
         asOf: '2026-07-02',
       },
     },

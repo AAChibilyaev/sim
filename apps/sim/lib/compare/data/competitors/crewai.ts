@@ -18,6 +18,17 @@ export const crewaiProfile: CompetitorProfile = {
   },
   standoutFeatures: [
     {
+      title: 'Large, fast-growing open-source community',
+      description:
+        'The crewAIInc/crewAI GitHub repository has surpassed 54,800 stars and is MIT licensed, one of the most-starred open-source multi-agent orchestration frameworks. CrewAI reports its open-source framework executes over 10 million agents per month and is used by roughly half of the Fortune 500.',
+      shortDescription: '54,800+ GitHub stars, MIT licensed, widely adopted.',
+      source: {
+        url: 'https://github.com/crewAIInc/crewAI',
+        label: 'crewAIInc/crewAI (GitHub)',
+        asOf: '2026-07-02',
+      },
+    },
+    {
       title: 'Dual programming model: autonomous Crews plus event-driven Flows',
       description:
         'CrewAI gives developers two composable abstractions: Crews, teams of role-based agents with autonomy over how a task gets done, and Flows, an event-driven layer (Python decorators like @start, @listen, @router) for deterministic control over state and execution order. Flows can orchestrate one or more Crews, mixing free-form agent reasoning with explicit procedural logic in the same application.',
@@ -36,17 +47,6 @@ export const crewaiProfile: CompetitorProfile = {
       source: {
         url: 'https://docs.crewai.com/en/concepts/llms',
         label: 'LLMs - CrewAI Docs',
-        asOf: '2026-07-02',
-      },
-    },
-    {
-      title: 'Large, fast-growing open-source community',
-      description:
-        'The crewAIInc/crewAI GitHub repository has surpassed 54,800 stars and is MIT licensed, one of the most-starred open-source multi-agent orchestration frameworks. CrewAI reports its open-source framework executes over 10 million agents per month and is used by roughly half of the Fortune 500.',
-      shortDescription: '54,800+ GitHub stars, MIT licensed, widely adopted.',
-      source: {
-        url: 'https://github.com/crewAIInc/crewAI',
-        label: 'crewAIInc/crewAI (GitHub)',
         asOf: '2026-07-02',
       },
     },

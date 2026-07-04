@@ -17,6 +17,17 @@ export const stackaiProfile: CompetitorProfile = {
     'StackAI is a proprietary, enterprise-focused visual platform for building, deploying, and governing AI agents, connecting LLMs and business systems through a drag-and-drop, low-code node builder.',
   standoutFeatures: [
     {
+      title: 'On-prem / VPC self-hosted deployment for enterprise',
+      description:
+        "The Enterprise plan supports on-premise or VPC deployment behind the customer's own VPN/network, alongside dedicated infrastructure and SSO/access controls.",
+      shortDescription: 'Enterprise-only on-prem or VPC deployment with dedicated infrastructure.',
+      source: {
+        url: 'https://www.stackai.com/pricing',
+        label: 'StackAI Pricing',
+        asOf: '2026-07-02',
+      },
+    },
+    {
       title: 'Agentic Development Life Cycle (dev/staging/production promotion)',
       description:
         'StackAI provides three default, isolated environments (development, staging, production), plus custom environments. Promotion between them is gated by pull requests, each environment can connect to its own data sources, and an admin approval queue sits before production deploys.',
@@ -46,17 +57,6 @@ export const stackaiProfile: CompetitorProfile = {
       source: {
         url: 'https://www.stackai.com/blog/introducing-stackai-human-in-the-loop-agentic-workflows-you-can-trust',
         label: 'Introducing StackAI Human-in-the-Loop - StackAI blog',
-        asOf: '2026-07-02',
-      },
-    },
-    {
-      title: 'On-prem / VPC self-hosted deployment for enterprise',
-      description:
-        "The Enterprise plan supports on-premise or VPC deployment behind the customer's own VPN/network, alongside dedicated infrastructure and SSO/access controls.",
-      shortDescription: 'Enterprise-only on-prem or VPC deployment with dedicated infrastructure.',
-      source: {
-        url: 'https://www.stackai.com/pricing',
-        label: 'StackAI Pricing',
         asOf: '2026-07-02',
       },
     },

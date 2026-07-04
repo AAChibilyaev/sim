@@ -32,6 +32,18 @@ export const workatoProfile: CompetitorProfile = {
     'Workato is a cloud-based enterprise integration platform that extends its workflow automation engine with an AI-agent layer (Agent Studio, "Genies") and native Model Context Protocol (MCP) server support, for building, orchestrating, and governing AI agents across connected business systems.',
   standoutFeatures: [
     {
+      title: 'Broad compliance certification set',
+      description:
+        'Workato holds SOC 1/2/3, PCI-DSS v4.0.1 Level 1, ISO 27001/27701/42001, HIPAA (with BAAs), IRAP, and NIST 800-171A r2 certifications, a wide footprint for an integration/agent platform.',
+      shortDescription:
+        'Wide compliance footprint spanning SOC, ISO, HIPAA, PCI-DSS, IRAP, and NIST.',
+      source: {
+        url: 'https://docs.workato.com/security/security-compliance.html',
+        label: 'Security compliance | Workato docs',
+        asOf: '2026-07-02',
+      },
+    },
+    {
       title: 'Enterprise MCP server hosting',
       description:
         'Workato exposes existing recipes and workflows as MCP tools through pre-built and remote/cloud-hosted MCP servers, letting any MCP-compatible client (Claude, ChatGPT, Agent Studio) dynamically discover and call enterprise workflows as agent tools without custom integration code.',
@@ -51,18 +63,6 @@ export const workatoProfile: CompetitorProfile = {
       source: {
         url: 'https://docs.workato.com/on-prem/agents.html',
         label: 'On-prem agent | Workato docs',
-        asOf: '2026-07-02',
-      },
-    },
-    {
-      title: 'Broad compliance certification set',
-      description:
-        'Workato holds SOC 1/2/3, PCI-DSS v4.0.1 Level 1, ISO 27001/27701/42001, HIPAA (with BAAs), IRAP, and NIST 800-171A r2 certifications, a wide footprint for an integration/agent platform.',
-      shortDescription:
-        'Wide compliance footprint spanning SOC, ISO, HIPAA, PCI-DSS, IRAP, and NIST.',
-      source: {
-        url: 'https://docs.workato.com/security/security-compliance.html',
-        label: 'Security compliance | Workato docs',
         asOf: '2026-07-02',
       },
     },

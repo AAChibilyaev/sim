@@ -18,6 +18,17 @@ export const vellumProfile: CompetitorProfile = {
     'Vellum is an enterprise AI development platform for building, evaluating, and deploying LLM prompts, workflows, and agents.',
   standoutFeatures: [
     {
+      title: 'SOC 2 Type 2 and HIPAA compliance with BAA',
+      description:
+        'Vellum has SOC 2 Type 2 attestation and HIPAA compliance. Enterprise customers can sign a Business Associate Agreement for handling protected health information, corroborated by a third-party Drata case study.',
+      shortDescription: 'SOC 2 Type 2 and HIPAA compliance with a signable BAA.',
+      source: {
+        url: 'https://drata.com/customers/vellum',
+        label: 'Vellum Case Study: Drata',
+        asOf: '2026-07-02',
+      },
+    },
+    {
       title: 'Self-hosted / VPC enterprise deployment',
       description:
         "Enterprise customers can run the platform inside their own AWS, Azure, or GCP VPC (or on-prem) via a Replicated-based install, keeping prompts and documents inside the customer's network perimeter.",
@@ -36,17 +47,6 @@ export const vellumProfile: CompetitorProfile = {
       source: {
         url: 'https://www.vellum.ai/blog/introducing-vellum-for-agents',
         label: 'Introducing Vellum for Agents',
-        asOf: '2026-07-02',
-      },
-    },
-    {
-      title: 'SOC 2 Type 2 and HIPAA compliance with BAA',
-      description:
-        'Vellum has SOC 2 Type 2 attestation and HIPAA compliance. Enterprise customers can sign a Business Associate Agreement for handling protected health information, corroborated by a third-party Drata case study.',
-      shortDescription: 'SOC 2 Type 2 and HIPAA compliance with a signable BAA.',
-      source: {
-        url: 'https://drata.com/customers/vellum',
-        label: 'Vellum Case Study: Drata',
         asOf: '2026-07-02',
       },
     },
