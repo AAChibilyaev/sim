@@ -161,7 +161,7 @@ export const dustProfile: CompetitorProfile = {
       },
       selfHostOption: {
         value:
-          "No: the core repository is MIT-licensed and public on GitHub, but self-hosting isn't an officially supported deployment path. Dust is sold and operated only as hosted SaaS",
+          "No: the core repository is MIT-licensed and public on GitHub, but self-hosting isn't an officially supported deployment path; Dust is sold and operated only as hosted SaaS",
         detail:
           'dust-tt/dust is publicly available and MIT-licensed, but Dust the company documents only its hosted product (with US/EU region choice), not a supported self-managed installation.',
         shortValue: 'No, MIT code exists but only SaaS is supported',
@@ -799,7 +799,7 @@ export const dustProfile: CompetitorProfile = {
         ],
       },
       additionalCompliance: {
-        value: 'GDPR compliant, HIPAA-capable, SOC 2 Type II. No ISO 27001, PCI, or FedRAMP',
+        value: 'GDPR compliant, HIPAA-capable, SOC 2 Type II; no ISO 27001, PCI, or FedRAMP',
         detail:
           "Dust's security page and enterprise materials state GDPR compliance and HIPAA-compliance capability alongside SOC 2 Type II. No source confirms ISO 27001, PCI-DSS, or FedRAMP.",
         shortValue: 'GDPR, HIPAA-capable, SOC 2 Type II',
