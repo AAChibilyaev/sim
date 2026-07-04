@@ -116,15 +116,15 @@ export const openClawProfile: CompetitorProfile = {
       },
     },
     {
-      title: 'No deployable API/webhook endpoint or visual workflow builder',
+      title: 'No visual drag-and-drop workflow builder, though a bundled webhooks plugin exists',
       description:
-        'OpenClaw is a chat-interface agent gateway, not a workflow/automation platform. It has no feature to publish a configured agent, skill, or automation as a callable REST/webhook endpoint for external systems, and no drag-and-drop canvas for composing multi-step logic.',
+        'OpenClaw is a chat-interface agent gateway, not a visual workflow/automation platform: it has no drag-and-drop canvas for composing multi-step logic. It does ship an official Webhooks plugin that exposes authenticated inbound HTTP routes on the Gateway, letting external systems (Zapier, n8n, CI jobs, internal services) POST JSON to create, drive, and manage OpenClaw TaskFlows, so it can be triggered and controlled via a callable endpoint, just not through any visual builder.',
       shortDescription:
-        'No feature to publish an agent or automation as a callable API/webhook endpoint.',
+        'No visual builder/canvas; a bundled Webhooks plugin does expose callable inbound HTTP routes.',
       source: {
-        url: 'https://docs.openclaw.ai/',
-        label: 'OpenClaw Docs home',
-        asOf: '2026-07-02',
+        url: 'https://docs.openclaw.ai/plugins/webhooks',
+        label: 'OpenClaw Docs: Webhooks plugin',
+        asOf: '2026-07-04',
       },
     },
     {
@@ -628,16 +628,21 @@ export const openClawProfile: CompetitorProfile = {
       },
       triggerTypes: {
         value:
-          'Inbound chat messages on connected channels, and cron-based scheduled jobs (main-session or isolated-session runs); no generic external webhook/event trigger',
+          'Inbound chat messages on connected channels, cron-based scheduled jobs (main-session or isolated-session runs), and inbound webhooks via the bundled Webhooks plugin',
         detail:
-          'Cron jobs run agent prompts on a schedule using Croner syntax, with either "main session" delivery (enqueues a system event, optionally wakes the heartbeat) or an isolated dedicated session per run, pruned after a 24-hour retention window by default.',
-        shortValue: 'Chat messages and cron schedules; no generic webhook trigger',
+          'Cron jobs run agent prompts on a schedule using Croner syntax, with either "main session" delivery (enqueues a system event, optionally wakes the heartbeat) or an isolated dedicated session per run, pruned after a 24-hour retention window by default. The Webhooks plugin adds authenticated inbound HTTP routes so an external system can POST to create, run, resume, cancel, or fail a TaskFlow, functioning as an external event trigger scoped to TaskFlow lifecycle actions rather than an arbitrary generic webhook.',
+        shortValue: 'Chat messages, cron schedules, and inbound webhooks (TaskFlow-scoped)',
         confidence: 'verified',
         sources: [
           {
             url: 'https://docs.openclaw.ai/automation/cron-jobs',
             label: 'OpenClaw Docs: Scheduled tasks (cron jobs)',
             asOf: '2026-07-02',
+          },
+          {
+            url: 'https://docs.openclaw.ai/plugins/webhooks',
+            label: 'OpenClaw Docs: Webhooks plugin',
+            asOf: '2026-07-04',
           },
         ],
       },
@@ -658,16 +663,16 @@ export const openClawProfile: CompetitorProfile = {
       },
       apiPublishing: {
         value:
-          'No: there is no mechanism to publish an OpenClaw agent, skill, or automation as a callable REST/webhook API endpoint for external systems to invoke.',
+          'Yes, via the official Webhooks plugin: it adds authenticated inbound HTTP routes on the Gateway so external systems (Zapier, n8n, a CI job, or an internal service) can POST JSON to a configured path to create, drive, and manage OpenClaw TaskFlows, the closest OpenClaw feature to publishing a callable REST/webhook endpoint.',
         detail:
-          'OpenClaw is reached through messaging channels or a local Web Control UI, not a deployable API surface. The Gateway itself exposes local control endpoints for its own CLI/UI, not a public API product feature.',
-        shortValue: 'No API endpoint deployment feature',
-        confidence: 'estimated',
+          'The plugin runs inside the Gateway process and is enabled via configuration (hooks.enabled, token/secret, path, defaultSessionKey, mappings). Requests authenticate with a shared secret (an Authorization: Bearer header or an x-openclaw-webhook-secret header) and accept documented action values including create_flow, get_flow, list_flows, find_latest_flow, resolve_flow, get_task_summary, set_waiting, resume_flow, finish_flow, fail_flow, request_cancel, cancel_flow, and run_task. This is narrower than a general-purpose custom-API-endpoint feature (only TaskFlow lifecycle operations are exposed, not arbitrary business logic), but it is a genuine callable inbound endpoint, not merely OpenClaw calling out to external webhooks.',
+        shortValue: 'Yes: bundled Webhooks plugin exposes authenticated inbound HTTP routes',
+        confidence: 'verified',
         sources: [
           {
-            url: 'https://docs.openclaw.ai/',
-            label: 'OpenClaw Docs home',
-            asOf: '2026-07-02',
+            url: 'https://docs.openclaw.ai/plugins/webhooks',
+            label: 'OpenClaw Docs: Webhooks plugin',
+            asOf: '2026-07-04',
           },
         ],
       },
