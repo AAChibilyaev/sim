@@ -104,21 +104,17 @@ describe('markdown paste', () => {
     ['empty string', ''],
     ['whitespace only', '   \n\n  '],
     ['a bare thematic break (ambiguous — needs another markdown signal)', '---'],
-    ['inline-only italic (single asterisk would false-positive on e.g. *args)', 'an *italic* word'],
-    ['inline-only strikethrough', 'a ~~struck~~ word'],
-    ['inline-only code', 'some `code` here'],
   ])('leaves %s to the default handler', (_label, text) => {
     editor = mount()
     expect(paste(editor, text)).toBe(false)
   })
 
-  // Only structural / unambiguous constructs gate the markdown parse. Inline-only marks that
-  // `looksLikeMarkdown` deliberately omits to avoid false positives — single-asterisk italic
-  // (`*args`), `~~`, single-backtick code — are covered by the Markdown extension's own paste path,
-  // not MarkdownPaste, so they belong to a different test surface.
   it.each([
     ['heading', '# Heading', 'heading'],
     ['bold', 'a **bold** word', 'bold'],
+    ['italic', 'an *italic* word', 'italic'],
+    ['strikethrough', 'a ~~struck~~ word', 'strike'],
+    ['inline code', 'some `code` here', 'code'],
     ['bullet list', '- one\n- two', 'bulletList'],
     ['ordered list', '1. one\n2. two', 'orderedList'],
     ['task list', '- [x] done\n- [ ] todo', 'taskList'],
@@ -130,6 +126,20 @@ describe('markdown paste', () => {
     editor = mount()
     expect(paste(editor, md)).toBe(true)
     expect(JSON.stringify(editor.getJSON())).toContain(`"type":"${nodeType}"`)
+  })
+
+  // The parse is strict CommonMark (marked): only true emphasis becomes a mark. Claiming the paste
+  // also takes precedence over StarterKit's lenient mark paste rules, which would otherwise mangle
+  // space-flanked asterisks. So code-like text pastes cleanly, with no stray italic/bold.
+  it.each([
+    ['space-flanked asterisks', 'area = 5 * width * height'],
+    ['python args and kwargs', 'def foo(*args, **kwargs): pass'],
+  ])('does not emphasize %s', (_label, text) => {
+    editor = mount()
+    paste(editor, text)
+    const json = JSON.stringify(editor.getJSON())
+    expect(json).not.toContain('"type":"italic"')
+    expect(json).not.toContain('"type":"bold"')
   })
 
   it('parses markdown-shaped plain text even when an HTML sibling is present', () => {

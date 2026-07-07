@@ -4,8 +4,13 @@ import { parseMarkdownToDoc } from './markdown-parse'
 
 /**
  * Markdown syntax hints. If pasted plain text matches any of these, it's parsed as markdown rather
- * than inserted literally — so a pasted link, image, badge, list, or heading renders as rich content
- * instead of showing its raw `[text](url)` / `# ` source.
+ * than inserted literally — so a pasted link, image, badge, list, heading, or inline mark renders as
+ * rich content instead of showing its raw `[text](url)` / `# ` / `*text*` source.
+ *
+ * The hints only decide *whether* to attempt a parse; the parse itself goes through {@link
+ * parseMarkdownToDoc} (CommonMark via `marked`), which is strict — `*text*` becomes emphasis but a
+ * space-flanked `5 * width * height` stays literal. Claiming the paste here also takes precedence over
+ * StarterKit's own (lenient) mark paste rules, which would otherwise italicize that `* width *`.
  */
 const MARKDOWN_HINTS: ReadonlyArray<RegExp> = [
   /^#{1,6}\s/m,
@@ -16,6 +21,9 @@ const MARKDOWN_HINTS: ReadonlyArray<RegExp> = [
   /^>\s/m,
   /```/,
   /^\|.*\|.*\|/m,
+  /\*[^*\n]+\*/,
+  /~~[^~\n]+~~/,
+  /`[^`\n]+`/,
 ]
 
 function looksLikeMarkdown(text: string): boolean {
