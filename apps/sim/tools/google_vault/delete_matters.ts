@@ -43,10 +43,14 @@ export const deleteMattersTool: ToolConfig<GoogleVaultMatterActionParams> = {
       throw new Error(enhanceGoogleVaultError(errorMessage))
     }
     const data = await response.json().catch(() => ({}))
-    return { success: true, output: { matter: data.matter ?? data } }
+    return { success: true, output: { success: true, matter: data.matter ?? data } }
   },
 
   outputs: {
-    matter: { type: 'json', description: 'Deleted matter object' },
+    success: { type: 'boolean', description: 'Whether the matter was deleted' },
+    matter: {
+      type: 'json',
+      description: 'Deleted matter object (empty if the API returns no body)',
+    },
   },
 }
