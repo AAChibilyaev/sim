@@ -686,7 +686,6 @@ async function resolveBranch(params: {
           entitlements: payloadParams.entitlements,
           userTimezone: payloadParams.userTimezone,
           userMetadata: payloadParams.userMetadata,
-          includeMothershipTools: true,
         },
         { selectedModel: '' }
       ),
