@@ -329,6 +329,36 @@ export const RateLimitOutcome = {
 export type RateLimitOutcomeKey = keyof typeof RateLimitOutcome
 export type RateLimitOutcomeValue = (typeof RateLimitOutcome)[RateLimitOutcomeKey]
 
+export const SubagentExecutionPhase = {
+  Continuation: 'continuation',
+  Initial: 'initial',
+} as const
+
+export type SubagentExecutionPhaseKey = keyof typeof SubagentExecutionPhase
+export type SubagentExecutionPhaseValue = (typeof SubagentExecutionPhase)[SubagentExecutionPhaseKey]
+
+export const SubagentSessionOperation = {
+  Ephemeral: 'ephemeral',
+  New: 'new',
+  Resume: 'resume',
+} as const
+
+export type SubagentSessionOperationKey = keyof typeof SubagentSessionOperation
+export type SubagentSessionOperationValue =
+  (typeof SubagentSessionOperation)[SubagentSessionOperationKey]
+
+export const SubagentSessionPersistenceOutcome = {
+  Deferred: 'deferred',
+  Failed: 'failed',
+  NotApplicable: 'not_applicable',
+  NotAttempted: 'not_attempted',
+  Succeeded: 'succeeded',
+} as const
+
+export type SubagentSessionPersistenceOutcomeKey = keyof typeof SubagentSessionPersistenceOutcome
+export type SubagentSessionPersistenceOutcomeValue =
+  (typeof SubagentSessionPersistenceOutcome)[SubagentSessionPersistenceOutcomeKey]
+
 export const ToolAsyncWaiterResolution = {
   ContextCancelled: 'context_cancelled',
   Poll: 'poll',
