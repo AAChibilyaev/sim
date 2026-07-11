@@ -1,4 +1,4 @@
-import { db } from '@sim/db'
+import { dbFor } from '@sim/db'
 import { workflowExecutionLogs } from '@sim/db/schema'
 import { createLogger } from '@sim/logger'
 import { describeError, toError } from '@sim/utils/errors'
@@ -77,6 +77,9 @@ function buildCompletedMarkerPersistenceQuery(params: {
         ''
       ) <= ${params.marker.endedAt}`
 }
+
+/** Progress-marker and status writes on `workflow_execution_logs` use the exec pool. */
+const execDb = dbFor('exec')
 
 const logger = createLogger('LoggingSession')
 
@@ -183,7 +186,7 @@ export class LoggingSession {
       return
     }
     try {
-      await db.execute(
+      await execDb.execute(
         buildStartedMarkerPersistenceQuery({
           executionId: this.executionId,
           workflowId: this.workflowId,
@@ -209,7 +212,7 @@ export class LoggingSession {
       return
     }
     try {
-      await db.execute(
+      await execDb.execute(
         buildCompletedMarkerPersistenceQuery({
           executionId: this.executionId,
           workflowId: this.workflowId,
@@ -465,7 +468,7 @@ export class LoggingSession {
     this.completing = true
 
     try {
-      const currentLog = await db
+      const currentLog = await execDb
         .select({ status: workflowExecutionLogs.status })
         .from(workflowExecutionLogs)
         .where(
@@ -596,7 +599,7 @@ export class LoggingSession {
       const endTime = endedAt ? new Date(endedAt) : new Date()
       const durationMs = typeof totalDurationMs === 'number' ? totalDurationMs : 0
 
-      const currentLog = await db
+      const currentLog = await execDb
         .select({ status: workflowExecutionLogs.status })
         .from(workflowExecutionLogs)
         .where(
@@ -690,7 +693,7 @@ export class LoggingSession {
       const endTime = endedAt ? new Date(endedAt) : new Date()
       const durationMs = typeof totalDurationMs === 'number' ? totalDurationMs : 0
 
-      const currentLog = await db
+      const currentLog = await execDb
         .select({ status: workflowExecutionLogs.status })
         .from(workflowExecutionLogs)
         .where(
@@ -1058,7 +1061,7 @@ export class LoggingSession {
             ELSE ${executionData} END`
       }
 
-      await db
+      await execDb
         .update(workflowExecutionLogs)
         .set({ level: 'error', status: 'failed', executionData })
         .where(

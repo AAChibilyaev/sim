@@ -43,7 +43,11 @@ const {
   }
 })
 
-vi.mock('@sim/db', () => ({ db: { select: mockSelect } }))
+vi.mock('@sim/db', () => {
+  const db = { select: mockSelect }
+  // Cleanup-pool client shares the instance so the seeded chains still apply.
+  return { db, dbFor: () => db }
+})
 
 vi.mock('@sim/db/schema', () => {
   const table = (cols: string[]) =>
