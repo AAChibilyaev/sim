@@ -1,4 +1,5 @@
 import { truncate } from '@sim/utils/string'
+import type { ShareAuthType } from '@/lib/api/contracts/public-shares'
 import { getCopilotToolDescription } from '@/lib/copilot/tools/descriptions'
 import { isHosted } from '@/lib/core/config/env-flags'
 import { isSubBlockHidden } from '@/lib/workflows/subblocks/visibility'
@@ -291,6 +292,12 @@ export function serializeFileMeta(file: {
   contentType: string
   size: number
   uploadedAt: Date
+  /** Whether the file has an active public share link. */
+  shared?: boolean
+  /** Auth mode of the active share; only meaningful when `shared` is true. */
+  shareAuthType?: ShareAuthType
+  /** Public share link (`{baseUrl}/f/{token}`); only meaningful when `shared` is true. */
+  shareUrl?: string
 }): string {
   return JSON.stringify(
     {
@@ -303,6 +310,9 @@ export function serializeFileMeta(file: {
       size: file.size,
       uploadedAt: file.uploadedAt.toISOString(),
       readContentWith: file.vfsPath ? `${file.vfsPath}/content` : undefined,
+      shared: Boolean(file.shared),
+      shareAuthType: file.shared ? file.shareAuthType : undefined,
+      shareUrl: file.shared ? file.shareUrl : undefined,
       note: 'This is file metadata only. To read the file text/bytes, read the readContentWith path (i.e. append /content).',
     },
     null,
