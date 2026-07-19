@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Badge, CollapsibleCard, cn, Input, Label } from '@sim/emcn'
+import { useTranslations } from 'next-intl'
 import { extractInputFieldsFromBlocks } from '@/lib/workflows/input-format'
 import { formatDisplayText } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/components/formatted-text'
 import { TagDropdown } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/components/tag-dropdown/tag-dropdown'
@@ -29,6 +30,7 @@ interface InputMappingFieldProps {
   collapsed: boolean
   onToggleCollapse: () => void
   workflowSearchHighlight?: ReturnType<typeof getActiveWorkflowSearchHighlight>
+  tI18n?: any
 }
 
 /**
@@ -57,6 +59,7 @@ export function InputMapping({
   disabled = false,
   previewContextValues,
 }: InputMappingProps) {
+  const tI18n = useTranslations('auto')
   const activeSearchTarget = useActiveSearchTarget()
   const subBlockId = subBlock.id
   const [mapping, setMapping] = useSubBlockValue(blockId, subBlockId)
@@ -132,9 +135,11 @@ export function InputMapping({
     return (
       <div className='flex h-32 items-center justify-center rounded-sm border border-[var(--border-1)] border-dashed bg-[var(--surface-3)] dark:bg-[var(--code-bg)]'>
         <div className='text-center'>
-          <p className='font-medium text-[var(--text-secondary)] text-sm'>No workflow selected</p>
+          <p className='font-medium text-[var(--text-secondary)] text-sm'>
+            {tI18n('no_workflow_selected')}
+          </p>
           <p className='mt-1 text-[var(--text-muted)] text-xs'>
-            Select a workflow above to configure inputs
+            {tI18n('select_workflow_to_configure_inputs')}
           </p>
         </div>
       </div>
@@ -157,13 +162,14 @@ export function InputMapping({
           overlayRefs={overlayRefs}
           collapsed={false}
           onToggleCollapse={() => {}}
+          tI18n={tI18n}
         />
       </div>
     )
   }
 
   if (!childInputFields || childInputFields.length === 0) {
-    return <p className='text-[var(--text-muted)] text-sm'>No inputs available</p>
+    return <p className='text-[var(--text-muted)] text-sm'>{tI18n('no_inputs_available')}</p>
   }
 
   return (
@@ -190,6 +196,7 @@ export function InputMapping({
             collapsed={collapsedFields[field.name] || false}
             onToggleCollapse={() => toggleCollapse(field.name)}
             workflowSearchHighlight={workflowSearchHighlight}
+            tI18n={tI18n}
           />
         )
       })}
@@ -216,6 +223,7 @@ function InputMappingField({
   collapsed,
   onToggleCollapse,
   workflowSearchHighlight,
+  tI18n,
 }: InputMappingFieldProps) {
   const fieldId = fieldName
   const fieldState = inputController.fieldHelpers.getFieldState(fieldId)
@@ -251,7 +259,7 @@ function InputMappingField({
       onToggleCollapse={onToggleCollapse}
     >
       <div className='flex flex-col gap-1.5'>
-        <Label>Value</Label>
+        <Label>{tI18n('value')}</Label>
         <div className='relative'>
           <Input
             ref={(el) => {
@@ -271,7 +279,7 @@ function InputMappingField({
                 input && handleScroll({ currentTarget: input } as any)
               }, 0)
             }
-            placeholder='Enter value or reference'
+            placeholder={tI18n ? tI18n('enter_value_or_reference') : 'Enter value or reference'}
             disabled={disabled}
             autoComplete='off'
             className={cn('allow-scroll w-full overflow-auto text-transparent caret-foreground')}

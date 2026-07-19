@@ -10,6 +10,7 @@ import {
 import { cn, Textarea } from '@sim/emcn'
 import { createLogger } from '@sim/logger'
 import { ChevronsUpDown, Wand2 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { formatDisplayText } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/components/formatted-text'
 import { SubBlockInputController } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/components/sub-block-input-controller'
@@ -96,6 +97,7 @@ export function LongInput({
   hideInternalWand = false,
   workflowSearchValuePath = [],
 }: LongInputProps) {
+  const tI18n = useTranslations('auto')
   const activeSearchTarget = useActiveSearchTarget()
   // Local state for immediate UI updates during streaming
   const [localContent, setLocalContent] = useState<string>('')
@@ -303,7 +305,7 @@ export function LongInput({
           onSubmit={(prompt: string) => wandHook.generateStream({ prompt })}
           onCancel={wandHook.isStreaming ? wandHook.cancelGeneration : wandHook.hidePromptInline}
           onChange={wandHook.updatePromptValue}
-          placeholder={config.wandConfig?.placeholder || 'Describe what you want to generate...'}
+          placeholder={config.wandConfig?.placeholder || tI18n('describe_what_to_generate')}
         />
       )}
 
@@ -387,7 +389,7 @@ export function LongInput({
                         : wandHook.showPromptInline
                     }
                     disabled={wandHook.isLoading || wandHook.isStreaming || disabled}
-                    aria-label='Generate content with AI'
+                    aria-label={tI18n('generate_content_with_ai')}
                     className='size-8 rounded-full border border-transparent bg-muted/80 text-muted-foreground shadow-sm transition-all duration-200 hover-hover:border-primary/20 hover-hover:bg-muted hover-hover:text-foreground hover-hover:shadow'
                   >
                     <Wand2 className='size-4' />

@@ -18,6 +18,7 @@ import { Download } from '@sim/emcn/icons'
 import { createLogger } from '@sim/logger'
 import { generateId } from '@sim/utils/id'
 import { AlertCircle, ArrowUp, MoreVertical, Paperclip, Square, X } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useShallow } from 'zustand/react/shallow'
 import { useSession } from '@/lib/auth/auth-client'
 import {
@@ -220,6 +221,7 @@ interface StartInputFormatField {
  * position across sessions using the floating chat store.
  */
 export function Chat() {
+  const tI18n = useTranslations('auto')
   const activeWorkflowId = useWorkflowRegistry((s) => s.activeWorkflowId)
   const blocks = useWorkflowStore((state) => state.blocks)
   const triggerWorkflowUpdate = useWorkflowStore((state) => state.triggerUpdate)
@@ -866,7 +868,7 @@ export function Chat() {
         onMouseDown={handleMouseDown}
       >
         <span className='flex-shrink-0 pr-0.5 font-medium text-[var(--text-primary)] text-sm'>
-          Chat
+          {tI18n('chat')}
         </span>
 
         {/* Start inputs button and output selector - with max-width to prevent overflow */}
@@ -885,7 +887,7 @@ export function Chat() {
                 handleConfigureStartInputs()
               }}
             >
-              <span className='whitespace-nowrap'>Add inputs</span>
+              <span className='whitespace-nowrap'>{tI18n('add_inputs')}</span>
             </button>
           )}
 
@@ -894,7 +896,7 @@ export function Chat() {
             selectedOutputs={selectedOutputs}
             onOutputSelect={handleOutputSelection}
             disabled={!activeWorkflowId}
-            placeholder='Outputs'
+            placeholder={tI18n('outputs')}
             align='end'
             maxHeight={180}
           />
@@ -928,7 +930,7 @@ export function Chat() {
                   disabled={workflowMessages.length === 0}
                 >
                   <Download className='size-[13px]' />
-                  <span>Export</span>
+                  <span>{tI18n('export')}</span>
                 </PopoverItem>
                 <PopoverItem
                   onClick={() => {
@@ -938,7 +940,7 @@ export function Chat() {
                   disabled={workflowMessages.length === 0}
                 >
                   <Trash className='size-[13px]' />
-                  <span>Clear</span>
+                  <span>{tI18n('clear')}</span>
                 </PopoverItem>
               </PopoverScrollArea>
             </PopoverContent>
@@ -957,7 +959,7 @@ export function Chat() {
         <div className='flex-1 overflow-hidden'>
           {workflowMessages.length === 0 ? (
             <div className='flex h-full items-center justify-center text-[var(--text-placeholder)] text-small'>
-              No messages yet
+              {tI18n('no_messages_yet')}
             </div>
           ) : (
             <div ref={scrollAreaRef} className='h-full overflow-y-auto overflow-x-hidden'>
@@ -986,7 +988,7 @@ export function Chat() {
                   <AlertCircle className='mt-0.5 size-3 shrink-0 text-[var(--text-error)]' />
                   <div className='flex-1'>
                     <div className='mb-1 font-medium text-[var(--text-error)] text-caption'>
-                      File upload error
+                      {tI18n('file_upload_error')}
                     </div>
                     <div className='space-y-1'>
                       {uploadErrors.map((err, idx) => (
@@ -1026,7 +1028,7 @@ export function Chat() {
                   setHistoryIndex(-1)
                 }}
                 onKeyDown={handleKeyPress}
-                placeholder={isDragOver ? 'Drop files here...' : 'Type a message...'}
+                placeholder={isDragOver ? tI18n('drop_files_here') : tI18n('type_a_message')}
                 className='w-full border-0 bg-transparent pr-[56px] pl-1 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0'
                 disabled={!activeWorkflowId}
               />
@@ -1046,7 +1048,7 @@ export function Chat() {
                       <Paperclip className='!h-3.5 !w-3.5' />
                     </Badge>
                   </Tooltip.Trigger>
-                  <Tooltip.Content>Attach file</Tooltip.Content>
+                  <Tooltip.Content>{tI18n('attach_file')}</Tooltip.Content>
                 </Tooltip.Root>
 
                 {isStreaming ? (

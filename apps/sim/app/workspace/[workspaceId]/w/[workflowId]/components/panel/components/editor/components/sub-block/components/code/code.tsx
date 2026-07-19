@@ -13,6 +13,7 @@ import {
 import { createLogger } from '@sim/logger'
 import { Check, Wand2 } from 'lucide-react'
 import { useParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import Editor from 'react-simple-code-editor'
 import { Button } from '@/components/ui/button'
 import { CodeLanguage } from '@/lib/execution/languages'
@@ -217,7 +218,7 @@ interface CodeProps {
 export const Code = memo(function Code({
   blockId,
   subBlockId,
-  placeholder = 'Write JavaScript...',
+  placeholder,
   language = 'javascript',
   generationType = 'javascript-function-body',
   value: propValue,
@@ -232,6 +233,7 @@ export const Code = memo(function Code({
   wandControlRef,
   hideInternalWand = false,
 }: CodeProps) {
+  const tI18n = useTranslations('auto')
   const activeSearchTarget = useActiveSearchTarget()
   const params = useParams()
   const workspaceId = params.workspaceId as string
@@ -293,32 +295,32 @@ export const Code = memo(function Code({
   const aiPromptPlaceholder = useMemo(() => {
     switch (generationType) {
       case 'json-schema':
-        return 'Describe the JSON schema to generate...'
+        return tI18n('describe_json_schema_generate')
       case 'json-object':
       case 'table-schema':
-        return 'Describe the JSON object to generate...'
+        return tI18n('describe_json_object_generate')
       default:
-        return 'Describe the JavaScript code to generate...'
+        return tI18n('describe_javascript_code_generate')
     }
-  }, [generationType])
+  }, [generationType, tI18n])
 
   const dynamicPlaceholder = useMemo(() => {
     if (languageValue === CodeLanguage.Python) {
-      return 'Write Python...'
+      return tI18n('write_python')
     }
-    return placeholder
-  }, [languageValue, placeholder])
+    return placeholder || tI18n('write_javascript')
+  }, [languageValue, placeholder, tI18n])
 
   const dynamicWandConfig = useMemo(() => {
     if (languageValue === CodeLanguage.Python) {
       return {
         ...wandConfig,
         prompt: PYTHON_AI_PROMPT,
-        placeholder: 'Describe the Python function you want to create...',
+        placeholder: tI18n('describe_python_function_create'),
       }
     }
     return wandConfig
-  }, [wandConfig, languageValue])
+  }, [wandConfig, languageValue, tI18n])
 
   const [tableIdValue] = useSubBlockValue<string>(blockId, 'tableId')
 
@@ -830,7 +832,7 @@ export const Code = memo(function Code({
             'hover-hover:scale-105 hover-hover:bg-muted/50 hover-hover:text-foreground',
             'active:scale-95'
           )}
-          aria-label='Copy code'
+          aria-label={tI18n('copy_code')}
         >
           {copied ? <Check className='h-3.5 w-3.5' /> : <Duplicate className='h-3.5 w-3.5' />}
         </Button>
@@ -860,7 +862,7 @@ export const Code = memo(function Code({
                 size='icon'
                 onClick={isPromptVisible ? hidePromptInline : showPromptInline}
                 disabled={isAiLoading || isAiStreaming}
-                aria-label='Generate code with AI'
+                aria-label={tI18n('generate_code_with_ai')}
                 className='size-8 rounded-full border border-transparent bg-muted/80 text-muted-foreground shadow-sm transition-all duration-200 hover-hover:border-primary/20 hover-hover:bg-muted hover-hover:text-foreground hover-hover:shadow'
               >
                 <Wand2 className='size-4' />

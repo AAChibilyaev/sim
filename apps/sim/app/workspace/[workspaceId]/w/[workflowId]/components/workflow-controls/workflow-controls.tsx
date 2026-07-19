@@ -17,6 +17,7 @@ import {
 } from '@sim/emcn'
 import { createLogger } from '@sim/logger'
 import { Scan } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useReactFlow } from 'reactflow'
 import { useShallow } from 'zustand/react/shallow'
 import { useSession } from '@/lib/auth/auth-client'
@@ -35,6 +36,7 @@ const logger = createLogger('WorkflowControls')
  * Floating controls for canvas mode, undo/redo, and fit-to-view.
  */
 export const WorkflowControls = memo(function WorkflowControls() {
+  const tI18n = useTranslations('auto')
   const reactFlowInstance = useReactFlow()
   const { fitViewToBounds } = useCanvasViewport(reactFlowInstance)
   const { mode, setMode } = useCanvasModeStore(
@@ -118,7 +120,9 @@ export const WorkflowControls = memo(function WorkflowControls() {
                 </Button>
               </div>
             </PopoverTrigger>
-            <Tooltip.Content side='top'>{mode === 'hand' ? 'Mover' : 'Pointer'}</Tooltip.Content>
+            <Tooltip.Content side='top'>
+              {mode === 'hand' ? tI18n('mover') : tI18n('pointer')}
+            </Tooltip.Content>
           </Tooltip.Root>
           <PopoverContent side='top' sideOffset={8} maxWidth={100} minWidth={100}>
             <PopoverItem
@@ -128,7 +132,7 @@ export const WorkflowControls = memo(function WorkflowControls() {
               }}
             >
               <Hand className='size-3' />
-              <span>Mover</span>
+              <span>{tI18n('mover')}</span>
             </PopoverItem>
             <PopoverItem
               onClick={() => {
@@ -137,7 +141,7 @@ export const WorkflowControls = memo(function WorkflowControls() {
               }}
             >
               <Cursor className='size-3' />
-              <span>Pointer</span>
+              <span>{tI18n('pointer')}</span>
             </PopoverItem>
           </PopoverContent>
         </Popover>
@@ -156,7 +160,7 @@ export const WorkflowControls = memo(function WorkflowControls() {
             </Button>
           </Tooltip.Trigger>
           <Tooltip.Content side='top'>
-            <Tooltip.Shortcut keys='⌘Z'>Undo</Tooltip.Shortcut>
+            <Tooltip.Shortcut keys='⌘Z'>{tI18n('undo')}</Tooltip.Shortcut>
           </Tooltip.Content>
         </Tooltip.Root>
 
@@ -172,7 +176,7 @@ export const WorkflowControls = memo(function WorkflowControls() {
             </Button>
           </Tooltip.Trigger>
           <Tooltip.Content side='top'>
-            <Tooltip.Shortcut keys='⌘⇧Z'>Redo</Tooltip.Shortcut>
+            <Tooltip.Shortcut keys='⌘⇧Z'>{tI18n('redo')}</Tooltip.Shortcut>
           </Tooltip.Content>
         </Tooltip.Root>
 
@@ -189,7 +193,7 @@ export const WorkflowControls = memo(function WorkflowControls() {
             </Button>
           </Tooltip.Trigger>
           <Tooltip.Content side='top'>
-            <Tooltip.Shortcut keys='⌘⇧F'>Fit to View</Tooltip.Shortcut>
+            <Tooltip.Shortcut keys='⌘⇧F'>{tI18n('fit_to_view')}</Tooltip.Shortcut>
           </Tooltip.Content>
         </Tooltip.Root>
       </div>
@@ -211,7 +215,7 @@ export const WorkflowControls = memo(function WorkflowControls() {
           }}
         />
         <PopoverContent ref={menuRef} align='start' side='bottom' sideOffset={4}>
-          <PopoverItem onClick={handleHide}>Hide canvas controls</PopoverItem>
+          <PopoverItem onClick={handleHide}>{tI18n('hide_canvas_controls')}</PopoverItem>
         </PopoverContent>
       </Popover>
     </>

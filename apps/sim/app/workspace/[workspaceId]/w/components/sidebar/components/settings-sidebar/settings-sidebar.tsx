@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ChevronDown, ChipConfirmModal, chipVariants, cn } from '@sim/emcn'
 import { useQueryClient } from '@tanstack/react-query'
 import { useParams, usePathname, useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { ORGANIZATION_PLANE_UNIFIED_SECTIONS } from '@/components/settings/navigation'
 import { useSession } from '@/lib/auth/auth-client'
 import { getSubscriptionAccessState } from '@/lib/billing/client'
@@ -40,6 +41,7 @@ export function SettingsSidebar({
   isCollapsed = false,
   showCollapsedTooltips = false,
 }: SettingsSidebarProps) {
+  const tI18n = useTranslations('auto')
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const scrollContentRef = useRef<HTMLDivElement>(null)
 
@@ -264,12 +266,14 @@ export function SettingsSidebar({
           'flex flex-shrink-0 flex-col px-2 pb-1.5'
         )}
       >
-        <SidebarTooltip label='Back' enabled={showCollapsedTooltips}>
+        <SidebarTooltip label={tI18n('back')} enabled={showCollapsedTooltips}>
           <button type='button' onClick={handleBack} className={chipVariants({ fullWidth: true })}>
             <div className='flex size-[16px] flex-shrink-0 items-center justify-center text-[var(--text-icon)]'>
               <ChevronDown className='size-[10px] rotate-90' />
             </div>
-            <span className='sidebar-collapse-hide truncate text-[var(--text-body)]'>Back</span>
+            <span className='sidebar-collapse-hide truncate text-[var(--text-body)]'>
+              {tI18n('back')}
+            </span>
           </button>
         </SidebarTooltip>
       </div>
@@ -371,12 +375,12 @@ export function SettingsSidebar({
       <ChipConfirmModal
         open={showDiscardDialog}
         onOpenChange={(open) => !open && handleCancelDiscard()}
-        srTitle='Unsaved changes'
-        title='Unsaved changes'
-        text='You have unsaved changes. Are you sure you want to discard them?'
-        dismissLabel='Keep editing'
+        srTitle={tI18n('unsaved_changes')}
+        title={tI18n('unsaved_changes')}
+        text={tI18n('unsaved_changes_confirmation')}
+        dismissLabel={tI18n('keep_editing')}
         confirm={{
-          label: 'Discard changes',
+          label: tI18n('discard_changes'),
           onClick: handleConfirmDiscard,
         }}
       />

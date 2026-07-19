@@ -18,6 +18,7 @@ import { useVirtualizer } from '@tanstack/react-virtual'
 import clsx from 'clsx'
 import { ArrowDown, ArrowUp, Database, MoreHorizontal, Palette, Pause, Trash2 } from 'lucide-react'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { getEnv, isTruthy } from '@/lib/core/config/env'
 import { sendMothershipMessage } from '@/lib/mothership/events'
 import { useRegisterGlobalCommands } from '@/app/workspace/[workspaceId]/providers/global-commands-provider'
@@ -671,6 +672,7 @@ const TerminalLogsPane = memo(function TerminalLogsPane({
  * Terminal component with resizable height that persists across page refreshes.
  */
 export const Terminal = memo(function Terminal() {
+  const tI18n = useTranslations('auto')
   const terminalRef = useRef<HTMLElement>(null)
   const prevWorkflowEntriesLengthRef = useRef(0)
   const hasInitializedEntriesRef = useRef(false)
@@ -1320,7 +1322,7 @@ export const Terminal = memo(function Terminal() {
           onPointerDown={handlePointerDown}
           role='separator'
           aria-orientation='horizontal'
-          aria-label='Resize terminal'
+          aria-label={tI18n('resize_terminal')}
         />
 
         <div className='relative flex h-full'>
@@ -1335,7 +1337,7 @@ export const Terminal = memo(function Terminal() {
               onClick={handleHeaderClick}
             >
               {/* Left side - Logs label */}
-              <span className={TERMINAL_CONFIG.HEADER_TEXT_CLASS}>Logs</span>
+              <span className={TERMINAL_CONFIG.HEADER_TEXT_CLASS}>{tI18n('logs')}</span>
 
               {/* Right side - Icons and options */}
               {!selectedEntry && (
@@ -1350,7 +1352,7 @@ export const Terminal = memo(function Terminal() {
                             e.stopPropagation()
                             toggleSort()
                           }}
-                          aria-label='Sort by timestamp'
+                          aria-label={tI18n('sort_by_timestamp')}
                           className='!p-1.5 -m-1.5'
                         >
                           {sortConfig.direction === 'desc' ? (
@@ -1361,7 +1363,7 @@ export const Terminal = memo(function Terminal() {
                         </Button>
                       </Tooltip.Trigger>
                       <Tooltip.Content>
-                        <span>Sort by time</span>
+                        <span>{tI18n('sort_by_time')}</span>
                       </Tooltip.Content>
                     </Tooltip.Root>
                   )}
@@ -1372,7 +1374,7 @@ export const Terminal = memo(function Terminal() {
                         <Link href='/playground'>
                           <Button
                             variant='ghost'
-                            aria-label='Component Playground'
+                            aria-label={tI18n('component_playground')}
                             className='!p-1.5 -m-1.5'
                           >
                             <Palette className='h-3.5 w-3.5' />
@@ -1380,7 +1382,7 @@ export const Terminal = memo(function Terminal() {
                         </Link>
                       </Tooltip.Trigger>
                       <Tooltip.Content>
-                        <span>Component Playground</span>
+                        <span>{tI18n('component_playground')}</span>
                       </Tooltip.Content>
                     </Tooltip.Root>
                   )}
@@ -1392,7 +1394,9 @@ export const Terminal = memo(function Terminal() {
                           variant='ghost'
                           onClick={handleTrainingClick}
                           aria-label={
-                            isTraining ? 'Stop training' : `Train ${getBrandConfig().name}`
+                            isTraining
+                              ? tI18n('stop_training')
+                              : `${tI18n('train_prefix')} ${getBrandConfig().name}`
                           }
                           className={clsx(
                             '!p-1.5 -m-1.5',
@@ -1408,7 +1412,9 @@ export const Terminal = memo(function Terminal() {
                       </Tooltip.Trigger>
                       <Tooltip.Content>
                         <span>
-                          {isTraining ? 'Stop Training' : `Train ${getBrandConfig().name}`}
+                          {isTraining
+                            ? tI18n('stop_training_title')
+                            : `${tI18n('train_prefix')} ${getBrandConfig().name}`}
                         </span>
                       </Tooltip.Content>
                     </Tooltip.Root>
@@ -1421,14 +1427,14 @@ export const Terminal = memo(function Terminal() {
                           <Button
                             variant='ghost'
                             onClick={handleExportConsole}
-                            aria-label='Export console CSV'
+                            aria-label={tI18n('export_console_csv')}
                             className='!p-1.5 -m-1.5'
                           >
                             <Download className='h-3.5 w-3.5' />
                           </Button>
                         </Tooltip.Trigger>
                         <Tooltip.Content>
-                          <span>Export CSV</span>
+                          <span>{tI18n('export_csv')}</span>
                         </Tooltip.Content>
                       </Tooltip.Root>
                       <Tooltip.Root>
@@ -1436,14 +1442,14 @@ export const Terminal = memo(function Terminal() {
                           <Button
                             variant='ghost'
                             onClick={handleClearConsole}
-                            aria-label='Clear console'
+                            aria-label={tI18n('clear_console')}
                             className='!p-1.5 -m-1.5'
                           >
                             <Trash2 className='h-3.5 w-3.5' />
                           </Button>
                         </Tooltip.Trigger>
                         <Tooltip.Content>
-                          <Tooltip.Shortcut keys='⌘D'>Clear console</Tooltip.Shortcut>
+                          <Tooltip.Shortcut keys='⌘D'>{tI18n('clear_console')}</Tooltip.Shortcut>
                         </Tooltip.Content>
                       </Tooltip.Root>
                     </>
@@ -1456,7 +1462,7 @@ export const Terminal = memo(function Terminal() {
                         onClick={(e) => {
                           e.stopPropagation()
                         }}
-                        aria-label='Terminal options'
+                        aria-label={tI18n('terminal_options')}
                         className='!p-1.5 -m-1.5'
                       >
                         <MoreHorizontal className='h-3.5 w-3.5' />
@@ -1479,7 +1485,7 @@ export const Terminal = memo(function Terminal() {
                           setOpenOnRun(!openOnRun)
                         }}
                       >
-                        <span>Open on run</span>
+                        <span>{tI18n('open_on_run')}</span>
                       </PopoverItem>
                     </PopoverContent>
                   </Popover>
@@ -1499,7 +1505,7 @@ export const Terminal = memo(function Terminal() {
             <div className='flex-1 overflow-hidden'>
               {executionGroups.length === 0 ? (
                 <div className='flex h-full items-center justify-center text-[var(--text-placeholder)] text-small'>
-                  No logs yet
+                  {tI18n('no_logs_yet')}
                 </div>
               ) : (
                 <TerminalLogsPane

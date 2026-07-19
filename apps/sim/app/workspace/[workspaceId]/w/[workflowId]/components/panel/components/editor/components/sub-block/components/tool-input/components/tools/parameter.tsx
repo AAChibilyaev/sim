@@ -4,6 +4,7 @@ import type React from 'react'
 import { useRef, useState } from 'react'
 import { Button, cn, Input, Label, Tooltip } from '@sim/emcn'
 import { ArrowLeftRight, ArrowUp } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import type { WandControlHandlers } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/sub-block'
 
 /**
@@ -43,6 +44,7 @@ export function ParameterWithLabel({
   isPreview,
   children,
 }: ParameterWithLabelProps) {
+  const tI18n = useTranslations('auto')
   const [isSearchActive, setIsSearchActive] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const searchInputRef = useRef<HTMLInputElement>(null)
@@ -98,7 +100,7 @@ export function ParameterWithLabel({
                 className='-my-1 h-5 px-2 py-0 text-xs'
                 onClick={handleSearchClick}
               >
-                Generate
+                {tI18n('generate')}
               </Button>
             ) : (
               <div className='-my-1 flex min-w-[120px] max-w-[280px] flex-1 items-center gap-1'>
@@ -125,7 +127,7 @@ export function ParameterWithLabel({
                     'h-5 min-w-[80px] flex-1 text-xs',
                     isStreaming && 'text-muted-foreground'
                   )}
-                  placeholder='Generate with AI...'
+                  placeholder={tI18n('generate_with_ai')}
                 />
                 <Button
                   variant='primary'
@@ -154,8 +156,8 @@ export function ParameterWithLabel({
                   disabled={canonicalToggle.disabled || disabled}
                   aria-label={
                     canonicalToggle.mode === 'advanced'
-                      ? 'Switch to selector'
-                      : 'Switch to manual ID'
+                      ? tI18n('switch_to_selector')
+                      : tI18n('switch_to_manual_id')
                   }
                 >
                   <ArrowLeftRight
@@ -171,8 +173,8 @@ export function ParameterWithLabel({
               <Tooltip.Content side='top'>
                 <p>
                   {canonicalToggle.mode === 'advanced'
-                    ? 'Switch to selector'
-                    : 'Switch to manual ID'}
+                    ? tI18n('switch_to_selector')
+                    : tI18n('switch_to_manual_id')}
                 </p>
               </Tooltip.Content>
             </Tooltip.Root>

@@ -14,6 +14,7 @@ import {
 } from '@sim/emcn'
 import { createLogger } from '@sim/logger'
 import { useParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { ApiClientError } from '@/lib/api/client/errors'
 import {
   extractDescriptionOverrides,
@@ -132,6 +133,7 @@ export function McpDeploy({
   onSaveDisabledReasonChange,
   onActiveServerChange,
 }: McpDeployProps) {
+  const tI18n = useTranslations('auto')
   const params = useParams()
   const workspaceId = params.workspaceId as string
   const [showCreateModal, setShowCreateModal] = useState(false)
@@ -179,13 +181,13 @@ export function McpDeploy({
     const trimmed = toolName.trim()
     if (!trimmed) return null
     if (trimmed.length > MAX_TOOL_NAME_LENGTH) {
-      return `Tool name must be ${MAX_TOOL_NAME_LENGTH} characters or fewer`
+      return tI18n('tool_name_max_length', { maxLength: MAX_TOOL_NAME_LENGTH })
     }
     if (!TOOL_NAME_PATTERN.test(trimmed)) {
-      return 'Use lowercase letters and numbers, separated by single underscores'
+      return tI18n('tool_name_format')
     }
     return null
-  }, [toolName])
+  }, [toolName, tI18n])
 
   const [serverToolsMap, setServerToolsMap] = useState<Record<string, WorkflowMcpTool | null>>({})
 
@@ -287,10 +289,10 @@ export function McpDeploy({
   const saveDisabledReason = useMemo(() => {
     if (!toolName.trim() || toolNameError) return null
     if (selectedServerIdsForForm.length === 0 && selectedServerIds.length === 0) {
-      return 'Select a server to save this tool'
+      return tI18n('select_server_save_tool')
     }
     return null
-  }, [toolName, toolNameError, selectedServerIdsForForm, selectedServerIds])
+  }, [toolName, toolNameError, selectedServerIdsForForm, selectedServerIds, tI18n])
 
   useEffect(() => {
     onCanSaveChange?.(hasChanges && !!toolName.trim() && !toolNameError)
@@ -460,20 +462,20 @@ export function McpDeploy({
 
   const selectedServersLabel = useMemo(() => {
     const count = selectedServerIdsForForm.length
-    if (count === 0) return 'Select servers...'
+    if (count === 0) return tI18n('select_servers')
     if (count === 1) {
       const server = servers.find((s) => s.id === selectedServerIdsForForm[0])
-      return server?.name || '1 server'
+      return server?.name || tI18n('one_server')
     }
-    return `${count} servers selected`
-  }, [selectedServerIdsForForm, servers])
+    return tI18n('servers_selected', { count })
+  }, [selectedServerIdsForForm, servers, tI18n])
 
   const isPending = pendingServerChanges.size > 0
 
   if (!isDeployed) {
     return (
       <div className='flex h-full items-center justify-center text-[var(--text-muted)] text-small'>
-        Deploy your workflow first to add it as an MCP tool.
+        {tI18n('deploy_first_mcp_tool')}
       </div>
     )
   }
@@ -503,11 +505,9 @@ export function McpDeploy({
     return (
       <>
         <div className='flex h-full flex-col items-center justify-center gap-3'>
-          <p className='text-[13px] text-[var(--text-muted)]'>
-            Create an MCP Server to expose your workflows as tools.
-          </p>
+          <p className='text-[13px] text-[var(--text-muted)]'>{tI18n('create_mcp_server_hint')}</p>
           <Button variant='tertiary' onClick={() => setShowCreateModal(true)}>
-            Create MCP Server
+            {tI18n('create_mcp_server')}
           </Button>
         </div>
         <CreateWorkflowMcpServerModal
@@ -542,12 +542,12 @@ export function McpDeploy({
 
       <div>
         <Label className='mb-[6.5px] block pl-0.5 font-medium text-[var(--text-primary)] text-small'>
-          Tool name
+          {tI18n('tool_name')}
         </Label>
         <ChipInput
           value={toolName}
           onChange={(e) => setToolName(e.target.value)}
-          placeholder='e.g., book_flight'
+          placeholder={tI18n('eg_book_flight')}
           aria-invalid={!!toolNameError}
           error={Boolean(toolNameError)}
         />
@@ -557,19 +557,19 @@ export function McpDeploy({
             toolNameError ? 'text-[var(--text-error)]' : 'text-[var(--text-secondary)]'
           )}
         >
-          {toolNameError ?? 'Use lowercase letters, numbers, and underscores only'}
+          {toolNameError ?? tI18n('tool_name_chars_only')}
         </p>
       </div>
 
       <div>
         <Label className='mb-[6.5px] block pl-0.5 font-medium text-[var(--text-primary)] text-small'>
-          Description
+          {tI18n('description')}
         </Label>
         <Textarea
           placeholder={
             workflowDescriptionFallback
-              ? `Defaults to the workflow description: ${workflowDescriptionFallback}`
-              : 'Describe what this tool does...'
+              ? tI18n('defaults_workflow_description', { desc: workflowDescriptionFallback })
+              : tI18n('describe_tool_does')
           }
           className='min-h-[100px] resize-none'
           value={toolDescription}
@@ -580,10 +580,10 @@ export function McpDeploy({
       {inputFormat.length > 0 && (
         <div>
           <Label className='mb-[6.5px] block pl-0.5 font-medium text-[var(--text-primary)] text-small'>
-            Parameters ({inputFormat.length})
+            {tI18n('parameters_count', { count: inputFormat.length })}
           </Label>
           <p className='mb-[6.5px] pl-0.5 text-[var(--text-secondary)] text-xs'>
-            Descriptions default to your Start block inputs; edit to override for this tool.
+            {tI18n('param_descriptions_default')}
           </p>
           <div className='flex flex-col gap-2'>
             {inputFormat.map((field) => (
@@ -603,7 +603,7 @@ export function McpDeploy({
                 </div>
                 <div className='rounded-b-[4px] border-[var(--border-1)] border-t bg-[var(--surface-2)] px-2.5 pt-1.5 pb-2.5'>
                   <div className='flex flex-col gap-1.5'>
-                    <Label className='text-small'>Description</Label>
+                    <Label className='text-small'>{tI18n('description')}</Label>
                     <ChipInput
                       value={
                         parameterDescriptions[field.name] ??
@@ -616,7 +616,10 @@ export function McpDeploy({
                           [field.name]: e.target.value,
                         }))
                       }
-                      placeholder={startBlockDescriptions[field.name] || `Describe ${field.name}`}
+                      placeholder={
+                        startBlockDescriptions[field.name] ||
+                        tI18n('describe_field', { field: field.name })
+                      }
                     />
                   </div>
                 </div>
@@ -628,16 +631,16 @@ export function McpDeploy({
 
       <div>
         <Label className='mb-[6.5px] block pl-0.5 font-medium text-[var(--text-primary)] text-small'>
-          Servers
+          {tI18n('servers')}
         </Label>
         <ChipCombobox
           options={serverOptions}
           multiSelect
           multiSelectValues={selectedServerIdsForForm}
           onMultiSelectChange={handleServerSelectionChange}
-          placeholder='Select servers...'
+          placeholder={tI18n('select_servers')}
           searchable
-          searchPlaceholder='Search servers...'
+          searchPlaceholder={tI18n('search_servers')}
           disabled={!toolName.trim() || !!toolNameError || isPending}
           overlayContent={
             <span className='truncate text-[var(--text-primary)]'>{selectedServersLabel}</span>
@@ -645,11 +648,11 @@ export function McpDeploy({
         />
         {!toolName.trim() ? (
           <p className='mt-[6.5px] text-[var(--text-secondary)] text-xs'>
-            Enter a tool name to select servers
+            {tI18n('enter_tool_name_select_servers')}
           </p>
         ) : toolNameError ? (
           <p className='mt-[6.5px] text-[var(--text-secondary)] text-xs'>
-            Fix the tool name to select servers
+            {tI18n('fix_tool_name_select_servers')}
           </p>
         ) : null}
       </div>

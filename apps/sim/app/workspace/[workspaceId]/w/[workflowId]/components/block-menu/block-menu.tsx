@@ -2,6 +2,7 @@
 
 import type { RefObject } from 'react'
 import { Popover, PopoverAnchor, PopoverContent, PopoverDivider, PopoverItem } from '@sim/emcn'
+import { useTranslations } from 'next-intl'
 import { TriggerUtils } from '@/lib/workflows/triggers/triggers'
 
 /**
@@ -90,6 +91,7 @@ export function BlockMenu({
   onToggleLocked,
   canAdmin = false,
 }: BlockMenuProps) {
+  const tI18n = useTranslations('auto')
   const isSingleBlock = selectedBlocks.length === 1
 
   const allEnabled = selectedBlocks.every((b) => b.enabled)
@@ -118,15 +120,15 @@ export function BlockMenu({
   const canRemoveFromSubflow = showRemoveFromSubflow && !hasTriggerBlock
 
   const getToggleEnabledLabel = () => {
-    if (allEnabled) return 'Disable'
-    if (allDisabled) return 'Enable'
-    return 'Toggle Enabled'
+    if (allEnabled) return tI18n('disable')
+    if (allDisabled) return tI18n('enable')
+    return tI18n('toggle_enabled')
   }
 
   const getToggleLockedLabel = () => {
-    if (allLocked) return 'Unlock'
-    if (allUnlocked) return 'Lock'
-    return 'Toggle Lock'
+    if (allLocked) return tI18n('unlock')
+    if (allUnlocked) return tI18n('lock')
+    return tI18n('toggle_lock')
   }
 
   return (
@@ -155,7 +157,7 @@ export function BlockMenu({
             onClose()
           }}
         >
-          <span>Copy</span>
+          <span>{tI18n('copy')}</span>
           <span className='ml-auto opacity-70 group-hover:opacity-100'>⌘C</span>
         </PopoverItem>
         <PopoverItem
@@ -166,7 +168,7 @@ export function BlockMenu({
             onClose()
           }}
         >
-          <span>Cut</span>
+          <span>{tI18n('cut')}</span>
           <span className='ml-auto opacity-70 group-hover:opacity-100'>⌘X</span>
         </PopoverItem>
         <PopoverItem
@@ -177,7 +179,7 @@ export function BlockMenu({
             onClose()
           }}
         >
-          <span>Paste</span>
+          <span>{tI18n('paste')}</span>
           <span className='ml-auto opacity-70 group-hover:opacity-100'>⌘V</span>
         </PopoverItem>
         {!hasSingletonBlock && (
@@ -188,7 +190,7 @@ export function BlockMenu({
               onClose()
             }}
           >
-            Duplicate
+            {tI18n('duplicate')}
           </PopoverItem>
         )}
 
@@ -204,7 +206,7 @@ export function BlockMenu({
               }
             }}
           >
-            {hasBlockWithDisabledParent ? 'Parent is disabled' : getToggleEnabledLabel()}
+            {hasBlockWithDisabledParent ? tI18n('parent_is_disabled') : getToggleEnabledLabel()}
           </PopoverItem>
         )}
         {!allNoteBlocks && !isSubflow && (
@@ -215,7 +217,7 @@ export function BlockMenu({
               onClose()
             }}
           >
-            Flip Handles
+            {tI18n('flip_handles')}
           </PopoverItem>
         )}
         {canRemoveFromSubflow && (
@@ -226,7 +228,7 @@ export function BlockMenu({
               onClose()
             }}
           >
-            Remove from Subflow
+            {tI18n('remove_from_subflow')}
           </PopoverItem>
         )}
         {canAdmin && onToggleLocked && (
@@ -239,7 +241,7 @@ export function BlockMenu({
               }
             }}
           >
-            {hasBlockWithLockedParent ? 'Parent is locked' : getToggleLockedLabel()}
+            {hasBlockWithLockedParent ? tI18n('parent_is_locked') : getToggleLockedLabel()}
           </PopoverItem>
         )}
 
@@ -253,7 +255,7 @@ export function BlockMenu({
               onClose()
             }}
           >
-            Rename
+            {tI18n('rename')}
           </PopoverItem>
         )}
         {isSingleBlock && (
@@ -263,7 +265,7 @@ export function BlockMenu({
               onClose()
             }}
           >
-            Open Editor
+            {tI18n('open_editor')}
           </PopoverItem>
         )}
 
@@ -280,7 +282,7 @@ export function BlockMenu({
                 }
               }}
             >
-              Run from block
+              {tI18n('run_from_block')}
             </PopoverItem>
             {/* Hide "Run until" for triggers - they're always at the start */}
             {!hasTriggerBlock && (
@@ -293,7 +295,7 @@ export function BlockMenu({
                   }
                 }}
               >
-                Run until block
+                {tI18n('run_until_block')}
               </PopoverItem>
             )}
           </>
@@ -309,7 +311,7 @@ export function BlockMenu({
             onClose()
           }}
         >
-          <span>Delete</span>
+          <span>{tI18n('delete')}</span>
           <span className='ml-auto opacity-70 group-hover:opacity-100'>⌫</span>
         </PopoverItem>
       </PopoverContent>

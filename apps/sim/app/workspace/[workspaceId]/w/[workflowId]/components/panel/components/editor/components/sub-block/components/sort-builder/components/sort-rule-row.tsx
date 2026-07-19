@@ -9,6 +9,7 @@ import {
   Trash,
 } from '@sim/emcn'
 import { Plus } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import type { SortRule } from '@/lib/table/query-builder/constants'
 import { formatDisplayText } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/components/formatted-text'
 import { getWorkflowSearchLabelHighlight } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/components/workflow-search-highlight'
@@ -41,6 +42,7 @@ export function SortRuleRow({
   onUpdate,
   onToggleCollapse,
 }: SortRuleRowProps) {
+  const tI18n = useTranslations('auto')
   const activeSearchTarget = useActiveSearchTarget()
   const getDirectionLabel = (value: string) => {
     const option = directionOptions.find((dir) => dir.value === value)
@@ -78,7 +80,7 @@ export function SortRuleRow({
             ? formatDisplayText(getColumnLabel(rule.column), {
                 workflowSearchHighlight: getLabelHighlight('column', getColumnLabel(rule.column)),
               })
-            : `Sort ${index + 1}`}
+            : tI18n('sort_number', { number: index + 1 })}
         </span>
         {rule.collapsed && rule.column && (
           <Badge variant='type' size='sm'>
@@ -98,7 +100,7 @@ export function SortRuleRow({
       >
         <Button variant='ghost' onClick={onAdd} disabled={isReadOnly} className='h-auto p-0'>
           <Plus className='size-[14px]' />
-          <span className='sr-only'>Add Sort</span>
+          <span className='sr-only'>{tI18n('add_sort')}</span>
         </Button>
         <Button
           variant='ghost'
@@ -107,7 +109,7 @@ export function SortRuleRow({
           className='h-auto p-0 text-[var(--text-error)] hover-hover:text-[var(--text-error)]'
         >
           <Trash className='size-[14px]' />
-          <span className='sr-only'>Delete Sort</span>
+          <span className='sr-only'>{tI18n('delete_sort')}</span>
         </Button>
       </div>
     </div>
@@ -116,13 +118,13 @@ export function SortRuleRow({
   const renderContent = () => (
     <div className='flex flex-col gap-2 rounded-b-[4px] border-[var(--border-1)] border-t bg-[var(--surface-2)] px-2.5 pt-1.5 pb-2.5'>
       <div className='flex flex-col gap-1.5'>
-        <Label className='text-small'>Column</Label>
+        <Label className='text-small'>{tI18n('column')}</Label>
         <Combobox
           options={columns}
           value={rule.column}
           onChange={(v) => onUpdate(rule.id, 'column', v)}
           disabled={isReadOnly}
-          placeholder='Select column'
+          placeholder={tI18n('select_column')}
           overlayContent={
             getLabelHighlight('column', getColumnLabel(rule.column)) ? (
               <span className='truncate text-[var(--text-primary)]'>
@@ -136,13 +138,13 @@ export function SortRuleRow({
       </div>
 
       <div className='flex flex-col gap-1.5'>
-        <Label className='text-small'>Direction</Label>
+        <Label className='text-small'>{tI18n('direction')}</Label>
         <Combobox
           options={directionOptions}
           value={rule.direction}
           onChange={(v) => onUpdate(rule.id, 'direction', v as 'asc' | 'desc')}
           disabled={isReadOnly}
-          placeholder='Select direction'
+          placeholder={tI18n('select_direction')}
           overlayContent={
             getLabelHighlight('direction', getDirectionLabel(rule.direction)) ? (
               <span className='truncate text-[var(--text-primary)]'>

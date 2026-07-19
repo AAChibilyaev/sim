@@ -9,6 +9,7 @@ import {
   PopoverSection,
 } from '@sim/emcn'
 import { Plus } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { writePendingCredentialCreateRequest } from '@/lib/credentials/client-state'
 import type { WorkspaceEnvironmentData } from '@/lib/environment/api'
 import { usePersonalEnvironment, useWorkspaceEnvironment } from '@/hooks/queries/environment'
@@ -117,6 +118,7 @@ export const EnvVarDropdown: React.FC<EnvVarDropdownProps> = ({
   maxHeight = 'none',
   inputRef,
 }) => {
+  const tI18n = useTranslations('auto')
   const { navigateToSettings } = useSettingsNavigation()
 
   // React Query hooks for environment variables
@@ -141,11 +143,11 @@ export const EnvVarDropdown: React.FC<EnvVarDropdownProps> = ({
     const workspaceVars = Object.keys(workspaceEnvData?.workspace || {})
     const personalVars = Object.keys(workspaceEnvData?.personal || {})
 
-    envVarGroups.push({ label: 'Workspace', variables: workspaceVars })
-    envVarGroups.push({ label: 'Personal', variables: personalVars })
+    envVarGroups.push({ label: tI18n('workspace'), variables: workspaceVars })
+    envVarGroups.push({ label: tI18n('personal'), variables: personalVars })
   } else {
     if (userEnvVars.length > 0) {
-      envVarGroups.push({ label: 'Personal', variables: userEnvVars })
+      envVarGroups.push({ label: tI18n('personal'), variables: userEnvVars })
     }
   }
 
@@ -314,7 +316,7 @@ export const EnvVarDropdown: React.FC<EnvVarDropdownProps> = ({
               }}
             >
               <Plus className='size-3' />
-              <span>Create Secret</span>
+              <span>{tI18n('create_secret')}</span>
             </PopoverItem>
           </PopoverScrollArea>
         ) : (

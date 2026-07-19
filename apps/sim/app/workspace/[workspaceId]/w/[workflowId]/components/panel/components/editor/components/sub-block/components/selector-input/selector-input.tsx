@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { Tooltip } from '@sim/emcn'
+import { useTranslations } from 'next-intl'
 import { SelectorCombobox } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/components/selector-combobox/selector-combobox'
 import { useSelectorSetup } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/hooks/use-selector-setup'
 import { useSubBlockValue } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/hooks/use-sub-block-value'
@@ -33,6 +34,7 @@ export function SelectorInput({
   previewContextValues,
   overrides,
 }: SelectorInputProps) {
+  const tI18n = useTranslations('auto')
   const { collaborativeSetSubblockValue } = useCollaborativeWorkflow()
   const [storeValue] = useSubBlockValue(blockId, subBlock.id)
   const defaultAppliedRef = useRef(false)
@@ -75,11 +77,11 @@ export function SelectorInput({
       <Tooltip.Root>
         <Tooltip.Trigger asChild>
           <div className='w-full rounded border p-4 text-center text-muted-foreground text-sm'>
-            Selector not supported for service: {serviceId}
+            {tI18n('selector_not_supported_for_service', { service: serviceId })}
           </div>
         </Tooltip.Trigger>
         <Tooltip.Content side='top'>
-          <p>This selector is not implemented for {serviceId}</p>
+          <p>{tI18n('this_selector_is_not_implemented_for', { service: serviceId })}</p>
         </Tooltip.Content>
       </Tooltip.Root>
     )
@@ -94,7 +96,7 @@ export function SelectorInput({
       disabled={selectorDisabled}
       isPreview={isPreview}
       previewValue={previewValue ?? null}
-      placeholder={subBlock.placeholder || 'Select resource'}
+      placeholder={subBlock.placeholder || tI18n('select_resource')}
       allowSearch={allowSearch}
       multiSelect={subBlock.multiSelect}
       onOptionChange={(value) => {

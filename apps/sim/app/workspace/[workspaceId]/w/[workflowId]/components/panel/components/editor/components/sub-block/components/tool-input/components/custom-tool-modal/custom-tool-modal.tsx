@@ -22,6 +22,7 @@ import { createLogger } from '@sim/logger'
 import { getErrorMessage } from '@sim/utils/errors'
 import { AlertCircle, ArrowUp } from 'lucide-react'
 import { useParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import {
   checkEnvVarTrigger,
   EnvVarDropdown,
@@ -76,6 +77,7 @@ export function CustomToolModal({
   blockId,
   initialValues,
 }: CustomToolModalProps) {
+  const tI18n = useTranslations('auto')
   const params = useParams()
   const workspaceId = params.workspaceId as string
   const [activeSection, setActiveSection] = useState<ToolSection>('schema')
@@ -824,11 +826,11 @@ try {
       <ChipModal
         open={open}
         onOpenChange={handleCloseAttempt}
-        srTitle={isEditing ? 'Edit Agent Tool' : 'Create Agent Tool'}
+        srTitle={isEditing ? tI18n('edit_agent_tool') : tI18n('create_agent_tool')}
         size='xl'
       >
         <ChipModalHeader onClose={handleCloseAttempt}>
-          {isEditing ? 'Edit Agent Tool' : 'Create Agent Tool'}
+          {isEditing ? tI18n('edit_agent_tool') : tI18n('create_agent_tool')}
         </ChipModalHeader>
 
         {/*
@@ -842,8 +844,8 @@ try {
         <ChipModalBody className='gap-2 px-4'>
           <ChipModalTabs
             tabs={[
-              { value: 'schema', label: 'Schema' },
-              { value: 'code', label: 'Code' },
+              { value: 'schema', label: tI18n('schema') },
+              { value: 'code', label: tI18n('code') },
             ]}
             value={activeSection}
             onChange={(value) => setActiveSection(value as ToolSection)}
@@ -853,7 +855,7 @@ try {
             <div>
               <div className='mb-1 flex min-h-6 items-center justify-between gap-2'>
                 <div className='flex min-w-0 items-center gap-2'>
-                  <Label htmlFor='json-schema'>JSON Schema</Label>
+                  <Label htmlFor='json-schema'>{tI18n('json_schema')}</Label>
                   {schemaError && (
                     <div className='ml-2 flex min-w-0 items-center gap-1 text-[var(--text-error)] text-caption'>
                       <AlertCircle className='size-3 flex-shrink-0' />
@@ -869,7 +871,7 @@ try {
                       onClick={handleSchemaWandClick}
                       disabled={schemaGeneration.isLoading || schemaGeneration.isStreaming}
                     >
-                      Generate
+                      {tI18n('generate')}
                     </Button>
                   ) : (
                     <div className='-my-1 flex items-center gap-1'>
@@ -945,7 +947,7 @@ try {
             <div>
               <div className='mb-1 flex min-h-6 items-center justify-between gap-2'>
                 <div className='flex min-w-0 items-center gap-2'>
-                  <Label htmlFor='function-code'>Code</Label>
+                  <Label htmlFor='function-code'>{tI18n('code')}</Label>
                   {codeError && !codeGeneration.isStreaming && (
                     <div className='ml-2 flex min-w-0 items-center gap-1 text-[var(--text-error)] text-caption'>
                       <AlertCircle className='size-3 flex-shrink-0' />
@@ -961,7 +963,7 @@ try {
                       onClick={handleCodeWandClick}
                       disabled={codeGeneration.isLoading || codeGeneration.isStreaming}
                     >
-                      Generate
+                      {tI18n('generate')}
                     </Button>
                   ) : (
                     <div className='-my-1 flex items-center gap-1'>
@@ -1001,7 +1003,7 @@ try {
                 <div className='mb-2 rounded-md border bg-[var(--surface-2)] p-2'>
                   <div className='flex flex-wrap items-center gap-1.5 text-xs'>
                     <span className='font-medium text-[var(--text-tertiary)]'>
-                      Available parameters:
+                      {tI18n('available_parameters')}
                     </span>
                     {schemaParameters.map((param) => (
                       <Badge key={param.name} variant='blue-secondary' size='sm'>
@@ -1009,7 +1011,7 @@ try {
                       </Badge>
                     ))}
                     <span className='text-[var(--text-tertiary)]'>
-                      Start typing a parameter name for autocomplete.
+                      {tI18n('start_typing_param_name_for_autocomplete')}
                     </span>
                   </div>
                 </div>
@@ -1109,7 +1111,7 @@ try {
                       onCloseAutoFocus={(e) => e.preventDefault()}
                     >
                       <PopoverScrollArea>
-                        <PopoverSection>Available Parameters</PopoverSection>
+                        <PopoverSection>{tI18n('available_parameters')}</PopoverSection>
                         {schemaParameters.map((param, index) => (
                           <PopoverItem
                             key={param.name}
@@ -1151,7 +1153,7 @@ try {
               isEditing
                 ? [
                     {
-                      label: 'Delete',
+                      label: tI18n('delete'),
                       onClick: () => setShowDeleteConfirm(true),
                       variant: 'destructive',
                     },
@@ -1159,7 +1161,7 @@ try {
                 : undefined
             }
             primaryAction={{
-              label: 'Next',
+              label: tI18n('next'),
               onClick: () => setActiveSection('code'),
               disabled: !isSchemaValid || !!schemaError,
             }}
@@ -1172,14 +1174,14 @@ try {
             secondaryActions={[
               isEditing
                 ? {
-                    label: 'Delete',
+                    label: tI18n('delete'),
                     onClick: () => setShowDeleteConfirm(true),
                     variant: 'destructive',
                   }
-                : { label: 'Back', onClick: () => setActiveSection('schema') },
+                : { label: tI18n('back'), onClick: () => setActiveSection('schema') },
             ]}
             primaryAction={{
-              label: isEditing ? 'Update Tool' : 'Save Tool',
+              label: isEditing ? tI18n('update_tool') : tI18n('save_tool'),
               onClick: handleSave,
               disabled: !isSchemaValid || !!schemaError || !hasChanges,
             }}
@@ -1190,32 +1192,32 @@ try {
       <ChipConfirmModal
         open={showDeleteConfirm}
         onOpenChange={setShowDeleteConfirm}
-        srTitle='Delete Custom Tool'
-        title='Delete Custom Tool'
+        srTitle={tI18n('delete_custom_tool')}
+        title={tI18n('delete_custom_tool')}
         text={[
           {
-            text: 'This will permanently delete the tool and remove it from any workflows that are using it.',
+            text: tI18n('delete_tool_will_remove_from_workflows'),
             error: true,
           },
-          ' This action cannot be undone.',
+          tI18n('action_cannot_be_undone'),
         ]}
         confirm={{
-          label: 'Delete',
+          label: tI18n('delete'),
           onClick: handleDelete,
           pending: deleteToolMutation.isPending,
-          pendingLabel: 'Deleting...',
+          pendingLabel: tI18n('deleting'),
         }}
       />
 
       <ChipConfirmModal
         open={showDiscardAlert}
         onOpenChange={setShowDiscardAlert}
-        srTitle='Unsaved Changes'
-        title='Unsaved Changes'
-        text='You have unsaved changes. Are you sure you want to discard them?'
-        dismissLabel='Keep editing'
+        srTitle={tI18n('unsaved_changes')}
+        title={tI18n('unsaved_changes')}
+        text={tI18n('discard_unsaved_changes_confirm')}
+        dismissLabel={tI18n('keep_editing')}
         confirm={{
-          label: 'Discard Changes',
+          label: tI18n('discard_changes'),
           onClick: handleConfirmDiscard,
         }}
       />

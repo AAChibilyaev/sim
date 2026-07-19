@@ -29,6 +29,7 @@ import { toError } from '@sim/utils/errors'
 import { useQueryClient } from '@tanstack/react-query'
 import { History, Plus, Square } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { usePostHog } from 'posthog-js/react'
 import { useShallow } from 'zustand/react/shallow'
 import { VariableIcon } from '@/components/icons'
@@ -113,6 +114,7 @@ const EMPTY_COPILOT_CHATS: readonly CopilotChatListItem[] = []
  * @returns Panel on the right side of the workflow
  */
 export const Panel = memo(function Panel() {
+  const tI18n = useTranslations('auto')
   const router = useRouter()
   const params = useParams()
   const workspaceId = params.workspaceId as string
@@ -656,7 +658,7 @@ export const Panel = memo(function Panel() {
       <aside
         ref={panelRef}
         className='panel-container relative shrink-0 overflow-hidden bg-[var(--bg)]'
-        aria-label='Workflow panel'
+        aria-label={tI18n('workflow_panel')}
       >
         <div className='flex h-full flex-col border-[var(--border)] border-l pt-3.5'>
           {/* Header */}
@@ -675,27 +677,25 @@ export const Panel = memo(function Panel() {
                     disabled={
                       isExecuting || !canMutateWorkflow || isAutoLayouting || hasLockedBlocks
                     }
-                    title={hasLockedBlocks ? 'Unlock blocks to use auto-layout' : undefined}
+                    title={hasLockedBlocks ? tI18n('unlock_blocks_to_use_auto_layout') : undefined}
                   >
                     <Layout animate={isAutoLayouting} variant='clockwise' />
-                    Auto layout
+                    {tI18n('auto_layout')}
                   </DropdownMenuItem>
                   <DropdownMenuItem onSelect={() => setVariablesOpen(!isVariablesOpen)}>
                     <VariableIcon />
-                    Variables
+                    {tI18n('variables')}
                   </DropdownMenuItem>
                   {userPermissions.canAdmin && !isSnapshotView && (
                     <DropdownMenuItem
                       onSelect={handleToggleWorkflowLock}
                       disabled={!hasBlocks || workflowLocked}
                       title={
-                        workflowLocked
-                          ? 'Workflow is locked at the row or folder level — release it from the workflow notification or folder menu'
-                          : undefined
+                        workflowLocked ? tI18n('workflow_locked_at_row_or_folder_level') : undefined
                       }
                     >
                       {allBlocksLocked ? <Unlock /> : <Lock />}
-                      {allBlocksLocked ? 'Unlock workflow' : 'Lock workflow'}
+                      {allBlocksLocked ? tI18n('unlock_workflow') : tI18n('lock_workflow')}
                     </DropdownMenuItem>
                   )}
                   <DropdownMenuItem
@@ -703,14 +703,14 @@ export const Panel = memo(function Panel() {
                     disabled={!userPermissions.canEdit || isExporting || !currentWorkflow}
                   >
                     <Download />
-                    Export workflow
+                    {tI18n('export_workflow')}
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onSelect={handleDuplicateWorkflow}
                     disabled={!userPermissions.canEdit || isDuplicating}
                   >
                     <Duplicate />
-                    Duplicate workflow
+                    {tI18n('duplicate_workflow')}
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onSelect={() => {
@@ -719,7 +719,7 @@ export const Panel = memo(function Panel() {
                     disabled={!canMutateWorkflow || Object.keys(workflows).length <= 1}
                   >
                     <Trash />
-                    Delete workflow
+                    {tI18n('delete_workflow')}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -750,7 +750,7 @@ export const Panel = memo(function Panel() {
                 ) : (
                   <Play className='h-[11.5px] w-[11.5px]' />
                 )}
-                {isExecuting ? 'Stop' : 'Run'}
+                {isExecuting ? tI18n('stop') : tI18n('run')}
               </Button>
             </div>
           </div>
@@ -769,7 +769,7 @@ export const Panel = memo(function Panel() {
                   onClick={() => handleTabClick('copilot')}
                   data-tab-button='copilot'
                 >
-                  Chat
+                  {tI18n('chat')}
                 </Button>
               )}
               <Button
@@ -782,7 +782,7 @@ export const Panel = memo(function Panel() {
                 onClick={() => handleTabClick('toolbar')}
                 data-tab-button='toolbar'
               >
-                Toolbar
+                {tI18n('toolbar')}
               </Button>
               <Button
                 className={`h-[28px] rounded-md border px-2 py-[5px] text-[12.5px] ${
@@ -794,7 +794,7 @@ export const Panel = memo(function Panel() {
                 onClick={() => handleTabClick('editor')}
                 data-tab-button='editor'
               >
-                Editor
+                {tI18n('editor')}
               </Button>
             </div>
           </div>
@@ -815,7 +815,7 @@ export const Panel = memo(function Panel() {
                 {/* Copilot Header */}
                 <div className='mx-[-1px] flex flex-shrink-0 items-center justify-between gap-2 border border-[var(--border)] bg-[var(--surface-4)] px-3 py-1.5'>
                   <h2 className='min-w-0 flex-1 truncate font-medium text-[14px] text-[var(--text-primary)]'>
-                    {copilotChatTitle || 'New Chat'}
+                    {copilotChatTitle || tI18n('new_chat')}
                   </h2>
                   <div className='flex items-center gap-2'>
                     <Button variant='ghost' className='p-0' onClick={handleCopilotNewChat}>
@@ -836,11 +836,11 @@ export const Panel = memo(function Panel() {
                       <PopoverContent align='end' side='bottom' sideOffset={8} maxHeight={280}>
                         {copilotChatList.length === 0 ? (
                           <div className='px-1.5 py-4 text-center text-[12px] text-muted-foreground'>
-                            No chats yet
+                            {tI18n('no_chats_yet')}
                           </div>
                         ) : (
                           <PopoverScrollArea>
-                            <PopoverSection className='pt-0'>Recent</PopoverSection>
+                            <PopoverSection className='pt-0'>{tI18n('recent')}</PopoverSection>
                             <div className='flex flex-col gap-0.5'>
                               {copilotChatList.map((chat) => (
                                 <div key={chat.id} className='group'>
@@ -849,7 +849,7 @@ export const Panel = memo(function Panel() {
                                     onClick={() => handleCopilotSelectChat(chat)}
                                   >
                                     <ConversationListItem
-                                      title={chat.title || 'New Chat'}
+                                      title={chat.title || tI18n('new_chat')}
                                       isActive={Boolean(chat.activeStreamId)}
                                       titleClassName='text-[13px]'
                                       actions={
@@ -863,7 +863,7 @@ export const Panel = memo(function Panel() {
                                               e.stopPropagation()
                                               handleCopilotDeleteChat(chat.id)
                                             }}
-                                            aria-label='Delete chat'
+                                            aria-label={tI18n('delete_chat')}
                                           >
                                             <Trash className='size-[10px]' />
                                           </Button>
@@ -934,7 +934,7 @@ export const Panel = memo(function Panel() {
           onPointerDown={handlePointerDown}
           role='separator'
           aria-orientation='vertical'
-          aria-label='Resize panel'
+          aria-label={tI18n('resize_panel')}
         />
       </aside>
 
@@ -942,23 +942,23 @@ export const Panel = memo(function Panel() {
       <ChipConfirmModal
         open={isDeleteModalOpen}
         onOpenChange={setIsDeleteModalOpen}
-        srTitle='Delete Workflow'
-        title='Delete Workflow'
+        srTitle={tI18n('delete_workflow')}
+        title={tI18n('delete_workflow')}
         text={[
-          'Are you sure you want to delete ',
-          { text: currentWorkflow?.name ?? 'this workflow', bold: true },
+          tI18n('are_you_sure_delete'),
+          { text: currentWorkflow?.name ?? tI18n('this_workflow'), bold: true },
           '? ',
           {
-            text: 'All associated blocks, executions, and configuration will be removed.',
+            text: tI18n('all_associated_blocks_will_be_removed'),
             error: true,
           },
-          ' You can restore it from Recently Deleted in Settings.',
+          ` ${tI18n('can_restore_from_recently_deleted')}`,
         ]}
         confirm={{
-          label: 'Delete',
+          label: tI18n('delete'),
           onClick: handleDeleteWorkflow,
           pending: isDeleting,
-          pendingLabel: 'Deleting...',
+          pendingLabel: tI18n('deleting'),
         }}
       />
 

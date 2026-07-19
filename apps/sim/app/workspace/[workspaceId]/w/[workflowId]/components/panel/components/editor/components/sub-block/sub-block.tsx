@@ -10,6 +10,7 @@ import {
   ExternalLink,
 } from 'lucide-react'
 import { useParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import type { FilterRule, SortRule } from '@/lib/table/query-builder/constants'
 import {
   CheckboxList,
@@ -199,6 +200,7 @@ const getPreviewValue = (
  * @param canonicalToggleIsDisabled - Whether the canonical toggle is disabled (includes dependsOn gating)
  * @param copyState - State and handler for the copy-to-clipboard button
  * @param labelSuffix - Additional content rendered after the label text
+ * @param tI18n - Translation function
  * @returns The label JSX element, or `null` for switch types or when no title is defined
  */
 const renderLabel = (
@@ -236,7 +238,8 @@ const renderLabel = (
     show: boolean
     onClick: () => void
     tooltip: string
-  }
+  },
+  tI18n?: any
 ): JSX.Element | null => {
   if (config.type === 'switch') return null
   if (!config.title) return null
@@ -265,7 +268,7 @@ const renderLabel = (
                 </span>
               </Tooltip.Trigger>
               <Tooltip.Content side='top'>
-                <p>Invalid JSON</p>
+                <p>{tI18n('invalid_json')}</p>
               </Tooltip.Content>
             </Tooltip.Root>
           )}
@@ -288,7 +291,7 @@ const renderLabel = (
               </button>
             </Tooltip.Trigger>
             <Tooltip.Content side='top'>
-              <p>{copyState.copied ? 'Copied!' : 'Copy'}</p>
+              <p>{copyState.copied ? tI18n('copied') : tI18n('copy')}</p>
             </Tooltip.Content>
           </Tooltip.Root>
         )}
@@ -300,13 +303,13 @@ const renderLabel = (
                 className='-my-1 h-5 px-2 py-0 text-xs'
                 onClick={wandState.onSearchClick}
               >
-                Generate
+                {tI18n('generate')}
               </Button>
             ) : (
               <div className='-my-1 flex min-w-[120px] max-w-[280px] flex-1 items-center gap-1'>
                 <Input
                   ref={wandState.searchInputRef}
-                  value={wandState.isStreaming ? 'Generating...' : wandState.searchQuery}
+                  value={wandState.isStreaming ? tI18n('generating') : wandState.searchQuery}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     wandState.onSearchChange(e.target.value)
                   }
@@ -332,7 +335,7 @@ const renderLabel = (
                     'h-5 min-w-[80px] flex-1 text-xs',
                     wandState.isStreaming && 'text-muted-foreground'
                   )}
-                  placeholder='Generate with AI...'
+                  placeholder={tI18n('generate_with_ai')}
                 />
                 <Button
                   variant='primary'
@@ -380,8 +383,8 @@ const renderLabel = (
                 disabled={canonicalToggleDisabledResolved}
                 aria-label={
                   canonicalToggle?.mode === 'advanced'
-                    ? 'Switch to selector'
-                    : 'Switch to manual ID'
+                    ? tI18n('switch_to_selector')
+                    : tI18n('switch_to_manual_id')
                 }
               >
                 <ArrowLeftRight
@@ -397,8 +400,8 @@ const renderLabel = (
             <Tooltip.Content side='top'>
               <p>
                 {canonicalToggle?.mode === 'advanced'
-                  ? 'Switch to selector'
-                  : 'Switch to manual ID'}
+                  ? tI18n('switch_to_selector')
+                  : tI18n('switch_to_manual_id')}
               </p>
             </Tooltip.Content>
           </Tooltip.Root>
@@ -470,6 +473,7 @@ function SubBlockComponent({
   dependencyContext,
   isSearchHighlighted,
 }: SubBlockProps): JSX.Element {
+  const tI18n = useTranslations('auto')
   const params = useParams()
   const workspaceId = params.workspaceId as string
 
@@ -538,14 +542,14 @@ function SubBlockComponent({
       return {
         show: true,
         onClick: handleNavigateToTable,
-        tooltip: 'View table',
+        tooltip: tI18n('view_table'),
       }
     }
     if (config.type === 'knowledge-base-selector' && hasSelectedKnowledgeBase) {
       return {
         show: true,
         onClick: handleNavigateToKnowledgeBase,
-        tooltip: 'View knowledge base',
+        tooltip: tI18n('view_knowledge_base'),
       }
     }
     return undefined
@@ -1209,7 +1213,8 @@ function SubBlockComponent({
         },
         labelSuffix,
         false,
-        externalLink
+        externalLink,
+        tI18n
       )}
       {renderInput()}
     </div>

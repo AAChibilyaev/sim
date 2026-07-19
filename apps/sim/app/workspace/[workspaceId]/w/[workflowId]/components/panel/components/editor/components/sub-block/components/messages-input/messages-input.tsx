@@ -12,6 +12,7 @@ import { Trash } from '@sim/emcn/icons'
 import { generateShortId } from '@sim/utils/id'
 import { isEqual } from 'es-toolkit'
 import { ChevronDown, ChevronsUpDown, ChevronUp, Plus } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { EnvVarDropdown } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/components/env-var-dropdown'
 import { formatDisplayText } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/components/formatted-text'
 import { TagDropdown } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/components/tag-dropdown/tag-dropdown'
@@ -88,6 +89,7 @@ export function MessagesInput({
   disabled = false,
   wandControlRef,
 }: MessagesInputProps) {
+  const tI18n = useTranslations('auto')
   const activeSearchTarget = useActiveSearchTarget()
   const [messages, setMessages] = useSubBlockValue<Message[]>(blockId, subBlockId, false)
   const [localMessages, setLocalMessages] = useState<Message[]>([{ role: 'user', content: '' }])
@@ -594,7 +596,7 @@ export function MessagesInput({
                 {/* Header with role label and add button */}
                 <div
                   role='group'
-                  aria-label={`Message ${index + 1}`}
+                  aria-label={tI18n('message_number', { number: index + 1 })}
                   className='flex cursor-pointer items-center justify-between px-2 pt-1.5'
                   onClick={(e) => handleHeaderClick(index, e)}
                   onKeyDown={(event) => {
@@ -620,7 +622,7 @@ export function MessagesInput({
                             'cursor-default hover-hover:bg-transparent hover-hover:text-[var(--text-primary)]'
                         )}
                         onClick={(e) => e.stopPropagation()}
-                        aria-label='Select message role'
+                        aria-label={tI18n('select_message_role')}
                       >
                         {formatRole(message.role)}
                         {!isPreview && !disabled && (
@@ -663,7 +665,7 @@ export function MessagesInput({
                             }}
                             disabled={disabled}
                             className='-my-1 -mr-1 size-6 p-0'
-                            aria-label='Delete message'
+                            aria-label={tI18n('delete_message')}
                           >
                             <Trash className='size-3' />
                           </Button>
@@ -675,7 +677,7 @@ export function MessagesInput({
                             }}
                             disabled={disabled || index === 0}
                             className='-my-1 -mr-1 size-6 p-0'
-                            aria-label='Move message up'
+                            aria-label={tI18n('move_message_up')}
                           >
                             <ChevronUp className='size-3' />
                           </Button>
@@ -687,7 +689,7 @@ export function MessagesInput({
                             }}
                             disabled={disabled || index === currentMessages.length - 1}
                             className='-my-1 -mr-1 size-6 p-0'
-                            aria-label='Move message down'
+                            aria-label={tI18n('move_message_down')}
                           >
                             <ChevronDown className='size-3' />
                           </Button>
@@ -701,7 +703,7 @@ export function MessagesInput({
                         }}
                         disabled={disabled}
                         className='-mr-1.5 -my-1 size-6 p-0'
-                        aria-label='Add message below'
+                        aria-label={tI18n('add_message_below')}
                       >
                         <Plus className='size-3.5' />
                       </Button>
@@ -716,7 +718,7 @@ export function MessagesInput({
                       textareaRefs.current[fieldId] = el
                     }}
                     className='relative z-[2] m-0 box-border h-auto min-h-[80px] w-full resize-none overflow-y-auto overflow-x-hidden whitespace-pre-wrap break-words border-none bg-transparent p-2 font-medium font-sans text-sm text-transparent leading-[1.5] caret-[var(--text-primary)] outline-none [-ms-overflow-style:none] [scrollbar-width:none] placeholder:text-[var(--text-muted)] focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed [&::-webkit-scrollbar]:hidden'
-                    placeholder='Enter message content...'
+                    placeholder={tI18n('enter_message_content')}
                     value={message.content}
                     onChange={fieldHandlers.onChange}
                     onKeyDown={(e) => {

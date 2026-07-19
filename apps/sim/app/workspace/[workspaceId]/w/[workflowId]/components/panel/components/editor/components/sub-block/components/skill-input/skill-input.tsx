@@ -4,6 +4,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { Combobox, type ComboboxOptionGroup } from '@sim/emcn'
 import { Plus, XIcon } from 'lucide-react'
 import { useParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { AgentSkillsIcon } from '@/components/icons'
 import { SkillModal } from '@/app/workspace/[workspaceId]/skills/components/skill-modal'
 import { formatDisplayText } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/components/formatted-text'
@@ -34,6 +35,7 @@ export function SkillInput({
   previewValue,
   disabled,
 }: SkillInputProps) {
+  const tI18n = useTranslations('auto')
   const activeSearchTarget = useActiveSearchTarget()
   const params = useParams()
   const workspaceId = params.workspaceId as string
@@ -62,7 +64,7 @@ export function SkillInput({
       groups.push({
         items: [
           {
-            label: 'Create Skill',
+            label: tI18n('create_skill'),
             value: 'action-create-skill',
             icon: Plus,
             onSelect: () => {
@@ -77,7 +79,7 @@ export function SkillInput({
     const availableSkills = workspaceSkills.filter((s) => !selectedIds.has(s.id))
     if (!skillsDisabled && availableSkills.length > 0) {
       groups.push({
-        section: 'Skills',
+        section: tI18n('skills'),
         items: availableSkills.map((s) => {
           return {
             label: s.name,
@@ -93,7 +95,7 @@ export function SkillInput({
     }
 
     return groups
-  }, [workspaceSkills, selectedIds, selectedSkills, setValue, isPreview, skillsDisabled])
+  }, [workspaceSkills, selectedIds, selectedSkills, setValue, isPreview, skillsDisabled, tI18n])
 
   const handleRemove = useCallback(
     (skillId: string) => {
@@ -122,12 +124,12 @@ export function SkillInput({
         <Combobox
           options={[]}
           groups={skillGroups}
-          placeholder='Add skill...'
+          placeholder={tI18n('add_skill')}
           disabled={disabled}
           searchable
-          searchPlaceholder='Search skills...'
+          searchPlaceholder={tI18n('search_skills')}
           maxHeight={240}
-          emptyMessage='No skills found'
+          emptyMessage={tI18n('no_skills_found')}
         />
 
         {selectedSkills.length > 0 &&
@@ -171,7 +173,7 @@ export function SkillInput({
                           handleRemove(stored.skillId)
                         }}
                         className='flex items-center justify-center text-[var(--text-tertiary)] transition-colors hover-hover:text-[var(--text-primary)]'
-                        aria-label='Remove skill'
+                        aria-label={tI18n('remove_skill')}
                       >
                         <XIcon className='size-[13px]' />
                       </button>

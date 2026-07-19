@@ -6,6 +6,7 @@ import { Lock } from '@sim/emcn/icons'
 import clsx from 'clsx'
 import { MoreHorizontal } from 'lucide-react'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { SIM_RESOURCES_DRAG_TYPE } from '@/lib/copilot/resource-types'
 import { useUserPermissionsContext } from '@/app/workspace/[workspaceId]/providers/workspace-permissions-provider'
 import { ContextMenu } from '@/app/workspace/[workspaceId]/w/components/sidebar/components/workflow-list/components/context-menu/context-menu'
@@ -60,6 +61,7 @@ export const WorkflowItem = memo(function WorkflowItem({
   workflow,
   active,
 }: WorkflowItemProps) {
+  const tI18n = useTranslations('auto')
   const {
     isAnyDragActive,
     dragDisabled,
@@ -453,7 +455,7 @@ export const WorkflowItem = memo(function WorkflowItem({
             {workflow.locked && (
               <span
                 role='img'
-                aria-label='Workflow is locked'
+                aria-label={tI18n('workflow_is_locked')}
                 className={clsx(
                   'pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity',
                   !isAnyDragActive && 'group-hover:opacity-0',
@@ -465,7 +467,7 @@ export const WorkflowItem = memo(function WorkflowItem({
             )}
             <button
               type='button'
-              aria-label='Workflow options'
+              aria-label={tI18n('workflow_options')}
               onPointerDown={handleMorePointerDown}
               onClick={handleMoreClick}
               className={clsx(

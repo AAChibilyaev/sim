@@ -8,6 +8,7 @@ import { generateId } from '@sim/utils/id'
 import clsx from 'clsx'
 import { ChevronRight, Folder, FolderOpen, MoreHorizontal } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { SIM_RESOURCES_DRAG_TYPE } from '@/lib/copilot/resource-types'
 import { useUserPermissionsContext } from '@/app/workspace/[workspaceId]/providers/workspace-permissions-provider'
 import { ContextMenu } from '@/app/workspace/[workspaceId]/w/components/sidebar/components/workflow-list/components/context-menu/context-menu'
@@ -54,6 +55,7 @@ interface FolderItemProps {
 }
 
 export const FolderItem = memo(function FolderItem({ workspaceId, folder }: FolderItemProps) {
+  const tI18n = useTranslations('auto')
   const {
     isAnyDragActive,
     dragDisabled,
@@ -167,7 +169,7 @@ export const FolderItem = memo(function FolderItem({ workspaceId, folder }: Fold
     try {
       const result = await createFolderMutation.mutateAsync({
         workspaceId,
-        name: 'New folder',
+        name: tI18n('new_folder'),
         parentId: folder.id,
         id: generateId(),
       })
@@ -541,7 +543,7 @@ export const FolderItem = memo(function FolderItem({ workspaceId, folder }: Fold
               {folder.locked && (
                 <span
                   role='img'
-                  aria-label='Folder is locked'
+                  aria-label={tI18n('folder_is_locked')}
                   className={clsx(
                     'pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity',
                     !isAnyDragActive && 'group-hover:opacity-0',
@@ -553,7 +555,7 @@ export const FolderItem = memo(function FolderItem({ workspaceId, folder }: Fold
               )}
               <button
                 type='button'
-                aria-label='Folder options'
+                aria-label={tI18n('folder_options')}
                 onPointerDown={handleMorePointerDown}
                 onClick={handleMoreClick}
                 className={clsx(

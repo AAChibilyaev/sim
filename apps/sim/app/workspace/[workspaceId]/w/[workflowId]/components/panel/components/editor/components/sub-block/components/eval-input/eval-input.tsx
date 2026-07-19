@@ -3,6 +3,7 @@ import { Button, cn, Input, Label, Textarea, Tooltip } from '@sim/emcn'
 import { Trash } from '@sim/emcn/icons'
 import { generateId } from '@sim/utils/id'
 import { Plus } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { formatDisplayText } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/components/formatted-text'
 import { TagDropdown } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/components/tag-dropdown/tag-dropdown'
 import { getActiveWorkflowSearchHighlight } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/components/workflow-search-highlight'
@@ -44,6 +45,7 @@ export function EvalInput({
   previewValue,
   disabled = false,
 }: EvalInputProps) {
+  const tI18n = useTranslations('auto')
   const activeSearchTarget = useActiveSearchTarget()
   const [storeValue, setStoreValue] = useSubBlockValue<EvalMetric[]>(blockId, subBlockId)
   const accessiblePrefixes = useAccessibleReferencePrefixes(blockId)
@@ -140,7 +142,9 @@ export function EvalInput({
 
   const renderMetricHeader = (metric: EvalMetric, index: number) => (
     <div className='flex items-center justify-between overflow-hidden rounded-t-[4px] border-[var(--border-1)] border-b bg-[var(--surface-4)] px-2.5 py-[5px]'>
-      <span className='font-medium text-[var(--text-tertiary)] text-sm'>Metric {index + 1}</span>
+      <span className='font-medium text-[var(--text-tertiary)] text-sm'>
+        {tI18n('metric_number', { number: index + 1 })}
+      </span>
       <div className='flex items-center gap-2'>
         <Tooltip.Root key={`add-${metric.id}`}>
           <Tooltip.Trigger asChild>
@@ -151,10 +155,10 @@ export function EvalInput({
               className='h-auto p-0'
             >
               <Plus className='size-[14px]' />
-              <span className='sr-only'>Add Metric</span>
+              <span className='sr-only'>{tI18n('add_metric')}</span>
             </Button>
           </Tooltip.Trigger>
-          <Tooltip.Content>Add Metric</Tooltip.Content>
+          <Tooltip.Content>{tI18n('add_metric')}</Tooltip.Content>
         </Tooltip.Root>
 
         <Tooltip.Root key={`remove-${metric.id}`}>
@@ -166,10 +170,10 @@ export function EvalInput({
               className='h-auto p-0 text-[var(--text-error)] hover-hover:text-[var(--text-error)]'
             >
               <Trash className='size-[14px]' />
-              <span className='sr-only'>Delete Metric</span>
+              <span className='sr-only'>{tI18n('delete_metric')}</span>
             </Button>
           </Tooltip.Trigger>
-          <Tooltip.Content>Delete Metric</Tooltip.Content>
+          <Tooltip.Content>{tI18n('delete_metric')}</Tooltip.Content>
         </Tooltip.Root>
       </div>
     </div>
@@ -187,13 +191,13 @@ export function EvalInput({
 
           <div className='flex flex-col gap-2 border-[var(--border-1)] px-2.5 pt-1.5 pb-2.5'>
             <div key={`name-${metric.id}`} className='flex flex-col gap-1.5'>
-              {renderFieldLabel('Name')}
+              {renderFieldLabel(tI18n('name'))}
               <div className='relative'>
                 <Input
                   name='name'
                   value={metric.name}
                   onChange={(e) => updateMetric(metric.id, 'name', e.target.value)}
-                  placeholder='Accuracy'
+                  placeholder={tI18n('accuracy')}
                   disabled={isPreview || disabled}
                   className='text-transparent caret-foreground placeholder:text-muted-foreground/50'
                 />
@@ -215,7 +219,7 @@ export function EvalInput({
             </div>
 
             <div key={`description-${metric.id}`} className='flex flex-col gap-1.5'>
-              {renderFieldLabel('Description')}
+              {renderFieldLabel(tI18n('description'))}
               <div className='relative'>
                 {(() => {
                   const fieldState = inputController.fieldHelpers.getFieldState(metric.id)
@@ -242,7 +246,7 @@ export function EvalInput({
                         onDrop={handlers.onDrop}
                         onDragOver={handlers.onDragOver}
                         onFocus={handlers.onFocus}
-                        placeholder='How accurate is the response?'
+                        placeholder={tI18n('how_accurate_is_response')}
                         disabled={isPreview || disabled}
                         className={cn(
                           'min-h-[80px] whitespace-pre-wrap text-transparent caret-foreground'
@@ -290,7 +294,7 @@ export function EvalInput({
 
             <div key={`range-${metric.id}`} className='grid grid-cols-2 gap-2'>
               <div className='flex flex-col gap-1.5'>
-                {renderFieldLabel('Min Value')}
+                {renderFieldLabel(tI18n('min_value'))}
                 <div className='relative'>
                   <Input
                     type='text'
@@ -311,7 +315,7 @@ export function EvalInput({
                 </div>
               </div>
               <div className='flex flex-col gap-1.5'>
-                {renderFieldLabel('Max Value')}
+                {renderFieldLabel(tI18n('max_value'))}
                 <div className='relative'>
                   <Input
                     type='text'

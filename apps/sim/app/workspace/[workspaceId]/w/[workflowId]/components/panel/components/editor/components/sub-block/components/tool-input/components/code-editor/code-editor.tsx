@@ -10,6 +10,7 @@ import {
   languages,
 } from '@sim/emcn'
 import { Wand2 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import Editor from 'react-simple-code-editor'
 import { Button } from '@/components/ui/button'
 import {
@@ -52,6 +53,7 @@ export function CodeEditor({
   onWandClick,
   wandButtonDisabled = false,
 }: CodeEditorProps) {
+  const tI18n = useTranslations('auto')
   const [visualLineHeights, setVisualLineHeights] = useState<number[]>([])
 
   const editorRef = useRef<HTMLDivElement>(null)
@@ -189,7 +191,7 @@ export function CodeEditor({
           size='icon'
           onClick={onWandClick}
           disabled={wandButtonDisabled}
-          aria-label='Generate with AI'
+          aria-label={tI18n('generate_with_ai')}
           className='absolute top-2 right-3 z-10 size-8 rounded-full border border-transparent bg-muted/80 text-muted-foreground opacity-0 shadow-sm transition-all duration-200 hover-hover:border-primary/20 hover-hover:bg-muted hover-hover:text-foreground hover-hover:shadow group-hover:opacity-100'
         >
           <Wand2 className='size-4' />

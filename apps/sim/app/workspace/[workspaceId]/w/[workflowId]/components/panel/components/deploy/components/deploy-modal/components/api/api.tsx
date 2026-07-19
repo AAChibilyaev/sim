@@ -12,6 +12,7 @@ import {
   Tooltip,
 } from '@sim/emcn'
 import { Check, Clipboard } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { OutputSelect } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/chat/components/output-select/output-select'
 
 interface WorkflowDeploymentInfo {
@@ -66,6 +67,7 @@ export function ApiDeploy({
   selectedStreamingOutputs,
   onSelectedStreamingOutputsChange,
 }: ApiDeployProps) {
+  const tI18n = useTranslations('auto')
   const [asyncExampleType, setAsyncExampleType] = useState<AsyncExampleType>('execute')
   const [language, setLanguage] = useState<CodeLanguage>('curl')
   const [copied, setCopied] = useState<CopiedState>({
@@ -388,13 +390,13 @@ console.log(limits);`
   const getAsyncExampleTitle = () => {
     switch (asyncExampleType) {
       case 'execute':
-        return 'Execute Job'
+        return tI18n('execute_job')
       case 'status':
-        return 'Check Status'
+        return tI18n('check_status')
       case 'rate-limits':
-        return 'Rate Limits'
+        return tI18n('rate_limits')
       default:
-        return 'Execute Job'
+        return tI18n('execute_job')
     }
   }
 
@@ -428,7 +430,7 @@ console.log(limits);`
       <div>
         <div className='mb-[6.5px] flex items-center justify-between'>
           <Label className='block pl-0.5 font-medium text-[var(--text-primary)] text-small'>
-            Language
+            {tI18n('language')}
           </Label>
         </div>
         <ButtonGroup value={language} onValueChange={(val) => setLanguage(val as CodeLanguage)}>
@@ -443,7 +445,7 @@ console.log(limits);`
       <div>
         <div className='mb-[6.5px] flex items-center justify-between'>
           <Label className='block pl-0.5 font-medium text-[var(--text-primary)] text-small'>
-            Run workflow
+            {tI18n('run_workflow')}
           </Label>
           <Tooltip.Root>
             <Tooltip.Trigger asChild>
@@ -457,7 +459,7 @@ console.log(limits);`
               </Button>
             </Tooltip.Trigger>
             <Tooltip.Content>
-              <span>{copied.sync ? 'Copied' : 'Copy'}</span>
+              <span>{copied.sync ? tI18n('copied') : tI18n('copy')}</span>
             </Tooltip.Content>
           </Tooltip.Root>
         </div>
@@ -472,7 +474,7 @@ console.log(limits);`
       <div>
         <div className='mb-[6.5px] flex items-center justify-between'>
           <Label className='block pl-0.5 font-medium text-[var(--text-primary)] text-small'>
-            Run workflow (stream response)
+            {tI18n('run_workflow_stream_response')}
           </Label>
           <div className='flex items-center gap-1.5'>
             <Tooltip.Root>
@@ -487,14 +489,14 @@ console.log(limits);`
                 </Button>
               </Tooltip.Trigger>
               <Tooltip.Content>
-                <span>{copied.stream ? 'Copied' : 'Copy'}</span>
+                <span>{copied.stream ? tI18n('copied') : tI18n('copy')}</span>
               </Tooltip.Content>
             </Tooltip.Root>
             <OutputSelect
               workflowId={workflowId}
               selectedOutputs={selectedStreamingOutputs}
               onOutputSelect={onSelectedStreamingOutputsChange}
-              placeholder='Select outputs'
+              placeholder={tI18n('select_outputs')}
               valueMode='label'
               align='end'
             />
@@ -511,7 +513,7 @@ console.log(limits);`
       <div>
         <div className='mb-[6.5px] flex items-center justify-between'>
           <Label className='block pl-0.5 font-medium text-[var(--text-primary)] text-small'>
-            Run workflow (async)
+            {tI18n('run_workflow_async')}
           </Label>
           <div className='flex items-center gap-1.5'>
             <Tooltip.Root>
@@ -526,16 +528,16 @@ console.log(limits);`
                 </Button>
               </Tooltip.Trigger>
               <Tooltip.Content>
-                <span>{copied.async ? 'Copied' : 'Copy'}</span>
+                <span>{copied.async ? tI18n('copied') : tI18n('copy')}</span>
               </Tooltip.Content>
             </Tooltip.Root>
             <Combobox
               size='sm'
               className='!w-fit !py-0.5 min-w-[100px] rounded-md px-[9px]'
               options={[
-                { label: 'Execute Job', value: 'execute' },
-                { label: 'Check Status', value: 'status' },
-                { label: 'Rate Limits', value: 'rate-limits' },
+                { label: tI18n('execute_job'), value: 'execute' },
+                { label: tI18n('check_status'), value: 'status' },
+                { label: tI18n('rate_limits'), value: 'rate-limits' },
               ]}
               value={asyncExampleType}
               onChange={(value) => setAsyncExampleType(value as AsyncExampleType)}

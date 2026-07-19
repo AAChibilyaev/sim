@@ -34,6 +34,8 @@ interface IncomingToolDef {
   description?: unknown
   input_schema?: unknown
   executeLocally?: unknown
+  service?: unknown
+  operation?: unknown
 }
 
 /** Subset of the Sim → mothership chat payload the native engine consumes. */
@@ -73,6 +75,7 @@ function buildSystemPrompt(payload: NativeChatPayload): string {
   const parts: string[] = [
     'You are AACFlow, the AI agent inside the AACFlow.io AI workspace. You help teams build, run, and manage AI agents and workflows.',
     'Be direct and concrete. When the user asks you to act, use the available tools rather than describing what could be done. Only call tools that are provided to you.',
+    'Keep replies concise: answer the actual question and stop. Do not enumerate the available connectors or tools, do not restate your capabilities, and do not pad the response — surface only what the user needs.',
   ]
   if (payload.mode === 'ask') {
     parts.push('Mode: ask — answer questions; prefer explanation over tool use.')
@@ -107,26 +110,103 @@ function buildUserMessage(payload: NativeChatPayload): string {
 }
 
 /**
- * OpenAI's function-calling API rejects a request outright if `tools` exceeds
- * 128 entries ("Invalid 'tools': array too long"). AACFlow.io's full
- * integration catalog is far larger than that, so without this cap every
- * native-mothership chat turn failed the underlying completion call.
+ * Upper bound on the integration tools handed to the model per turn. OpenAI's
+ * function-calling API hard-rejects a `tools` array over 128 entries, but 128 is
+ * a ceiling, not a good working set: AACFlow.io exposes a very large connector
+ * catalog, and dumping ~128 full tool schemas into every request floods the
+ * context, inflates cost/latency, and pushes the model toward unfocused,
+ * sprawling answers. We instead rank the catalog by relevance to the current
+ * message and keep only the top {@link MAX_NATIVE_TOOLS}. Because each user
+ * message opens a fresh session, ranking is re-run per message, so the exposed
+ * connectors track what the user is actually asking for.
  */
-const MAX_NATIVE_TOOLS = 128
+const MAX_NATIVE_TOOLS = 64
 
+/**
+ * Tokens ignored when scoring tool relevance — generic verbs and function words
+ * that appear in most prompts and carry no signal about which connector to use.
+ */
+const QUERY_STOPWORDS = new Set([
+  'the',
+  'and',
+  'for',
+  'with',
+  'you',
+  'please',
+  'can',
+  'how',
+  'this',
+  'that',
+  'are',
+  'use',
+  'get',
+  'set',
+  'add',
+  'make',
+  'create',
+  'into',
+  'from',
+  'need',
+  'want',
+  'help',
+  'about',
+  'have',
+  'has',
+  'not',
+  'all',
+  'any',
+  'new',
+])
+
+/** Extracts lowercase content terms (≥3 chars, non-stopword) from the prompt. */
+function extractQueryTerms(text: string): Set<string> {
+  const terms = new Set<string>()
+  for (const token of text.toLowerCase().split(/[^a-z0-9]+/)) {
+    if (token.length < 3 || QUERY_STOPWORDS.has(token)) continue
+    terms.add(token)
+  }
+  return terms
+}
+
+/** Counts how many distinct query terms appear in a tool's searchable text. */
+function scoreToolRelevance(tool: IncomingToolDef, terms: Set<string>): number {
+  if (terms.size === 0) return 0
+  const haystack = [tool.name, tool.service, tool.operation, tool.description]
+    .filter((v): v is string => typeof v === 'string')
+    .join(' ')
+    .toLowerCase()
+  let score = 0
+  for (const term of terms) {
+    if (haystack.includes(term)) score += 1
+  }
+  return score
+}
+
+/**
+ * Rank the incoming integration tools by relevance to the current message and
+ * keep the top {@link MAX_NATIVE_TOOLS}. When the message has no distinctive
+ * terms (e.g. a greeting) every tool scores 0 and original order is preserved,
+ * so the behavior degrades to a simple capped list rather than an empty one.
+ */
 function toNativeTools(payload: NativeChatPayload): NativeToolDef[] {
+  const incoming = payload.integrationTools ?? []
+  const terms = extractQueryTerms(buildUserMessage(payload))
+  const ranked = incoming
+    .map((tool, index) => ({ tool, index, score: scoreToolRelevance(tool, terms) }))
+    .sort((a, b) => b.score - a.score || a.index - b.index)
+
   const tools: NativeToolDef[] = []
-  for (const t of payload.integrationTools ?? []) {
+  for (const { tool } of ranked) {
     if (tools.length >= MAX_NATIVE_TOOLS) break
-    if (typeof t?.name !== 'string' || t.name.length === 0) continue
+    if (typeof tool?.name !== 'string' || tool.name.length === 0) continue
     tools.push({
-      name: t.name,
-      description: typeof t.description === 'string' ? t.description : '',
+      name: tool.name,
+      description: typeof tool.description === 'string' ? tool.description : '',
       input_schema:
-        t.input_schema && typeof t.input_schema === 'object'
-          ? (t.input_schema as Record<string, unknown>)
+        tool.input_schema && typeof tool.input_schema === 'object'
+          ? (tool.input_schema as Record<string, unknown>)
           : { type: 'object', properties: {} },
-      clientExecutable: t.executeLocally !== true,
+      clientExecutable: tool.executeLocally !== true,
     })
   }
   return tools

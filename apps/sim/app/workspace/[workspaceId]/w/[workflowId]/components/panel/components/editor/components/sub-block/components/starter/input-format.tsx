@@ -19,6 +19,7 @@ import {
 } from '@sim/emcn'
 import { Trash } from '@sim/emcn/icons'
 import { ArrowLeftRight, Plus } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import Editor from 'react-simple-code-editor'
 import {
   createDefaultInputFormatField,
@@ -65,21 +66,7 @@ interface FieldFormatProps {
   config?: any
 }
 
-/**
- * Type options for field type selection
- */
-const TYPE_OPTIONS: ComboboxOption[] = [
-  { label: 'String', value: 'string' },
-  { label: 'Number', value: 'number' },
-  { label: 'Boolean', value: 'boolean' },
-  { label: 'Object', value: 'object' },
-  { label: 'Array', value: 'array' },
-  { label: 'Files', value: 'file[]' },
-]
-
-/**
- * Boolean value options for Combobox
- */
+/** Boolean value options for the Combobox (literal values, no translation). */
 const BOOLEAN_OPTIONS: ComboboxOption[] = [
   { label: 'true', value: 'true' },
   { label: 'false', value: 'false' },
@@ -106,6 +93,7 @@ export function FieldFormat({
   valuePlaceholder = 'Enter default value',
   descriptionPlaceholder = 'Describe this field',
 }: FieldFormatProps) {
+  const tI18n = useTranslations('auto')
   const activeSearchTarget = useActiveSearchTarget()
   const [storeValue, setStoreValue] = useSubBlockValue<Field[]>(blockId, subBlockId)
   const valueInputRefs = useRef<Record<string, HTMLInputElement | HTMLTextAreaElement>>({})
@@ -142,6 +130,15 @@ export function FieldFormat({
 
   const renderFieldLabel = (label: string) => <Label>{label}</Label>
 
+  const TYPE_OPTIONS: ComboboxOption[] = [
+    { label: tI18n('type_string'), value: 'string' },
+    { label: tI18n('type_number'), value: 'number' },
+    { label: tI18n('type_boolean'), value: 'boolean' },
+    { label: tI18n('type_object'), value: 'object' },
+    { label: tI18n('type_array'), value: 'array' },
+    { label: tI18n('type_files'), value: 'file[]' },
+  ]
+
   /**
    * Resolves the current editor mode for a file field. The uploader is only
    * offered when it can represent the stored value losslessly (empty or all
@@ -164,7 +161,7 @@ export function FieldFormat({
   const renderFileModeToggle = (field: Field) => {
     const { mode, canUseUploader } = getFileFieldMode(field)
     if (!canUseUploader) return null
-    const label = mode === 'upload' ? 'Switch to JSON' : 'Switch to file uploader'
+    const label = mode === 'upload' ? tI18n('switch_to_json') : tI18n('switch_to_file_uploader')
     return (
       <Tooltip.Root>
         <Tooltip.Trigger asChild>
@@ -410,7 +407,7 @@ export function FieldFormat({
       >
         <Button variant='ghost' onClick={addField} disabled={isReadOnly} className='h-auto p-0'>
           <Plus className='size-[14px]' />
-          <span className='sr-only'>Add {title}</span>
+          <span className='sr-only'>{tI18n('add_field', { field: title })}</span>
         </Button>
         <Button
           variant='ghost'
@@ -419,7 +416,7 @@ export function FieldFormat({
           className='h-auto p-0 text-[var(--text-error)] hover-hover:text-[var(--text-error)] hover-hover:opacity-90'
         >
           <Trash className='size-[14px]' />
-          <span className='sr-only'>Delete Field</span>
+          <span className='sr-only'>{tI18n('delete_field')}</span>
         </Button>
       </div>
     </div>
@@ -672,13 +669,13 @@ export function FieldFormat({
             <ExpandableContent>
               <div className='flex flex-col gap-2 rounded-b-[4px] border-[var(--border-1)] border-t bg-[var(--surface-2)] px-2.5 pt-1.5 pb-2.5'>
                 <div className='flex flex-col gap-1.5'>
-                  {renderFieldLabel('Name')}
+                  {renderFieldLabel(tI18n('name'))}
                   <div className='relative'>{renderNameInput(field)}</div>
                 </div>
 
                 {showType && (
                   <div className='flex flex-col gap-1.5'>
-                    {renderFieldLabel('Type')}
+                    {renderFieldLabel(tI18n('type'))}
                     <Combobox
                       options={TYPE_OPTIONS}
                       value={field.type}
@@ -690,7 +687,7 @@ export function FieldFormat({
 
                 {showDescription && (
                   <div className='flex flex-col gap-1.5'>
-                    {renderFieldLabel('Description')}
+                    {renderFieldLabel(tI18n('description'))}
                     <div className='relative'>
                       <Input
                         value={field.description ?? ''}
@@ -738,11 +735,11 @@ export function FieldFormat({
                   <div className='flex flex-col gap-1.5'>
                     {isFileFieldType(field.type) ? (
                       <div className='flex items-center justify-between'>
-                        {renderFieldLabel('Value')}
+                        {renderFieldLabel(tI18n('value'))}
                         {renderFileModeToggle(field)}
                       </div>
                     ) : (
-                      renderFieldLabel('Value')
+                      renderFieldLabel(tI18n('value'))
                     )}
                     <div className='relative'>{renderValueInput(field)}</div>
                   </div>

@@ -1,6 +1,7 @@
 import { memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { cn, Input } from '@sim/emcn'
 import { Wand2 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useReactFlow } from 'reactflow'
 import { Button } from '@/components/ui/button'
 import {
@@ -84,6 +85,7 @@ export const ShortInput = memo(function ShortInput({
   isSearchHighlighted = false,
   workflowSearchValuePath = [],
 }: ShortInputProps) {
+  const tI18n = useTranslations('auto')
   const activeSearchTarget = useActiveSearchTarget()
   const [localContent, setLocalContent] = useState<string>('')
   const [isFocused, setIsFocused] = useState(false)
@@ -309,7 +311,7 @@ export const ShortInput = memo(function ShortInput({
           onSubmit={(prompt: string) => wandHook.generateStream({ prompt })}
           onCancel={wandHook.isStreaming ? wandHook.cancelGeneration : wandHook.hidePromptInline}
           onChange={(newValue: string) => wandHook.updatePromptValue(newValue)}
-          placeholder={config.wandConfig?.placeholder || 'Describe what you want to generate...'}
+          placeholder={config.wandConfig?.placeholder || tI18n('describe_what_to_generate')}
         />
       )}
 
@@ -415,7 +417,7 @@ export const ShortInput = memo(function ShortInput({
                 wandHook.isPromptVisible ? wandHook.hidePromptInline : wandHook.showPromptInline
               }
               disabled={wandHook.isLoading || wandHook.isStreaming || disabled}
-              aria-label='Generate content with AI'
+              aria-label={tI18n('generate_content_with_ai')}
               className='size-8 rounded-full border border-transparent bg-muted/80 text-muted-foreground shadow-sm transition-all duration-200 hover-hover:border-primary/20 hover-hover:bg-muted hover-hover:text-foreground hover-hover:shadow'
             >
               <Wand2 className='size-4' />

@@ -14,6 +14,7 @@ import {
 } from '@sim/emcn'
 import { generateId } from '@sim/utils/id'
 import { Plus } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { FIELD_TYPE_LABELS, getPlaceholderForFieldType } from '@/lib/knowledge/constants'
 import { type FilterFieldType, getOperatorsForFieldType } from '@/lib/knowledge/filters/types'
 import { formatDisplayText } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/components/formatted-text'
@@ -69,6 +70,7 @@ export function KnowledgeTagFilters({
   previewValue,
   previewContextValues,
 }: KnowledgeTagFiltersProps) {
+  const tI18n = useTranslations('auto')
   const activeSearchTarget = useActiveSearchTarget()
   const [storeValue, setStoreValue] = useSubBlockValue<string | null>(blockId, subBlock.id)
   const emitTagSelection = useTagSelection(blockId, subBlock.id)
@@ -219,9 +221,11 @@ export function KnowledgeTagFilters({
 
     return (
       <div className='space-y-1'>
-        <Label className='font-medium text-muted-foreground text-xs'>Tag Filters</Label>
+        <Label className='font-medium text-muted-foreground text-xs'>{tI18n('tag_filters')}</Label>
         <div className='text-muted-foreground text-sm'>
-          {appliedFilters > 0 ? `${appliedFilters} filter(s) applied` : 'No filters'}
+          {appliedFilters > 0
+            ? tI18n('filters_applied', { count: appliedFilters })
+            : tI18n('no_filters')}
         </div>
       </div>
     )
@@ -263,7 +267,7 @@ export function KnowledgeTagFilters({
           className='h-auto p-0'
         >
           <Plus className='size-[14px]' />
-          <span className='sr-only'>Add Filter</span>
+          <span className='sr-only'>{tI18n('add_filter')}</span>
         </Button>
         <Button
           variant='ghost'
@@ -275,7 +279,7 @@ export function KnowledgeTagFilters({
           className='h-auto p-0 text-[var(--text-error)] hover-hover:text-[var(--text-error)]'
         >
           <Trash className='size-[14px]' />
-          <span className='sr-only'>Delete Filter</span>
+          <span className='sr-only'>{tI18n('delete_filter')}</span>
         </Button>
       </div>
     </div>
@@ -385,33 +389,33 @@ export function KnowledgeTagFilters({
     return (
       <div className='flex flex-col gap-2 rounded-b-[4px] border-[var(--border-1)] border-t bg-[var(--surface-2)] px-2.5 pt-1.5 pb-2.5'>
         <div className='flex flex-col gap-1.5'>
-          <Label className='text-small'>Tag</Label>
+          <Label className='text-small'>{tI18n('tag')}</Label>
           <Combobox
             options={tagOptions}
             value={filter.tagName}
             onChange={(value) => updateFilter(filter.id, 'tagName', value)}
             disabled={isReadOnly || isLoading}
-            placeholder='Select tag'
+            placeholder={tI18n('select_tag')}
           />
         </div>
 
         <div className='flex flex-col gap-1.5'>
-          <Label className='text-small'>Operator</Label>
+          <Label className='text-small'>{tI18n('operator')}</Label>
           <Combobox
             options={operatorOptions}
             value={filter.operator}
             onChange={(value) => updateFilter(filter.id, 'operator', value)}
             disabled={isReadOnly}
-            placeholder='Select operator'
+            placeholder={tI18n('select_operator')}
           />
         </div>
 
         <div className='flex flex-col gap-1.5'>
-          <Label className='text-small'>Value</Label>
+          <Label className='text-small'>{tI18n('value')}</Label>
           {isBetween ? (
             <div className='flex items-center gap-2'>
               <div className='flex-1'>{renderValueInput(filter, 'tagValue')}</div>
-              <span className='flex-shrink-0 text-muted-foreground text-xs'>to</span>
+              <span className='flex-shrink-0 text-muted-foreground text-xs'>{tI18n('to')}</span>
               <div className='flex-1'>{renderValueInput(filter, 'valueTo')}</div>
             </div>
           ) : (

@@ -17,6 +17,7 @@ import {
 import { createLogger } from '@sim/logger'
 import { ArrowLeft, ChevronRight, ServerIcon, WrenchIcon, XIcon } from 'lucide-react'
 import { useParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { McpIcon, WorkflowIcon } from '@/components/icons'
 import {
   getIssueBadgeLabel,
@@ -134,6 +135,7 @@ function WorkflowInputMapperInput({
   disabled: boolean
   workflowId: string
 }) {
+  const tI18n = useTranslations('auto')
   const activeSearchTarget = useActiveSearchTarget()
   const { data: workflowState, isLoading } = useWorkflowState(workflowId)
   const inputFields = useMemo(
@@ -160,7 +162,7 @@ function WorkflowInputMapperInput({
   if (!workflowId) {
     return (
       <div className='rounded-md border border-[var(--border-1)] border-dashed bg-[var(--surface-3)] p-4 text-center text-[var(--text-muted)] text-sm'>
-        Select a workflow to configure its inputs
+        {tI18n('select_workflow_to_configure_inputs')}
       </div>
     )
   }
@@ -176,7 +178,7 @@ function WorkflowInputMapperInput({
   if (inputFields.length === 0) {
     return (
       <div className='rounded-md border border-[var(--border-1)] border-dashed bg-[var(--surface-3)] p-4 text-center text-[var(--text-muted)] text-sm'>
-        This workflow has no custom input fields
+        {tI18n('workflow_no_custom_input_fields')}
       </div>
     )
   }
@@ -223,6 +225,7 @@ function WorkflowToolDeployBadge({
   workflowId: string
   onDeploySuccess?: () => void
 }) {
+  const tI18n = useTranslations('auto')
   const { data, isLoading } = useDeploymentInfo(workflowId)
   const { mutate, isPending: isDeploying } = useDeployWorkflow()
   const userPermissions = useUserPermissionsContext()
@@ -267,16 +270,16 @@ function WorkflowToolDeployBadge({
             }
           }}
         >
-          {isDeploying ? 'Deploying...' : !isDeployed ? 'undeployed' : 'redeploy'}
+          {isDeploying ? tI18n('deploying') : !isDeployed ? tI18n('undeployed') : tI18n('redeploy')}
         </Badge>
       </Tooltip.Trigger>
       <Tooltip.Content>
         <span className='text-sm'>
           {!userPermissions.canAdmin
-            ? 'Admin permission required to deploy'
+            ? tI18n('admin_permission_required_to_deploy')
             : !isDeployed
-              ? 'Click to deploy'
-              : 'Click to redeploy'}
+              ? tI18n('click_to_deploy')
+              : tI18n('click_to_redeploy')}
         </span>
       </Tooltip.Content>
     </Tooltip.Root>
@@ -468,6 +471,7 @@ export const ToolInput = memo(function ToolInput({
   disabled = false,
   allowExpandInPreview,
 }: ToolInputProps) {
+  const tI18n = useTranslations('auto')
   const params = useParams()
   const workspaceId = params.workspaceId as string
   const workflowId = params.workflowId as string
@@ -1401,7 +1405,7 @@ export const ToolInput = memo(function ToolInput({
 
         // Back navigation
         serverToolItems.push({
-          label: 'Back',
+          label: tI18n('back'),
           value: `mcp-server-back`,
           iconElement: <ArrowLeft className='size-[14px] text-[var(--text-tertiary)]' />,
           onSelect: () => {
@@ -1412,7 +1416,7 @@ export const ToolInput = memo(function ToolInput({
 
         // "Use all tools" option — adds each tool individually
         serverToolItems.push({
-          label: `Use all ${toolCount} tools`,
+          label: tI18n('use_all_tools', { count: toolCount }),
           value: `mcp-server-all-${mcpServerDrilldown}`,
           iconElement: createToolIcon('#6366F1', ServerIcon),
           onSelect: () => {
@@ -1494,7 +1498,7 @@ export const ToolInput = memo(function ToolInput({
     const actionItems: ComboboxOption[] = []
     if (!permissionConfig.disableCustomTools) {
       actionItems.push({
-        label: 'Create Tool',
+        label: tI18n('create_tool'),
         value: 'action-create-tool',
         icon: WrenchIcon,
         onSelect: () => {
@@ -1509,7 +1513,7 @@ export const ToolInput = memo(function ToolInput({
     }
     if (!permissionConfig.disableMcpTools) {
       actionItems.push({
-        label: 'Add MCP Server',
+        label: tI18n('add_mcp_server'),
         value: 'action-add-mcp',
         icon: McpIcon,
         onSelect: () => {
@@ -1528,7 +1532,7 @@ export const ToolInput = memo(function ToolInput({
 
     if (!permissionConfig.disableCustomTools && !customUnsupported && customTools.length > 0) {
       groups.push({
-        section: 'Custom Tools',
+        section: tI18n('custom_tools'),
         items: customTools.map((customTool) => {
           const alreadySelected = isCustomToolAlreadySelected(selectedTools, customTool.id)
           return {
@@ -1577,7 +1581,7 @@ export const ToolInput = memo(function ToolInput({
       }
 
       groups.push({
-        section: 'MCP Servers',
+        section: tI18n('mcp_servers'),
         items: serverItems,
       })
     }
@@ -1587,7 +1591,7 @@ export const ToolInput = memo(function ToolInput({
 
     if (builtInTools.length > 0) {
       groups.push({
-        section: 'Built-in Tools',
+        section: tI18n('built_in_tools'),
         items: builtInTools.map((block) => {
           const toolId = getToolIdForOperation(block.type, undefined)
           const alreadySelected = toolId ? isToolAlreadySelected(toolId, block.type) : false
@@ -1604,7 +1608,7 @@ export const ToolInput = memo(function ToolInput({
 
     if (integrations.length > 0) {
       groups.push({
-        section: 'Integrations',
+        section: tI18n('integrations'),
         items: integrations.map((block) => {
           const toolId = getToolIdForOperation(block.type, undefined)
           const alreadySelected = toolId ? isToolAlreadySelected(toolId, block.type) : false
@@ -1622,7 +1626,7 @@ export const ToolInput = memo(function ToolInput({
     // Workflows section - shows available workflows that can be executed as tools
     if (availableWorkflows.length > 0) {
       groups.push({
-        section: 'Workflows',
+        section: tI18n('workflows'),
         items: availableWorkflows.map((workflow) => {
           const alreadySelected = isWorkflowAlreadySelected(selectedTools, workflow.id)
           return {
@@ -1681,12 +1685,12 @@ export const ToolInput = memo(function ToolInput({
       <Combobox
         options={[]}
         groups={toolGroups}
-        placeholder='Add tool...'
+        placeholder={tI18n('add_tool')}
         disabled={disabled}
         searchable
-        searchPlaceholder='Search tools...'
+        searchPlaceholder={tI18n('search_tools')}
         maxHeight={240}
-        emptyMessage='No tools found'
+        emptyMessage={tI18n('no_tools_found')}
         onOpenChange={handleComboboxOpenChange}
         onArrowLeft={mcpServerDrilldown ? () => setMcpServerDrilldown(null) : undefined}
       />
@@ -1945,12 +1949,12 @@ export const ToolInput = memo(function ToolInput({
                         <button
                           className='flex items-center justify-center font-medium text-[var(--text-tertiary)] text-caption transition-colors hover-hover:text-[var(--text-primary)]'
                           onClick={(e: React.MouseEvent) => e.stopPropagation()}
-                          aria-label='Tool usage control'
+                          aria-label={tI18n('tool_usage_control')}
                         >
-                          {tool.usageControl === 'auto' && 'Auto'}
-                          {tool.usageControl === 'force' && 'Force'}
-                          {tool.usageControl === 'none' && 'None'}
-                          {!tool.usageControl && 'Auto'}
+                          {tool.usageControl === 'auto' && tI18n('auto')}
+                          {tool.usageControl === 'force' && tI18n('force')}
+                          {tool.usageControl === 'none' && tI18n('none')}
+                          {!tool.usageControl && tI18n('auto')}
                         </button>
                       </PopoverTrigger>
                       <PopoverContent
@@ -1968,7 +1972,10 @@ export const ToolInput = memo(function ToolInput({
                             setUsageControlPopoverIndex(null)
                           }}
                         >
-                          Auto <span className='text-[var(--text-tertiary)]'>(model decides)</span>
+                          {tI18n('auto')}{' '}
+                          <span className='text-[var(--text-tertiary)]'>
+                            ({tI18n('model_decides')})
+                          </span>
                         </PopoverItem>
                         <PopoverItem
                           active={tool.usageControl === 'force'}
@@ -1977,7 +1984,10 @@ export const ToolInput = memo(function ToolInput({
                             setUsageControlPopoverIndex(null)
                           }}
                         >
-                          Force <span className='text-[var(--text-tertiary)]'>(always use)</span>
+                          {tI18n('force')}{' '}
+                          <span className='text-[var(--text-tertiary)]'>
+                            ({tI18n('always_use')})
+                          </span>
                         </PopoverItem>
                         <PopoverItem
                           active={tool.usageControl === 'none'}
@@ -1986,7 +1996,7 @@ export const ToolInput = memo(function ToolInput({
                             setUsageControlPopoverIndex(null)
                           }}
                         >
-                          None
+                          {tI18n('none')}
                         </PopoverItem>
                       </PopoverContent>
                     </Popover>
@@ -2013,7 +2023,7 @@ export const ToolInput = memo(function ToolInput({
                             setMcpRemovePopoverIndex(toolIndex)
                           }}
                           className='flex items-center justify-center text-[var(--text-tertiary)] transition-colors hover-hover:text-[var(--text-primary)]'
-                          aria-label='Remove tool'
+                          aria-label={tI18n('remove_tool')}
                         >
                           <XIcon className='size-[13px]' />
                         </button>
@@ -2032,7 +2042,7 @@ export const ToolInput = memo(function ToolInput({
                             setMcpRemovePopoverIndex(null)
                           }}
                         >
-                          Remove
+                          {tI18n('remove')}
                         </PopoverItem>
                         <PopoverItem
                           onClick={() => {
@@ -2040,7 +2050,9 @@ export const ToolInput = memo(function ToolInput({
                             setMcpRemovePopoverIndex(null)
                           }}
                         >
-                          Remove all from {tool.params?.serverName || 'server'}
+                          {tI18n('remove_all_from_server', {
+                            server: tool.params?.serverName || tI18n('server'),
+                          })}
                         </PopoverItem>
                       </PopoverContent>
                     </Popover>
@@ -2051,7 +2063,7 @@ export const ToolInput = memo(function ToolInput({
                         handleRemoveTool(toolIndex)
                       }}
                       className='flex items-center justify-center text-[var(--text-tertiary)] transition-colors hover-hover:text-[var(--text-primary)]'
-                      aria-label='Remove tool'
+                      aria-label={tI18n('remove_tool')}
                     >
                       <XIcon className='size-[13px]' />
                     </button>
@@ -2069,7 +2081,7 @@ export const ToolInput = memo(function ToolInput({
                     return hasOperations && operationOptions.length > 0 ? (
                       <div className='relative space-y-1.5'>
                         <div className='font-medium text-[var(--text-primary)] text-small'>
-                          Operation
+                          {tI18n('operation')}
                         </div>
                         <Combobox
                           options={operationOptions
@@ -2080,7 +2092,7 @@ export const ToolInput = memo(function ToolInput({
                             }))}
                           value={tool.operation || operationOptions[0].id}
                           onChange={(value) => handleOperationChange(toolIndex, value)}
-                          placeholder='Select operation'
+                          placeholder={tI18n('select_operation')}
                           disabled={disabled}
                         />
                       </div>

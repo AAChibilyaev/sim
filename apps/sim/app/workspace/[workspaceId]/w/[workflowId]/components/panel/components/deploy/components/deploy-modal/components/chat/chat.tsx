@@ -20,6 +20,7 @@ import { createLogger } from '@sim/logger'
 import { getErrorMessage } from '@sim/utils/errors'
 import { normalizeEmail } from '@sim/utils/string'
 import { AlertTriangle, Check } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { GeneratedPasswordInput } from '@/components/ui'
 import { getEnv, isTruthy } from '@/lib/core/config/env'
 import { getBaseUrl, getEmailDomain } from '@/lib/core/utils/urls'
@@ -100,6 +101,7 @@ export function ChatDeploy({
   onDeployed,
   onVersionActivated,
 }: ChatDeployProps) {
+  const tI18n = useTranslations('auto')
   const [imageUrl, setImageUrl] = useState<string | null>(null)
   const [internalShowDeleteConfirmation, setInternalShowDeleteConfirmation] = useState(false)
 
@@ -138,28 +140,30 @@ export function ChatDeploy({
     const newErrors: FormErrors = {}
 
     if (!formData.identifier.trim()) {
-      newErrors.identifier = 'Identifier is required'
+      newErrors.identifier = tI18n('identifier_required')
     } else if (!IDENTIFIER_PATTERN.test(formData.identifier)) {
-      newErrors.identifier = 'Identifier can only contain lowercase letters, numbers, and hyphens'
+      newErrors.identifier = tI18n('identifier_lowercase_alphanumeric_hyphens')
     }
 
     if (!formData.title.trim()) {
-      newErrors.title = 'Title is required'
+      newErrors.title = tI18n('title_required')
     }
 
     if (isPasswordRequired(formData.authType, formData.password, existingPassword)) {
-      newErrors.password = 'Password is required when using password protection'
+      newErrors.password = tI18n('password_required_protection')
     }
 
     if (
       (formData.authType === 'email' || formData.authType === 'sso') &&
       formData.emails.length === 0
     ) {
-      newErrors.emails = `At least one email or domain is required when using ${formData.authType === 'sso' ? 'SSO' : 'email'} access control`
+      newErrors.emails = tI18n(
+        formData.authType === 'sso' ? 'email_domain_required_sso' : 'email_domain_required_email'
+      )
     }
 
     if (formData.selectedOutputBlocks.length === 0) {
-      newErrors.outputBlocks = 'Please select at least one output block'
+      newErrors.outputBlocks = tI18n('select_at_least_one_output_block')
     }
 
     setErrors(newErrors)
@@ -334,11 +338,11 @@ export function ChatDeploy({
               htmlFor='title'
               className='mb-[6.5px] block pl-0.5 font-medium text-[var(--text-primary)] text-small'
             >
-              Title
+              {tI18n('title')}
             </Label>
             <ChipInput
               id='title'
-              placeholder='Customer Support Assistant'
+              placeholder={tI18n('customer_support_assistant')}
               value={formData.title}
               onChange={(e) => updateField('title', e.target.value)}
               required
@@ -351,13 +355,13 @@ export function ChatDeploy({
 
           <div>
             <Label className='mb-[6.5px] block pl-0.5 font-medium text-[var(--text-primary)] text-small'>
-              Output
+              {tI18n('output')}
             </Label>
             <OutputSelect
               workflowId={workflowId}
               selectedOutputs={formData.selectedOutputBlocks}
               onOutputSelect={(values) => updateField('selectedOutputBlocks', values)}
-              placeholder='Select which block outputs to use'
+              placeholder={tI18n('select_block_outputs')}
               disabled={chatSubmitting}
               className='w-full'
             />
@@ -385,11 +389,11 @@ export function ChatDeploy({
               htmlFor='welcomeMessage'
               className='mb-[6.5px] block pl-0.5 font-medium text-[var(--text-primary)] text-small'
             >
-              Welcome message
+              {tI18n('welcome_message')}
             </Label>
             <Textarea
               id='welcomeMessage'
-              placeholder='Enter a welcome message for your chat'
+              placeholder={tI18n('enter_welcome_message')}
               value={formData.welcomeMessage}
               onChange={(e) => updateField('welcomeMessage', e.target.value)}
               rows={3}
@@ -397,7 +401,7 @@ export function ChatDeploy({
               className='min-h-[80px] resize-none'
             />
             <p className='mt-[6.5px] text-[var(--text-secondary)] text-xs'>
-              This message will be displayed when users first open the chat
+              {tI18n('welcome_message_display_hint')}
             </p>
           </div>
 
@@ -413,23 +417,25 @@ export function ChatDeploy({
       <ChipConfirmModal
         open={showDeleteConfirmation}
         onOpenChange={setShowDeleteConfirmation}
-        srTitle='Delete Chat'
-        title='Delete Chat'
+        srTitle={tI18n('delete_chat')}
+        title={tI18n('delete_chat')}
         text={[
-          'Are you sure you want to delete ',
-          { text: existingChat?.title || 'this chat', bold: true },
+          tI18n('sure_delete'),
+          { text: existingChat?.title || tI18n('this_chat'), bold: true },
           '? ',
           {
-            text: `This will remove the chat at "${getEmailDomain()}/chat/${existingChat?.identifier ?? ''}" and make it unavailable to all users.`,
+            text: tI18n('chat_remove_unavailable', {
+              url: `${getEmailDomain()}/chat/${existingChat?.identifier ?? ''}`,
+            }),
             error: true,
           },
-          ' This action cannot be undone.',
+          ` ${tI18n('cannot_be_undone')}.`,
         ]}
         confirm={{
-          label: 'Delete',
+          label: tI18n('delete'),
           onClick: handleDelete,
           pending: deleteChatMutation.isPending,
-          pendingLabel: 'Deleting...',
+          pendingLabel: tI18n('deleting'),
         }}
       />
     </>
@@ -489,6 +495,8 @@ function IdentifierInput({
   onValidationChange,
   isEditingExisting = false,
 }: IdentifierInputProps) {
+  const tI18n = useTranslations('auto')
+
   const { isChecking, error, isValid } = useIdentifierValidation(
     value,
     originalIdentifier,
@@ -513,7 +521,7 @@ function IdentifierInput({
         htmlFor='chat-url'
         className='mb-[6.5px] block pl-0.5 font-medium text-[var(--text-primary)] text-small'
       >
-        URL
+        {tI18n('url')}
       </Label>
       <div
         className={cn(
@@ -527,7 +535,7 @@ function IdentifierInput({
         <div className='relative flex-1'>
           <Input
             id='chat-url'
-            placeholder='my-chat'
+            placeholder={tI18n('my_chat')}
             value={value}
             onChange={(e) => handleChange(e.target.value)}
             required
@@ -552,7 +560,7 @@ function IdentifierInput({
                   </div>
                 </Tooltip.Trigger>
                 <Tooltip.Content>
-                  <span>Name is available</span>
+                  <span>{tI18n('name_is_available')}</span>
                 </Tooltip.Content>
               </Tooltip.Root>
             )
@@ -563,7 +571,7 @@ function IdentifierInput({
       <p className='mt-[6.5px] truncate text-[var(--text-secondary)] text-xs'>
         {isEditingExisting && value ? (
           <>
-            Live at:{' '}
+            {tI18n('live_at')}{' '}
             <a
               href={fullUrl}
               target='_blank'
@@ -574,7 +582,7 @@ function IdentifierInput({
             </a>
           </>
         ) : (
-          'The unique URL path where your chat will be accessible'
+          tI18n('unique_url_path_hint')
         )}
       </p>
     </div>
@@ -611,6 +619,8 @@ function AuthSelector({
   hasExistingPassword = false,
   error,
 }: AuthSelectorProps) {
+  const tI18n = useTranslations('auto')
+
   const [emailError, setEmailError] = useState('')
   const [invalidEmailItems, setInvalidEmailItems] = useState<TagItem[]>([])
 
@@ -643,7 +653,7 @@ function AuthSelector({
     } else {
       invalidEmailItemsRef.current = [
         ...invalidEmailItemsRef.current,
-        { value: normalized, isValid, error: validation.reason ?? 'Invalid email format' },
+        { value: normalized, isValid, error: validation.reason ?? tI18n('invalid_email_format') },
       ]
       setInvalidEmailItems(invalidEmailItemsRef.current)
     }
@@ -680,7 +690,7 @@ function AuthSelector({
     <div className='space-y-4'>
       <div>
         <Label className='mb-[6.5px] block pl-0.5 font-medium text-[var(--text-primary)] text-small'>
-          Access control
+          {tI18n('access_control')}
         </Label>
         <ButtonGroup
           value={authType}
@@ -698,7 +708,7 @@ function AuthSelector({
       {authType === 'password' && (
         <div>
           <Label className='mb-[6.5px] block pl-0.5 font-medium text-[var(--text-primary)] text-small'>
-            Password
+            {tI18n('password')}
           </Label>
           <GeneratedPasswordInput
             value={password}
@@ -716,14 +726,14 @@ function AuthSelector({
       {(authType === 'email' || authType === 'sso') && (
         <div>
           <Label className='mb-[6.5px] block pl-0.5 font-medium text-[var(--text-primary)] text-small'>
-            {authType === 'email' ? 'Allowed emails' : 'Allowed SSO emails'}
+            {authType === 'email' ? tI18n('allowed_emails') : tI18n('allowed_sso_emails')}
           </Label>
           <TagInput
             items={emailItems}
             onAdd={(value) => addEmail(value)}
             onRemove={handleRemoveEmailItem}
-            placeholder='Enter emails or domains (@example.com)'
-            placeholderWithTags='Add email'
+            placeholder={tI18n('enter_emails_domains')}
+            placeholderWithTags={tI18n('add_email')}
             disabled={disabled}
           />
           {emailError && (
@@ -731,8 +741,8 @@ function AuthSelector({
           )}
           <p className='mt-[6.5px] text-[var(--text-secondary)] text-xs'>
             {authType === 'email'
-              ? 'Add specific emails or entire domains (@example.com)'
-              : 'Add emails or domains that can access via SSO'}
+              ? tI18n('add_specific_emails_domains')
+              : tI18n('add_emails_domains_sso')}
           </p>
         </div>
       )}

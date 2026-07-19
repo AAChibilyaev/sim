@@ -24,6 +24,7 @@ import { createLogger } from '@sim/logger'
 import { Command } from 'cmdk'
 import { Scan } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { usePostHog } from 'posthog-js/react'
 import { createPortal } from 'react-dom'
 import { captureEvent } from '@/lib/posthog/client'
@@ -94,6 +95,7 @@ export function SearchModal({
   onCreateFolder,
   onImportWorkflow,
 }: SearchModalProps) {
+  const tI18n = useTranslations('auto')
   const params = useParams()
   const router = useRouter()
   const workspaceId = params.workspaceId as string
@@ -132,60 +134,60 @@ export function SearchModal({
       [
         {
           id: 'integrations',
-          name: 'Integrations',
+          name: tI18n('integrations_tab'),
           icon: Integration,
           href: `/workspace/${workspaceId}/integrations`,
           hidden: permissionConfig.hideIntegrationsTab,
         },
         {
           id: 'tables',
-          name: 'Tables',
+          name: tI18n('tables_tab'),
           icon: Table,
           href: `/workspace/${workspaceId}/tables`,
           hidden: permissionConfig.hideTablesTab,
         },
         {
           id: 'files',
-          name: 'Files',
+          name: tI18n('files_tab'),
           icon: File,
           href: `/workspace/${workspaceId}/files`,
           hidden: permissionConfig.hideFilesTab,
         },
         {
           id: 'knowledge-base',
-          name: 'Knowledge base',
+          name: tI18n('knowledge_base_tab'),
           icon: Database,
           href: `/workspace/${workspaceId}/knowledge`,
           hidden: permissionConfig.hideKnowledgeBaseTab,
         },
         {
           id: 'scheduled-tasks',
-          name: 'Scheduled tasks',
+          name: tI18n('scheduled_tasks_tab'),
           icon: Calendar,
           href: `/workspace/${workspaceId}/scheduled-tasks`,
         },
         {
           id: 'logs',
-          name: 'Logs',
+          name: tI18n('logs_tab'),
           icon: Library,
           href: `/workspace/${workspaceId}/logs`,
           shortcut: '⌘⇧L',
         },
         {
           id: 'secrets',
-          name: 'Secrets',
+          name: tI18n('secrets_tab'),
           icon: Key,
           href: `/workspace/${workspaceId}/settings/secrets`,
         },
         {
           id: 'help',
-          name: 'Help',
+          name: tI18n('help_tab'),
           icon: HelpCircle,
           onClick: openHelpModal,
         },
         {
           id: 'settings',
-          name: 'Settings',
+          name: tI18n('settings_tab'),
           icon: Settings,
           onClick: navigateToSettings,
         },
@@ -210,7 +212,7 @@ export function SearchModal({
     const list: ActionItem[] = []
     list.push({
       id: 'run-workflow',
-      name: 'Run workflow',
+      name: tI18n('run_workflow_action'),
       keywords: 'execute start play test',
       icon: Play,
       shortcut: '⌘↵',
@@ -219,7 +221,7 @@ export function SearchModal({
     })
     list.push({
       id: 'new-chat',
-      name: 'New chat',
+      name: tI18n('new_chat_action'),
       keywords: 'chat message ask sim assistant home',
       icon: Home,
       context: 'global',
@@ -228,7 +230,7 @@ export function SearchModal({
     if (canEdit && onCreateWorkflow) {
       list.push({
         id: 'create-workflow',
-        name: 'Create workflow',
+        name: tI18n('create_workflow_action'),
         keywords: 'new add build',
         icon: Plus,
         context: 'global',
@@ -238,7 +240,7 @@ export function SearchModal({
     if (canEdit && onCreateFolder) {
       list.push({
         id: 'create-folder',
-        name: 'Create folder',
+        name: tI18n('create_folder_action'),
         keywords: 'new add group',
         icon: FolderPlus,
         context: 'global',
@@ -248,7 +250,7 @@ export function SearchModal({
     if (canEdit && onImportWorkflow) {
       list.push({
         id: 'import-workflow',
-        name: 'Import workflow',
+        name: tI18n('import_workflow_action'),
         keywords: 'upload add',
         icon: Upload,
         context: 'global',
@@ -257,7 +259,7 @@ export function SearchModal({
     }
     list.push({
       id: 'fit-to-view',
-      name: 'Fit workflow to view',
+      name: tI18n('fit_workflow_to_view_action'),
       keywords: 'zoom center recenter canvas reset',
       icon: Scan,
       shortcut: '⌘⇧F',
@@ -266,7 +268,7 @@ export function SearchModal({
     })
     list.push({
       id: 'copy-workflow-url',
-      name: 'Copy workflow link',
+      name: tI18n('copy_workflow_link_action'),
       keywords: 'url share clipboard',
       icon: Duplicate,
       context: 'workflow',
@@ -278,7 +280,7 @@ export function SearchModal({
     })
     list.push({
       id: 'invite-teammates',
-      name: 'Invite teammates',
+      name: tI18n('invite_teammates_action'),
       keywords: 'members people add user organization',
       icon: Send,
       context: 'global',
@@ -696,7 +698,7 @@ export function SearchModal({
                 ref={inputRef}
                 autoFocus
                 onValueChange={handleSearchChange}
-                placeholder='Search anything...'
+                placeholder={tI18n('search_anything_placeholder')}
                 className='h-full w-full bg-transparent text-[var(--text-body)] text-sm outline-none placeholder:text-[var(--text-muted)] focus:outline-none'
               />
             </div>
@@ -708,7 +710,7 @@ export function SearchModal({
               )}
             >
               <Command.Empty className='flex items-center justify-center px-4 py-6 text-[var(--text-subtle)] text-sm'>
-                No results found.
+                {tI18n('no_results_found')}
               </Command.Empty>
 
               {showSection('actions') && (

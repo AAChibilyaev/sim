@@ -11,6 +11,7 @@ import {
   Trash,
 } from '@sim/emcn'
 import { Plus } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import type { FilterRule } from '@/lib/table/query-builder/constants'
 import { formatDisplayText } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/components/formatted-text'
 import { TagDropdown } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/components/tag-dropdown/tag-dropdown'
@@ -55,6 +56,7 @@ export function FilterRuleRow({
   onToggleCollapse,
   inputController,
 }: FilterRuleRowProps) {
+  const tI18n = useTranslations('auto')
   const activeSearchTarget = useActiveSearchTarget()
   const accessiblePrefixes = useAccessibleReferencePrefixes(blockId)
   const valueInputRef = useRef<HTMLInputElement>(null)
@@ -119,7 +121,7 @@ export function FilterRuleRow({
             ? formatDisplayText(getColumnLabel(rule.column), {
                 workflowSearchHighlight: getLabelHighlight('column', getColumnLabel(rule.column)),
               })
-            : `Condition ${index + 1}`}
+            : `${tI18n('condition')} ${index + 1}`}
         </span>
         {rule.collapsed && rule.column && (
           <Badge variant='type' size='sm'>
@@ -139,7 +141,7 @@ export function FilterRuleRow({
       >
         <Button variant='ghost' onClick={onAdd} disabled={isReadOnly} className='h-auto p-0'>
           <Plus className='size-[14px]' />
-          <span className='sr-only'>Add Condition</span>
+          <span className='sr-only'>{tI18n('add_condition')}</span>
         </Button>
         <Button
           variant='ghost'
@@ -148,7 +150,7 @@ export function FilterRuleRow({
           className='h-auto p-0 text-[var(--text-error)] hover-hover:text-[var(--text-error)]'
         >
           <Trash className='size-[14px]' />
-          <span className='sr-only'>Delete Condition</span>
+          <span className='sr-only'>{tI18n('delete_condition')}</span>
         </Button>
       </div>
     </div>
@@ -174,7 +176,7 @@ export function FilterRuleRow({
         }
         disabled={isReadOnly}
         autoComplete='off'
-        placeholder='Enter value'
+        placeholder={tI18n('enter_value')}
         className='allow-scroll w-full overflow-auto text-transparent caret-foreground'
       />
       <div
@@ -212,7 +214,7 @@ export function FilterRuleRow({
     <div className='flex flex-col gap-2 rounded-b-[4px] border-[var(--border-1)] border-t bg-[var(--surface-2)] px-2.5 pt-1.5 pb-2.5'>
       {index > 0 && (
         <div className='flex flex-col gap-1.5'>
-          <Label className='text-small'>Logic</Label>
+          <Label className='text-small'>{tI18n('logic')}</Label>
           <Combobox
             options={logicalOptions}
             value={rule.logicalOperator}
@@ -235,13 +237,13 @@ export function FilterRuleRow({
       )}
 
       <div className='flex flex-col gap-1.5'>
-        <Label className='text-small'>Column</Label>
+        <Label className='text-small'>{tI18n('column')}</Label>
         <Combobox
           options={columns}
           value={rule.column}
           onChange={(v) => onUpdate(rule.id, 'column', v)}
           disabled={isReadOnly}
-          placeholder='Select column'
+          placeholder={tI18n('select_column')}
           overlayContent={
             getLabelHighlight('column', getColumnLabel(rule.column)) ? (
               <span className='truncate text-[var(--text-primary)]'>
@@ -255,13 +257,13 @@ export function FilterRuleRow({
       </div>
 
       <div className='flex flex-col gap-1.5'>
-        <Label className='text-small'>Operator</Label>
+        <Label className='text-small'>{tI18n('operator')}</Label>
         <Combobox
           options={comparisonOptions}
           value={rule.operator}
           onChange={(v) => onUpdate(rule.id, 'operator', v)}
           disabled={isReadOnly}
-          placeholder='Select operator'
+          placeholder={tI18n('select_operator')}
           overlayContent={
             getLabelHighlight('operator', getOperatorLabel(rule.operator)) ? (
               <span className='truncate text-[var(--text-primary)]'>
@@ -278,7 +280,7 @@ export function FilterRuleRow({
       </div>
 
       <div className='flex flex-col gap-1.5'>
-        <Label className='text-small'>Value</Label>
+        <Label className='text-small'>{tI18n('value')}</Label>
         {renderValueInput()}
       </div>
     </div>

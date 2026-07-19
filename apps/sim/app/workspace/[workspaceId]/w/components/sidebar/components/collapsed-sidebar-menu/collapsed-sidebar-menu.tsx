@@ -15,6 +15,7 @@ import {
 import { Pencil, SquareArrowUpRight } from '@sim/emcn/icons'
 import { Folder, MoreHorizontal, Plus } from 'lucide-react'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import type { WorkspaceFileRecord } from '@/lib/uploads/contexts/workspace'
 import { ConversationListItem } from '@/app/workspace/[workspaceId]/components'
 import type { useHoverMenu } from '@/app/workspace/[workspaceId]/w/components/sidebar/hooks'
@@ -228,13 +229,14 @@ export function CollapsedChatFlyoutItem({
   onMorePointerDown,
   onMoreClick,
 }: CollapsedChatFlyoutItemProps) {
+  const tI18n = useTranslations('auto')
   const showActions = chat.id !== 'new' && onMoreClick
 
   if (isEditing) {
     return (
       <div className={EDIT_ROW_CLASS}>
         <input
-          aria-label={`Rename chat ${chat.name}`}
+          aria-label={`${tI18n('rename_chat')} ${chat.name}`}
           ref={inputRef}
           value={editValue ?? chat.name}
           onChange={(e) => onEditValueChange?.(e.target.value)}
@@ -263,7 +265,7 @@ export function CollapsedChatFlyoutItem({
       action={
         showActions ? (
           <DropdownMenuItemAction
-            aria-label='Chat options'
+            aria-label={tI18n('chat_options')}
             onPointerDown={onMorePointerDown}
             onClick={(e) => onMoreClick?.(e, chat.id)}
             className={cn(isMenuOpen && 'opacity-100')}
@@ -304,6 +306,7 @@ export function CollapsedWorkflowFlyoutItem({
   onRename,
   canRename = true,
 }: CollapsedWorkflowFlyoutItemProps) {
+  const tI18n = useTranslations('auto')
   const hasActions = !!onOpenInNewTab || !!onRename
   const [actionsOpen, setActionsOpen] = useState(false)
 
@@ -311,7 +314,7 @@ export function CollapsedWorkflowFlyoutItem({
     return (
       <div className={EDIT_ROW_CLASS}>
         <input
-          aria-label={`Rename workflow ${workflow.name}`}
+          aria-label={`${tI18n('rename_workflow')} ${workflow.name}`}
           ref={inputRef}
           value={editValue ?? workflow.name}
           onChange={(e) => onEditValueChange?.(e.target.value)}
@@ -347,7 +350,7 @@ export function CollapsedWorkflowFlyoutItem({
           >
             <DropdownMenuSubTrigger asChild>
               <DropdownMenuItemAction
-                aria-label='Workflow options'
+                aria-label={tI18n('workflow_options')}
                 onClick={() => setActionsOpen((prev) => !prev)}
                 className={cn(actionsOpen && 'opacity-100')}
               >

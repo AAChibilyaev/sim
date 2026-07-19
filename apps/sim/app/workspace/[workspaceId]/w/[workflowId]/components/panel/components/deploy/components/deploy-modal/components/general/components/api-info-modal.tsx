@@ -17,6 +17,7 @@ import {
 } from '@sim/emcn'
 import { getErrorMessage } from '@sim/utils/errors'
 import { useParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { getMeaningfulWorkflowDescription } from '@/lib/mcp/workflow-tool-schema'
 import { normalizeInputFormatValue } from '@/lib/workflows/input-format'
 import { isInputDefinitionTrigger } from '@/lib/workflows/triggers/input-definition-triggers'
@@ -37,6 +38,7 @@ interface ApiInfoModalProps {
 }
 
 export function ApiInfoModal({ open, onOpenChange, workflowId }: ApiInfoModalProps) {
+  const tI18n = useTranslations('auto')
   const { workspaceId } = useParams<{ workspaceId: string }>()
   const blocks = useWorkflowStore((state) => state.blocks)
   const setValue = useSubBlockStore((state) => state.setValue)
@@ -203,38 +205,43 @@ export function ApiInfoModal({ open, onOpenChange, workflowId }: ApiInfoModalPro
       <ChipModal
         open={open}
         onOpenChange={(openState) => !openState && handleCloseAttempt()}
-        srTitle='Edit API Info'
+        srTitle={tI18n('edit_api_info')}
       >
-        <ChipModalHeader onClose={() => onOpenChange(false)}>Edit API Info</ChipModalHeader>
+        <ChipModalHeader onClose={() => onOpenChange(false)}>
+          {tI18n('edit_api_info')}
+        </ChipModalHeader>
         <ChipModalBody>
           <ChipModalField
             type='textarea'
-            title='Description'
+            title={tI18n('description')}
             value={description}
             onChange={setDescription}
-            placeholder='Describe what this workflow API does...'
+            placeholder={tI18n('describe_workflow_api')}
             minHeight={80}
           />
 
           {!isPublicApiDisabled && (
-            <ChipModalField type='custom' title='Access'>
+            <ChipModalField type='custom' title={tI18n('access')}>
               <ButtonGroup
                 value={accessMode}
                 onValueChange={(val) => setAccessMode(val as 'api_key' | 'public')}
               >
-                <ButtonGroupItem value='api_key'>API Key</ButtonGroupItem>
-                <ButtonGroupItem value='public'>Public</ButtonGroupItem>
+                <ButtonGroupItem value='api_key'>{tI18n('api_key')}</ButtonGroupItem>
+                <ButtonGroupItem value='public'>{tI18n('public')}</ButtonGroupItem>
               </ButtonGroup>
               <p className='mt-1 text-[var(--text-secondary)] text-caption'>
                 {accessMode === 'public'
-                  ? 'Anyone can call this API without authentication. You will be billed for all usage.'
-                  : 'Requires a valid API key to call this endpoint.'}
+                  ? tI18n('public_api_no_auth_billing')
+                  : tI18n('requires_valid_api_key')}
               </p>
             </ChipModalField>
           )}
 
           {inputFormat.length > 0 && (
-            <ChipModalField type='custom' title={`Parameters (${inputFormat.length})`}>
+            <ChipModalField
+              type='custom'
+              title={tI18n('parameters_count', { count: inputFormat.length })}
+            >
               <div className='flex flex-col gap-2'>
                 {inputFormat.map((field) => (
                   <div
@@ -253,11 +260,11 @@ export function ApiInfoModal({ open, onOpenChange, workflowId }: ApiInfoModalPro
                     </div>
                     <div className='rounded-b-[4px] border-[var(--border-1)] border-t bg-[var(--surface-2)] px-2.5 pt-1.5 pb-2.5'>
                       <div className='flex flex-col gap-1.5'>
-                        <Label className='text-small'>Description</Label>
+                        <Label className='text-small'>{tI18n('description')}</Label>
                         <Input
                           value={paramDescriptions[field.name] || ''}
                           onChange={(e) => handleParamDescriptionChange(field.name, e.target.value)}
-                          placeholder={`Enter description for ${field.name}`}
+                          placeholder={tI18n('enter_description_field', { field: field.name })}
                         />
                       </div>
                     </div>
@@ -273,7 +280,7 @@ export function ApiInfoModal({ open, onOpenChange, workflowId }: ApiInfoModalPro
           onCancel={handleCloseAttempt}
           cancelDisabled={isSaving}
           primaryAction={{
-            label: 'Save',
+            label: tI18n('save'),
             onClick: handleSave,
             disabled: !hasChanges || isSaving,
           }}
@@ -283,12 +290,12 @@ export function ApiInfoModal({ open, onOpenChange, workflowId }: ApiInfoModalPro
       <ChipConfirmModal
         open={showUnsavedChangesAlert}
         onOpenChange={setShowUnsavedChangesAlert}
-        srTitle='Unsaved Changes'
-        title='Unsaved Changes'
-        text='You have unsaved changes. Are you sure you want to discard them?'
-        dismissLabel='Keep editing'
+        srTitle={tI18n('unsaved_changes')}
+        title={tI18n('unsaved_changes')}
+        text={tI18n('unsaved_changes_discard')}
+        dismissLabel={tI18n('keep_editing')}
         confirm={{
-          label: 'Discard Changes',
+          label: tI18n('discard_changes'),
           onClick: handleDiscardChanges,
         }}
       />

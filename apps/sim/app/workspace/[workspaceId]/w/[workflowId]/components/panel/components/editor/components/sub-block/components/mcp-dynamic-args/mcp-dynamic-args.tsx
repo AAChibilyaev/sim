@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react'
 import { Combobox, FieldDivider, Label, Slider, Switch } from '@sim/emcn'
 import { createLogger } from '@sim/logger'
 import { useParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { formatDisplayText } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/components/formatted-text'
 import { LongInput } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/components/long-input/long-input'
 import { ShortInput } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/components/short-input/short-input'
@@ -101,6 +102,7 @@ export function McpDynamicArgs({
   previewValue,
   previewContextValues,
 }: McpDynamicArgsProps) {
+  const tI18n = useTranslations('auto')
   const activeSearchTarget = useActiveSearchTarget()
   const params = useParams()
   const workspaceId = params.workspaceId as string
@@ -446,7 +448,9 @@ export function McpDynamicArgs({
   if (!selectedTool) {
     return (
       <div className='rounded-lg border p-8 text-center'>
-        <p className='text-muted-foreground text-sm'>Select a tool to configure its parameters</p>
+        <p className='text-muted-foreground text-sm'>
+          {tI18n('select_tool_to_configure_parameters')}
+        </p>
       </div>
     )
   }
@@ -459,7 +463,7 @@ export function McpDynamicArgs({
   ) {
     return (
       <div className='rounded-lg border p-8 text-center'>
-        <p className='text-muted-foreground text-sm'>Loading tool schema…</p>
+        <p className='text-muted-foreground text-sm'>{tI18n('loading_tool_schema')}</p>
       </div>
     )
   }
@@ -467,7 +471,7 @@ export function McpDynamicArgs({
   if (!toolSchema?.properties || Object.keys(toolSchema.properties).length === 0) {
     return (
       <div className='rounded-lg border p-8 text-center'>
-        <p className='text-muted-foreground text-sm'>This tool requires no parameters</p>
+        <p className='text-muted-foreground text-sm'>{tI18n('tool_requires_no_parameters')}</p>
       </div>
     )
   }

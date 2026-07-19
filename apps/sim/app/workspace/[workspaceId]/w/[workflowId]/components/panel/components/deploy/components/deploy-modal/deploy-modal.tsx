@@ -23,6 +23,7 @@ import { createLogger } from '@sim/logger'
 import { toError } from '@sim/utils/errors'
 import { useQueryClient } from '@tanstack/react-query'
 import { useParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import type { DeploymentOperationSummary } from '@/lib/api/contracts/deployments'
 import { getBaseUrl } from '@/lib/core/utils/urls'
 import { getInputFormatExample as getInputFormatExampleUtil } from '@/lib/workflows/operations/deployment-utils'
@@ -101,6 +102,7 @@ export function DeployModal({
   deployReadiness,
   isDeploymentSettling,
 }: DeployModalProps) {
+  const tI18n = useTranslations('auto')
   const queryClient = useQueryClient()
   const params = useParams()
   const workspaceId = params?.workspaceId as string
@@ -508,7 +510,7 @@ export function DeployModal({
     <>
       <Modal open={open} onOpenChange={handleCloseModal}>
         <ModalContent size='lg' className='h-[76vh]'>
-          <ModalHeader>Workflow Deployment</ModalHeader>
+          <ModalHeader>{tI18n('workflow_deployment')}</ModalHeader>
 
           <ModalTabs
             value={activeTab}
@@ -516,15 +518,15 @@ export function DeployModal({
             className='flex min-h-0 flex-1 flex-col'
           >
             <ModalTabsList activeValue={activeTab}>
-              <ModalTabsTrigger value='general'>General</ModalTabsTrigger>
+              <ModalTabsTrigger value='general'>{tI18n('general')}</ModalTabsTrigger>
               {!permissionConfig.hideDeployApi && (
-                <ModalTabsTrigger value='api'>API</ModalTabsTrigger>
+                <ModalTabsTrigger value='api'>{tI18n('api')}</ModalTabsTrigger>
               )}
               {!permissionConfig.hideDeployMcp && (
-                <ModalTabsTrigger value='mcp'>MCP</ModalTabsTrigger>
+                <ModalTabsTrigger value='mcp'>{tI18n('mcp')}</ModalTabsTrigger>
               )}
               {!permissionConfig.hideDeployChatbot && (
-                <ModalTabsTrigger value='chat'>Chat</ModalTabsTrigger>
+                <ModalTabsTrigger value='chat'>{tI18n('chat')}</ModalTabsTrigger>
               )}
             </ModalTabsList>
 
@@ -624,14 +626,14 @@ export function DeployModal({
               <div />
               <div className='flex items-center gap-2'>
                 <Button variant='default' onClick={() => setIsApiInfoModalOpen(true)}>
-                  Edit API Info
+                  {tI18n('edit_api_info')}
                 </Button>
                 <Button
                   variant='tertiary'
                   onClick={() => setIsCreateKeyModalOpen(true)}
                   disabled={createButtonDisabled}
                 >
-                  Generate API Key
+                  {tI18n('generate_api_key')}
                 </Button>
               </div>
             </ModalFooter>
@@ -647,7 +649,7 @@ export function DeployModal({
                     onClick={handleChatDelete}
                     disabled={chatSubmitting}
                   >
-                    Delete
+                    {tI18n('delete')}
                   </Button>
                 )}
                 <Button
@@ -658,15 +660,15 @@ export function DeployModal({
                 >
                   {chatSuccess
                     ? chatExists
-                      ? 'Updated'
-                      : 'Launched'
+                      ? tI18n('updated')
+                      : tI18n('launched')
                     : chatSubmitting
                       ? chatExists
-                        ? 'Updating...'
-                        : 'Launching...'
+                        ? tI18n('updating')
+                        : tI18n('launching')
                       : chatExists
-                        ? 'Update'
-                        : 'Launch Chat'}
+                        ? tI18n('update')
+                        : tI18n('launch_chat')}
                 </Button>
               </div>
             </ModalFooter>
@@ -685,7 +687,7 @@ export function DeployModal({
                     })
                   }
                 >
-                  Manage
+                  {tI18n('manage')}
                 </Button>
                 <Tooltip.Root>
                   <Tooltip.Trigger asChild>
@@ -696,7 +698,7 @@ export function DeployModal({
                         onClick={handleMcpToolFormSubmit}
                         disabled={mcpToolSubmitting || !mcpToolCanSave}
                       >
-                        {mcpToolSubmitting ? 'Saving...' : 'Save Tool'}
+                        {mcpToolSubmitting ? tI18n('saving') : tI18n('save_tool')}
                       </Button>
                     </span>
                   </Tooltip.Trigger>
@@ -715,20 +717,20 @@ export function DeployModal({
         onOpenChange={(nextOpen) => {
           if (!nextOpen) setUndeployTargetWorkflowId(null)
         }}
-        srTitle='Undeploy API'
-        title='Undeploy API'
+        srTitle={tI18n('undeploy_api')}
+        title={tI18n('undeploy_api')}
         text={[
-          'Are you sure you want to undeploy this workflow? ',
+          tI18n('sure_undeploy_workflow'),
           {
-            text: 'This will remove the API endpoint and make it unavailable to external users.',
+            text: tI18n('undeploy_removes_endpoint'),
             error: true,
           },
         ]}
         confirm={{
-          label: 'Undeploy',
+          label: tI18n('undeploy'),
           onClick: handleUndeploy,
           pending: isUndeploying,
-          pendingLabel: 'Undeploying...',
+          pendingLabel: tI18n('undeploying'),
         }}
       />
 
@@ -775,13 +777,15 @@ function StatusBadge({
   attemptStatus,
   attemptErrorMessage,
 }: StatusBadgeProps) {
+  const tI18n = useTranslations('auto')
+
   if (attemptStatus === 'preparing' || attemptStatus === 'activating') {
     const isRetrying = Boolean(attemptErrorMessage)
     return (
       <Tooltip.Root>
         <Tooltip.Trigger asChild>
           <Badge variant='amber' size='lg' dot className='cursor-default'>
-            {isRetrying ? 'Retrying' : 'Pending'}
+            {isRetrying ? tI18n('retrying') : tI18n('pending')}
           </Badge>
         </Tooltip.Trigger>
         <Tooltip.Content side='top' className='max-w-[320px]'>
@@ -789,11 +793,11 @@ function StatusBadge({
           <p className='text-caption'>
             {isRetrying
               ? isDeployed
-                ? 'Retrying automatically. The current version stays live until cutover completes.'
-                : 'Retrying automatically. The workflow goes live once activation completes.'
+                ? tI18n('retrying_auto_current_live')
+                : tI18n('retrying_auto_goes_live')
               : isDeployed
-                ? 'A new version is being prepared. The current version stays live until cutover completes.'
-                : 'Triggers and schedules are being registered. The workflow goes live once activation completes.'}
+                ? tI18n('new_version_being_prepared')
+                : tI18n('triggers_schedules_being_registered')}
           </p>
         </Tooltip.Content>
       </Tooltip.Root>
@@ -805,15 +809,17 @@ function StatusBadge({
       <Tooltip.Root>
         <Tooltip.Trigger asChild>
           <Badge variant='red' size='lg' dot className='cursor-default'>
-            Failed
+            {tI18n('failed')}
           </Badge>
         </Tooltip.Trigger>
         <Tooltip.Content side='top' className='max-w-[320px]'>
-          <p className='text-caption'>{attemptErrorMessage || 'Deployment preparation failed.'}</p>
+          <p className='text-caption'>
+            {attemptErrorMessage || tI18n('deployment_preparation_failed')}
+          </p>
           <p className='text-caption'>
             {isDeployed
-              ? 'The previously deployed version is still live.'
-              : 'The workflow remains undeployed.'}
+              ? tI18n('previous_version_still_live')
+              : tI18n('workflow_remains_undeployed')}
           </p>
         </Tooltip.Content>
       </Tooltip.Root>
@@ -824,7 +830,7 @@ function StatusBadge({
 
   return (
     <Badge variant={needsRedeployment ? 'amber' : 'green'} size='lg' dot>
-      {needsRedeployment ? 'Update deployment' : 'Live'}
+      {needsRedeployment ? tI18n('update_deployment') : tI18n('live')}
     </Badge>
   )
 }
@@ -856,6 +862,8 @@ function GeneralFooter({
   onRedeploy,
   onUndeploy,
 }: GeneralFooterProps) {
+  const tI18n = useTranslations('auto')
+
   const isDeployBlocked =
     deployReadiness.isBlocked || isDeploymentSettling || isSubmitting || isUndeploying
   const blockedMessage =
@@ -889,7 +897,7 @@ function GeneralFooter({
         <div className='flex items-center gap-2'>
           <Button variant='tertiary' onClick={onDeploy} disabled={isDeployBlocked}>
             {deployActionLoading && <Loader className='mr-1.5 size-3.5' animate />}
-            Deploy
+            {tI18n('deploy')}
           </Button>
         </div>
       </ModalFooter>
@@ -901,12 +909,12 @@ function GeneralFooter({
       {status}
       <div className='flex items-center gap-2'>
         <Button variant='default' onClick={onUndeploy} disabled={isUndeploying || isSubmitting}>
-          {isUndeploying ? 'Undeploying...' : 'Undeploy'}
+          {isUndeploying ? tI18n('undeploying') : tI18n('undeploy')}
         </Button>
         {(needsRedeployment || isDeploymentSettling) && (
           <Button variant='tertiary' onClick={onRedeploy} disabled={isDeployBlocked}>
             {deployActionLoading && <Loader className='mr-1.5 size-3.5' animate />}
-            Update
+            {tI18n('update')}
           </Button>
         )}
       </div>

@@ -1,9 +1,11 @@
 'use client'
 
-import { useEffect, useLayoutEffect, useRef } from 'react'
+import { type CSSProperties, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { cn } from '@sim/emcn'
+import { PanelLeft } from '@sim/emcn/icons'
 import { usePathname } from 'next/navigation'
 import { Sidebar } from '@/app/workspace/[workspaceId]/w/components/sidebar/sidebar'
+import { useIsMobile } from '@/hooks/use-is-mobile'
 import { useFullscreenOriginStore } from '@/stores/fullscreen-origin'
 import { useSidebarStore } from '@/stores/sidebar/store'
 
@@ -54,6 +56,15 @@ export function WorkspaceChrome({
 
   const setOrigin = useFullscreenOriginStore((s) => s.setOrigin)
 
+  /**
+   * Below the mobile breakpoint the fixed-width sidebar column would consume
+   * most of the viewport, so it becomes an off-canvas drawer overlaid above the
+   * content. `isMobile` is `false` on the server and the first client render, so
+   * the desktop tree hydrates identically; the drawer only appears after mount.
+   */
+  const isMobile = useIsMobile()
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
+
   const storeIsCollapsed = useSidebarStore((s) => s.isCollapsed)
   const hasHydrated = useSidebarStore((s) => s._hasHydrated)
   const syncSidebarWidth = useSidebarStore((s) => s.syncWidth)
@@ -102,6 +113,15 @@ export function WorkspaceChrome({
     if (pathname && !isFullscreen) setOrigin(pathname)
   }, [pathname, isFullscreen, setOrigin])
 
+  // Close the mobile drawer whenever the route changes (tapping a nav item) or
+  // the viewport grows back to desktop, so a stale overlay never lingers.
+  useEffect(() => {
+    setMobileSidebarOpen(false)
+  }, [pathname])
+  useEffect(() => {
+    if (!isMobile) setMobileSidebarOpen(false)
+  }, [isMobile])
+
   // Re-apply the sidebar width whenever this persistent shell sees a navigation.
   // The blocking script in the document head only runs on full page loads and
   // store rehydration only fires once, so a soft navigation can leave
@@ -135,29 +155,61 @@ export function WorkspaceChrome({
     <div className='flex min-h-0 flex-1'>
       <div
         className={cn(
-          'sidebar-shell-outer shrink-0 overflow-hidden transition-[width]',
-          SLIDE_TRANSITION,
-          isFullscreen ? 'w-0' : 'w-[var(--sidebar-width)]'
+          'sidebar-shell-outer overflow-hidden',
+          isMobile
+            ? [
+                'fixed inset-y-0 left-0 z-50 w-[248px] max-w-[85vw] border-[var(--border)] border-r bg-[var(--surface-1)] shadow-xl transition-transform',
+                SLIDE_TRANSITION,
+                mobileSidebarOpen && !isFullscreen ? 'translate-x-0' : '-translate-x-full',
+              ]
+            : [
+                'shrink-0 transition-[width]',
+                SLIDE_TRANSITION,
+                isFullscreen ? 'w-0' : 'w-[var(--sidebar-width)]',
+              ]
         )}
-        data-collapsed={isCollapsed || undefined}
-        aria-hidden={isFullscreen || undefined}
+        style={isMobile ? ({ '--sidebar-width': '248px' } as CSSProperties) : undefined}
+        data-collapsed={(!isMobile && isCollapsed) || undefined}
+        aria-hidden={(isMobile ? !mobileSidebarOpen : isFullscreen) || undefined}
         suppressHydrationWarning
       >
         <div
           className={cn(
-            'sidebar-shell-inner h-full w-[var(--sidebar-width)] shrink-0 transition-transform',
+            'sidebar-shell-inner h-full transition-transform',
+            isMobile ? 'w-full' : 'w-[var(--sidebar-width)] shrink-0',
             SLIDE_TRANSITION,
-            isFullscreen && '-translate-x-full'
+            !isMobile && isFullscreen && '-translate-x-full'
           )}
         >
-          <Sidebar isCollapsed={isCollapsed} />
+          <Sidebar isCollapsed={isMobile ? false : isCollapsed} />
         </div>
       </div>
+
+      {isMobile && mobileSidebarOpen && !isFullscreen && (
+        <button
+          type='button'
+          aria-label='Close menu'
+          onClick={() => setMobileSidebarOpen(false)}
+          className='fixed inset-0 z-40 bg-black/40'
+        />
+      )}
+
+      {isMobile && !mobileSidebarOpen && !isFullscreen && (
+        <button
+          type='button'
+          aria-label='Open menu'
+          onClick={() => setMobileSidebarOpen(true)}
+          className='fixed top-[calc(env(safe-area-inset-top)_+_0.75rem)] left-[calc(env(safe-area-inset-left)_+_0.75rem)] z-30 flex size-9 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface-1)] text-[var(--text-icon)] shadow-md'
+        >
+          <PanelLeft className='size-[18px]' />
+        </button>
+      )}
+
       <div
         className={cn(
           'flex min-w-0 flex-1 flex-col p-[8px] transition-[padding]',
           SLIDE_TRANSITION,
-          !isFullscreen && 'pl-0'
+          !isFullscreen && !isMobile && 'pl-0'
         )}
       >
         <div className='flex-1 overflow-hidden rounded-[8px] border border-[var(--border)] bg-[var(--bg)]'>

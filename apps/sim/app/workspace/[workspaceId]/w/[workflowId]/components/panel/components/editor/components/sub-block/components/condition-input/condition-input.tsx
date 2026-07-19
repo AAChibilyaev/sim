@@ -15,6 +15,7 @@ import { Trash } from '@sim/emcn/icons'
 import { createLogger } from '@sim/logger'
 import { ChevronDown, ChevronsUpDown, ChevronUp, Plus } from 'lucide-react'
 import { useParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import Editor from 'react-simple-code-editor'
 import { isElseConditionTitle } from '@/lib/workflows/conditions'
 import {
@@ -135,6 +136,7 @@ export function ConditionInput({
   disabled = false,
   mode = 'condition',
 }: ConditionInputProps) {
+  const tI18n = useTranslations('auto')
   const activeSearchTarget = useActiveSearchTarget()
   const isRouterMode = mode === 'router'
   const params = useParams()
@@ -927,7 +929,7 @@ export function ConditionInput({
   if (!isReady || conditionalBlocks.length === 0) {
     return (
       <div className='flex min-h-[150px] items-center justify-center text-muted-foreground'>
-        Loading conditions…
+        {tI18n('loading_conditions')}
       </div>
     )
   }
@@ -957,7 +959,7 @@ export function ConditionInput({
               )}
             >
               <span className='font-medium text-[var(--text-tertiary)] text-sm'>
-                {isRouterMode ? `Route ${index + 1}` : block.title}
+                {isRouterMode ? `${tI18n('route')} ${index + 1}` : block.title}
               </span>
               <div className='flex items-center gap-2'>
                 <Tooltip.Root>
@@ -973,10 +975,10 @@ export function ConditionInput({
                       className='h-auto p-0'
                     >
                       <Plus className='size-[14px]' />
-                      <span className='sr-only'>Add Block</span>
+                      <span className='sr-only'>{tI18n('add_block')}</span>
                     </Button>
                   </Tooltip.Trigger>
-                  <Tooltip.Content>Add Block</Tooltip.Content>
+                  <Tooltip.Content>{tI18n('add_block')}</Tooltip.Content>
                 </Tooltip.Root>
 
                 <Tooltip.Root>
@@ -993,10 +995,10 @@ export function ConditionInput({
                       className='h-auto p-0'
                     >
                       <ChevronUp className='size-[14px]' />
-                      <span className='sr-only'>Move Up</span>
+                      <span className='sr-only'>{tI18n('move_up')}</span>
                     </Button>
                   </Tooltip.Trigger>
-                  <Tooltip.Content>Move Up</Tooltip.Content>
+                  <Tooltip.Content>{tI18n('move_up')}</Tooltip.Content>
                 </Tooltip.Root>
 
                 <Tooltip.Root>
@@ -1015,10 +1017,10 @@ export function ConditionInput({
                       className='h-auto p-0'
                     >
                       <ChevronDown className='size-[14px]' />
-                      <span className='sr-only'>Move Down</span>
+                      <span className='sr-only'>{tI18n('move_down')}</span>
                     </Button>
                   </Tooltip.Trigger>
-                  <Tooltip.Content>Move Down</Tooltip.Content>
+                  <Tooltip.Content>{tI18n('move_down')}</Tooltip.Content>
                 </Tooltip.Root>
 
                 <Tooltip.Root>
@@ -1032,11 +1034,13 @@ export function ConditionInput({
                       className='h-auto p-0 text-[var(--text-error)] hover-hover:text-[var(--text-error)]'
                     >
                       <Trash className='size-[14px]' />
-                      <span className='sr-only'>Delete Block</span>
+                      <span className='sr-only'>
+                        {isRouterMode ? tI18n('delete_route') : tI18n('delete_condition')}
+                      </span>
                     </Button>
                   </Tooltip.Trigger>
                   <Tooltip.Content>
-                    {isRouterMode ? 'Delete Route' : 'Delete Condition'}
+                    {isRouterMode ? tI18n('delete_route') : tI18n('delete_condition')}
                   </Tooltip.Content>
                 </Tooltip.Root>
               </div>
@@ -1104,7 +1108,7 @@ export function ConditionInput({
                       overlay.scrollLeft = e.currentTarget.scrollLeft
                     }
                   }}
-                  placeholder='Describe when this route should be taken...'
+                  placeholder={tI18n('describe_when_route_taken')}
                   disabled={disabled || isPreview}
                   className='min-h-[100px] resize-none rounded-none border-0 px-3 py-2 text-sm text-transparent caret-foreground placeholder:text-muted-foreground/50 focus-visible:ring-0 focus-visible:ring-offset-0'
                   rows={4}
@@ -1232,7 +1236,7 @@ export function ConditionInput({
                           gutterWidth={blockGutterWidth}
                           show={block.value.length === 0}
                         >
-                          {'<response> === true'}
+                          {tI18n('example_condition')}
                         </Code.Placeholder>
 
                         <Editor

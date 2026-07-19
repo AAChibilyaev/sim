@@ -11,6 +11,7 @@ import {
 } from '@sim/emcn'
 import { createLogger } from '@sim/logger'
 import { useParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { useSession } from '@/lib/auth/auth-client'
 import { isEnterprise } from '@/lib/billing/plan-helpers'
 import { isBillingEnabled } from '@/lib/core/config/env-flags'
@@ -23,11 +24,13 @@ import { useOrganizationBilling } from '@/hooks/queries/organization'
 
 const logger = createLogger('InviteModal')
 
-const ROLE_OPTIONS = [
-  { value: 'admin', label: 'Admin' },
-  { value: 'write', label: 'Write' },
-  { value: 'read', label: 'Read' },
-] as const
+function getRoleOptions(tI18n: ReturnType<typeof useTranslations>) {
+  return [
+    { value: 'admin', label: tI18n('admin') },
+    { value: 'write', label: tI18n('write') },
+    { value: 'read', label: tI18n('read') },
+  ] as const
+}
 
 interface InviteModalProps {
   open: boolean
@@ -44,6 +47,8 @@ export function InviteModal({
   inviteDisabledReason = null,
   organizationId = null,
 }: InviteModalProps) {
+  const tI18n = useTranslations('auto')
+  const ROLE_OPTIONS = getRoleOptions(tI18n)
   const [emails, setEmails] = useState<string[]>([])
   const [inviteRole, setInviteRole] = useState<PermissionType>('admin')
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -77,24 +82,24 @@ export function InviteModal({
   const hasSeatData = canViewOrganizationBilling && isEnterpriseOrg && totalSeats > 0
   const exceedsSeatCapacity = hasSeatData && userPerms.canAdmin && emails.length > availableSeats
   const seatLimitReason = exceedsSeatCapacity
-    ? `Only ${availableSeats} internal seat${availableSeats === 1 ? '' : 's'} available. External workspace invites do not require seats.`
+    ? tI18n('only_n_seats_available', { count: availableSeats })
     : null
 
   const validateEmail = useCallback(
     (email: string): string | null => {
       const formatResult = quickValidateEmail(email)
       if (!formatResult.isValid) {
-        return formatResult.reason ?? 'Invalid email'
+        return formatResult.reason ?? tI18n('invalid_email')
       }
       if (workspacePermissions?.users?.some((user) => user.email === email)) {
-        return `${email} is already a teammate in this workspace`
+        return tI18n('email_already_teammate')
       }
       if (session?.user?.email && session.user.email.toLowerCase() === email) {
-        return 'You cannot invite yourself'
+        return tI18n('cannot_invite_yourself')
       }
       return null
     },
-    [workspacePermissions?.users, session?.user?.email]
+    [workspacePermissions?.users, session?.user?.email, tI18n]
   )
 
   const handleEmailsChange = useCallback((next: string[]) => {
@@ -114,12 +119,10 @@ export function InviteModal({
         onSuccess: (result) => {
           const parts: string[] = []
           if (result.added.length > 0) {
-            parts.push(`${result.added.length} member${result.added.length === 1 ? '' : 's'} added`)
+            parts.push(tI18n('n_members_added', { count: result.added.length }))
           }
           if (result.successful.length > 0) {
-            parts.push(
-              `${result.successful.length} invite${result.successful.length === 1 ? '' : 's'} sent`
-            )
+            parts.push(tI18n('n_invites_sent', { count: result.successful.length }))
           }
           if (parts.length > 0) {
             toast.success(parts.join(' · '))
@@ -131,7 +134,10 @@ export function InviteModal({
             setErrorMessage(
               result.failed.length === 1
                 ? result.failed[0].error
-                : `${result.failed.length} invitations failed. ${result.failed[0].error}`
+                : tI18n('n_invitations_failed', {
+                    count: result.failed.length,
+                    error: result.failed[0].error,
+                  })
             )
             return
           }
@@ -178,13 +184,15 @@ export function InviteModal({
     <ChipModal
       open={open}
       onOpenChange={handleOpenChange}
-      srTitle={`Invite teammates to ${workspaceName || 'workspace'}`}
+      srTitle={tI18n('invite_teammates_to_workspace', { workspace: workspaceName || 'workspace' })}
     >
-      <ChipModalHeader onClose={() => handleOpenChange(false)}>Invite teammates</ChipModalHeader>
+      <ChipModalHeader onClose={() => handleOpenChange(false)}>
+        {tI18n('invite_teammates')}
+      </ChipModalHeader>
       <ChipModalBody>
         <ChipModalField
           type='emails'
-          title='Emails'
+          title={tI18n('emails')}
           value={emails}
           onChange={handleEmailsChange}
           validate={validateEmail}
@@ -192,17 +200,17 @@ export function InviteModal({
           hint={fieldHint}
           placeholder={
             !canInviteMembers
-              ? inviteDisabledReason || 'Only administrators can invite new teammates'
-              : 'Enter emails'
+              ? inviteDisabledReason || tI18n('only_admins_can_invite')
+              : tI18n('enter_emails')
           }
           disabled={isSubmitting || !canInviteMembers}
         />
         <ChipModalField
           type='dropdown'
-          title='Invite as'
+          title={tI18n('invite_as')}
           options={ROLE_OPTIONS}
           value={inviteRole}
-          placeholder='Select role'
+          placeholder={tI18n('select_role')}
           align='start'
           onChange={(role) => setInviteRole(role as PermissionType)}
         />
@@ -211,7 +219,7 @@ export function InviteModal({
         onCancel={() => handleOpenChange(false)}
         cancelDisabled={isSubmitting}
         primaryAction={{
-          label: isSubmitting ? 'Sending...' : 'Send invites',
+          label: isSubmitting ? tI18n('sending') : tI18n('send_invites'),
           onClick: handleSendInvites,
           disabled: isSendDisabled,
         }}

@@ -29,7 +29,7 @@ import { useWorkspacePermissionsContext } from '@/app/workspace/[workspaceId]/pr
 import {
   CommandList,
   DiffControls,
-  Panel,
+  MobilePanelHost,
   Terminal,
 } from '@/app/workspace/[workspaceId]/w/[workflowId]/components'
 import { BlockMenu } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/block-menu'
@@ -4335,7 +4335,7 @@ const WorkflowContent = React.memo(
           <Terminal />
         </div>
 
-        {!embedded && <Panel />}
+        {!embedded && <MobilePanelHost />}
 
         {!embedded && oauthModal && (
           <ConnectOAuthModal

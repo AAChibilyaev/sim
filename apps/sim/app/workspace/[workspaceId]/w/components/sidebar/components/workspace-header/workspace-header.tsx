@@ -20,6 +20,7 @@ import {
 import { ManageWorkspace, PanelLeft } from '@sim/emcn/icons'
 import { createLogger } from '@sim/logger'
 import { MoreHorizontal } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useActiveOrganization } from '@/lib/auth/auth-client'
 import { isBillingEnabled } from '@/lib/core/config/env-flags'
 import { ContextMenu } from '@/app/workspace/[workspaceId]/w/components/sidebar/components/workflow-list/components/context-menu/context-menu'
@@ -130,6 +131,7 @@ function WorkspaceHeaderImpl({
   isCollapsed = false,
   onExpandSidebar,
 }: WorkspaceHeaderProps) {
+  const tI18n = useTranslations('auto')
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
   const [isInviteModalOpen, setIsInviteModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
@@ -317,7 +319,7 @@ function WorkspaceHeaderImpl({
       {isMounted && isCollapsed ? (
         <button
           type='button'
-          aria-label='Expand sidebar'
+          aria-label={tI18n('expand_sidebar')}
           onClick={onExpandSidebar}
           className={chipVariants({ fullWidth: true })}
         >
@@ -366,7 +368,7 @@ function WorkspaceHeaderImpl({
           <DropdownMenuTrigger asChild>
             <button
               type='button'
-              aria-label='Switch workspace'
+              aria-label={tI18n('switch_workspace')}
               className={cn(chipVariants(), 'min-w-0 max-w-full')}
               title={activeWorkspace?.name}
               onContextMenu={(e) => {
@@ -418,7 +420,7 @@ function WorkspaceHeaderImpl({
           >
             {isWorkspacesLoading ? (
               <div className='px-2 py-[5px] font-medium text-[var(--text-secondary)] text-caption'>
-                Loading workspaces...
+                {tI18n('loading_workspaces')}
               </div>
             ) : (
               <>
@@ -548,7 +550,7 @@ function WorkspaceHeaderImpl({
                             </span>
                             <button
                               type='button'
-                              aria-label='Workspace options'
+                              aria-label={tI18n('workspace_options')}
                               onMouseDown={() => {
                                 isContextMenuOpeningRef.current = true
                               }}
@@ -594,7 +596,7 @@ function WorkspaceHeaderImpl({
                           'cursor-not-allowed opacity-60 hover-hover:bg-transparent'
                       )}
                     >
-                      New workspace
+                      {tI18n('new_workspace')}
                     </Chip>
                   </DisabledReasonTooltip>
                 </div>
@@ -615,7 +617,7 @@ function WorkspaceHeaderImpl({
                     flush
                     className='select-none'
                   >
-                    Invite teammates
+                    {tI18n('invite_teammates_workspace')}
                   </Chip>
                 </DisabledReasonTooltip>
                 <DisabledReasonTooltip reason={inviteDisabledReason}>
@@ -633,7 +635,7 @@ function WorkspaceHeaderImpl({
                     flush
                     className='select-none'
                   >
-                    Manage workspace
+                    {tI18n('manage_workspace')}
                   </Chip>
                 </DisabledReasonTooltip>
               </>
@@ -737,18 +739,18 @@ function WorkspaceHeaderImpl({
       <ChipConfirmModal
         open={isLeaveModalOpen}
         onOpenChange={() => setIsLeaveModalOpen(false)}
-        srTitle='Leave workspace'
-        title='Leave workspace'
+        srTitle={tI18n('leave_workspace_modal_title')}
+        title={tI18n('leave_workspace_modal_title')}
         text={[
-          'Are you sure you want to leave ',
-          { text: leaveTarget?.name ?? 'this workspace', bold: true },
-          '? You will lose access to all workflows and data in this workspace. This action cannot be undone.',
+          tI18n('leave_workspace_confirmation_start'),
+          { text: leaveTarget?.name ?? tI18n('this_workspace'), bold: true },
+          tI18n('leave_workspace_confirmation_end'),
         ]}
         confirm={{
-          label: 'Leave workspace',
+          label: tI18n('leave_workspace_button'),
           onClick: handleLeaveWorkspace,
           pending: isLeavingWorkspace,
-          pendingLabel: 'Leaving...',
+          pendingLabel: tI18n('leaving_workspace'),
         }}
       />
     </div>

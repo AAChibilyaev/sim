@@ -13,6 +13,7 @@ import {
 } from '@sim/emcn'
 import { isEqual } from 'es-toolkit'
 import { RepeatIcon, SplitIcon } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useShallow } from 'zustand/react/shallow'
 import { useStoreWithEqualityFn } from 'zustand/traditional'
 import {
@@ -872,9 +873,10 @@ const PopoverContextCapture: React.FC<{
  * When in nested folders, goes back one level at a time.
  * At the root folder level, closes the folder.
  */
-const TagDropdownBackButton: React.FC<{ setSelectedIndex: (index: number) => void }> = ({
-  setSelectedIndex,
-}) => {
+const TagDropdownBackButton: React.FC<{
+  setSelectedIndex: (index: number) => void
+  tI18n: any
+}> = ({ setSelectedIndex, tI18n }) => {
   const { isInFolder, closeFolder, size, isKeyboardNav, setKeyboardNav } = usePopoverContext()
   const nestedNav = useNestedNavigation()
 
@@ -911,7 +913,7 @@ const TagDropdownBackButton: React.FC<{ setSelectedIndex: (index: number) => voi
       >
         <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 19l-7-7 7-7' />
       </svg>
-      <span className='shrink-0'>Back</span>
+      <span className='shrink-0'>{tI18n('back')}</span>
     </PopoverItem>
   )
 }
@@ -950,6 +952,7 @@ export const TagDropdown: React.FC<TagDropdownProps> = ({
   style,
   inputRef,
 }) => {
+  const tI18n = useTranslations('auto')
   const [selectedIndex, setSelectedIndex] = useState(0)
   const itemRefs = useRef<Map<string, HTMLElement>>(new Map())
 
@@ -1716,10 +1719,10 @@ export const TagDropdown: React.FC<TagDropdownProps> = ({
           onCloseAutoFocus={(e) => e.preventDefault()}
         >
           <PopoverScrollArea ref={scrollAreaRef}>
-            <TagDropdownBackButton setSelectedIndex={setSelectedIndex} />
+            <TagDropdownBackButton setSelectedIndex={setSelectedIndex} tI18n={tI18n} />
             {flatTagList.length === 0 ? (
               <div className='px-1.5 py-2 text-[color-mix(in_srgb,var(--white)_60%,transparent)] text-caption'>
-                No matching tags found
+                {tI18n('no_matching_tags')}
               </div>
             ) : (
               <>
@@ -1728,7 +1731,7 @@ export const TagDropdown: React.FC<TagDropdownProps> = ({
                     <PopoverSection rootOnly>
                       <div className='flex items-center gap-1.5'>
                         <TagIcon icon='V' color={BLOCK_COLORS.VARIABLE} />
-                        Variables
+                        {tI18n('variables')}
                       </div>
                     </PopoverSection>
                     {variableTags.map((tag: string) => {

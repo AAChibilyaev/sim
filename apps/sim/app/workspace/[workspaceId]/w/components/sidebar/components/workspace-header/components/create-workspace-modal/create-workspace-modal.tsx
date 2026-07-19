@@ -10,12 +10,16 @@ import {
   ChipModalHeader,
 } from '@sim/emcn'
 import { getErrorMessage } from '@sim/utils/errors'
+import { useTranslations } from 'next-intl'
 
 export type CreateWorkspaceTarget =
   | { type: 'personal' }
   | { type: 'organization'; organizationName: string }
 
-export function getCreateWorkspaceCopy(target: CreateWorkspaceTarget) {
+export function getCreateWorkspaceCopy(
+  target: CreateWorkspaceTarget,
+  tI18n: (key: string) => string
+) {
   if (target.type === 'organization') {
     return {
       title: `Create workspace in ${target.organizationName}`,
@@ -24,8 +28,8 @@ export function getCreateWorkspaceCopy(target: CreateWorkspaceTarget) {
   }
 
   return {
-    title: 'Create personal workspace',
-    description: 'This workspace will belong to your personal account.',
+    title: tI18n('create_personal_workspace'),
+    description: tI18n('personal_workspace_description'),
   }
 }
 
@@ -47,6 +51,7 @@ export function CreateWorkspaceModal({
   isCreating,
   target,
 }: CreateWorkspaceModalProps) {
+  const tI18n = useTranslations('auto')
   const [name, setName] = useState('')
   const [error, setError] = useState<string | null>(null)
 
@@ -81,7 +86,7 @@ export function CreateWorkspaceModal({
     setError(null)
   }
 
-  const copy = getCreateWorkspaceCopy(target)
+  const copy = getCreateWorkspaceCopy(target, tI18n)
 
   return (
     <ChipModal open={open} onOpenChange={onOpenChange} srTitle={copy.title}>
@@ -90,10 +95,10 @@ export function CreateWorkspaceModal({
         <p className='px-2 text-[var(--text-muted)] text-sm'>{copy.description}</p>
         <ChipModalField
           type='input'
-          title='Name'
+          title={tI18n('workspace_name_label')}
           value={name}
           onChange={handleNameChange}
-          placeholder='Workspace name'
+          placeholder={tI18n('workspace_name_placeholder')}
           maxLength={100}
           autoComplete='off'
           disabled={isCreating}
@@ -105,7 +110,7 @@ export function CreateWorkspaceModal({
         onCancel={() => onOpenChange(false)}
         cancelDisabled={isCreating}
         primaryAction={{
-          label: isCreating ? 'Creating...' : 'Create',
+          label: isCreating ? tI18n('creating_workspace') : tI18n('create_workspace_button'),
           onClick: () => void handleSubmit(),
           disabled: !name.trim() || isCreating,
         }}

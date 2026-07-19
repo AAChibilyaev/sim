@@ -17,6 +17,7 @@ import {
 } from '@sim/emcn'
 import { Trash } from '@sim/emcn/icons'
 import { Plus, X } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import Editor from 'react-simple-code-editor'
 import { useShallow } from 'zustand/react/shallow'
 import { validateName } from '@/lib/core/utils/validation'
@@ -42,13 +43,15 @@ import { useWorkflowRegistry } from '@/stores/workflows/registry/store'
 /**
  * Type options for variable type selection
  */
-const TYPE_OPTIONS: ComboboxOption[] = [
-  { label: 'Plain', value: 'plain' },
-  { label: 'Number', value: 'number' },
-  { label: 'Boolean', value: 'boolean' },
-  { label: 'Object', value: 'object' },
-  { label: 'Array', value: 'array' },
-]
+function getTypeOptions(tI18n: ReturnType<typeof useTranslations>): ComboboxOption[] {
+  return [
+    { label: tI18n('type_plain'), value: 'plain' },
+    { label: tI18n('type_number'), value: 'number' },
+    { label: tI18n('type_boolean'), value: 'boolean' },
+    { label: tI18n('type_object'), value: 'object' },
+    { label: tI18n('type_array'), value: 'array' },
+  ]
+}
 
 /**
  * UI constants for consistent styling and sizing
@@ -63,25 +66,27 @@ const MIN_EDITOR_HEIGHT = 120
 /**
  * User-facing strings for errors, labels, and placeholders
  */
-const STRINGS = {
-  errors: {
-    emptyName: 'Variable name cannot be empty',
-    duplicateName: 'Two variables cannot have the same name',
-  },
-  labels: {
-    name: 'Name',
-    type: 'Type',
-    value: 'Value',
-  },
-  placeholders: {
-    name: 'variableName',
-    number: '42',
-    boolean: 'true',
-    plain: 'Plain text value',
-    object: '{\n  "key": "value"\n}',
-    array: '[\n  1, 2, 3\n]',
-  },
-  emptyState: 'No variables yet',
+function getStrings(tI18n: ReturnType<typeof useTranslations>) {
+  return {
+    errors: {
+      emptyName: tI18n('variable_name_cannot_be_empty'),
+      duplicateName: tI18n('two_variables_cannot_have_same_name'),
+    },
+    labels: {
+      name: tI18n('name'),
+      type: tI18n('type'),
+      value: tI18n('value'),
+    },
+    placeholders: {
+      name: tI18n('variable_name_placeholder'),
+      number: tI18n('number_placeholder'),
+      boolean: tI18n('boolean_placeholder'),
+      plain: tI18n('plain_text_value'),
+      object: tI18n('object_placeholder'),
+      array: tI18n('array_placeholder'),
+    },
+    emptyState: tI18n('no_variables_yet'),
+  }
 }
 
 interface VariableHeaderProps {
@@ -139,7 +144,7 @@ function VariableHeader({
         aria-label={`Delete ${variable.name || `variable ${index + 1}`}`}
       >
         <Trash style={{ width: `${ICON_SIZE}px`, height: `${ICON_SIZE}px` }} />
-        <span className='sr-only'>Delete Variable</span>
+        <span className='sr-only'>Delete</span>
       </Button>
     </div>
   )
@@ -152,6 +157,8 @@ interface VariableValueInputProps {
 }
 
 function VariableValueInput({ variable, onUpdate, readOnly }: VariableValueInputProps) {
+  const tI18n = useTranslations('auto')
+  const STRINGS = useMemo(() => getStrings(tI18n), [tI18n])
   const variableValue =
     variable.value === ''
       ? ''
@@ -225,6 +232,9 @@ interface VariablesProps {
 }
 
 export function Variables({ readOnly = false }: VariablesProps) {
+  const tI18n = useTranslations('auto')
+  const STRINGS = useMemo(() => getStrings(tI18n), [tI18n])
+  const TYPE_OPTIONS = useMemo(() => getTypeOptions(tI18n), [tI18n])
   const activeWorkflowId = useWorkflowRegistry((s) => s.activeWorkflowId)
 
   const { isOpen, position, width, height, setIsOpen, setPosition, setDimensions } =
@@ -434,7 +444,7 @@ export function Variables({ readOnly = false }: VariablesProps) {
     <div
       ref={preventZoomRef}
       role='dialog'
-      aria-label='Variables'
+      aria-label={tI18n('variables')}
       className='fixed z-30 flex flex-col overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--surface-1)] px-2.5 pt-0.5 pb-2'
       style={{
         left: `${actualPosition.x}px`,
@@ -455,7 +465,7 @@ export function Variables({ readOnly = false }: VariablesProps) {
       >
         <div className='flex items-center'>
           <span className='flex-shrink-0 font-medium text-[var(--text-primary)] text-sm'>
-            Variables
+            {tI18n('variables')}
           </span>
         </div>
         <div className='flex items-center gap-2'>
@@ -467,7 +477,7 @@ export function Variables({ readOnly = false }: VariablesProps) {
               handleAddVariable()
             }}
             disabled={readOnly}
-            aria-label='Add new variable'
+            aria-label={tI18n('add_new_variable')}
           >
             <Plus style={{ width: `${HEADER_ICON_SIZE}px`, height: `${HEADER_ICON_SIZE}px` }} />
           </Button>
@@ -475,7 +485,7 @@ export function Variables({ readOnly = false }: VariablesProps) {
             variant='ghost'
             className='!p-1.5 -m-1.5'
             onClick={handleClose}
-            aria-label='Close variables panel'
+            aria-label={tI18n('close_variables_panel')}
           >
             <X style={{ width: `${HEADER_ICON_SIZE}px`, height: `${HEADER_ICON_SIZE}px` }} />
           </Button>

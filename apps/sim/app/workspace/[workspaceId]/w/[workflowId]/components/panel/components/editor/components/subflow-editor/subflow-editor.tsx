@@ -9,6 +9,7 @@ import {
   Label,
 } from '@sim/emcn'
 import { ChevronUp } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import SimpleCodeEditor from 'react-simple-code-editor'
 import { WORKFLOW_SEARCH_SUBFLOW_FIELD_IDS } from '@/lib/workflows/search-replace/subflow-fields'
 import {
@@ -67,6 +68,7 @@ export function SubflowEditor({
   userCanEdit,
   isConnectionsAtMinHeight,
 }: SubflowEditorProps) {
+  const tI18n = useTranslations('auto')
   const activeSearchTarget = useActiveSearchTarget()
   const {
     subflowConfig,
@@ -132,7 +134,7 @@ export function SubflowEditor({
             className='rounded-md'
           >
             <Label className='mb-[6.5px] block pl-0.5 font-medium text-[var(--text-primary)] text-small'>
-              {currentBlock.type === 'loop' ? 'Loop Type' : 'Parallel Type'}
+              {currentBlock.type === 'loop' ? tI18n('loop_type') : tI18n('parallel_type')}
             </Label>
             <Combobox
               options={typeOptions}
@@ -152,10 +154,10 @@ export function SubflowEditor({
           >
             <Label className='mb-[6.5px] block pl-0.5 font-medium text-[var(--text-primary)] text-small'>
               {isCountMode
-                ? `${currentBlock.type === 'loop' ? 'Loop' : 'Parallel'} Iterations`
+                ? `${currentBlock.type === 'loop' ? tI18n('loop') : tI18n('parallel')} ${tI18n('iterations')}`
                 : isConditionMode
-                  ? 'While Condition'
-                  : `${currentBlock.type === 'loop' ? 'Collection' : 'Parallel'} Items`}
+                  ? tI18n('while_condition')
+                  : `${currentBlock.type === 'loop' ? tI18n('collection') : tI18n('parallel')} ${tI18n('items')}`}
             </Label>
 
             {isCountMode ? (
@@ -174,7 +176,7 @@ export function SubflowEditor({
                   })}
                 </div>
                 <div className='text-[var(--text-muted)] text-micro'>
-                  Enter a whole number greater than 0.
+                  {tI18n('enter_whole_number_greater_than_zero')}
                 </div>
               </div>
             ) : (
@@ -224,7 +226,7 @@ export function SubflowEditor({
               className='relative mt-4 rounded-md'
             >
               <Label className='mb-[6.5px] block pl-0.5 font-medium text-[var(--text-primary)] text-small'>
-                Parallel Batch Size
+                {tI18n('parallel_batch_size')}
               </Label>
               <Input
                 type='text'
@@ -240,7 +242,7 @@ export function SubflowEditor({
                 })}
               </div>
               <div className='text-[var(--text-muted)] text-micro'>
-                Run 1 to 20 parallel branches at a time.
+                {tI18n('run_parallel_branches')}
               </div>
             </div>
           )}
@@ -275,7 +277,9 @@ export function SubflowEditor({
             }}
             role='button'
             tabIndex={0}
-            aria-label={isConnectionsAtMinHeight ? 'Expand connections' : 'Collapse connections'}
+            aria-label={
+              isConnectionsAtMinHeight ? tI18n('expand_connections') : tI18n('collapse_connections')
+            }
           >
             <ChevronUp
               className={
@@ -283,7 +287,9 @@ export function SubflowEditor({
                 (!isConnectionsAtMinHeight ? ' rotate-180' : '')
               }
             />
-            <div className='font-medium text-[var(--text-primary)] text-small'>Connections</div>
+            <div className='font-medium text-[var(--text-primary)] text-small'>
+              {tI18n('connections')}
+            </div>
           </div>
 
           <div className='flex-1 overflow-y-auto overflow-x-hidden px-1.5 pb-2'>

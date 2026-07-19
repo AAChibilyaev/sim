@@ -23,6 +23,7 @@ import {
 import clsx from 'clsx'
 import { ChevronDown, Search } from 'lucide-react'
 import { useParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { usePostHog } from 'posthog-js/react'
 import { captureEvent } from '@/lib/posthog/client'
 import { getTriggersForSidebar, hasTriggerCapability } from '@/lib/workflows/triggers/trigger-utils'
@@ -384,6 +385,7 @@ interface ToolbarRef {
  */
 export const Toolbar = memo(
   forwardRef<ToolbarRef, ToolbarProps>(function Toolbar({ isActive = true }: ToolbarProps, ref) {
+    const tI18n = useTranslations('auto')
     const rootRef = useRef<HTMLDivElement>(null)
     const searchInputRef = useRef<HTMLInputElement>(null)
     const triggerItemRefs = useRef<Array<HTMLDivElement | null>>([])
@@ -801,13 +803,13 @@ export const Toolbar = memo(
           onClick={focusSearch}
           onKeyDown={(event) => handleKeyboardActivation(event, focusSearch)}
         >
-          <h2 className='font-medium text-[var(--text-primary)] text-sm'>Toolbar</h2>
+          <h2 className='font-medium text-[var(--text-primary)] text-sm'>{tI18n('toolbar')}</h2>
           <div className='flex shrink-0 items-center gap-2'>
             {!isSearchActive ? (
               <Button
                 variant='ghost'
                 className='p-0'
-                aria-label='Search toolbar'
+                aria-label={tI18n('search_toolbar')}
                 onClick={focusSearch}
               >
                 <Search className='size-[14px]' />
@@ -828,8 +830,8 @@ export const Toolbar = memo(
         {/* Single scroll container with three collapsible sections */}
         <div className='flex flex-1 flex-col overflow-y-auto overflow-x-hidden overscroll-none pb-3'>
           <ToolbarSection
-            label='Triggers'
-            tooltip='Events that start a workflow'
+            label={tI18n('triggers')}
+            tooltip={tI18n('events_that_start_workflow')}
             sectionKey='triggers'
             items={filteredTriggers}
             isTrigger={true}
@@ -843,8 +845,8 @@ export const Toolbar = memo(
             onContextMenu={handleItemContextMenu}
           />
           <ToolbarSection
-            label='Core Blocks'
-            tooltip='Core building blocks for agent logic'
+            label={tI18n('core_blocks')}
+            tooltip={tI18n('core_building_blocks_for_agent_logic')}
             sectionKey='blocks'
             items={filteredBlocks}
             isTrigger={false}
@@ -859,8 +861,8 @@ export const Toolbar = memo(
           />
           {allCustomBlocks.length > 0 && (
             <ToolbarSection
-              label='Custom Blocks'
-              tooltip='Workflows published as reusable blocks across your organization'
+              label={tI18n('custom_blocks')}
+              tooltip={tI18n('workflows_published_as_reusable_blocks')}
               sectionKey='customBlocks'
               items={filteredCustomBlocks}
               isTrigger={false}
@@ -875,8 +877,8 @@ export const Toolbar = memo(
             />
           )}
           <ToolbarSection
-            label='Integrations'
-            tooltip='Connect agents to external services'
+            label={tI18n('integrations')}
+            tooltip={tI18n('connect_agents_to_external_services')}
             sectionKey='tools'
             items={filteredTools}
             isTrigger={false}

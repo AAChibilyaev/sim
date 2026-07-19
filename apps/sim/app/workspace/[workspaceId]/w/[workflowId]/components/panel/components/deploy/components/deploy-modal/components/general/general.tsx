@@ -18,6 +18,7 @@ import {
   Tooltip,
 } from '@sim/emcn'
 import { createLogger } from '@sim/logger'
+import { useTranslations } from 'next-intl'
 import type { WorkflowDeploymentVersionResponse } from '@/lib/workflows/persistence/utils'
 import type { DeployReadiness } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/deploy/hooks/use-deploy-readiness'
 import { Preview, PreviewWorkflow } from '@/app/workspace/[workspaceId]/w/components/preview'
@@ -59,6 +60,7 @@ export function GeneralDeploy({
   onLoadDeploymentComplete,
   onLoadDeploymentBlocked,
 }: GeneralDeployProps) {
+  const tI18n = useTranslations('auto')
   const [selectedVersion, setSelectedVersion] = useState<number | null>(null)
   const [showActiveDespiteSelection, setShowActiveDespiteSelection] = useState(false)
   const previewMode: PreviewMode =
@@ -200,7 +202,7 @@ export function GeneralDeploy({
             <Label className='block truncate pl-0.5 font-medium text-[var(--text-primary)] text-small'>
               {previewMode === 'selected' && selectedVersionInfo
                 ? formatVersionLabel(selectedVersionInfo.version, selectedVersionInfo.name)
-                : 'Live Workflow'}
+                : tI18n('live_workflow')}
             </Label>
             <div className={cn('absolute top-[-5px] right-0', !showToggle && 'invisible')}>
               <ButtonGroup
@@ -209,7 +211,7 @@ export function GeneralDeploy({
                   setShowActiveDespiteSelection((val as PreviewMode) === 'active')
                 }
               >
-                <ButtonGroupItem value='active'>Live</ButtonGroupItem>
+                <ButtonGroupItem value='active'>{tI18n('live')}</ButtonGroupItem>
                 <ButtonGroupItem value='selected' className='truncate'>
                   {selectedVersionInfo
                     ? formatVersionLabel(selectedVersionInfo.version, selectedVersionInfo.name)
@@ -249,12 +251,12 @@ export function GeneralDeploy({
                       <Expand className='size-[14px]' />
                     </Button>
                   </Tooltip.Trigger>
-                  <Tooltip.Content side='top'>See preview</Tooltip.Content>
+                  <Tooltip.Content side='top'>{tI18n('see_preview')}</Tooltip.Content>
                 </Tooltip.Root>
               </>
             ) : (
               <div className='flex h-full items-center justify-center text-[var(--text-placeholder)] text-small'>
-                Deploy your workflow to see a preview
+                {tI18n('deploy_to_see_preview')}
               </div>
             )}
           </div>
@@ -262,7 +264,7 @@ export function GeneralDeploy({
 
         <div>
           <Label className='mb-[6.5px] block pl-0.5 font-medium text-[var(--text-primary)] text-small'>
-            Versions
+            {tI18n('versions')}
           </Label>
           <Versions
             workflowId={workflowId}
@@ -280,10 +282,10 @@ export function GeneralDeploy({
       <ChipConfirmModal
         open={showLoadDialog}
         onOpenChange={setShowLoadDialog}
-        srTitle='Load Deployment'
-        title='Load Deployment'
+        srTitle={tI18n('load_deployment')}
+        title={tI18n('load_deployment')}
         text={[
-          'Are you sure you want to load ',
+          tI18n('sure_load'),
           {
             text: versionToLoadInfo
               ? formatVersionLabel(versionToLoadInfo.version, versionToLoadInfo.name)
@@ -292,12 +294,12 @@ export function GeneralDeploy({
           },
           '? ',
           {
-            text: 'This will replace your current workflow with the deployed version.',
+            text: tI18n('load_replaces_workflow'),
             error: true,
           },
         ]}
         confirm={{
-          label: 'Load deployment',
+          label: tI18n('load_deployment'),
           onClick: confirmLoadDeployment,
           pending: revertMutation.isPending,
         }}
@@ -306,20 +308,20 @@ export function GeneralDeploy({
       <ChipConfirmModal
         open={showPromoteDialog}
         onOpenChange={setShowPromoteDialog}
-        srTitle='Promote to live'
-        title='Promote to live'
+        srTitle={tI18n('promote_to_live')}
+        title={tI18n('promote_to_live')}
         text={[
-          'Are you sure you want to promote ',
+          tI18n('sure_promote'),
           {
             text: versionToPromoteInfo
               ? formatVersionLabel(versionToPromoteInfo.version, versionToPromoteInfo.name)
               : `v${versionToPromote?.version}`,
             bold: true,
           },
-          ' to live? This version will become the active deployment and serve all API requests.',
+          ` ${tI18n('version_active_deployment')}`,
         ]}
         confirm={{
-          label: 'Promote to live',
+          label: tI18n('promote_to_live'),
           onClick: confirmPromoteToLive,
           variant: 'primary',
           pending: isPromotingVersion,
@@ -332,7 +334,7 @@ export function GeneralDeploy({
             <ModalHeader>
               {previewMode === 'selected' && selectedVersionInfo
                 ? formatVersionLabel(selectedVersionInfo.version, selectedVersionInfo.name)
-                : 'Live Workflow'}
+                : tI18n('live_workflow')}
             </ModalHeader>
             <ModalBody className='!p-0 min-h-0 flex-1 overflow-hidden'>
               <ModalDescription className='sr-only'>
