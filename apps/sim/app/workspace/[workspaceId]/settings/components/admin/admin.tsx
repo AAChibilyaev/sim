@@ -13,6 +13,7 @@ import {
 import { useRecentImpersonations } from '@/app/workspace/[workspaceId]/settings/components/admin/use-recent-impersonations'
 import { SettingsEmptyState } from '@/app/workspace/[workspaceId]/settings/components/settings-empty-state'
 import { SettingsPanel } from '@/app/workspace/[workspaceId]/settings/components/settings-panel'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 import {
   type AdminUser,
   useAdminUsers,
@@ -304,7 +305,7 @@ export function Admin() {
               <div className='flex flex-col gap-1'>
                 <Label className='text-[var(--text-primary)] text-sm'>Mothership Environment</Label>
                 <p className='text-[var(--text-secondary)] text-xs'>
-                  Default uses the configured Sim agent URL.
+                  Default uses the configured {getBrandConfig().name} agent URL.
                 </p>
               </div>
               <ChipSelect
