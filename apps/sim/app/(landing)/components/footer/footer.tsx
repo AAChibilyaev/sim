@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { ALL_COMPETITORS } from '@/app/(landing)/comparisons/utils'
 import { SimWordmark } from '@/app/(landing)/components/navbar/components/sim-wordmark'
 import { MODEL_PROVIDERS_WITH_CATALOGS } from '@/app/(landing)/models/utils'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 /**
  * Landing footer - the site link directory. Re-authored from the prior landing
@@ -138,7 +139,28 @@ function FooterColumn({ title, items }: { title: string; items: FooterItem[] }) 
   )
 }
 
+/**
+ * When a whitelabel brand configures a documentation URL, rewrite external
+ * `docs.sim.ai` deep-links (and drop `status.sim.ai`) so a self-hosted
+ * deployment never links back to the upstream Sim docs/status.
+ */
+function brandFilterLinks(items: FooterItem[], docsBase: string | undefined): FooterItem[] {
+  if (!docsBase) return items
+  const base = docsBase.replace(/\/$/, '')
+  return items
+    .filter((item) => !item.href.startsWith('https://status.sim.ai'))
+    .map((item) =>
+      item.href.startsWith('https://docs.sim.ai')
+        ? { ...item, href: item.href.replace('https://docs.sim.ai', base) }
+        : item
+    )
+}
+
 export function Footer() {
+  const brand = getBrandConfig()
+  const docsBase = brand.isWhitelabeled ? brand.documentationUrl : undefined
+  const socialLinks = brand.isWhitelabeled ? [] : SOCIAL_LINKS
+
   return (
     <footer className='mt-[120px] w-full border-[var(--border)] border-t max-sm:mt-16 max-lg:mt-[88px]'>
       <div className='mx-auto w-full max-w-[1460px] px-20 pt-16 pb-16 max-sm:px-5 max-lg:px-8 max-lg:pt-12 max-lg:pb-12'>
@@ -150,22 +172,32 @@ export function Footer() {
         >
           <Link
             href='/'
-            aria-label='Sim home'
+            aria-label={`${brand.name} home`}
             className='flex h-[18px] items-center max-lg:col-span-full max-lg:mb-2'
           >
-            <SimWordmark />
+            {brand.wordmarkUrl ? (
+              // biome-ignore lint/performance/noImgElement: brand asset from a runtime env URL, not a build-time import
+              <img src={brand.wordmarkUrl} alt={`${brand.name} logo`} className='h-[18px] w-auto' />
+            ) : (
+              <SimWordmark />
+            )}
           </Link>
 
-          <FooterColumn title='Product' items={PRODUCT_LINKS} />
-          <FooterColumn title='Resources' items={RESOURCES_LINKS} />
+          <FooterColumn title='Product' items={brandFilterLinks(PRODUCT_LINKS, docsBase)} />
+          <FooterColumn title='Resources' items={brandFilterLinks(RESOURCES_LINKS, docsBase)} />
           <FooterColumn title='Compare' items={COMPARE_LINKS} />
-          <FooterColumn title='Integrations' items={INTEGRATION_LINKS} />
+          <FooterColumn
+            title='Integrations'
+            items={brandFilterLinks(INTEGRATION_LINKS, docsBase)}
+          />
           <FooterColumn title='Models' items={MODEL_LINKS} />
-          <FooterColumn title='Socials' items={SOCIAL_LINKS} />
+          {socialLinks.length > 0 && <FooterColumn title='Socials' items={socialLinks} />}
           <FooterColumn title='Legal' items={LEGAL_LINKS} />
         </nav>
 
-        <p className='mt-16 text-[var(--text-muted)] text-sm'>© 2026 Sim. All rights reserved.</p>
+        <p className='mt-16 text-[var(--text-muted)] text-sm'>
+          © 2026 {brand.name}. All rights reserved.
+        </p>
       </div>
     </footer>
   )
