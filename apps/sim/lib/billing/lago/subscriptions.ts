@@ -135,14 +135,16 @@ export async function createLagoSubscription(params: {
 
   let lagoSub: LagoSubscriptionResponse['subscription']
   try {
-    const response = (await callLago((client) =>
-      client.subscriptions.createSubscription(payload)
+    const response = (await callLago(
+      (client) => client.subscriptions.createSubscription(payload)
+      // double-cast-allowed: SDK returns SubscriptionExtended; narrowing to the fork LagoSubscriptionResponse shape
     )) as unknown as LagoSubscriptionResponse
     lagoSub = response.subscription
   } catch (error) {
     if (error instanceof LagoApiError && error.status === 422) {
-      const existing = (await callLago((client) =>
-        client.subscriptions.findSubscription(subscriptionExternalId)
+      const existing = (await callLago(
+        (client) => client.subscriptions.findSubscription(subscriptionExternalId)
+        // double-cast-allowed: SDK returns SubscriptionExtended; narrowing to the fork LagoSubscriptionResponse shape
       )) as unknown as LagoSubscriptionResponse
       lagoSub = existing.subscription
     } else {

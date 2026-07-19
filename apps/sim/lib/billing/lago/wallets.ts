@@ -130,8 +130,10 @@ export async function getLagoWallet(
   const walletCode = `${slug}_wallet`
 
   try {
-    const response = (await callLago((client) =>
-      client.wallets.findAllWallets({ external_customer_id: externalCustomerId, per_page: 50 })
+    const response = (await callLago(
+      (client) =>
+        client.wallets.findAllWallets({ external_customer_id: externalCustomerId, per_page: 50 })
+      // double-cast-allowed: SDK returns a generic wallet list; narrowing to the fork LagoWalletListResponse shape
     )) as unknown as LagoWalletListResponse
     const wallets = response.wallets ?? []
     const wallet =
