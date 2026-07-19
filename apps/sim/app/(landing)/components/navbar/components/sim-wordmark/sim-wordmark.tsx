@@ -1,17 +1,34 @@
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
+
 /**
- * Inline "sim" brand logotype (wordmark, no separate icon mark) - the paths
- * from the v1.0 brand guide's `simLogotype--dark.svg`, inlined so the logo
- * ships as zero-request server-rendered HTML.
+ * Brand logotype for the navbar/auth header. On a whitelabeled deployment it
+ * renders the configured brand — the uploaded wordmark image when present, else
+ * the brand name as text — so the header never leaks the default "sim" mark.
+ * Falls back to the inline "sim" logotype (below) only when no brand is set.
  *
- * Filled with a single solid `var(--text-body)` - the navbar's own text color
- * (the same token its nav-link chips use) - so the wordmark reads as one solid
- * ink that matches the surrounding nav text, with no gradient or glow.
- *
- * Drawn at 18px tall - the chip's 14px label plus 2px above/below; the parent
- * slot centers it in a chip-height (30px) box. Nudged up 1.5px: the glyph mass
- * sits below the i-dot's headroom, so true geometric centering reads low.
+ * The inline default is drawn at 18px tall — the chip's 14px label plus 2px
+ * above/below; the parent slot centers it in a chip-height (30px) box. Nudged up
+ * 1.5px so the glyph mass reads centered. Whitelabeled variants match that 18px
+ * height and -1.5px nudge for pixel-consistent placement.
  */
 export function SimWordmark() {
+  const brand = getBrandConfig()
+  if (brand.isWhitelabeled) {
+    if (brand.wordmarkUrl) {
+      return (
+        <img
+          src={brand.wordmarkUrl}
+          alt={brand.name}
+          className='-translate-y-[1.5px] h-[18px] w-auto'
+        />
+      )
+    }
+    return (
+      <span className='-translate-y-[1.5px] font-medium text-[18px] text-[var(--text-body)] leading-none tracking-tight'>
+        {brand.name}
+      </span>
+    )
+  }
   return (
     <svg
       viewBox='0 0 441 212'
