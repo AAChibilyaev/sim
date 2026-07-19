@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
-const PLACEHOLDER_PREFIX = 'Ask Sim to '
 const PLACEHOLDER_SUFFIXES = [
   'respond to my emails...',
   'find and track leads...',
@@ -14,7 +14,8 @@ const PAUSE_AFTER_TYPING_MS = 2000
 const PAUSE_AFTER_DELETING_MS = 400
 
 export function useAnimatedPlaceholder(enabled = true): string {
-  const [text, setText] = useState(PLACEHOLDER_PREFIX)
+  const prefix = `Ask ${getBrandConfig().name} to `
+  const [text, setText] = useState(prefix)
   const stateRef = useRef({
     suffixIndex: 0,
     charIndex: 0,
@@ -31,7 +32,7 @@ export function useAnimatedPlaceholder(enabled = true): string {
       switch (s.phase) {
         case 'typing': {
           s.charIndex++
-          setText(PLACEHOLDER_PREFIX + suffix.slice(0, s.charIndex))
+          setText(prefix + suffix.slice(0, s.charIndex))
           if (s.charIndex >= suffix.length) {
             s.phase = 'paused'
             return PAUSE_AFTER_TYPING_MS
@@ -44,7 +45,7 @@ export function useAnimatedPlaceholder(enabled = true): string {
         }
         case 'deleting': {
           s.charIndex--
-          setText(PLACEHOLDER_PREFIX + suffix.slice(0, s.charIndex))
+          setText(prefix + suffix.slice(0, s.charIndex))
           if (s.charIndex <= 0) {
             s.phase = 'waiting'
             return PAUSE_AFTER_DELETING_MS
@@ -68,7 +69,7 @@ export function useAnimatedPlaceholder(enabled = true): string {
     timer = setTimeout(schedule, TYPE_SPEED_MS)
 
     return () => clearTimeout(timer)
-  }, [enabled])
+  }, [enabled, prefix])
 
-  return enabled ? text : PLACEHOLDER_PREFIX
+  return enabled ? text : prefix
 }
