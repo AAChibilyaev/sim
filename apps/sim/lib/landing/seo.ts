@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { SITE_URL } from '@/lib/core/utils/urls'
+import { getBrandConfig } from '@/ee/whitelabeling'
 
 /** Shared OpenGraph/Twitter card image for landing pages. */
 const OG_IMAGE_URL = '/logo/426-240/reverse/small.png'
@@ -38,6 +39,7 @@ export function buildLandingMetadata({
   imageAlt,
   twitterImageAlt,
 }: LandingMetadataInput): Metadata {
+  const brand = getBrandConfig()
   const url = `${SITE_URL}${path}`
   const ogAlt = imageAlt ?? title
   const twitterAlt = twitterImageAlt ?? ogAlt
@@ -47,15 +49,15 @@ export function buildLandingMetadata({
     title: { absolute: title },
     description,
     ...(keywords ? { keywords } : {}),
-    authors: [{ name: 'Sim' }],
-    creator: 'Sim',
-    publisher: 'Sim',
+    authors: [{ name: brand.name }],
+    creator: brand.name,
+    publisher: brand.name,
     openGraph: {
       title,
       description,
       type: 'website',
       url,
-      siteName: 'Sim',
+      siteName: brand.name,
       locale: 'en_US',
       images: [
         {
@@ -69,8 +71,7 @@ export function buildLandingMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      site: '@simdotai',
-      creator: '@simdotai',
+      ...(brand.isWhitelabeled ? {} : { site: '@simdotai', creator: '@simdotai' }),
       title,
       description,
       images: { url: OG_IMAGE_URL, alt: twitterAlt },

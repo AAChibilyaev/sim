@@ -65,7 +65,7 @@
   "issuecr": "Created date for the task (ISO format)",
   "sslveri": "SSL Verification",
   "formatg": "GitHub Format to be used when sending payload in webhook.",
-  "githubv": "Sim checks SSL certificates for webhook deliveries.",
+  "githubv": "AACFlow checks SSL certificates for webhook deliveries.",
   "githube": "GitHub event type from the X-GitHub-Event header (e.g., push)",
   "shaoft": "Commit hash before sending",
   "reviewer": "Reviewer's username",

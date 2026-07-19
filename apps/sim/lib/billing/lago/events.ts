@@ -1,7 +1,7 @@
 import { createLogger } from '@sim/logger'
 import { getErrorMessage } from '@sim/utils/errors'
 import { dollarsToCredits } from '@/lib/billing/credits/conversion'
-import { lagoRequest } from '@/lib/billing/lago/client'
+import { callLago } from '@/lib/billing/lago/client'
 import { LAGO_BILLING_METRIC_CODE } from '@/lib/billing/lago/config'
 import { toLagoCustomerExternalId } from '@/lib/billing/lago/external-ids'
 import type { LagoBillingEntityType, LagoEventPayload } from '@/lib/billing/lago/types'
@@ -68,7 +68,7 @@ async function emitLagoUsageEventInternal(params: EmitLagoUsageEventParams): Pro
     },
   }
 
-  await lagoRequest('POST', '/events', payload)
+  await callLago((client) => client.events.createEvent(payload))
 
   logger.debug('Emitted Lago usage event', {
     transactionId: params.eventKey,

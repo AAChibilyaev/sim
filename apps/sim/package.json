@@ -168,6 +168,7 @@
     "js-yaml": "4.2.0",
     "json5": "2.2.3",
     "jszip": "3.10.1",
+    "lago-javascript-client": "^1.49.0",
     "lru-cache": "11.3.6",
     "lucide-react": "^0.479.0",
     "mammoth": "^1.9.0",

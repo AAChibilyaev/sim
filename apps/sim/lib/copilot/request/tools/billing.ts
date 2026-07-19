@@ -14,6 +14,7 @@ import type {
   StreamEvent,
   StreamingContext,
 } from '@/lib/copilot/request/types'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 const logger = createLogger('CopilotBillingEffect')
 
@@ -52,7 +53,7 @@ export async function handleBillingLimitResponse(
       action = 'increase_limit'
       if (orgScoped) {
         message = isEnterprise(plan)
-          ? "You've reached your organization's usage limit for this billing period. Only an organization admin or Sim support can raise an enterprise limit — reach out to them to continue."
+          ? `You've reached your organization's usage limit for this billing period. Only an organization admin or ${getBrandConfig().name} support can raise an enterprise limit — reach out to them to continue.`
           : "You've reached your organization's usage limit for this billing period. Only an organization owner or admin can raise the limit — please ask them to update it from the team billing settings."
       } else {
         message =

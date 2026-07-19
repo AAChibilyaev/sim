@@ -87,6 +87,7 @@ import {
 } from '@/app/workspace/[workspaceId]/w/components/sidebar/utils'
 import { useImportWorkflow } from '@/app/workspace/[workspaceId]/w/hooks'
 import { useCustomBlockOverlayVersion } from '@/blocks/custom/client-overlay'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 import { useWorkspaceCredentials } from '@/hooks/queries/credentials'
 import { useFolderMap, useFolders } from '@/hooks/queries/folders'
 import { useKnowledgeBasesQuery } from '@/hooks/queries/kb/knowledge'
@@ -1166,7 +1167,11 @@ export const Sidebar = memo(function Sidebar({ isCollapsed }: SidebarProps) {
   const handleOpenHelpFromMenu = useCallback(() => setIsHelpModalOpen(true), [])
 
   const handleOpenDocs = useCallback(() => {
-    window.open('https://docs.sim.ai', '_blank', 'noopener,noreferrer')
+    window.open(
+      getBrandConfig().documentationUrl ?? 'https://docs.sim.ai',
+      '_blank',
+      'noopener,noreferrer'
+    )
     captureEvent(posthog, 'docs_opened', { source: 'help_menu' })
   }, [posthog])
 

@@ -35,7 +35,7 @@
   "ignore_unknown_values": "Игнорировать неизвестные значения",
   "insert_errors_insert_rows": "Вставить ошибки (вставка строк)",
   "insert_structured_rows_into_a_bigquery_table_for": "Заполните структурированные строки в таблицу BigQuery для логирования или вывода пайплайна.",
-  "inspect_bigquery_schema_translate_a_natural_language_question": "Используйте Sim для проверки схемы BigQuery, преобразования естественного языка в безопасный SQL, выполнения и возврата результатов.",
+  "inspect_bigquery_schema_translate_a_natural_language_question": "Используйте AACFlow для проверки схемы BigQuery, преобразования естественного языка в безопасный SQL, выполнения и возврата результатов.",
   "job_reference_for_incomplete_queries_query": "Сообщение о работе для неполных запросов (запрос)",
   "json_array_of_row_objects_to_insert": "JSON-массив объектов строки для вставки",
   "last_modified_time_get_table": "Последнее время изменения (get_table)",

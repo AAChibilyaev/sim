@@ -11,6 +11,7 @@ import {
   humanizeToolName,
 } from '@/lib/copilot/tools/tool-display'
 import { useChatSurface } from '@/app/workspace/[workspaceId]/home/components/chat-surface-context'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 import type { ContentBlock, OptionItem, ToolCallData } from '../../types'
 import { SUBAGENT_LABELS } from '../../types'
 import type { AgentGroupItem } from './components'
@@ -120,7 +121,7 @@ function isHiddenToolCall(toolName: string | undefined): boolean {
 }
 
 function resolveAgentLabel(key: string): string {
-  if (key === 'mothership') return 'Sim'
+  if (key === 'mothership') return getBrandConfig().name
   return SUBAGENT_LABELS[key] ?? humanizeToolName(key)
 }
 

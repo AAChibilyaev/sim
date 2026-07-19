@@ -44,15 +44,15 @@
   "nav_custom-tools_desc": "Create and manage custom tools for your agents.",
   "nav_mcp_label": "MCP tools",
   "nav_mcp_desc": "Connect MCP servers and use their tools in workflows.",
-  "nav_apikeys_label": "Sim API keys",
-  "nav_apikeys_desc": "Create and manage API keys for the Sim API.",
+  "nav_apikeys_label": "AACFlow API keys",
+  "nav_apikeys_desc": "Create and manage API keys for the AACFlow API.",
   "nav_workflow-mcp-servers_label": "MCP servers",
   "nav_workflow-mcp-servers_desc": "Expose your workflows as tools on an MCP server.",
   "nav_byok_label": "BYOK",
   "nav_byok_desc": "Bring your own model-provider API keys.",
   "nav_copilot_label": "Chat keys",
   "nav_copilot_desc": "Manage the model-provider keys that power Chat.",
-  "nav_inbox_label": "Sim mailer",
+  "nav_inbox_label": "AACFlow mailer",
   "nav_inbox_desc": "Trigger and process workflows from incoming email.",
   "nav_credential-sets_label": "Email polling",
   "nav_credential-sets_desc": "Share email-polling credentials across your team.",
@@ -69,5 +69,5 @@
   "nav_admin_label": "Admin",
   "nav_admin_desc": "Superuser administration and workspace tools.",
   "nav_mothership_label": "Mothership",
-  "nav_mothership_desc": "Internal Sim operations and license management."
+  "nav_mothership_desc": "Internal AACFlow operations and license management."
 }

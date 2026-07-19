@@ -10,6 +10,7 @@ import { hasWorkspaceInboxAccess } from '@/lib/billing/core/subscription'
 import { withRouteHandler } from '@/lib/core/utils/with-route-handler'
 import { disableInbox, enableInbox, updateInboxAddress } from '@/lib/mothership/inbox/lifecycle'
 import { getUserEntityPermissions } from '@/lib/workspaces/permissions/utils'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 const logger = createLogger('InboxConfigAPI')
 
@@ -98,7 +99,10 @@ export const PATCH = withRouteHandler(
       }
 
       if (!(await hasWorkspaceInboxAccess(workspaceId))) {
-        return NextResponse.json({ error: 'Sim Mailer requires a Max plan' }, { status: 403 })
+        return NextResponse.json(
+          { error: `${getBrandConfig().name} Mailer requires a Max plan` },
+          { status: 403 }
+        )
       }
 
       if (body.enabled === true) {

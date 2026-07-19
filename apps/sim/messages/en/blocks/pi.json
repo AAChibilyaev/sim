@@ -61,7 +61,7 @@
   "run_an_autonomous_coding_agent_on_a_repo": "Run an autonomous coding agent on a repo",
   "runs_in_an_isolated_sandbox_clones_your_repo": "Runs in an isolated sandbox, clones your repo, and opens a PR",
   "selected_skills_configuration": "Selected skills configuration",
-  "sim_tools_exposed_to_the_agent_local_mode": "Sim tools exposed to the agent (local mode)",
+  "sim_tools_exposed_to_the_agent_local_mode": "AACFlow tools exposed to the agent (local mode)",
   "skills": "Skills",
   "sliding_window_size": "Sliding Window Size",
   "ssh_authentication_method_local_mode": "SSH authentication method (local mode)",

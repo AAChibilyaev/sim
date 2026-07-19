@@ -55,6 +55,7 @@ import { prepareExecutionContext } from '@/lib/copilot/tools/handlers/context'
 import { env } from '@/lib/core/config/env'
 import { isCopilotBillingAttributionV1Enabled, isHosted } from '@/lib/core/config/env-flags'
 import { getEffectiveDecryptedEnv } from '@/lib/environment/utils'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 const logger = createLogger('CopilotLifecycle')
 
@@ -833,7 +834,7 @@ async function runCheckpointLoop(
           await forceFailHungToolCall(
             toolCallId,
             context,
-            'Tool execution hung on the Sim executor and was abandoned so the conversation could continue.'
+            `Tool execution hung on the ${getBrandConfig().name} executor and was abandoned so the conversation could continue.`
           )
           context.pendingToolPromises.delete(toolCallId)
         }

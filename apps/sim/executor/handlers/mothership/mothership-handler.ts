@@ -15,6 +15,7 @@ import {
 } from '@/lib/uploads/utils/file-utils'
 import type { BlockOutput } from '@/blocks/types'
 import { normalizeFileInput } from '@/blocks/utils'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 import { BlockType } from '@/executor/constants'
 import type {
   BlockHandler,
@@ -26,6 +27,7 @@ import { buildAPIUrl, buildAuthHeaders, extractAPIErrorMessage } from '@/executo
 import type { SerializedBlock } from '@/serializer/types'
 
 const logger = createLogger('MothershipBlockHandler')
+const brandName = getBrandConfig().name
 const CANCELLATION_CHECK_INTERVAL_MS = 500
 const MAX_MOTHERSHIP_ATTACHMENT_BYTES = 10 * 1024 * 1024
 const MOTHERSHIP_EXECUTE_STREAM_HEADER = 'X-Mothership-Execute-Stream'
@@ -57,7 +59,7 @@ function parseMothershipExecuteStreamLine(line: string): MothershipExecuteStream
   try {
     return JSON.parse(trimmed) as MothershipExecuteStreamEvent
   } catch {
-    throw new Error('Sim execution stream returned malformed data')
+    throw new Error(`${brandName} execution stream returned malformed data`)
   }
 }
 
@@ -106,7 +108,7 @@ async function readMothershipExecuteResponse(response: Response): Promise<Mother
   }
 
   if (!response.body) {
-    throw new Error('Sim execution stream ended without a response body')
+    throw new Error(`${brandName} execution stream ended without a response body`)
   }
 
   const reader = response.body.getReader()
@@ -123,7 +125,7 @@ async function readMothershipExecuteResponse(response: Response): Promise<Mother
     }
 
     if (event.type === 'error') {
-      throw new Error(`Sim execution failed: ${event.error || 'Unknown error'}`)
+      throw new Error(`${brandName} execution failed: ${event.error || 'Unknown error'}`)
     }
 
     if (event.type === 'final') {
@@ -131,7 +133,7 @@ async function readMothershipExecuteResponse(response: Response): Promise<Mother
       return
     }
 
-    throw new Error('Sim execution stream returned an unknown event')
+    throw new Error(`${brandName} execution stream returned an unknown event`)
   }
 
   try {
@@ -151,7 +153,7 @@ async function readMothershipExecuteResponse(response: Response): Promise<Mother
     processLine(buffer)
 
     if (!finalResult) {
-      throw new Error('Sim execution stream ended without a final result')
+      throw new Error(`${brandName} execution stream ended without a final result`)
     }
 
     return finalResult
@@ -170,7 +172,7 @@ function createMothershipStreamingExecution(
   } = {}
 ): StreamingExecution {
   if (!response.body) {
-    throw new Error('Sim execution stream ended without a response body')
+    throw new Error(`${brandName} execution stream ended without a response body`)
   }
 
   const output = formatMothershipBlockOutput({}, fallbackChatId)
@@ -207,7 +209,7 @@ function createMothershipStreamingExecution(
         }
 
         if (event.type === 'error') {
-          throw new Error(`Sim execution failed: ${event.error || 'Unknown error'}`)
+          throw new Error(`${brandName} execution failed: ${event.error || 'Unknown error'}`)
         }
 
         if (event.type === 'final') {
@@ -216,7 +218,7 @@ function createMothershipStreamingExecution(
           return
         }
 
-        throw new Error('Sim execution stream returned an unknown event')
+        throw new Error(`${brandName} execution stream returned an unknown event`)
       }
 
       try {
@@ -237,7 +239,7 @@ function createMothershipStreamingExecution(
         processLine(buffer)
 
         if (!sawFinal) {
-          throw new Error('Sim execution stream ended without a final result')
+          throw new Error(`${brandName} execution stream ended without a final result`)
         }
 
         if (!cancelled) {
@@ -468,7 +470,7 @@ export class MothershipBlockHandler implements BlockHandler {
 
       if (!response.ok) {
         const errorMsg = await extractAPIErrorMessage(response)
-        throw new Error(`Sim execution failed: ${errorMsg}`)
+        throw new Error(`${brandName} execution failed: ${errorMsg}`)
       }
 
       if (isContentSelectedForStreaming(ctx, block)) {

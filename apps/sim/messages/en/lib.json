@@ -25,7 +25,7 @@
   "inputdo": "Not matching the regular expression template",
   "userinp": "Need to enter user data",
   "norelev": "No context found in knowledge base.",
-  "oteltra": "OTel identifier from the first incoming Go request. May differ from requestId when Sim assigns a canonical request ID.",
+  "oteltra": "OTel identifier from the first incoming Go request. May differ from requestId when AACFlow assigns a canonical request ID.",
   "whattoo": "Which programming method/algorithm/skill is needed?",
   "whataut": "What authentication or action with credentials is required?",
   "skipurl": "Skip URLs matching these templates.",

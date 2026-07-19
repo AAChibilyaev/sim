@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { SITE_URL } from '@/lib/core/utils/urls'
+import { getBrandConfig } from '@/ee/whitelabeling'
 
 export const dynamic = 'force-static'
 export const revalidate = 3600
@@ -24,6 +25,10 @@ function escapeXml(str: string) {
 }
 
 export async function GET() {
+  if (getBrandConfig().isWhitelabeled) {
+    return new NextResponse('Not Found', { status: 404 })
+  }
+
   try {
     const res = await fetch('https://api.github.com/repos/simstudioai/sim/releases', {
       headers: { Accept: 'application/vnd.github+json' },

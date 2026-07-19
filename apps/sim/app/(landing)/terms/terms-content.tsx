@@ -1,4 +1,13 @@
 import { type LegalPageConfig, ProseLink } from '@/app/(landing)/components/prose-page'
+import { getBrandConfig } from '@/ee/whitelabeling'
+
+/**
+ * Contact addresses share the domain of the configured brand support email,
+ * so whitelabeled deployments never surface sim.ai mailboxes.
+ */
+const CONTACT_DOMAIN = (getBrandConfig().supportEmail || 'help@sim.ai').split('@')[1] || 'sim.ai'
+const LEGAL_EMAIL = `legal@${CONTACT_DOMAIN}`
+const COPYRIGHT_EMAIL = `copyright@${CONTACT_DOMAIN}`
 
 /**
  * Terms of Service content - the verbatim legal text, expressed as the typed
@@ -281,8 +290,8 @@ export const TERMS_CONFIG: LegalPageConfig = {
             <>
               You have the right to opt out of the provisions of this Arbitration Agreement by
               sending a timely written notice of your decision to opt out to:{' '}
-              <ProseLink href='mailto:legal@sim.ai'>legal@sim.ai</ProseLink> within 30 days after
-              first becoming subject to this Arbitration Agreement.
+              <ProseLink href={`mailto:${LEGAL_EMAIL}`}>{LEGAL_EMAIL}</ProseLink> within 30 days
+              after first becoming subject to this Arbitration Agreement.
             </>
           ),
         },
@@ -326,7 +335,7 @@ export const TERMS_CONFIG: LegalPageConfig = {
           content: (
             <>
               Our Copyright Agent can be reached at:{' '}
-              <ProseLink href='mailto:copyright@sim.ai'>copyright@sim.ai</ProseLink>
+              <ProseLink href={`mailto:${COPYRIGHT_EMAIL}`}>{COPYRIGHT_EMAIL}</ProseLink>
             </>
           ),
         },
@@ -341,7 +350,7 @@ export const TERMS_CONFIG: LegalPageConfig = {
           content: (
             <>
               If you have any questions about these Terms, please contact us at:{' '}
-              <ProseLink href='mailto:legal@sim.ai'>legal@sim.ai</ProseLink>
+              <ProseLink href={`mailto:${LEGAL_EMAIL}`}>{LEGAL_EMAIL}</ProseLink>
             </>
           ),
         },

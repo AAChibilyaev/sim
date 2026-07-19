@@ -1,6 +1,6 @@
 import { createLogger } from '@sim/logger'
 import { getErrorMessage } from '@sim/utils/errors'
-import { LagoApiError, lagoRequest } from '@/lib/billing/lago/client'
+import { callLago, LagoApiError, lagoRequest } from '@/lib/billing/lago/client'
 import { toLagoCustomerExternalId } from '@/lib/billing/lago/external-ids'
 import type {
   LagoBillingEntityType,
@@ -36,8 +36,17 @@ export async function upsertLagoCustomer(
   }
 
   try {
-    const created = await lagoRequest<LagoCustomerResponse>('POST', '/customers', payload)
-    return created.customer
+    const created = await callLago((client) =>
+      client.customers.createCustomer({
+        customer: {
+          external_id: externalId,
+          name: params.name ?? undefined,
+          email: params.email ?? undefined,
+          currency: 'USD',
+        },
+      })
+    )
+    return created.customer as LagoCustomerResponse['customer']
   } catch (error) {
     if (error instanceof LagoApiError && error.status === 422) {
       const updated = await lagoRequest<LagoCustomerResponse>(
@@ -60,12 +69,10 @@ export async function getLagoCheckoutUrl(
 ): Promise<string | null> {
   const externalId = toLagoCustomerExternalId(entityType, entityId)
   try {
-    const response = await lagoRequest<LagoCheckoutUrlResponse>(
-      'POST',
-      `/customers/${encodeURIComponent(externalId)}/checkout_url`,
-      {}
+    const response = await callLago((client) =>
+      client.customers.generateCustomerCheckoutUrl(externalId)
     )
-    return response.customer.checkout_url ?? null
+    return (response as LagoCheckoutUrlResponse).customer.checkout_url ?? null
   } catch (error) {
     logger.error('Failed to create Lago checkout URL', {
       externalId,
@@ -84,11 +91,8 @@ export async function getLagoPortalUrl(
 ): Promise<string | null> {
   const externalId = toLagoCustomerExternalId(entityType, entityId)
   try {
-    const response = await lagoRequest<LagoPortalUrlResponse>(
-      'GET',
-      `/customers/${encodeURIComponent(externalId)}/portal_url`
-    )
-    return response.customer.portal_url ?? null
+    const response = await callLago((client) => client.customers.getCustomerPortalUrl(externalId))
+    return (response as LagoPortalUrlResponse).customer.portal_url ?? null
   } catch (error) {
     logger.error('Failed to create Lago portal URL', {
       externalId,

@@ -32,7 +32,7 @@
   "enter_candidate_id": "Введите идентификтор кандидата",
   "enter_job_id": "Введите идентификатор вакансии",
   "enter_user_id": "Введите идентификатор пользователя",
-  "enter_your_greenhouse_harvest_api_key": "Введите ключ API Greenhouse Harvest вашего Sim",
+  "enter_your_greenhouse_harvest_api_key": "Введите ключ API Greenhouse Harvest вашего AACFlow",
   "file_attachments": "Вложения файлов",
   "filter_by_department_id": "Фильтр по идентификатору отдела",
   "filter_by_email_address": "Фильтр по адресу электронной почты",

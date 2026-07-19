@@ -8,6 +8,7 @@ import { parseRequest } from '@/lib/api/server'
 import { checkSessionOrInternalAuth } from '@/lib/auth/hybrid'
 import { validateJiraCloudId } from '@/lib/core/security/input-validation'
 import { withRouteHandler } from '@/lib/core/utils/with-route-handler'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 import { getConfluenceCloudId } from '@/tools/confluence/utils'
 import { parseAtlassianErrorMessage } from '@/tools/jira/utils'
 
@@ -74,7 +75,7 @@ export const PUT = withRouteHandler(async (request: NextRequest) => {
       },
       version: {
         number: currentVersion + 1,
-        message: 'Updated via Sim',
+        message: `Updated via ${getBrandConfig().name}`,
       },
     }
 

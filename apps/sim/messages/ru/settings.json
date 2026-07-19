@@ -44,15 +44,15 @@
   "nav_custom-tools_desc": "Создайте и управляйте индивидуальными инструментами для агентов.",
   "nav_mcp_label": "Инструменты MCP",
   "nav_mcp_desc": "Подключите сервера MCP и используйте их инструменты в воркфлоу.",
-  "nav_apikeys_label": "Ключи API Sim",
-  "nav_apikeys_desc": "Создавайте и управляйте ключами API для Sim API.",
+  "nav_apikeys_label": "Ключи API AACFlow",
+  "nav_apikeys_desc": "Создавайте и управляйте ключами API для AACFlow API.",
   "nav_workflow-mcp-servers_label": "Сервера MCP",
   "nav_workflow-mcp-servers_desc": "Публикуйте свои воркфлоу как инструменты на сервере MCP.",
   "nav_byok_label": "BYOK",
   "nav_byok_desc": "Используйте собственные ключи API модели-поставщика.",
   "nav_copilot_label": "Ключи для чата",
   "nav_copilot_desc": "Управление ключами модели-поставщика, которые обеспечивают чат.",
-  "nav_inbox_label": "Почтовый сервис Sim",
+  "nav_inbox_label": "Почтовый сервис AACFlow",
   "nav_inbox_desc": "вызвать и обработать воркфлоу из входящей электронной почты.",
   "nav_credential-sets_label": "Опрос почты",
   "nav_credential-sets_desc": "Общие данные для политики почты среди вашей команды.",
@@ -69,5 +69,5 @@
   "nav_admin_label": "Администратор",
   "nav_admin_desc": "Суперпользовательский администрирование и инструменты рабочего пространства.",
   "nav_mothership_label": "Mothership",
-  "nav_mothership_desc": "Внутренние операции Sim и управление лицензиями."
+  "nav_mothership_desc": "Внутренние операции AACFlow и управление лицензиями."
 }

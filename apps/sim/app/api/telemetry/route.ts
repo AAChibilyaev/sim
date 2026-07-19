@@ -65,6 +65,11 @@ async function forwardToCollector(data: Record<string, unknown>): Promise<boolea
   const endpoint = resolveTelemetryEndpoint()
   const timeout = DEFAULT_TIMEOUT
 
+  if (!endpoint) {
+    logger.debug('Telemetry forwarding disabled (no endpoint configured)')
+    return false
+  }
+
   if (isDev && isRemoteTelemetryEndpoint(endpoint)) {
     logger.debug('Skipping telemetry forward in development (no local collector configured)')
     return false

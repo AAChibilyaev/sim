@@ -1,6 +1,6 @@
 import integrationsJson from '@/lib/integrations/integrations.json'
 import type { Integration } from '@/lib/integrations/types'
-import { createLandingOgImage } from '@/app/(landing)/og-utils'
+import { createLandingOgImage, getOgDomainLabel } from '@/app/(landing)/og-utils'
 
 export const contentType = 'image/png'
 export const size = {
@@ -25,6 +25,6 @@ export default async function Image() {
       `${OAUTH_COUNT} OAuth apps`,
       `${TRIGGER_INTEGRATION_COUNT} with real-time triggers`,
     ],
-    domainLabel: 'sim.ai/integrations',
+    domainLabel: getOgDomainLabel('/integrations'),
   })
 }

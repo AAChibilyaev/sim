@@ -1,6 +1,6 @@
 import { createLogger } from '@sim/logger'
 import { getErrorMessage } from '@sim/utils/errors'
-import { LagoApiError, lagoRequest } from '@/lib/billing/lago/client'
+import { callLago, LagoApiError, lagoRequest } from '@/lib/billing/lago/client'
 import { toLagoCustomerExternalId } from '@/lib/billing/lago/external-ids'
 import { getLagoProductSlug } from '@/lib/billing/lago/product'
 import type { LagoBillingEntityType } from '@/lib/billing/lago/types'
@@ -79,17 +79,15 @@ export async function ensureLagoWallet(
   }
 
   try {
-    await lagoRequest(
-      'POST',
-      `/customers/${encodeURIComponent(externalCustomerId)}/wallets/${walletCode}/alerts`,
-      {
+    await callLago((client) =>
+      client.customers.createCustomerWalletAlert(externalCustomerId, walletCode, {
         alert: {
           alert_type: 'wallet_credits_ongoing_balance',
           code: 'low_balance',
           name: 'Low balance',
           thresholds: [{ code: 'low', value: '5' }],
         },
-      }
+      })
     )
   } catch (error) {
     if (error instanceof LagoApiError && (error.status === 422 || error.status === 400)) {
@@ -132,10 +130,9 @@ export async function getLagoWallet(
   const walletCode = `${slug}_wallet`
 
   try {
-    const response = await lagoRequest<LagoWalletListResponse>(
-      'GET',
-      `/wallets?external_customer_id=${encodeURIComponent(externalCustomerId)}&per_page=50`
-    )
+    const response = (await callLago((client) =>
+      client.wallets.findAllWallets({ external_customer_id: externalCustomerId, per_page: 50 })
+    )) as unknown as LagoWalletListResponse
     const wallets = response.wallets ?? []
     const wallet =
       wallets.find((w) => w.code === walletCode && w.status === 'active') ??
@@ -190,13 +187,15 @@ export async function topUpLagoWallet(
     // would create an invoice that requires a linked payment provider to settle.
     // This deployment bills usage pay-as-you-go via metered invoices, so wallet
     // top-ups are granted directly.
-    await lagoRequest('POST', '/wallet_transactions', {
-      wallet_transaction: {
-        wallet_id: wallet.lagoId,
-        granted_credits: String(credits),
-        paid_credits: '0',
-      },
-    })
+    await callLago((client) =>
+      client.walletTransactions.createWalletTransaction({
+        wallet_transaction: {
+          wallet_id: wallet.lagoId,
+          granted_credits: String(credits),
+          paid_credits: '0',
+        },
+      })
+    )
     logger.info('Topped up Lago wallet', { entityType, entityId, credits })
     return true
   } catch (error) {

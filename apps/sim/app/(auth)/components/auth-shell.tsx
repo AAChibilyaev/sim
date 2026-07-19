@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { LogoMark, SimWordmark } from '@/app/(landing)/components/navbar/components'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 interface AuthShellProps {
   /** Centered content column (the form, status copy, etc.). */
@@ -24,7 +25,11 @@ export function AuthShell({ children, footer }: AuthShellProps) {
     <div className='light relative flex min-h-screen flex-col bg-[var(--bg)] text-[var(--text-primary)]'>
       <header>
         <nav className='mx-auto flex w-full max-w-[1446px] items-center px-12 py-4 max-sm:px-5 max-lg:px-8'>
-          <Link href='/' aria-label='Sim home' className='flex h-[30px] items-center'>
+          <Link
+            href='/'
+            aria-label={`${getBrandConfig().name} home`}
+            className='flex h-[30px] items-center'
+          >
             <LogoMark>
               <SimWordmark />
             </LogoMark>

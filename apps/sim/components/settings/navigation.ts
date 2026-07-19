@@ -24,6 +24,7 @@ import { type PermissionType, permissionSatisfies } from '@sim/platform-authz/wo
 import { McpIcon } from '@/components/icons'
 import { getEnv, isTruthy } from '@/lib/core/config/env'
 import { isHosted } from '@/lib/core/config/env-flags'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 export type SettingsPlane = 'account' | 'organization' | 'workspace'
 
@@ -160,6 +161,8 @@ export interface SettingsSectionRegistryEntry {
   unified: UnifiedSettingsProjection
   planes?: SettingsPlaneProjections
 }
+
+const brandName = getBrandConfig().name
 
 const SETTINGS_SELF_HOSTED_OVERRIDES = {
   accessControl: isTruthy(getEnv('NEXT_PUBLIC_ACCESS_CONTROL_ENABLED')),
@@ -433,17 +436,17 @@ export const SETTINGS_SECTION_REGISTRY: readonly SettingsSectionRegistryEntry[] 
     },
   },
   {
-    label: 'Sim API keys',
+    label: `${brandName} API keys`,
     icon: TerminalWindow,
     unified: {
       id: 'apikeys',
-      description: 'Create and manage API keys for the Sim API.',
+      description: `Create and manage API keys for the ${brandName} API.`,
       group: 'system',
     },
     planes: {
       account: {
         id: 'api-keys',
-        description: 'Create and manage your personal Sim API keys.',
+        description: `Create and manage your personal ${brandName} API keys.`,
         group: 'developer',
         order: 2,
       },
@@ -494,7 +497,7 @@ export const SETTINGS_SECTION_REGISTRY: readonly SettingsSectionRegistryEntry[] 
     },
   },
   {
-    label: 'Sim mailer',
+    label: `${brandName} mailer`,
     icon: Send,
     unified: {
       id: 'inbox',
@@ -621,7 +624,7 @@ export const SETTINGS_SECTION_REGISTRY: readonly SettingsSectionRegistryEntry[] 
     icon: Server,
     unified: {
       id: 'mothership',
-      description: 'Internal Sim operations and license management.',
+      description: `Internal ${brandName} operations and license management.`,
       group: 'superuser',
       requiresAdminRole: true,
     },

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import integrationsJson from '@/lib/integrations/integrations.json'
 import type { AuthType, Integration } from '@/lib/integrations/types'
-import { createLandingOgImage } from '@/app/(landing)/og-utils'
+import { createLandingOgImage, getOgDomainLabel } from '@/app/(landing)/og-utils'
 
 export const contentType = 'image/png'
 export const size = {
@@ -54,6 +54,6 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     title: `${integration.name} Integration`,
     subtitle: integration.description,
     pills,
-    domainLabel: `sim.ai/integrations/${slug}`,
+    domainLabel: getOgDomainLabel(`/integrations/${slug}`),
   })
 }

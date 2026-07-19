@@ -2,8 +2,10 @@ import { createLogger } from '@sim/logger'
 import { type NextRequest, NextResponse } from 'next/server'
 import { noInputSchema } from '@/lib/api/contracts/primitives'
 import { validationErrorResponse } from '@/lib/api/server'
+import { getBaseUrl } from '@/lib/core/utils/urls'
 import { withRouteHandler } from '@/lib/core/utils/with-route-handler'
 import type { IncidentIOWidgetResponse, StatusResponse, StatusType } from '@/app/api/status/types'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 const logger = createLogger('StatusAPI')
 
@@ -39,6 +41,20 @@ export const GET = withRouteHandler(async (request: NextRequest) => {
       Object.fromEntries(request.nextUrl.searchParams.entries())
     )
     if (!queryValidation.success) return validationErrorResponse(queryValidation.error)
+
+    if (getBrandConfig().isWhitelabeled) {
+      const disabledResponse: StatusResponse = {
+        status: 'operational',
+        message: '',
+        url: getBaseUrl(),
+        lastUpdated: new Date().toISOString(),
+      }
+      return NextResponse.json(disabledResponse, {
+        headers: {
+          'Cache-Control': 'public, max-age=60, s-maxage=60',
+        },
+      })
+    }
 
     const now = Date.now()
 

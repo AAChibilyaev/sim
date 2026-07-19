@@ -12,7 +12,7 @@
   "enter_user_identifier": "Enter user identifier",
   "enter_your_mem0_api_key": "Enter your Mem0 API key",
   "integrate_mem0_into_the_workflow_can_add_search": "Integrate Mem0 into the workflow. Can add, search, and retrieve memories.",
-  "json_array_e_g": "JSON array, e.g. [{\"role\": \"user\", \"content\": \"I love Sim!\"}]",
+  "json_array_e_g": "JSON array, e.g. [{\"role\": \"user\", \"content\": \"I love AACFlow!\"}]",
   "mem0_api_key": "Mem0 API key",
   "mem0_customer_preference_store": "Mem0 customer-preference store",
   "mem0_long_term_agent_memory": "Mem0 long-term agent memory",

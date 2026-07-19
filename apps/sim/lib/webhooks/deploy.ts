@@ -33,6 +33,7 @@ import {
 } from '@/app/api/auth/oauth/utils'
 import { getBlock } from '@/blocks'
 import type { SubBlockConfig } from '@/blocks/types'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 import type { BlockState } from '@/stores/workflows/workflow/types'
 import { getTrigger, isTriggerValid } from '@/triggers'
 import { SYSTEM_SUBBLOCK_IDS } from '@/triggers/constants'
@@ -435,8 +436,7 @@ async function resolveWebhookConfigForBlock(input: {
         return {
           success: false,
           error: {
-            message:
-              'This event is not available on the Sim Slack app. Use a custom app or choose a supported event.',
+            message: `This event is not available on the ${getBrandConfig().name} Slack app. Use a custom app or choose a supported event.`,
             status: 400,
           },
         }

@@ -2,6 +2,12 @@ import type { Metadata } from 'next'
 import type { Author, ContentMeta } from '@/lib/content/schema'
 import { SITE_URL } from '@/lib/core/utils/urls'
 import { withFilteredNoindex } from '@/lib/landing/seo'
+import { getBrandConfig } from '@/ee/whitelabeling'
+
+/** Twitter `site` attribution, omitted entirely for whitelabeled deployments. */
+function twitterSite(): { site?: string } {
+  return getBrandConfig().isWhitelabeled ? {} : { site: '@simdotai' }
+}
 
 /**
  * Identifies the content section a post/collection belongs to, so the
@@ -29,7 +35,7 @@ export function buildPostMetadata(post: ContentMeta): Metadata {
       url: a.url,
     })),
     creator: post.author.name,
-    publisher: 'Sim',
+    publisher: getBrandConfig().name,
     robots: post.draft
       ? { index: false, follow: false, googleBot: { index: false, follow: false } }
       : { index: true, follow: true, googleBot: { index: true, follow: true } },
@@ -38,7 +44,7 @@ export function buildPostMetadata(post: ContentMeta): Metadata {
       title: post.title,
       description: post.description,
       url: post.canonical,
-      siteName: 'Sim',
+      siteName: getBrandConfig().name,
       locale: 'en_US',
       type: 'article',
       publishedTime: post.date,
@@ -62,7 +68,7 @@ export function buildPostMetadata(post: ContentMeta): Metadata {
       description: post.description,
       images: [post.ogImage],
       creator: post.author.url?.includes('x.com') ? `@${post.author.xHandle || ''}` : undefined,
-      site: '@simdotai',
+      ...twitterSite(),
     },
     other: {
       'article:published_time': post.date,
@@ -109,7 +115,7 @@ export function buildArticleJsonLd(post: ContentMeta) {
     })),
     publisher: {
       '@type': 'Organization',
-      name: 'Sim',
+      name: getBrandConfig().name,
       url: SITE_URL,
       logo: {
         '@type': 'ImageObject',
@@ -194,8 +200,9 @@ export function buildIndexMetadata(
   if (pageNum > 1) titleParts.push(`Page ${pageNum}`)
   const title = titleParts.join(' | ')
 
+  const brandName = getBrandConfig().name
   const description = tag
-    ? `Sim ${section.name.toLowerCase()} posts tagged "${tag}": ${section.description}`
+    ? `${brandName} ${section.name.toLowerCase()} posts tagged "${tag}": ${section.description}`
     : section.description
 
   const canonical = `${SITE_URL}${section.basePath}`
@@ -207,10 +214,10 @@ export function buildIndexMetadata(
       description,
       alternates: { canonical },
       openGraph: {
-        title: `${title} | Sim`,
+        title: `${title} | ${brandName}`,
         description,
         url: canonical,
-        siteName: 'Sim',
+        siteName: brandName,
         locale: 'en_US',
         type: 'website',
         images: [
@@ -218,15 +225,15 @@ export function buildIndexMetadata(
             url: `${SITE_URL}/logo/primary/medium.png`,
             width: 1200,
             height: 630,
-            alt: `Sim ${section.name}`,
+            alt: `${brandName} ${section.name}`,
           },
         ],
       },
       twitter: {
         card: 'summary_large_image',
-        title: `${title} | Sim`,
+        title: `${title} | ${brandName}`,
         description,
-        site: '@simdotai',
+        ...twitterSite(),
       },
     },
     isFiltered
@@ -235,24 +242,25 @@ export function buildIndexMetadata(
 
 export function buildTagsMetadata(section: ContentSection): Metadata {
   const canonical = `${SITE_URL}${section.basePath}/tags`
-  const description = `Browse Sim ${section.name.toLowerCase()} posts by topic: AI agents, workflows, integrations, and more.`
+  const brandName = getBrandConfig().name
+  const description = `Browse ${brandName} ${section.name.toLowerCase()} posts by topic: AI agents, workflows, integrations, and more.`
   return {
     title: 'Tags',
     description,
     alternates: { canonical },
     openGraph: {
-      title: `${section.name} Tags | Sim`,
+      title: `${section.name} Tags | ${brandName}`,
       description,
       url: canonical,
-      siteName: 'Sim',
+      siteName: brandName,
       locale: 'en_US',
       type: 'website',
     },
     twitter: {
       card: 'summary',
-      title: `${section.name} Tags | Sim`,
+      title: `${section.name} Tags | ${brandName}`,
       description,
-      site: '@simdotai',
+      ...twitterSite(),
     },
   }
 }
@@ -285,14 +293,15 @@ export function buildAuthorMetadata(
   author?: Author
 ): Metadata {
   const name = author?.name ?? 'Author'
+  const brandName = getBrandConfig().name
   const canonical = `${SITE_URL}${section.basePath}/authors/${encodeURIComponent(id)}`
-  const description = `Read articles by ${name} on the Sim ${section.name.toLowerCase()}.`
+  const description = `Read articles by ${name} on the ${brandName} ${section.name.toLowerCase()}.`
   return {
-    title: `${name} | Sim ${section.name}`,
+    title: `${name} | ${brandName} ${section.name}`,
     description,
     alternates: { canonical },
     openGraph: {
-      title: `${name} | Sim ${section.name}`,
+      title: `${name} | ${brandName} ${section.name}`,
       description,
       url: canonical,
       siteName: 'Sim',
@@ -303,9 +312,9 @@ export function buildAuthorMetadata(
     },
     twitter: {
       card: 'summary',
-      title: `${name} | Sim ${section.name}`,
+      title: `${name} | ${brandName} ${section.name}`,
       description,
-      site: '@simdotai',
+      ...twitterSite(),
       ...(author?.xHandle ? { creator: `@${author.xHandle}` } : {}),
     },
   }
@@ -325,7 +334,7 @@ export function buildAuthorGraphJsonLd(section: ContentSection, author: Author) 
           : author.avatarUrl && `${SITE_URL}${author.avatarUrl}`,
         worksFor: {
           '@type': 'Organization',
-          name: 'Sim',
+          name: getBrandConfig().name,
           url: SITE_URL,
         },
       },
@@ -377,15 +386,17 @@ export function buildCollectionPageJsonLd(
     .join('&')
   const url = `${SITE_URL}${section.basePath}${params ? `?${params}` : ''}`
 
+  const brandName = getBrandConfig().name
+
   return {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: `Sim ${section.name}`,
+    name: `${brandName} ${section.name}`,
     url,
     description: section.description,
     publisher: {
       '@type': 'Organization',
-      name: 'Sim',
+      name: brandName,
       url: SITE_URL,
       logo: {
         '@type': 'ImageObject',
@@ -395,7 +406,7 @@ export function buildCollectionPageJsonLd(
     inLanguage: 'en-US',
     isPartOf: {
       '@type': 'WebSite',
-      name: 'Sim',
+      name: brandName,
       url: SITE_URL,
     },
     mainEntity: {

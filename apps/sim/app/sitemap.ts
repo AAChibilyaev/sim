@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 import { getAllPostMeta as getAllBlogPostMeta } from '@/lib/blog/registry'
 import type { ContentMeta } from '@/lib/content/schema'
 import { latestModified } from '@/lib/content/utils'
-import { SITE_URL } from '@/lib/core/utils/urls'
+import { getSiteUrl } from '@/lib/core/utils/urls'
 import { INTEGRATIONS, INTEGRATIONS_UPDATED_AT } from '@/lib/integrations'
 import { getAllPostMeta as getAllLibraryPostMeta } from '@/lib/library/registry'
 import {
@@ -25,7 +25,7 @@ function buildAuthorPages(posts: ContentMeta[], basePath: string): MetadataRoute
     }
   }
   return [...authorsMap.entries()].map(([id, date]) => ({
-    url: `${SITE_URL}${basePath}/authors/${encodeURIComponent(id)}`,
+    url: `${getSiteUrl()}${basePath}/authors/${encodeURIComponent(id)}`,
     lastModified: date,
   }))
 }
@@ -39,7 +39,7 @@ function buildAuthorPages(posts: ContentMeta[], basePath: string): MetadataRoute
  * by the catalog generator in `scripts/generate-docs.ts`.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = SITE_URL
+  const baseUrl = getSiteUrl()
   const [posts, libraryPosts] = await Promise.all([getAllBlogPostMeta(), getAllLibraryPostMeta()])
 
   const latestPostDateValue = latestModified(posts)

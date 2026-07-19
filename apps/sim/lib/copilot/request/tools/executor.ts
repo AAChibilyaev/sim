@@ -68,6 +68,7 @@ import {
   type ToolCallState,
 } from '@/lib/copilot/request/types'
 import { ensureHandlersRegistered, executeTool } from '@/lib/copilot/tool-executor'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 import { isMcpTool } from '@/executor/constants'
 
 export { waitForToolCompletion } from '@/lib/copilot/request/tools/client'
@@ -233,7 +234,7 @@ export function toolWatchdogTimeoutMs(toolName: string | undefined): number {
 class ToolExecutionTimeoutError extends Error {
   constructor(toolName: string, timeoutMs: number) {
     super(
-      `Tool '${toolName}' timed out after ${Math.round(timeoutMs / 1000)}s on the Sim executor and was abandoned.`
+      `Tool '${toolName}' timed out after ${Math.round(timeoutMs / 1000)}s on the ${getBrandConfig().name} executor and was abandoned.`
     )
     this.name = 'ToolExecutionTimeoutError'
   }

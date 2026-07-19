@@ -5,6 +5,7 @@ import { TextChunker } from '@/lib/chunkers/text-chunker'
 import type { DocChunk, DocsChunkerOptions } from '@/lib/chunkers/types'
 import { estimateTokens } from '@/lib/chunkers/utils'
 import { generateEmbeddings, getConfiguredEmbeddingModel } from '@/lib/knowledge/embeddings'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 interface HeaderInfo {
   level: number
@@ -33,7 +34,7 @@ export class DocsChunker {
       minCharactersPerChunk: options.minCharactersPerChunk ?? 1,
       chunkOverlap: options.chunkOverlap ?? 50,
     })
-    this.baseUrl = options.baseUrl ?? 'https://docs.sim.ai'
+    this.baseUrl = options.baseUrl ?? getBrandConfig().documentationUrl ?? 'https://docs.sim.ai'
   }
 
   async chunkAllDocs(docsPath: string): Promise<DocChunk[]> {

@@ -5,6 +5,7 @@ import {
   DAILY_REFRESH_RATE,
   DEFAULT_FREE_CREDITS,
 } from '@/lib/billing/constants'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 /**
  * Looks up a credit tier by name, so a column binds to the right tier even if
@@ -186,7 +187,7 @@ export const COMPARISON_SECTIONS: ComparisonSection[] = [
     title: 'Features',
     rows: [
       {
-        label: 'Sim Mailer (Inbox)',
+        label: `${getBrandConfig().name} Mailer (Inbox)`,
         values: [false, false, true, true],
       },
       {

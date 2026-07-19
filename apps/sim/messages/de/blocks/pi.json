@@ -61,7 +61,7 @@
   "run_an_autonomous_coding_agent_on_a_repo": "Ein autonomasen Code-Agent auf einem Repository ausführen",
   "runs_in_an_isolated_sandbox_clones_your_repo": "läuft in einem isolierten Sandbox, koppiert dein Repository und öffnet einen Pull Request.",
   "selected_skills_configuration": "Ausgewählte Fähigkeiten konfiguriert",
-  "sim_tools_exposed_to_the_agent_local_mode": "Sim-Tools an den Agenten (lokaler Modus) verfügbar",
+  "sim_tools_exposed_to_the_agent_local_mode": "AACFlow-Tools an den Agenten (lokaler Modus) verfügbar",
   "skills": "Fähigkeiten",
   "sliding_window_size": "Schlüsselgröße der Schieferwand",
   "ssh_authentication_method_local_mode": "SSH-Autentifizierungsmethode (lokaler Modus)",

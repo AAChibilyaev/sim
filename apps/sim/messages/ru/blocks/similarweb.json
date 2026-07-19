@@ -33,7 +33,7 @@
   "pull_similarweb_traffic_metrics_for_several_domains_and": "Получить метрики трафика Similarweb для нескольких доменов и отсортировать их для видения конкурентного взгляда.",
   "score_a_list_of_prospect_domains_by_similarweb": "Оцените список потенциальных доменов по размеру трафика Similarweb, чтобы приоритизировать outreach.",
   "similarweb": "Similarweb",
-  "similarweb_account_intel_sync": "Синхронизация учетной записи Similarweb с Sim",
+  "similarweb_account_intel_sync": "Синхронизация учетной записи Similarweb с AACFlow",
   "similarweb_api_key": "API ключ Similarweb",
   "similarweb_category_benchmarking": "Воркфлоу похожей web (Similarweb) категории бенчмаркинга",
   "similarweb_engagement_scorecard": "Воркфлоу похожей web (Similarweb) счётчик engagement",

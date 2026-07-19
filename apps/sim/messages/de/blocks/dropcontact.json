@@ -56,7 +56,7 @@
   "siret_registered_address": "Geburtsort der SIRET-Anmeldung",
   "siret_registered_city": "Stadt der SIRET-Anmeldung",
   "siret_registered_postal_code": "PLZ der SIRET-Anmeldung",
-  "use_dropcontact_to_verify_and_enrich_b2b_contacts": "Verifiziere und erweitere B2B-Kontakte mit Dropcontact. Geben Sie einen Kontakt mit Namen, Unternehmen, Website oder LinkedIn-URL ein und erhalten Sie eine verifizierte professionelle E-Mail, Telefonnummer, Firmographics des Unternehmens und LinkedIn-Profil. Die Erweiterung erfolgt asynchrone: Dropcontact bearbeitet die Anfrage, dann überprüft Sim bis der Resultat bereit ist. Credits werden nur bezahlt, wenn eine verifizierte E-Mail zurückgegeben wird.",
+  "use_dropcontact_to_verify_and_enrich_b2b_contacts": "Verifiziere und erweitere B2B-Kontakte mit Dropcontact. Geben Sie einen Kontakt mit Namen, Unternehmen, Website oder LinkedIn-URL ein und erhalten Sie eine verifizierte professionelle E-Mail, Telefonnummer, Firmographics des Unternehmens und LinkedIn-Profil. Die Erweiterung erfolgt asynchrone: Dropcontact bearbeitet die Anfrage, dann überprüft AACFlow bis der Resultat bereit ist. Credits werden nur bezahlt, wenn eine verifizierte E-Mail zurückgegeben wird.",
   "vat_number": "USt-Identifikationsnummer",
   "whether_a_verified_email_was_found": "Ob eine verifizierte E-Mail gefunden wurde"
 }

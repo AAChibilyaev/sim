@@ -319,11 +319,12 @@ const nextConfig: NextConfig = {
   async redirects() {
     const redirects = []
 
-    // Social link redirects (used in emails to avoid spam filter issues)
+    // Social link redirects (used in emails to avoid spam filter issues).
+    // Destinations are env-overridable for whitelabeled deployments.
     redirects.push(
       {
         source: '/discord',
-        destination: 'https://discord.gg/Hr4UWYEcTT',
+        destination: process.env.SOCIAL_DISCORD_URL || 'https://discord.gg/Hr4UWYEcTT',
         permanent: false,
       },
       {
@@ -334,17 +335,18 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/x',
-        destination: 'https://x.com/simdotai',
+        destination: process.env.SOCIAL_X_URL || 'https://x.com/simdotai',
         permanent: false,
       },
       {
         source: '/linkedin',
-        destination: 'https://www.linkedin.com/company/simstudioai/',
+        destination:
+          process.env.SOCIAL_LINKEDIN_URL || 'https://www.linkedin.com/company/simstudioai/',
         permanent: false,
       },
       {
         source: '/github',
-        destination: 'https://github.com/simstudioai/sim',
+        destination: process.env.SOCIAL_GITHUB_URL || 'https://github.com/simstudioai/sim',
         permanent: false,
       },
       {

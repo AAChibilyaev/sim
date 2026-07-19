@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og'
+import { getBaseDomain } from '@/lib/core/utils/urls'
 import { SimLogoFull } from '@/app/(landing)/components/og-sim-logo'
 
 const size = {
@@ -41,6 +42,14 @@ async function loadGoogleFont(
   return null
 }
 
+/**
+ * Builds the footer domain label for an OG image from the deployment host
+ * (www stripped), optionally suffixed with a route path, e.g. `sim.ai/models`.
+ */
+export function getOgDomainLabel(path = ''): string {
+  return `${getBaseDomain().replace(/^www\./, '')}${path}`
+}
+
 interface LandingOgImageProps {
   eyebrow: string
   title: string
@@ -55,7 +64,7 @@ export async function createLandingOgImage({
   title,
   subtitle,
   pills = [],
-  domainLabel = 'sim.ai',
+  domainLabel = getOgDomainLabel(),
 }: LandingOgImageProps) {
   const text = `${eyebrow}${title}${subtitle}${pills.join('')}${domainLabel}`
   const [regularFontData, mediumFontData] = await Promise.all([

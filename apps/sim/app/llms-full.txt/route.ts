@@ -1,7 +1,23 @@
 import { getBaseUrl } from '@/lib/core/utils/urls'
+import { getBrandConfig } from '@/ee/whitelabeling'
 
 export function GET() {
   const baseUrl = getBaseUrl()
+  const brand = getBrandConfig()
+  const docsUrl = brand.documentationUrl || 'https://docs.sim.ai'
+  const supportEmail = brand.supportEmail || 'help@sim.ai'
+  const securityEmail = brand.isWhitelabeled ? supportEmail : 'security@sim.ai'
+  const simCommunityLinks = brand.isWhitelabeled
+    ? ''
+    : `- [GitHub](https://github.com/simstudioai/sim): Open-source codebase
+- [Slack](https://join.slack.com/t/sim-ott9864/shared_invite/zt-43lp8tc5v-0qrrqHGBKUsvQlpoouH~TA): Community workspace
+- [X/Twitter](https://x.com/simdotai): Announcements and updates
+- [LinkedIn](https://linkedin.com/company/simstudioai): Company page
+`
+  const simCommunitySupport = brand.isWhitelabeled
+    ? ''
+    : `- [Community Slack](https://join.slack.com/t/sim-ott9864/shared_invite/zt-43lp8tc5v-0qrrqHGBKUsvQlpoouH~TA): Community support
+`
 
   const llmsFullContent = `# Sim — The AI Workspace | Build, Deploy & Manage AI Agents
 
@@ -151,19 +167,14 @@ Built-in table creation and management:
 ## Links
 
 - [Website](${baseUrl}): Product overview and primary entry point
-- [Documentation](https://docs.sim.ai): Product guides and technical reference
-- [API Reference](https://docs.sim.ai/api): API documentation
-- [GitHub](https://github.com/simstudioai/sim): Open-source codebase
-- [Slack](https://join.slack.com/t/sim-ott9864/shared_invite/zt-43lp8tc5v-0qrrqHGBKUsvQlpoouH~TA): Community workspace
-- [X/Twitter](https://x.com/simdotai): Announcements and updates
-- [LinkedIn](https://linkedin.com/company/simstudioai): Company page
-
+- [Documentation](${docsUrl}): Product guides and technical reference
+- [API Reference](${docsUrl}/api): API documentation
+${simCommunityLinks}
 ## Support
 
-- [Documentation](https://docs.sim.ai): Self-serve guides and reference
-- [Community Slack](https://join.slack.com/t/sim-ott9864/shared_invite/zt-43lp8tc5v-0qrrqHGBKUsvQlpoouH~TA): Community support
-- Email: help@sim.ai
-- Security issues: security@sim.ai
+- [Documentation](${docsUrl}): Self-serve guides and reference
+${simCommunitySupport}- Email: ${supportEmail}
+- Security issues: ${securityEmail}
 
 ## Legal
 

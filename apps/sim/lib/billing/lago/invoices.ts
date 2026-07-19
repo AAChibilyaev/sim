@@ -1,7 +1,7 @@
 import { createLogger } from '@sim/logger'
 import { getErrorMessage } from '@sim/utils/errors'
 import type { InvoiceItem } from '@/lib/api/contracts/subscription'
-import { lagoRequest } from '@/lib/billing/lago/client'
+import { callLago } from '@/lib/billing/lago/client'
 import { toLagoCustomerExternalId } from '@/lib/billing/lago/external-ids'
 import type { LagoBillingEntityType, LagoInvoicesResponse } from '@/lib/billing/lago/types'
 
@@ -18,10 +18,13 @@ export async function listLagoInvoices(
   const externalId = toLagoCustomerExternalId(entityType, entityId)
 
   try {
-    const response = await lagoRequest<LagoInvoicesResponse>(
-      'GET',
-      `/invoices?external_customer_id=${encodeURIComponent(externalId)}&per_page=${limit}&page=1`
-    )
+    const response = (await callLago((client) =>
+      client.invoices.findAllInvoices({
+        external_customer_id: externalId,
+        per_page: limit,
+        page: 1,
+      })
+    )) as LagoInvoicesResponse
 
     const invoices: InvoiceItem[] = (response.invoices ?? []).map((invoice) => ({
       id: invoice.lago_id,

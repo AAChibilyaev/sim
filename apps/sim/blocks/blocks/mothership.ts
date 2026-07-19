@@ -1,6 +1,9 @@
 import { Blimp } from '@sim/emcn'
 import type { BlockConfig } from '@/blocks/types'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 import type { ToolResponse } from '@/tools/types'
+
+const brandName = getBrandConfig().name
 
 interface MothershipResponse extends ToolResponse {
   output: {
@@ -17,13 +20,12 @@ interface MothershipResponse extends ToolResponse {
 
 export const MothershipBlock: BlockConfig<MothershipResponse> = {
   type: 'mothership',
-  name: 'Sim',
-  description: 'Talk to Sim',
-  longDescription:
-    'The Sim block sends messages to Sim, which has access to subagents, integration tools, and workspace context. Use it to perform complex multi-step reasoning, cross-service queries, or any task that benefits from the full Sim intelligence within a workflow.',
+  name: brandName,
+  description: `Talk to ${brandName}`,
+  longDescription: `The ${brandName} block sends messages to ${brandName}, which has access to subagents, integration tools, and workspace context. Use it to perform complex multi-step reasoning, cross-service queries, or any task that benefits from the full ${brandName} intelligence within a workflow.`,
   bestPractices: `
   - Use for tasks that require multi-step reasoning, tool use, or cross-service coordination.
-  - Sim picks its own model and tools internally — you only provide a prompt.
+  - ${brandName} picks its own model and tools internally — you only provide a prompt.
   `,
   category: 'blocks',
   bgColor: '#802FDE',
@@ -33,7 +35,7 @@ export const MothershipBlock: BlockConfig<MothershipResponse> = {
       id: 'prompt',
       title: 'Prompt',
       type: 'long-input',
-      placeholder: 'Enter your prompt for Sim...',
+      placeholder: `Enter your prompt for ${brandName}...`,
     },
     {
       id: 'conversationId',
@@ -79,7 +81,7 @@ export const MothershipBlock: BlockConfig<MothershipResponse> = {
   inputs: {
     prompt: {
       type: 'string',
-      description: 'The prompt to send to Sim',
+      description: `The prompt to send to ${brandName}`,
     },
     conversationId: {
       type: 'string',
@@ -87,9 +89,9 @@ export const MothershipBlock: BlockConfig<MothershipResponse> = {
     },
     files: {
       type: 'file',
-      description: 'Files to send to Sim as attachments',
+      description: `Files to send to ${brandName} as attachments`,
     },
-    tools: { type: 'json', description: 'MCP tools available to Sim for this request' },
+    tools: { type: 'json', description: `MCP tools available to ${brandName} for this request` },
     skills: { type: 'json', description: 'Skills activated for this request' },
   },
   outputs: {

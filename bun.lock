@@ -234,6 +234,7 @@
         "js-yaml": "4.2.0",
         "json5": "2.2.3",
         "jszip": "3.10.1",
+        "lago-javascript-client": "^1.49.0",
         "lru-cache": "11.3.6",
         "lucide-react": "^0.479.0",
         "mammoth": "^1.9.0",
@@ -3096,6 +3097,8 @@
     "kleur": ["kleur@3.0.3", "", {}, "sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w=="],
 
     "kysely": ["kysely@0.28.17", "", {}, "sha512-nbD8lB9EB3wNdMhOCdx5Li8DxnLbvKByylRLcJ1h+4SkrowVeECAyZlyiKMThF7xFdRz0jSQ2MoJr+wXux2y0Q=="],
+
+    "lago-javascript-client": ["lago-javascript-client@1.49.0", "", {}, "sha512-cRqAMCVea20iWq+TjUOMKKQhVZB4xYo7DbEItsqzfSzuB8P1STFFLo6px3QYSyIKfDJfLh5Kge+Og616R2MY/w=="],
 
     "layout-base": ["layout-base@1.0.2", "", {}, "sha512-8h2oVEZNktL4BH2JCOI90iD1yXwL6iNW7KcCKT2QZgQJR2vbqDsldCTPRU9NifTCqHZci57XvQQ15YTu+sTYPg=="],
 

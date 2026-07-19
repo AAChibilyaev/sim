@@ -4,6 +4,7 @@ import { getScopesForService } from '@/lib/oauth/utils'
 import type { BlockConfig, BlockMeta, SubBlockConfig } from '@/blocks/types'
 import { AuthMode, IntegrationType } from '@/blocks/types'
 import { normalizeFileInput } from '@/blocks/utils'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 import type { SlackResponse } from '@/tools/slack/types'
 import { getTrigger } from '@/triggers'
 
@@ -80,7 +81,7 @@ export const SlackBlock: BlockConfig<SlackResponse> = {
       title: 'Authentication Method',
       type: 'dropdown',
       options: [
-        { label: 'Sim Bot', id: 'oauth' },
+        { label: `${getBrandConfig().name} Bot`, id: 'oauth' },
         { label: 'Custom Bot', id: 'bot_token' },
       ],
       value: () => 'oauth',

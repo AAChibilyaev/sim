@@ -56,7 +56,7 @@
   "siret_registered_address": "SIRET registered address",
   "siret_registered_city": "SIRET registered city",
   "siret_registered_postal_code": "SIRET registered postal code",
-  "use_dropcontact_to_verify_and_enrich_b2b_contacts": "Use Dropcontact to verify and enrich B2B contacts. Submit a contact with their name, company, website, or LinkedIn URL and receive a verified professional email, phone number, company firmographics, and LinkedIn profile. Enrichment is async: Dropcontact processes the request, then Sim polls until the result is ready. Credits are only charged when a verified email is returned.",
+  "use_dropcontact_to_verify_and_enrich_b2b_contacts": "Use Dropcontact to verify and enrich B2B contacts. Submit a contact with their name, company, website, or LinkedIn URL and receive a verified professional email, phone number, company firmographics, and LinkedIn profile. Enrichment is async: Dropcontact processes the request, then AACFlow polls until the result is ready. Credits are only charged when a verified email is returned.",
   "vat_number": "VAT number",
   "whether_a_verified_email_was_found": "Whether a verified email was found"
 }

@@ -12,7 +12,7 @@
   "enter_user_identifier": "Введите идентификатор пользователя",
   "enter_your_mem0_api_key": "Введите ключ Mem0 API",
   "integrate_mem0_into_the_workflow_can_add_search": "Integrate Mem0 воркфлоу. Можно добавлять, искать и получать данные о воспоминаниях.",
-  "json_array_e_g": "JSON массив, например, [{\"role\": \"user\", \"content\": \"Я люблю Sim!\"}]",
+  "json_array_e_g": "JSON массив, например, [{\"role\": \"user\", \"content\": \"Я люблю AACFlow!\"}]",
   "mem0_api_key": "API ключ Mem0",
   "mem0_customer_preference_store": "Магазин предпочтений клиентов Mem0",
   "mem0_long_term_agent_memory": "Долгосрочная память агента Mem0",

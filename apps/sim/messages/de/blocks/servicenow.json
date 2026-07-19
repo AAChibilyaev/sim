@@ -69,7 +69,7 @@
   "return_display_values_for_reference_fields_instead_of": "Gibt Werte für Referenzfelder anstelle von Sys_Ids zurück.",
   "return_record_count_aggregate": "Gibt die Anzahl der aggregierten Einträge zurück.",
   "return_the_count_of_matching_records": "Gibt die Anzahl der passenden Einträge zurück.",
-  "servicenow": "Sim",
+  "servicenow": "AACFlow",
   "servicenow_asset_audit": "Auswertung einer ServiceNow-Assetsicherheitsprüfung.",
   "servicenow_change_request_analyzer": "Anlayser für die ServiceNow-Änderungsanforderung",
   "servicenow_encoded_query_string": "ServiceNow-kodiertes Suchstring",

@@ -4,7 +4,7 @@ import { createLogger } from '@sim/logger'
 import { generateId } from '@sim/utils/id'
 import { and, eq } from 'drizzle-orm'
 import { syncUsageLimitsFromSubscription } from '@/lib/billing/core/usage'
-import { LagoApiError, lagoRequest } from '@/lib/billing/lago/client'
+import { callLago, LagoApiError, lagoRequest } from '@/lib/billing/lago/client'
 import { mapLagoPlanToSimPlan, mapSimPlanToLagoPlan } from '@/lib/billing/lago/config'
 import {
   toLagoCustomerExternalId,
@@ -135,14 +135,15 @@ export async function createLagoSubscription(params: {
 
   let lagoSub: LagoSubscriptionResponse['subscription']
   try {
-    const response = await lagoRequest<LagoSubscriptionResponse>('POST', '/subscriptions', payload)
+    const response = (await callLago((client) =>
+      client.subscriptions.createSubscription(payload)
+    )) as unknown as LagoSubscriptionResponse
     lagoSub = response.subscription
   } catch (error) {
     if (error instanceof LagoApiError && error.status === 422) {
-      const existing = await lagoRequest<LagoSubscriptionResponse>(
-        'GET',
-        `/subscriptions/${encodeURIComponent(subscriptionExternalId)}`
-      )
+      const existing = (await callLago((client) =>
+        client.subscriptions.findSubscription(subscriptionExternalId)
+      )) as unknown as LagoSubscriptionResponse
       lagoSub = existing.subscription
     } else {
       throw error
@@ -189,7 +190,7 @@ export async function terminateOtherLagoSubscriptions(
     if (row.id === keepSubscriptionId) continue
     if (!row.stripeSubscriptionId) continue
     try {
-      await lagoRequest('DELETE', `/subscriptions/${encodeURIComponent(row.id)}`)
+      await callLago((client) => client.subscriptions.destroySubscription(row.id))
       await db
         .update(subscription)
         .set({ status: 'canceled', endedAt: new Date() })

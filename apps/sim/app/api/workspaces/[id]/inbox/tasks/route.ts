@@ -7,6 +7,7 @@ import { getSession } from '@/lib/auth'
 import { hasWorkspaceInboxAccess } from '@/lib/billing/core/subscription'
 import { withRouteHandler } from '@/lib/core/utils/with-route-handler'
 import { getUserEntityPermissions } from '@/lib/workspaces/permissions/utils'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 export const GET = withRouteHandler(
   async (req: NextRequest, { params }: { params: Promise<{ id: string }> }) => {
@@ -28,7 +29,10 @@ export const GET = withRouteHandler(
       getUserEntityPermissions(session.user.id, 'workspace', workspaceId),
     ])
     if (!hasAccess) {
-      return NextResponse.json({ error: 'Sim Mailer requires a Max plan' }, { status: 403 })
+      return NextResponse.json(
+        { error: `${getBrandConfig().name} Mailer requires a Max plan` },
+        { status: 403 }
+      )
     }
     if (!permission) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 })

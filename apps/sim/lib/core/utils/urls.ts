@@ -4,6 +4,37 @@ import { isProd } from '@/lib/core/config/env-flags'
 /** Canonical base URL for the public-facing marketing site. No trailing slash. */
 export const SITE_URL = 'https://www.sim.ai'
 
+/**
+ * Returns true when any whitelabel brand env var is set, mirroring
+ * `getBrandConfig().isWhitelabeled` from `@/ee/whitelabeling` without importing
+ * the branding module, so this file stays importable from non-Next contexts
+ * and free of import cycles.
+ */
+function hasCustomBrand(): boolean {
+  return Boolean(
+    getEnv('NEXT_PUBLIC_BRAND_NAME') ||
+      getEnv('NEXT_PUBLIC_BRAND_LOGO_URL') ||
+      getEnv('NEXT_PUBLIC_BRAND_WORDMARK_URL') ||
+      getEnv('NEXT_PUBLIC_BRAND_PRIMARY_COLOR')
+  )
+}
+
+/**
+ * Returns the public site base URL used in SEO surfaces (sitemap, robots,
+ * structured data): the deployment's own base URL when the instance is
+ * whitelabeled, otherwise the canonical Sim marketing site URL.
+ */
+export function getSiteUrl(): string {
+  if (!hasCustomBrand()) {
+    return SITE_URL
+  }
+  try {
+    return getBaseUrl()
+  } catch {
+    return SITE_URL
+  }
+}
+
 function hasHttpProtocol(url: string): boolean {
   return /^https?:\/\//i.test(url)
 }
@@ -79,9 +110,9 @@ export function getBaseDomain(): string {
     const url = new URL(getBaseUrl())
     return url.host // host includes port if specified
   } catch (_e) {
-    const fallbackUrl = getEnv('NEXT_PUBLIC_APP_URL') || 'http://localhost:12000'
+    const fallbackUrl = getEnv('NEXT_PUBLIC_APP_URL')?.trim() || 'http://localhost:12000'
     try {
-      return new URL(fallbackUrl).host
+      return new URL(normalizeBaseUrl(fallbackUrl)).host
     } catch {
       return isProd ? 'sim.ai' : 'localhost:12000'
     }
@@ -97,6 +128,13 @@ export function getEmailDomain(): string {
     const baseDomain = getBaseDomain()
     return baseDomain.startsWith('www.') ? baseDomain.substring(4) : baseDomain
   } catch (_e) {
+    const appUrl = getEnv('NEXT_PUBLIC_APP_URL')?.trim()
+    if (appUrl) {
+      try {
+        const host = new URL(normalizeBaseUrl(appUrl)).host
+        return host.startsWith('www.') ? host.substring(4) : host
+      } catch {}
+    }
     return isProd ? 'sim.ai' : 'localhost:12000'
   }
 }

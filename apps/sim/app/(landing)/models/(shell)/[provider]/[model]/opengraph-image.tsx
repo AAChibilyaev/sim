@@ -6,7 +6,7 @@ import {
   getModelBySlug,
   getProviderBySlug,
 } from '@/app/(landing)/models/utils'
-import { createLandingOgImage } from '@/app/(landing)/og-utils'
+import { createLandingOgImage, getOgDomainLabel } from '@/app/(landing)/og-utils'
 
 export const contentType = 'image/png'
 export const size = {
@@ -51,6 +51,6 @@ export default async function Image({
       model.contextWindow ? `${formatTokenCount(model.contextWindow)} context` : 'Unknown context',
       model.capabilityTags[0] ?? 'Capabilities tracked',
     ],
-    domainLabel: `sim.ai${model.href}`,
+    domainLabel: getOgDomainLabel(model.href),
   })
 }

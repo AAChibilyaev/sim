@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getBaseUrl, SITE_URL } from '@/lib/core/utils/urls'
+import { getBaseUrl, getSiteUrl } from '@/lib/core/utils/urls'
 import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 /**
@@ -9,8 +9,8 @@ export function generateBrandedMetadata(override: Partial<Metadata> = {}): Metad
   const brand = getBrandConfig()
 
   const defaultTitle = brand.name
-  const summaryFull = `Sim is the open-source AI workspace where teams build, deploy, and manage AI agents. Connect 1,000+ integrations and every major LLM to create agents that automate real work — visually, conversationally, or with code. Trusted by over 100,000 builders — from startups to Fortune 500 companies. SOC2 compliant.`
-  const summaryShort = `Sim is the open-source AI workspace where teams build, deploy, and manage AI agents. Connect 1,000+ integrations and every major LLM to create agents that automate real work.`
+  const summaryFull = `${brand.name} is the open-source AI workspace where teams build, deploy, and manage AI agents. Connect 1,000+ integrations and every major LLM to create agents that automate real work — visually, conversationally, or with code. Trusted by over 100,000 builders — from startups to Fortune 500 companies. SOC2 compliant.`
+  const summaryShort = `${brand.name} is the open-source AI workspace where teams build, deploy, and manage AI agents. Connect 1,000+ integrations and every major LLM to create agents that automate real work.`
 
   return {
     title: {
@@ -84,8 +84,7 @@ export function generateBrandedMetadata(override: Partial<Metadata> = {}): Metad
       title: defaultTitle,
       description: summaryFull,
       images: [brand.logoUrl || '/logo/426-240/reverse/small.png'],
-      creator: '@simdotai',
-      site: '@simdotai',
+      ...(brand.isWhitelabeled ? {} : { creator: '@simdotai', site: '@simdotai' }),
     },
     manifest: '/manifest.webmanifest',
     icons: {
@@ -131,13 +130,14 @@ export function generateBrandedMetadata(override: Partial<Metadata> = {}): Metad
  * Generate static structured data for SEO
  */
 export function generateStructuredData() {
+  const brand = getBrandConfig()
+
   return {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'Sim',
-    description:
-      'Sim is the open-source AI workspace where teams build, deploy, and manage AI agents. Connect 1,000+ integrations and every major LLM to create agents that automate real work. Trusted by over 100,000 builders. SOC2 compliant.',
-    url: getBaseUrl(),
+    name: brand.name,
+    description: `${brand.name} is the open-source AI workspace where teams build, deploy, and manage AI agents. Connect 1,000+ integrations and every major LLM to create agents that automate real work. Trusted by over 100,000 builders. SOC2 compliant.`,
+    url: getSiteUrl(),
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web',
     applicationSubCategory: 'AIWorkspace',
@@ -149,8 +149,8 @@ export function generateStructuredData() {
     },
     creator: {
       '@type': 'Organization',
-      name: 'Sim',
-      url: SITE_URL,
+      name: brand.name,
+      url: getSiteUrl(),
     },
     featureList: [
       'AI Workspace for Teams',

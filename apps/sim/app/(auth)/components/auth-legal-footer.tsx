@@ -1,4 +1,5 @@
 import { AuthTextLink } from '@/app/(auth)/components/auth-text-link'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 interface AuthLegalFooterProps {
   /** The gerund describing the consent action, e.g. "signing in". */
@@ -11,14 +12,16 @@ interface AuthLegalFooterProps {
  * routed through {@link AuthTextLink}, so the consent copy has one source.
  */
 export function AuthLegalFooter({ action }: AuthLegalFooterProps) {
+  const brand = getBrandConfig()
+
   return (
     <p className='text-center text-[var(--text-muted)] text-caption leading-relaxed'>
       By {action}, you agree to our{' '}
-      <AuthTextLink href='/terms' external>
+      <AuthTextLink href={brand.termsUrl ?? '/terms'} external>
         Terms of Service
       </AuthTextLink>{' '}
       and{' '}
-      <AuthTextLink href='/privacy' external>
+      <AuthTextLink href={brand.privacyUrl ?? '/privacy'} external>
         Privacy Policy
       </AuthTextLink>
     </p>

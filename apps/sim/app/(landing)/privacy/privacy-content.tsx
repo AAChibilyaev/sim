@@ -1,4 +1,13 @@
 import { type LegalPageConfig, ProseLink } from '@/app/(landing)/components/prose-page'
+import { getBrandConfig } from '@/ee/whitelabeling'
+
+/**
+ * Contact addresses share the domain of the configured brand support email,
+ * so whitelabeled deployments never surface sim.ai mailboxes.
+ */
+const CONTACT_DOMAIN = (getBrandConfig().supportEmail || 'help@sim.ai').split('@')[1] || 'sim.ai'
+const PRIVACY_EMAIL = `privacy@${CONTACT_DOMAIN}`
+const SECURITY_EMAIL = `security@${CONTACT_DOMAIN}`
 
 /**
  * Privacy Policy content - the verbatim legal text, expressed as the typed
@@ -566,7 +575,7 @@ export const PRIVACY_CONFIG: LegalPageConfig = {
               data sharing practices (such as analytics or advertising services) may be considered a
               "sale" or "share" under CCPA/CPRA. You have the right to opt-out of such data sharing.
               To exercise this right, contact us at{' '}
-              <ProseLink href='mailto:privacy@sim.ai'>privacy@sim.ai</ProseLink>.
+              <ProseLink href={`mailto:${PRIVACY_EMAIL}`}>{PRIVACY_EMAIL}</ProseLink>.
             </>
           ),
         },
@@ -631,8 +640,8 @@ export const PRIVACY_CONFIG: LegalPageConfig = {
               solutions Sim interacts with are not covered by this policy and should be reported
               directly to the solution vendor in accordance with their disclosure policy (if any).
               Before beginning your inquiry, email us at{' '}
-              <ProseLink href='mailto:security@sim.ai'>security@sim.ai</ProseLink> if you're unsure
-              whether a system or endpoint is in scope.
+              <ProseLink href={`mailto:${SECURITY_EMAIL}`}>{SECURITY_EMAIL}</ProseLink> if you're
+              unsure whether a system or endpoint is in scope.
             </>
           ),
         },
@@ -651,7 +660,7 @@ export const PRIVACY_CONFIG: LegalPageConfig = {
           content: (
             <>
               To report any security flaws, send an email to{' '}
-              <ProseLink href='mailto:security@sim.ai'>security@sim.ai</ProseLink>. The next
+              <ProseLink href={`mailto:${SECURITY_EMAIL}`}>{SECURITY_EMAIL}</ProseLink>. The next
               business day, we'll acknowledge receipt of your vulnerability report and keep you
               updated on our progress. Reports can be anonymously submitted.
             </>
@@ -691,7 +700,7 @@ export const PRIVACY_CONFIG: LegalPageConfig = {
           kind: 'list',
           items: [
             <>
-              Email: <ProseLink href='mailto:privacy@sim.ai'>privacy@sim.ai</ProseLink>
+              Email: <ProseLink href={`mailto:${PRIVACY_EMAIL}`}>{PRIVACY_EMAIL}</ProseLink>
             </>,
             `Mailing Address: Sim, 80 Langton St, San Francisco, CA 94103, USA`,
           ],

@@ -40,6 +40,7 @@ import type { SettingsAction } from '@/app/workspace/[workspaceId]/settings/comp
 import { SettingsPanel } from '@/app/workspace/[workspaceId]/settings/components/settings-panel'
 import { useSettingsSearch } from '@/app/workspace/[workspaceId]/settings/components/use-settings-search'
 import { CreateWorkflowMcpServerModal } from '@/app/workspace/[workspaceId]/settings/components/workflow-mcp-servers/components'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 import { useApiKeys } from '@/hooks/queries/api-keys'
 import { useCreateMcpServer } from '@/hooks/queries/mcp'
 import {
@@ -834,7 +835,7 @@ function ServerDetailView({ canManage, workspaceId, serverId, onBack }: ServerDe
                 <p className='text-[var(--text-muted)] text-xs'>
                   {editServerIsPublic
                     ? 'Anyone with the URL can call this server without authentication'
-                    : 'Requests must include your Sim API key in the X-API-Key header'}
+                    : `Requests must include your ${getBrandConfig().name} API key in the X-API-Key header`}
                 </p>
               </div>
             </ChipModalField>

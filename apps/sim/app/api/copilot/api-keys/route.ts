@@ -6,6 +6,7 @@ import { fetchGo } from '@/lib/copilot/request/go/fetch'
 import { getMothershipBaseURL } from '@/lib/copilot/server/agent-url'
 import { env } from '@/lib/core/config/env'
 import { withRouteHandler } from '@/lib/core/utils/with-route-handler'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 export const GET = withRouteHandler(async (request: NextRequest) => {
   try {
@@ -38,7 +39,10 @@ export const GET = withRouteHandler(async (request: NextRequest) => {
       | null
 
     if (!Array.isArray(apiKeys)) {
-      return NextResponse.json({ error: 'Invalid response from Sim Agent' }, { status: 500 })
+      return NextResponse.json(
+        { error: `Invalid response from ${getBrandConfig().name} Agent` },
+        { status: 500 }
+      )
     }
 
     const keys = apiKeys.map((k) => {
@@ -95,7 +99,10 @@ export const DELETE = withRouteHandler(async (request: NextRequest) => {
 
     const data = (await res.json().catch(() => null)) as { success?: boolean } | null
     if (!data?.success) {
-      return NextResponse.json({ error: 'Invalid response from Sim Agent' }, { status: 500 })
+      return NextResponse.json(
+        { error: `Invalid response from ${getBrandConfig().name} Agent` },
+        { status: 500 }
+      )
     }
 
     return NextResponse.json({ success: true }, { status: 200 })

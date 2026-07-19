@@ -23,7 +23,7 @@
   "ketch_deletion_request_handler": "Ketch обработчик запроса на удаление данных-субъекта",
   "ketch_dsr_fulfillment": "Ketch выполнение запроса данных-субъекта",
   "ketch_organization_code": "Код организации",
-  "ketch_right_invocation_handler": "Кликните правой кнопкой для обработки события в Sim",
+  "ketch_right_invocation_handler": "Кликните правой кнопкой для обработки события в AACFlow",
   "ketch_subscription_sync": "Синхронизация подписок с Ketch",
   "look_up_a_user_current_consent_state_in": "Проверьте текущий состояние согласия пользователя в Ketch перед обработкой их данных.",
   "manage_privacy_consent_subscriptions_and_data_subject_rights": "Управление согласием на конфиденциальность, подписками и правами пользователей.",

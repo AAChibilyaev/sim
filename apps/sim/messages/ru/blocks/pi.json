@@ -61,7 +61,7 @@
   "run_an_autonomous_coding_agent_on_a_repo": "Запустите автономного кодового агента в репозитории",
   "runs_in_an_isolated_sandbox_clones_your_repo": "Выполняет в изолированной песочнице, клонирует ваш репо и открывает PR",
   "selected_skills_configuration": "Конфигурация навыков",
-  "sim_tools_exposed_to_the_agent_local_mode": "Тools Sim доступны агенту (в режиме локальной работы)",
+  "sim_tools_exposed_to_the_agent_local_mode": "Тools AACFlow доступны агенту (в режиме локальной работы)",
   "skills": "Навыки",
   "sliding_window_size": "Размер окна смещения",
   "ssh_authentication_method_local_mode": "Метод аутентификации SSH (в режиме локальной работы)",

@@ -53,6 +53,7 @@ import {
   useRemovePermissionGroupMember,
   useUpdatePermissionGroup,
 } from '@/ee/access-control/hooks/permission-groups'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 import { useBlacklistedProviders } from '@/hooks/queries/allowed-providers'
 import { useOrganizationRoster } from '@/hooks/queries/organization'
 import { useProviderModels } from '@/hooks/queries/providers'
@@ -781,10 +782,10 @@ export function GroupDetail({
       },
       {
         id: 'hide-inbox',
-        label: 'Sim Mailer',
+        label: `${getBrandConfig().name} Mailer`,
         category: 'Features',
         configKey: 'hideInboxTab' as const,
-        hint: 'Hide the Sim Mailer inbox.',
+        hint: `Hide the ${getBrandConfig().name} Mailer inbox.`,
       },
       {
         id: 'disable-public-api',

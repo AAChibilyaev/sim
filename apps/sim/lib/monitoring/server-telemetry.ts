@@ -1,5 +1,6 @@
 import { env } from '@/lib/core/config/env'
 import { isDev } from '@/lib/core/config/env-flags'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 export const DEFAULT_TELEMETRY_ENDPOINT = 'https://telemetry.simstudio.ai/v1/traces'
 
@@ -17,14 +18,23 @@ export function isRemoteTelemetryEndpoint(endpoint: string): boolean {
 
 /**
  * Resolves the configured OTLP traces endpoint, if any.
+ *
+ * Whitelabeled instances without an explicitly configured endpoint resolve to
+ * an empty string so no data is sent to the hosted default collector.
  */
 export function resolveTelemetryEndpoint(fallback = DEFAULT_TELEMETRY_ENDPOINT): string {
-  return (
+  const explicitEndpoint =
     process.env.OTEL_EXPORTER_OTLP_ENDPOINT ||
     process.env.TELEMETRY_ENDPOINT ||
-    env.TELEMETRY_ENDPOINT ||
-    fallback
-  )
+    env.TELEMETRY_ENDPOINT
+
+  if (explicitEndpoint) {
+    return explicitEndpoint
+  }
+  if (getBrandConfig().isWhitelabeled && fallback === DEFAULT_TELEMETRY_ENDPOINT) {
+    return ''
+  }
+  return fallback
 }
 
 /**
@@ -43,6 +53,10 @@ export function isServerTelemetryEnabled(): boolean {
 
   if (explicitEndpoint) {
     return true
+  }
+
+  if (getBrandConfig().isWhitelabeled) {
+    return false
   }
 
   return !isDev

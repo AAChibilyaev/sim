@@ -15,6 +15,7 @@ import {
 import { getBlock } from '@/blocks/registry'
 import type { SubBlockConfig } from '@/blocks/types'
 import { getModelOptions } from '@/blocks/utils'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 import { EDGE, normalizeName } from '@/executor/constants'
 import { isKnownModelId, suggestModelIdsForUnknownModel } from '@/providers/models'
 import { getTool } from '@/tools/utils'
@@ -1563,7 +1564,7 @@ export async function preValidateCredentialInputs(
 
     const stripMessage = (input: (typeof hostedApiKeyInputs)[number]): string =>
       input.reason === 'hosted_tool'
-        ? `Cannot set "${input.fieldName}" for "${input.blockType}" - it is managed by Sim on the hosted platform. Leave "${input.fieldName}" unset.`
+        ? `Cannot set "${input.fieldName}" for "${input.blockType}" - it is managed by ${getBrandConfig().name} on the hosted platform. Leave "${input.fieldName}" unset.`
         : `Cannot set API key for hosted model "${input.model}" - API keys are managed by the platform when using hosted models`
 
     for (const apiKeyInput of hostedApiKeyInputs) {

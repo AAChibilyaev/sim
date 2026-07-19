@@ -1,18 +1,23 @@
 import { getBaseUrl } from '@/lib/core/utils/urls'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 export async function GET() {
   const baseUrl = getBaseUrl()
+  const brand = getBrandConfig()
+  const securityContact = brand.isWhitelabeled
+    ? (brand.supportEmail ?? 'security@sim.ai')
+    : 'security@sim.ai'
 
   const expiresDate = new Date()
   expiresDate.setFullYear(expiresDate.getFullYear() + 1)
   const expires = expiresDate.toISOString()
 
-  const securityTxt = `# Security Policy for Sim
+  const securityTxt = `# Security Policy for ${brand.name}
 # https://securitytxt.org/
 # RFC 9116: https://www.rfc-editor.org/rfc/rfc9116.html
 
 # Required: Contact information for security reports
-Contact: mailto:security@sim.ai
+Contact: mailto:${securityContact}
 
 # Required: When this file expires (ISO 8601 format, within 1 year)
 Expires: ${expires}
@@ -30,7 +35,7 @@ Policy: ${baseUrl}/security
 # Acknowledgments: ${baseUrl}/security/thanks
 
 # If you discover a security vulnerability, please report it responsibly.
-# We appreciate your help in keeping Sim and our users secure.
+# We appreciate your help in keeping ${brand.name} and our users secure.
 `
 
   return new Response(securityTxt, {

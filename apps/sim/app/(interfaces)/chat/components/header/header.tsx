@@ -46,7 +46,7 @@ export function ChatHeader({ chatConfig, starCount }: ChatHeaderProps) {
         </div>
       </div>
 
-      {!brand.logoUrl && (
+      {!brand.isWhitelabeled && !brand.logoUrl && (
         <div className='flex items-center gap-4'>
           <a
             href='https://github.com/simstudioai/sim'

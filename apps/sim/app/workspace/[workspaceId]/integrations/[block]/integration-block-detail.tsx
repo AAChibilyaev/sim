@@ -33,6 +33,7 @@ import {
   type ScopedBlockTemplate,
 } from '@/blocks/registry'
 import { isHiddenUnder, overlayVisibility } from '@/blocks/visibility/context'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 import { useWorkspaceCredentials } from '@/hooks/queries/credentials'
 import { useOAuthReturnRouter } from '@/hooks/use-oauth-return'
 
@@ -158,7 +159,7 @@ export function IntegrationBlockDetail({ integration, workspaceId }: Integration
               <ChipDropdown
                 variant='primary'
                 leftIcon={Plus}
-                placeholder='Add to Sim'
+                placeholder={`Add to ${getBrandConfig().name}`}
                 showSelectedCheck={false}
                 options={connectOptions}
                 onChange={handleSelectConnectOption}
@@ -166,12 +167,12 @@ export function IntegrationBlockDetail({ integration, workspaceId }: Integration
               />
             ) : (
               <Chip variant='primary' leftIcon={Plus} onClick={() => setOAuthOpen(true)}>
-                Add to Sim
+                Add to {getBrandConfig().name}
               </Chip>
             )
           ) : (
             <Chip variant='primary' leftIcon={Plus} onClick={handleAddInChat}>
-              Add to Sim
+              Add to {getBrandConfig().name}
             </Chip>
           )}
         </div>

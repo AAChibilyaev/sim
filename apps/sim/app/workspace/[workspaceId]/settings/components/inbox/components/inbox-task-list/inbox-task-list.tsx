@@ -12,6 +12,7 @@ import {
   inboxTaskUrlKeys,
 } from '@/app/workspace/[workspaceId]/settings/components/inbox/search-params'
 import { SettingsEmptyState } from '@/app/workspace/[workspaceId]/settings/components/settings-empty-state'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 import type { InboxTaskItem } from '@/hooks/queries/inbox'
 import { useInboxConfig, useInboxTasks } from '@/hooks/queries/inbox'
 import { useDebouncedSearchSetter } from '@/hooks/use-debounced-search-setter'
@@ -215,7 +216,7 @@ function formatRejectionReason(reason: string): string {
     case 'rate_limit_exceeded':
       return 'Rate limit exceeded'
     case 'not_entitled':
-      return 'Plan no longer includes Sim Mailer'
+      return `Plan no longer includes ${getBrandConfig().name} Mailer`
     default:
       return reason
   }

@@ -50,6 +50,7 @@ import {
 } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/terminal/utils'
 import { useContextMenu } from '@/app/workspace/[workspaceId]/w/components/sidebar/hooks'
 import { getTileIconColorClass } from '@/blocks/icon-color'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 import { useShowTrainingControls } from '@/hooks/queries/general-settings'
 import { OUTPUT_PANEL_WIDTH, TERMINAL_HEIGHT } from '@/stores/constants'
 import type { ConsoleEntry } from '@/stores/terminal'
@@ -1390,7 +1391,9 @@ export const Terminal = memo(function Terminal() {
                         <Button
                           variant='ghost'
                           onClick={handleTrainingClick}
-                          aria-label={isTraining ? 'Stop training' : 'Train Sim'}
+                          aria-label={
+                            isTraining ? 'Stop training' : `Train ${getBrandConfig().name}`
+                          }
                           className={clsx(
                             '!p-1.5 -m-1.5',
                             isTraining && 'text-orange-600 dark:text-orange-400'
@@ -1404,7 +1407,9 @@ export const Terminal = memo(function Terminal() {
                         </Button>
                       </Tooltip.Trigger>
                       <Tooltip.Content>
-                        <span>{isTraining ? 'Stop Training' : 'Train Sim'}</span>
+                        <span>
+                          {isTraining ? 'Stop Training' : `Train ${getBrandConfig().name}`}
+                        </span>
                       </Tooltip.Content>
                     </Tooltip.Root>
                   )}

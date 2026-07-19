@@ -8,6 +8,7 @@ import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 import { AgentIcon } from '@/components/icons'
 import { usePreventZoom } from '@/app/workspace/[workspaceId]/w/[workflowId]/hooks'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 import { useSearchModalStore } from '@/stores/modals/search/store'
 
 const logger = createLogger('WorkflowCommandList')
@@ -172,7 +173,7 @@ export function CommandList() {
         <div className='mb-5 flex justify-center'>
           <Image
             src='/logo/b&w/text/b&w.svg'
-            alt='Sim'
+            alt={getBrandConfig().name}
             width={99.56}
             height={48.56}
             className='opacity-70'

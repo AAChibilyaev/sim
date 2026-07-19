@@ -1,4 +1,5 @@
 import { DEFAULT_BILLING_CONCURRENCY_LIMITS } from '@/lib/billing/concurrency-defaults'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 /**
  * Config for a plan's top-level credit stats.
@@ -37,7 +38,7 @@ export const PRO_PLAN_FEATURES: readonly string[] = [
 export const MAX_PLAN_FEATURES: readonly string[] = [
   `${DEFAULT_BILLING_CONCURRENCY_LIMITS.team.toLocaleString('en-US')} concurrent executions`,
   'Invite teammates',
-  'Sim Mailer & KB Live Sync',
+  `${getBrandConfig().name} Mailer & KB Live Sync`,
   'Highest rate limits',
   'Expanded storage & tables',
 ]

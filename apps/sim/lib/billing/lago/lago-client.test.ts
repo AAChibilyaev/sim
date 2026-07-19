@@ -79,7 +79,7 @@ describe('lago client', () => {
       expect(result).toEqual({ event: { transaction_id: 'tx_1' } })
     })
 
-    it('returns empty object for empty response body', async () => {
+    it('returns null for empty response body', async () => {
       vi.stubEnv('LAGO_API_KEY', 'test-key')
       vi.stubEnv('LAGO_API_URL', 'https://api.lago.test/api/v1')
       vi.resetModules()
@@ -89,7 +89,7 @@ describe('lago client', () => {
 
       const { lagoRequest } = await import('@/lib/billing/lago/client')
       const result = await lagoRequest('DELETE', '/subscriptions/sub_1')
-      expect(result).toEqual({})
+      expect(result).toBeNull()
     })
 
     it('throws LagoApiError on non-ok response', async () => {

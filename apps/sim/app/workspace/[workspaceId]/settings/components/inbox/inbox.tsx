@@ -12,11 +12,13 @@ import {
 } from '@/app/workspace/[workspaceId]/settings/components/inbox/components'
 import { SettingsPanel } from '@/app/workspace/[workspaceId]/settings/components/settings-panel'
 import { SettingsSection } from '@/app/workspace/[workspaceId]/settings/components/settings-section/settings-section'
+import { useBrandConfig } from '@/ee/whitelabeling/branding'
 import { useInboxConfig } from '@/hooks/queries/inbox'
 import { useSettingsNavigation } from '@/hooks/use-settings-navigation'
 
 export function Inbox() {
   const params = useParams()
+  const brand = useBrandConfig()
   const { navigateToSettings } = useSettingsNavigation()
   const workspaceId = params.workspaceId as string
 
@@ -43,11 +45,11 @@ export function Inbox() {
             <div className='flex flex-col items-center justify-center gap-4 py-20'>
               <div className='text-center'>
                 <h3 className='font-medium text-[var(--text-primary)] text-md'>
-                  Sim Mailer requires an active Max plan
+                  {brand.name} Mailer requires an active Max plan
                 </h3>
                 <p className='mt-1.5 text-[var(--text-muted)] text-sm'>
-                  Upgrade to Max and ensure billing is active to receive tasks via email and let Sim
-                  work on your behalf.
+                  Upgrade to Max and ensure billing is active to receive tasks via email and let{' '}
+                  {brand.name} work on your behalf.
                 </p>
               </div>
               {canAdmin && (

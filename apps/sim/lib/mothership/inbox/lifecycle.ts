@@ -5,6 +5,7 @@ import { eq } from 'drizzle-orm'
 import { getBaseUrl } from '@/lib/core/utils/urls'
 import * as agentmail from '@/lib/mothership/inbox/agentmail-client'
 import type { InboxConfig } from '@/lib/mothership/inbox/types'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 const logger = createLogger('InboxLifecycle')
 
@@ -21,7 +22,7 @@ export async function enableInbox(
 ): Promise<InboxConfig> {
   const inbox = await agentmail.createInbox({
     username: opts?.username,
-    displayName: 'Sim',
+    displayName: getBrandConfig().name,
   })
 
   logger.info('AgentMail createInbox response', { inbox: JSON.stringify(inbox) })

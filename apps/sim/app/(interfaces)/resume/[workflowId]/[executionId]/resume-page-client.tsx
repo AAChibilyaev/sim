@@ -22,6 +22,7 @@ import { formatDateTime } from '@sim/utils/formatting'
 import { useQueryClient } from '@tanstack/react-query'
 import { RefreshCw } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 import {
   type PauseContextDetail,
   type PausedExecutionDetail,
@@ -826,7 +827,7 @@ export default function ResumeExecutionPage({
                       {selectedDetail.pausePoint.automaticResumeWaitingReason}
                     </p>
                     <p className='mt-1 text-[12px] text-[var(--text-muted)]'>
-                      Sim will retry automatically.
+                      {getBrandConfig().name} will retry automatically.
                     </p>
                   </div>
                 )}

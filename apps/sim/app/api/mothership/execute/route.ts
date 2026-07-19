@@ -25,11 +25,13 @@ import {
   getUserEntityPermissions,
   isWorkspaceAccessDeniedError,
 } from '@/lib/workspaces/permissions/utils'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 import type { ChatContext } from '@/stores/panel'
 
 export const maxDuration = 3600
 
 const logger = createLogger('MothershipExecuteAPI')
+const brandName = getBrandConfig().name
 const MOTHERSHIP_EXECUTE_STREAM_HEADER = 'x-mothership-execute-stream'
 const MOTHERSHIP_EXECUTE_STREAM_VALUE = 'ndjson'
 const MOTHERSHIP_EXECUTE_STREAM_CONTENT_TYPE = 'application/x-ndjson'
@@ -322,7 +324,7 @@ export const POST = withRouteHandler(async (req: NextRequest) => {
               allowExplicitAbort = false
 
               if (lifecycleAbortController.signal.aborted) {
-                send({ type: 'error', error: 'Sim execution aborted' })
+                send({ type: 'error', error: `${brandName} execution aborted` })
                 return
               }
 
@@ -341,7 +343,7 @@ export const POST = withRouteHandler(async (req: NextRequest) => {
                 )
                 send({
                   type: 'error',
-                  error: result.error || 'Sim execution failed',
+                  error: result.error || `${brandName} execution failed`,
                   content: result.content || '',
                 })
                 return
@@ -363,7 +365,7 @@ export const POST = withRouteHandler(async (req: NextRequest) => {
                     : 'Mothership execute aborted',
                   { requestId }
                 )
-                send({ type: 'error', error: 'Sim execution aborted' })
+                send({ type: 'error', error: `${brandName} execution aborted` })
                 return
               }
 
@@ -417,7 +419,7 @@ export const POST = withRouteHandler(async (req: NextRequest) => {
 
       if (lifecycleAbortController.signal.aborted || req.signal.aborted) {
         reqLogger.info('Mothership execute aborted after lifecycle completion')
-        return NextResponse.json({ error: 'Sim execution aborted' }, { status: 499 })
+        return NextResponse.json({ error: `${brandName} execution aborted` }, { status: 499 })
       }
 
       if (!result.success) {
@@ -435,7 +437,7 @@ export const POST = withRouteHandler(async (req: NextRequest) => {
         )
         return NextResponse.json(
           {
-            error: result.error || 'Sim execution failed',
+            error: result.error || `${brandName} execution failed`,
             content: result.content || '',
           },
           { status: 500 }
@@ -461,7 +463,7 @@ export const POST = withRouteHandler(async (req: NextRequest) => {
         }
       )
 
-      return NextResponse.json({ error: 'Sim execution aborted' }, { status: 499 })
+      return NextResponse.json({ error: `${brandName} execution aborted` }, { status: 499 })
     }
 
     if (isWorkspaceAccessDeniedError(error)) {

@@ -1,5 +1,5 @@
 import { createLogger } from '@sim/logger'
-import { getErrorMessage } from '@sim/utils/errors'
+import { type Api, Client, ContentType } from 'lago-javascript-client'
 import { env } from '@/lib/core/config/env'
 
 const logger = createLogger('LagoClient')
@@ -36,52 +36,89 @@ function getLagoApiKey(): string {
   return key
 }
 
+/** The official Lago SDK client type (`lago-javascript-client`). */
+export type LagoClient = Api<unknown>
+
+let cachedClient: LagoClient | null = null
+let cachedConfigKey = ''
+
 /**
- * Low-level Lago REST client. All paths are relative to `/api/v1`.
+ * Returns the official Lago SDK client, lazily constructed and cached until
+ * the configured credentials change. The SDK's base URL convention includes
+ * the `/api/v1` prefix.
+ */
+export function getLagoClient(): LagoClient {
+  const apiKey = getLagoApiKey()
+  const baseUrl = `${getLagoBaseUrl()}/api/v1`
+  const configKey = `${baseUrl}|${apiKey}`
+  if (!cachedClient || cachedConfigKey !== configKey) {
+    cachedClient = Client(apiKey, { baseUrl })
+    cachedConfigKey = configKey
+  }
+  return cachedClient
+}
+
+interface SdkErrorResponse {
+  status: number
+  error?: unknown
+}
+
+function isSdkErrorResponse(value: unknown): value is SdkErrorResponse {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'status' in value &&
+    typeof (value as { status: unknown }).status === 'number'
+  )
+}
+
+function toLagoApiError(error: unknown): LagoApiError | null {
+  if (!isSdkErrorResponse(error)) return null
+  let body = ''
+  try {
+    body = error.error !== undefined ? JSON.stringify(error.error) : ''
+  } catch {
+    body = ''
+  }
+  return new LagoApiError(`Lago API error: ${error.status}`, error.status, body)
+}
+
+/**
+ * Runs a typed Lago SDK call, normalizing SDK rejections (the generated client
+ * rejects with the raw `HttpResponse`) into {@link LagoApiError} so existing
+ * status-based error handling keeps working.
+ */
+export async function callLago<T>(fn: (client: LagoClient) => Promise<{ data: T }>): Promise<T> {
+  try {
+    const response = await fn(getLagoClient())
+    return response.data
+  } catch (error) {
+    const apiError = toLagoApiError(error)
+    if (apiError) {
+      logger.warn('Lago API request failed', { status: apiError.status, body: apiError.body })
+      throw apiError
+    }
+    throw error
+  }
+}
+
+/**
+ * Low-level escape hatch for Lago endpoints without a typed SDK method,
+ * routed through the SDK's HTTP transport (auth, base URL, fetch config).
+ * Paths are relative to `/api/v1`.
  */
 export async function lagoRequest<T>(
   method: 'GET' | 'POST' | 'PUT' | 'DELETE',
   path: string,
   body?: unknown
 ): Promise<T> {
-  const url = `${getLagoBaseUrl()}/api/v1${path}`
-  const headers: Record<string, string> = {
-    Authorization: `Bearer ${getLagoApiKey()}`,
-    Accept: 'application/json',
-  }
-
-  const init: RequestInit = { method, headers }
-  if (body !== undefined) {
-    headers['Content-Type'] = 'application/json'
-    init.body = JSON.stringify(body)
-  }
-
-  let response: Response
-  try {
-    response = await fetch(url, init)
-  } catch (error) {
-    logger.error('Lago API network error', { method, path, error: getErrorMessage(error) })
-    throw error
-  }
-
-  const text = await response.text()
-  if (!response.ok) {
-    logger.error('Lago API error response', {
-      method,
+  return callLago<T>((client) =>
+    client.request<T, unknown>({
       path,
-      status: response.status,
-      body: text.slice(0, 500),
+      method,
+      secure: true,
+      format: 'json',
+      ...(body !== undefined ? { body, type: ContentType.Json } : {}),
     })
-    throw new LagoApiError(`Lago API ${method} ${path} failed`, response.status, text)
-  }
-
-  if (!text) {
-    return {} as T
-  }
-
-  try {
-    return JSON.parse(text) as T
-  } catch {
-    throw new LagoApiError(`Lago API returned invalid JSON for ${path}`, response.status, text)
-  }
+  )
 }

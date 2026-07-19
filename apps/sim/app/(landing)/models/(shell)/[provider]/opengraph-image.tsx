@@ -7,7 +7,7 @@ import {
   getProviderBySlug,
   MODEL_PROVIDERS_WITH_CATALOGS,
 } from '@/app/(landing)/models/utils'
-import { createLandingOgImage } from '@/app/(landing)/og-utils'
+import { createLandingOgImage, getOgDomainLabel } from '@/app/(landing)/og-utils'
 
 export const contentType = 'image/png'
 export const size = {
@@ -51,6 +51,6 @@ export default async function Image({ params }: { params: Promise<{ provider: st
         ? `${formatTokenCount(largestContextModel.contextWindow)} context`
         : 'Context tracked',
     ],
-    domainLabel: `sim.ai${provider.href}`,
+    domainLabel: getOgDomainLabel(provider.href),
   })
 }

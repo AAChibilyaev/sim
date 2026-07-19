@@ -24,6 +24,7 @@ import {
   DEFAULT_RECURRENCE,
   type Recurrence,
 } from '@/app/workspace/[workspaceId]/scheduled-tasks/utils/recurrence'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 import { useTimezone } from '@/hooks/queries/general-settings'
 import type { ChatContext } from '@/stores/panel'
 
@@ -325,7 +326,7 @@ function TaskModalContent({
       <ChipModalPromptBody>
         <PromptEditor
           editor={editor}
-          placeholder='Use @ and launch Sim to...'
+          placeholder={`Use @ and launch ${getBrandConfig().name} to...`}
           autoFocus
           onSubmit={handleSubmit}
         />

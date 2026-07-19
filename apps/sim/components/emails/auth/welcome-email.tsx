@@ -38,7 +38,9 @@ export function WelcomeEmail({ userName }: WelcomeEmailProps) {
         with our team.
       </Text>
 
-      <Text style={baseStyles.paragraph}>- Emir, co-founder of {brand.name}</Text>
+      <Text style={baseStyles.paragraph}>
+        {brand.isWhitelabeled ? `- The ${brand.name} Team` : `- Emir, co-founder of ${brand.name}`}
+      </Text>
 
       {/* Divider */}
       <div style={baseStyles.divider} />

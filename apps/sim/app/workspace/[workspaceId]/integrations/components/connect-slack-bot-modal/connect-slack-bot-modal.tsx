@@ -19,6 +19,7 @@ import { Loader2 } from 'lucide-react'
 import { SlackIcon } from '@/components/icons'
 import { getBaseUrl } from '@/lib/core/utils/urls'
 import { SLACK_CUSTOM_BOT_PROVIDER_ID } from '@/lib/oauth/types'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 import {
   useCreateWorkspaceCredential,
   useUpdateWorkspaceCredential,
@@ -27,7 +28,7 @@ import { buildSlackManifest, SLACK_CAPABILITIES } from '@/triggers/slack/capabil
 
 const logger = createLogger('ConnectSlackBotModal')
 
-const DEFAULT_APP_NAME = 'Sim Bot'
+const DEFAULT_APP_NAME = `${getBrandConfig().name} Bot`
 const DONE_STEP = 4
 
 /** Every capability is granted by default; trimming is an opt-in dropdown. */

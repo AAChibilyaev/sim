@@ -25,7 +25,7 @@
   "inputdo": "Pass nicht die reguläre Ausdrucksweise-Template],",
   "userinp": "Sie müssen Benutzerdaten eingeben.",
   "norelev": "In der Wissensdatenbank wurde kein Kontext gefunden.",
-  "oteltra": "OTel-Identifikator aus dem ersten eintreffenden Go-Anforderung. Kann vom requestId abweichen, wenn Sim eine kanonische Request-ID zuweist.",
+  "oteltra": "OTel-Identifikator aus dem ersten eintreffenden Go-Anforderung. Kann vom requestId abweichen, wenn AACFlow eine kanonische Request-ID zuweist.",
   "whattoo": "Welche Programmierungsmethode/Algorithmus/Skill wird benötigt?",
   "whataut": "Was Authentifizierungs- oder mit Schlüsseln erforderliche Aktion ist?",
   "skipurl": "URLs passender Templates überspringen.",

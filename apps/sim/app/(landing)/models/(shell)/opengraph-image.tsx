@@ -4,7 +4,7 @@ import {
   TOTAL_MODEL_PROVIDERS,
   TOTAL_MODELS,
 } from '@/app/(landing)/models/utils'
-import { createLandingOgImage } from '@/app/(landing)/og-utils'
+import { createLandingOgImage, getOgDomainLabel } from '@/app/(landing)/og-utils'
 
 export const contentType = 'image/png'
 export const size = {
@@ -23,6 +23,6 @@ export default async function Image() {
       `${TOTAL_MODEL_PROVIDERS} providers`,
       `${formatTokenCount(MAX_CONTEXT_WINDOW)} max context`,
     ],
-    domainLabel: 'sim.ai/models',
+    domainLabel: getOgDomainLabel('/models'),
   })
 }

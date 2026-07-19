@@ -2,51 +2,55 @@ import type { Metadata } from 'next'
 import { SITE_URL } from '@/lib/core/utils/urls'
 import { HOME_PAGE_DESCRIPTION } from '@/app/(landing)/components/home-structured-data'
 import Landing from '@/app/(landing)/landing'
+import { getBrandConfig } from '@/ee/whitelabeling'
 
 export const revalidate = 3600
+
+const brand = getBrandConfig()
+const HOME_TITLE = `${brand.name}, The AI Workspace | Build, Deploy & Manage AI Agents`
+const HOME_IMAGE_ALT = `${brand.name}, The AI Workspace for Teams`
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    absolute: 'Sim, The AI Workspace | Build, Deploy & Manage AI Agents',
+    absolute: HOME_TITLE,
   },
   description: HOME_PAGE_DESCRIPTION,
   keywords:
     'AI workspace, AI agent builder, AI agent workflow builder, build AI agents, visual workflow builder, open-source AI agent platform, AI agents, agentic workflows, LLM orchestration, AI automation, knowledge base, workflow builder, AI integrations, SOC2 compliant, enterprise AI',
-  authors: [{ name: 'Sim' }],
-  creator: 'Sim',
-  publisher: 'Sim',
+  authors: [{ name: brand.name }],
+  creator: brand.name,
+  publisher: brand.name,
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
   openGraph: {
-    title: 'Sim, The AI Workspace | Build, Deploy & Manage AI Agents',
+    title: HOME_TITLE,
     description: HOME_PAGE_DESCRIPTION,
     type: 'website',
     url: SITE_URL,
-    siteName: 'Sim',
+    siteName: brand.name,
     locale: 'en_US',
     images: [
       {
         url: '/logo/426-240/reverse/small.png',
         width: 2130,
         height: 1200,
-        alt: 'Sim, The AI Workspace for Teams',
+        alt: HOME_IMAGE_ALT,
         type: 'image/png',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@simdotai',
-    creator: '@simdotai',
-    title: 'Sim, The AI Workspace | Build, Deploy & Manage AI Agents',
+    ...(brand.isWhitelabeled ? {} : { site: '@simdotai', creator: '@simdotai' }),
+    title: HOME_TITLE,
     description: HOME_PAGE_DESCRIPTION,
     images: {
       url: '/logo/426-240/reverse/small.png',
-      alt: 'Sim, The AI Workspace for Teams',
+      alt: HOME_IMAGE_ALT,
     },
   },
   alternates: {

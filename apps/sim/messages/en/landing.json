@@ -22,7 +22,7 @@
     "subtitle": "One workspace. Every capability. No switching tools.",
     "chat": {
       "title": "Build in Chat",
-      "description": "Describe what you want in plain language. Sim knows your entire workspace and takes action."
+      "description": "Describe what you want in plain language. AACFlow knows your entire workspace and takes action."
     },
     "workflows": {
       "title": "Visual Workflows",
@@ -79,7 +79,7 @@
   },
   "testimonials": {
     "title": "Loved by Builders",
-    "subtitle": "See what teams are building with Sim"
+    "subtitle": "See what teams are building with AACFlow"
   },
   "templates": {
     "title": "Start with a Template",
@@ -90,7 +90,7 @@
     "subtitle": "Collaborate on workflows, share knowledge, and deploy together."
   },
   "footer": {
-    "copyright": "© 2026 Sim Technologies, Inc.",
+    "copyright": "© 2026 AACFlow Technologies, Inc.",
     "product": "Product",
     "resources": "Resources",
     "company": "Company",

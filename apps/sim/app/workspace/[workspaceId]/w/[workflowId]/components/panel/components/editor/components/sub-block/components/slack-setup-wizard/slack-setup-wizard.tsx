@@ -6,6 +6,7 @@ import { Check, ChevronRight, Clipboard, Info } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useShallow } from 'zustand/react/shallow'
 import { useSubBlockValue } from '@/app/workspace/[workspaceId]/w/[workflowId]/components/panel/components/editor/components/sub-block/hooks/use-sub-block-value'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 import { useWebhookManagement } from '@/hooks/use-webhook-management'
 import { useWorkflowRegistry } from '@/stores/workflows/registry/store'
 import { useSubBlockStore } from '@/stores/workflows/subblock/store'
@@ -16,7 +17,7 @@ import {
   type SlackCapabilityGroup,
 } from '@/triggers/slack/capabilities'
 
-const DEFAULT_APP_NAME = 'Sim Workflow Bot'
+const DEFAULT_APP_NAME = `${getBrandConfig().name} Workflow Bot`
 
 const GROUP_LABELS: Record<SlackCapabilityGroup, string> = {
   trigger: 'Triggers',

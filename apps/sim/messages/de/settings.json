@@ -44,15 +44,15 @@
   "nav_custom-tools_desc": "Erstelle und verwende benutzerdefachte Werkzeuge für deine Agenten.",
   "nav_mcp_label": "MCP-Werkzeuge",
   "nav_mcp_desc": "Verbinde MCP-Servers und nutze ihre Werkzeuge in den Workflows.",
-  "nav_apikeys_label": "Sim-API-Schlüssel",
-  "nav_apikeys_desc": "Erstelle und verwende API-Schlüssel für die Sim-API.",
+  "nav_apikeys_label": "AACFlow-API-Schlüssel",
+  "nav_apikeys_desc": "Erstelle und verwende API-Schlüssel für die AACFlow-API.",
   "nav_workflow-mcp-servers_label": "MCP-Server",
   "nav_workflow-mcp-servers_desc": "Veröffentlichen Sie Ihre Workflows als Tools auf einem MCP-Server.",
   "nav_byok_label": "BYOK",
   "nav_byok_desc": "Bringe deine Modell-Anbieter-API-Schlüssel mit.",
   "nav_copilot_label": "Chat-Schlüssel",
   "nav_copilot_desc": "Verwalten Sie die Schlüssel, die den Chat verarbeiten.",
-  "nav_inbox_label": "Sim Mailer",
+  "nav_inbox_label": "AACFlow Mailer",
   "nav_inbox_desc": "Workflow aus der eingehenden E-Mail verarbeiten und abwickeln.",
   "nav_credential-sets_label": "E-Mail-Abruf",
   "nav_credential-sets_desc": "Mit Ihren Kollegen die Überwachungsdaten teilen Sie an.",
@@ -69,5 +69,5 @@
   "nav_admin_label": "Administrator",
   "nav_admin_desc": "Überwachungsaufgaben und Arbeitsbereichstools für Administratoren.",
   "nav_mothership_label": "Mothership",
-  "nav_mothership_desc": "Internes Sim-Verhalten und Lizenzverwaltung."
+  "nav_mothership_desc": "Internes AACFlow-Verhalten und Lizenzverwaltung."
 }

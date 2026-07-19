@@ -17,7 +17,7 @@
   "comma_separated_allowed_domains": "Kommagetrennte erlaubte Domänen",
   "custom_key_value_metadata": "Benutzerdefinierte Schlüssel-Wert-Metadata",
   "custom_system_prompt_extension": "Benutzerdefinierte Systemprompt-Extension",
-  "describe_what_the_browser_agent_should_do": "Beschreibe was der Browser-Agent im Sim machen soll...",
+  "describe_what_the_browser_agent_should_do": "Beschreibe was der Browser-Agent im AACFlow machen soll...",
   "drive_a_browser_agent_to_complete_a_multi": "Führe einen Browser-Agent durch, um eine auf einer Website ausgeführte mehrschrittige Aufgabe abzuschließen, wie Navigation, Klicks und Absenden. Nutze dies, wenn ein Site keine API hat und eine Person normalerweise die Klicks macht.",
   "embeddable_live_browser_session_url_active_during_execution": "Aktivierter livebrowser-Session-Zugriff (aktiv während der Ausführung)",
   "enable_extended_reasoning": "Erweitere den rationalen Denken",

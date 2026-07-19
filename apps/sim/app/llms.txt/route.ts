@@ -1,13 +1,16 @@
 import { getBaseUrl } from '@/lib/core/utils/urls'
+import { getBrandConfig } from '@/ee/whitelabeling'
 
 export function GET() {
   const baseUrl = getBaseUrl()
+  const brand = getBrandConfig()
+  const docsUrl = brand.documentationUrl || 'https://docs.sim.ai'
 
-  const content = `# Sim
+  const content = `# ${brand.name}
 
-> Sim is the open-source AI workspace where teams build, deploy, and manage AI agents. Connect 1,000+ integrations and every major LLM to create agents that automate real work.
+> ${brand.name} is the open-source AI workspace where teams build, deploy, and manage AI agents. Connect 1,000+ integrations and every major LLM to create agents that automate real work.
 
-Sim lets teams create agents visually with the workflow builder, conversationally through Chat, or programmatically with the API. The workspace includes knowledge bases, tables, files, and full observability.
+${brand.name} lets teams create agents visually with the workflow builder, conversationally through Chat, or programmatically with the API. The workspace includes knowledge bases, tables, files, and full observability.
 
 ## Preferred URLs
 
@@ -19,9 +22,9 @@ Sim lets teams create agents visually with the workflow builder, conversationall
 
 ## Documentation
 
-- [Documentation](https://docs.sim.ai): Product guides and technical reference
-- [Quickstart](https://docs.sim.ai/getting-started): Fastest path to getting started
-- [API Reference](https://docs.sim.ai/api-reference): API documentation
+- [Documentation](${docsUrl}): Product guides and technical reference
+- [Quickstart](${docsUrl}/getting-started): Fastest path to getting started
+- [API Reference](${docsUrl}/api-reference): API documentation
 
 ## Key Concepts
 
@@ -52,8 +55,7 @@ Sim lets teams create agents visually with the workflow builder, conversationall
 
 ## Additional Links
 
-- [GitHub Repository](https://github.com/simstudioai/sim): Open-source codebase
-- [Docs](https://docs.sim.ai): Canonical documentation source
+${brand.isWhitelabeled ? '' : '- [GitHub Repository](https://github.com/simstudioai/sim): Open-source codebase\n'}- [Docs](${docsUrl}): Canonical documentation source
 - [Terms of Service](${baseUrl}/terms): Legal terms
 - [Privacy Policy](${baseUrl}/privacy): Data handling practices
 - [Sitemap](${baseUrl}/sitemap.xml): Public URL inventory

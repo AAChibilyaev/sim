@@ -9,6 +9,7 @@ import { getSession } from '@/lib/auth'
 import { hasWorkspaceInboxAccess } from '@/lib/billing/core/subscription'
 import { withRouteHandler } from '@/lib/core/utils/with-route-handler'
 import { getUserEntityPermissions } from '@/lib/workspaces/permissions/utils'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 const logger = createLogger('InboxSendersAPI')
 
@@ -25,7 +26,10 @@ export const GET = withRouteHandler(
       getUserEntityPermissions(session.user.id, 'workspace', workspaceId),
     ])
     if (!hasAccess) {
-      return NextResponse.json({ error: 'Sim Mailer requires a Max plan' }, { status: 403 })
+      return NextResponse.json(
+        { error: `${getBrandConfig().name} Mailer requires a Max plan` },
+        { status: 403 }
+      )
     }
     if (!permission) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 })
@@ -81,7 +85,10 @@ export const POST = withRouteHandler(
       getUserEntityPermissions(session.user.id, 'workspace', workspaceId),
     ])
     if (!hasAccess) {
-      return NextResponse.json({ error: 'Sim Mailer requires a Max plan' }, { status: 403 })
+      return NextResponse.json(
+        { error: `${getBrandConfig().name} Mailer requires a Max plan` },
+        { status: 403 }
+      )
     }
     if (permission !== 'admin') {
       return NextResponse.json({ error: 'Admin access required' }, { status: 403 })
@@ -140,7 +147,10 @@ export const DELETE = withRouteHandler(
       getUserEntityPermissions(session.user.id, 'workspace', workspaceId),
     ])
     if (!hasAccess) {
-      return NextResponse.json({ error: 'Sim Mailer requires a Max plan' }, { status: 403 })
+      return NextResponse.json(
+        { error: `${getBrandConfig().name} Mailer requires a Max plan` },
+        { status: 403 }
+      )
     }
     if (permission !== 'admin') {
       return NextResponse.json({ error: 'Admin access required' }, { status: 403 })

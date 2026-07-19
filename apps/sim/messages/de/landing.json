@@ -22,7 +22,7 @@
     "subtitle": "Ein Arbeitsbereich. Jede Fähigkeit. Keine Wechsel der Werkzeuge.",
     "chat": {
       "title": "Bauen Sie im Chat",
-      "description": "Beschreiben Sie, was Sie haben möchten, in einfachem Sprachgebrauch. Sim kennt Ihr gesamtes Arbeitsfeld und nimmt Maßnahmen ein."
+      "description": "Beschreiben Sie, was Sie haben möchten, in einfachem Sprachgebrauch. AACFlow kennt Ihr gesamtes Arbeitsfeld und nimmt Maßnahmen ein."
     },
     "workflows": {
       "title": "Visuelle Workflowen",
@@ -79,7 +79,7 @@
   },
   "testimonials": {
     "title": "Verliebt in Entwickler.",
-    "subtitle": "Sehen Sie, was Teams mit Sim bauen."
+    "subtitle": "Sehen Sie, was Teams mit AACFlow bauen."
   },
   "templates": {
     "title": "Starten Sie mit einer Vorlage.",
@@ -90,7 +90,7 @@
     "subtitle": "Arbeitet zusammen mit Worfkloeven, Kenntnissen teilt und einrichtet."
   },
   "footer": {
-    "copyright": "© 2026 Sim Technologien GmbH & Co. KG",
+    "copyright": "© 2026 AACFlow Technologien GmbH & Co. KG",
     "product": "Produkt",
     "resources": "Ressourcen",
     "company": "Firma",

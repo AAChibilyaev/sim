@@ -7,6 +7,7 @@ import { getBaseUrl } from '@/lib/core/utils/urls'
 import * as agentmail from '@/lib/mothership/inbox/agentmail-client'
 import { replaceUntilStable } from '@/lib/mothership/inbox/format'
 import type { InboxTask } from '@/lib/mothership/inbox/types'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 const logger = createLogger('InboxResponse')
 
@@ -248,7 +249,7 @@ function InboxResponseEmail({ children, chatUrl, linkLabel }: InboxResponseEmail
           { style: emailStyles.signatureText },
           'Best,',
           createElement('br'),
-          'Sim'
+          getBrandConfig().name
         )
       )
     )

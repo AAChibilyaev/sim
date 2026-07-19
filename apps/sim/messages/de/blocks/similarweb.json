@@ -33,7 +33,7 @@
   "pull_similarweb_traffic_metrics_for_several_domains_and": "Lade Verkehrsmetriken von mehreren Domänen an Similarweb und rangiere sie für einen konkurrierenden Überblick.",
   "score_a_list_of_prospect_domains_by_similarweb": "Priorisiere die Zieldomänen einer Liste nach Similarweb-Verkehrsschätzung, um Outreach zu priorisieren.",
   "similarweb": "Similarweb",
-  "similarweb_account_intel_sync": "Sync des Similarweb-Kontos mit dem Sim-Account",
+  "similarweb_account_intel_sync": "Sync des Similarweb-Kontos mit dem AACFlow-Account",
   "similarweb_api_key": "API-Schlüssel von Similarweb",
   "similarweb_category_benchmarking": "Workflow Similarweb Kategorien-Benchmarking",
   "similarweb_engagement_scorecard": "Workflow Engagementscorekarte",
