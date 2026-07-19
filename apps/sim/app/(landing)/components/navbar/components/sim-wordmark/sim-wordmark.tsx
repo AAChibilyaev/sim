@@ -13,7 +13,7 @@ import { getBrandConfig } from '@/ee/whitelabeling/branding'
  */
 export function SimWordmark() {
   const brand = getBrandConfig()
-  if (brand.isWhitelabeled) {
+  if (brand.isWhitelabeled || brand.name !== 'Sim') {
     if (brand.wordmarkUrl) {
       return (
         <img

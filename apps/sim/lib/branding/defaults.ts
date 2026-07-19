@@ -4,12 +4,12 @@ import type { BrandConfig } from './types'
  * Default brand configuration values
  */
 export const defaultBrandConfig: BrandConfig = {
-  name: 'Sim',
+  name: 'AACFlow',
   logoUrl: undefined,
   wordmarkUrl: undefined,
   faviconUrl: undefined,
   customCssUrl: undefined,
-  supportEmail: 'help@sim.ai',
+  supportEmail: 'help@aacflow.io',
   documentationUrl: undefined,
   termsUrl: undefined,
   privacyUrl: undefined,
