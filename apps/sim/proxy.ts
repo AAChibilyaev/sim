@@ -150,6 +150,52 @@ function handleLocalePrefixRedirects(request: NextRequest): NextResponse | null 
   return response
 }
 
+/**
+ * Top-level segments of the public marketing site (the `(landing)` route group).
+ * On a self-hosted deployment these pages carry the upstream Sim marketing copy,
+ * which a private instance should not serve — they are redirected to the app
+ * (see {@link handleLandingRedirects}). `/terms` and `/privacy` are intentionally
+ * excluded: the auth footer links to them and they are brand-configurable.
+ */
+const LANDING_MARKETING_SEGMENTS = new Set([
+  'workflows',
+  'tables',
+  'knowledge',
+  'files',
+  'logs',
+  'scheduled-tasks',
+  'enterprise',
+  'solutions',
+  'models',
+  'integrations',
+  'comparisons',
+  'comparison',
+  'blog',
+  'library',
+  'pricing',
+  'careers',
+  'contact',
+  'changelog',
+  'demo',
+  'partners',
+  'academy',
+])
+
+/**
+ * On self-hosted (non-hosted) deployments, redirect the public marketing pages
+ * to the app so the upstream Sim marketing surface is never served. No-op on the
+ * hosted marketing site and in dev.
+ */
+function handleLandingRedirects(
+  request: NextRequest,
+  hasActiveSession: boolean
+): NextResponse | null {
+  if (isHosted || isDev) return null
+  const segment = request.nextUrl.pathname.split('/')[1]
+  if (!segment || !LANDING_MARKETING_SEGMENTS.has(segment)) return null
+  return NextResponse.redirect(new URL(hasActiveSession ? '/workspace' : '/login', request.url))
+}
+
 function handleRootPathRedirects(
   request: NextRequest,
   hasActiveSession: boolean
@@ -278,6 +324,9 @@ export async function proxy(request: NextRequest) {
 
   const redirect = handleRootPathRedirects(request, hasActiveSession)
   if (redirect) return track(request, redirect)
+
+  const landingRedirect = handleLandingRedirects(request, hasActiveSession)
+  if (landingRedirect) return track(request, landingRedirect)
 
   if (url.pathname === '/login' || url.pathname === '/signup') {
     if (hasActiveSession) {
