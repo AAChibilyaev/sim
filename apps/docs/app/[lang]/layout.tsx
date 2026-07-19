@@ -81,14 +81,14 @@ export default async function Layout({ children, params }: LayoutProps) {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Sim Documentation',
+    name: 'AACFlow Documentation',
     description:
-      'Documentation for Sim — the open-source AI workspace where teams build, deploy, and manage AI agents. Connect 1,000+ integrations and every major LLM.',
+      'Documentation for AACFlow — the open-source AI workspace where teams build, deploy, and manage AI agents. Connect 1,000+ integrations and every major LLM.',
     url: DOCS_BASE_URL,
     publisher: {
       '@type': 'Organization',
-      name: 'Sim',
-      url: 'https://sim.ai',
+      name: 'AACFlow',
+      url: 'https://aacflow.io',
       logo: {
         '@type': 'ImageObject',
         url: `${DOCS_BASE_URL}/static/logo.png`,

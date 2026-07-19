@@ -5,7 +5,7 @@ description: Enterprise-функции для бизнес-организаци�
 
 import { FAQ } from '@/components/ui/faq'
 
-Sim Enterprise добавляет детальный контроль доступа, SSO, аудит-логи и функции соответствия требованиям поверх командных тарифных планов.
+AACFlow Enterprise добавляет детальный контроль доступа, SSO, аудит-логи и функции соответствия требованиям поверх командных тарифных планов.
 
 ---
 
@@ -43,7 +43,7 @@ See the [SSO setup guide](/platform/enterprise/sso) for step-by-step instruction
 
 ## Whitelabeling
 
-Replace Sim's default branding — logos, product name, and favicons — with your own. See the [whitelabeling guide](/platform/enterprise/whitelabeling).
+Replace AACFlow's default branding — logos, product name, and favicons — with your own. See the [whitelabeling guide](/platform/enterprise/whitelabeling).
 
 ---
 
@@ -67,7 +67,7 @@ Continuously export workflow logs, audit logs, and Mothership data to a customer
 
 <FAQ items={[
   { question: "Who can manage Enterprise features?", answer: "Workspace admins on an Enterprise-entitled workspace. Access Control, SSO, whitelabeling, audit logs, and data retention are all configured per workspace under Settings → Enterprise." },
-  { question: "Which SSO providers are supported?", answer: "Sim supports SAML 2.0 and OIDC, which works with virtually any enterprise identity provider including Okta, Azure AD (Entra ID), Google Workspace, ADFS, and OneLogin." },
+  { question: "Which SSO providers are supported?", answer: "AACFlow supports SAML 2.0 and OIDC, which works with virtually any enterprise identity provider including Okta, Azure AD (Entra ID), Google Workspace, ADFS, and OneLogin." },
   { question: "How do access control permission groups work?", answer: "Permission groups are created per workspace and let you restrict which AI providers, workflow blocks, and platform features are available to specific members of that workspace. Each user can belong to at most one group per workspace. Users not assigned to any group have full access. Restrictions are enforced at both the UI level and at execution time based on the workflow's workspace." },
 ]} />
 
@@ -87,7 +87,7 @@ Self-hosted deployments enable enterprise features via environment variables ins
 | `NEXT_PUBLIC_DATA_RETENTION_ENABLED` | Data retention configuration |
 | `DATA_DRAINS_ENABLED`, `NEXT_PUBLIC_DATA_DRAINS_ENABLED` | Data drains |
 | `CREDENTIAL_SETS_ENABLED`, `NEXT_PUBLIC_CREDENTIAL_SETS_ENABLED` | Polling groups for email triggers |
-| `INBOX_ENABLED`, `NEXT_PUBLIC_INBOX_ENABLED` | Sim Mailer inbox |
+| `INBOX_ENABLED`, `NEXT_PUBLIC_INBOX_ENABLED` | AACFlow Mailer inbox |
 | `DISABLE_INVITATIONS`, `NEXT_PUBLIC_DISABLE_INVITATIONS` | Disable invitations; manage membership via Admin API |
 
-Once enabled, each feature is configured through the same Settings UI as Sim Cloud. When invitations are disabled, use the Admin API (`x-admin-key` header) to manage organization membership and workspace access. Internal members join the organization; external workspace members only receive access to a specific workspace.
+Once enabled, each feature is configured through the same Settings UI as AACFlow Cloud. When invitations are disabled, use the Admin API (`x-admin-key` header) to manage organization membership and workspace access. Internal members join the organization; external workspace members only receive access to a specific workspace.

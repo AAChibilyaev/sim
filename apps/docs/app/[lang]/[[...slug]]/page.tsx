@@ -304,7 +304,7 @@ export async function generateMetadata(props: {
     title: data.title,
     description:
       data.description ||
-      'Documentation for Sim — the open-source AI workspace where teams build, deploy, and manage AI agents.',
+      'Documentation for AACFlow — the open-source AI workspace where teams build, deploy, and manage AI agents.',
     keywords: [
       'AI agents',
       'AI workspace',
@@ -318,15 +318,15 @@ export async function generateMetadata(props: {
     ]
       .flat()
       .filter(Boolean),
-    authors: [{ name: 'Sim Team' }],
+    authors: [{ name: 'AACFlow Team' }],
     category: 'Developer Tools',
     openGraph: {
       title: data.title,
       description:
         data.description ||
-        'Documentation for Sim — the open-source AI workspace where teams build, deploy, and manage AI agents.',
+        'Documentation for AACFlow — the open-source AI workspace where teams build, deploy, and manage AI agents.',
       url: fullUrl,
-      siteName: 'Sim Documentation',
+      siteName: 'AACFlow Documentation',
       type: 'article',
       locale: OG_LOCALE_MAP[lang] ?? 'en_US',
       alternateLocale: i18n.languages.reduce<string[]>((locales, l) => {
@@ -349,7 +349,7 @@ export async function generateMetadata(props: {
       title: data.title,
       description:
         data.description ||
-        'Documentation for Sim — the open-source AI workspace where teams build, deploy, and manage AI agents.',
+        'Documentation for AACFlow — the open-source AI workspace where teams build, deploy, and manage AI agents.',
       images: [ogImageUrl],
       creator: '@simdotai',
       site: '@simdotai',

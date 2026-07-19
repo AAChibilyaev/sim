@@ -8,7 +8,7 @@ import { Callout } from 'fumadocs-ui/components/callout'
 import { Card, Cards } from 'fumadocs-ui/components/card'
 import { WorkflowPreview, LEAD_SCORER_WORKFLOW } from '@/components/workflow-preview'
 
-When you build an agent, several features overlap: a deterministic block and an agent tool can run the same integration, and a custom tool, an MCP tool, and a workflow-as-tool can all give an agent the same action. This page lays out the differences so you pick the right one. They vary along three lines: whether the action is **deterministic** (always runs) or **model-decided** (an agent chooses), whether it lives in one workflow or is **reusable** across your workspace, and whether it comes from Sim or an **external** provider.
+When you build an agent, several features overlap: a deterministic block and an agent tool can run the same integration, and a custom tool, an MCP tool, and a workflow-as-tool can all give an agent the same action. This page lays out the differences so you pick the right one. They vary along three lines: whether the action is **deterministic** (always runs) or **model-decided** (an agent chooses), whether it lives in one workflow or is **reusable** across your workspace, and whether it comes from AACFlow or an **external** provider.
 
 The running example is a workflow that scores inbound sales leads. It reads a new lead, enriches it, decides on a score, logs the result, and notifies the team. Each option below builds part of it:
 
@@ -48,7 +48,7 @@ In the lead scorer, a `normalizeCompanyDomain` custom tool cleans a raw website 
 
 ## MCP server
 
-**MCP** (Model Context Protocol) is a standard for connecting an external tool provider. Connect an [MCP server](/agents/mcp) and its tools appear in the agent's tool list as a set. Use it to bring in a complete toolset that Sim does not provide natively, rather than wiring each action by hand.
+**MCP** (Model Context Protocol) is a standard for connecting an external tool provider. Connect an [MCP server](/agents/mcp) and its tools appear in the agent's tool list as a set. Use it to bring in a complete toolset that AACFlow does not provide natively, rather than wiring each action by hand.
 
 In the lead scorer, your CRM vendor ships an MCP server. After you connect it once, the agent can read accounts and update records through the vendor's own tools. The difference from a custom tool is who maintains it: a custom tool is code you wrote, while an MCP server is a toolbox someone else maintains.
 

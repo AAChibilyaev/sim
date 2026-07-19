@@ -8,7 +8,7 @@ import { Callout } from 'fumadocs-ui/components/callout'
 import { Image } from '@/components/ui/image'
 import { FAQ } from '@/components/ui/faq'
 
-Integrations are authenticated connections to third-party services like Gmail, Slack, GitHub, and HubSpot. Sim handles the OAuth flow, token storage, and automatic token refresh — you connect once and select the account in any block that needs it.
+Integrations are authenticated connections to third-party services like Gmail, Slack, GitHub, and HubSpot. AACFlow handles the OAuth flow, token storage, and automatic token refresh — you connect once and select the account in any block that needs it.
 
 You can connect **multiple accounts per service** — for example, two separate Gmail accounts for different workflows.
 
@@ -29,20 +29,20 @@ Open a service to see what it offers:
 
 - **Skills** — ready-made capabilities you add with one click, like *upsert-contact* for HubSpot.
 - **Templates** — starter workflows built around the service.
-- **+ Add to Sim** — connects your account.
+- **+ Add to AACFlow** — connects your account.
 
 <Image
   src="/static/integrations/hubspot/hubspot-page-add-to-sim.png"
-  alt="A service page (HubSpot) with its skills, templates, and the Add to Sim button"
+  alt="A service page (HubSpot) with its skills, templates, and the Add to AACFlow button"
   width={800}
   height={550}
 />
 
 ## Connecting an account
 
-1. Open the service's page and click **+ Add to Sim**.
+1. Open the service's page and click **+ Add to AACFlow**.
 2. Enter a **Display name** to identify this connection (e.g. "Work Gmail" or "Sales HubSpot"), and optionally a **Description**.
-3. Review the **Permissions requested** — these are the scopes Sim will ask the provider for.
+3. Review the **Permissions requested** — these are the scopes AACFlow will ask the provider for.
 4. Click **Connect** and complete the provider's sign-in and approval flow.
 
 <Image
@@ -111,7 +111,7 @@ If you disconnect an integration that is used in a workflow, that workflow will 
 </Callout>
 
 <FAQ items={[
-  { question: "Does Sim handle OAuth token refresh automatically?", answer: "Yes. When an integration is used during execution, Sim checks whether the access token has expired and automatically refreshes it using the stored refresh token before making the API call. You do not need to handle token refresh manually." },
+  { question: "Does AACFlow handle OAuth token refresh automatically?", answer: "Yes. When an integration is used during execution, AACFlow checks whether the access token has expired and automatically refreshes it using the stored refresh token before making the API call. You do not need to handle token refresh manually." },
   { question: "Can I connect multiple accounts for the same service?", answer: "Yes. You can connect multiple accounts per service (for example, two separate Gmail accounts). Each block lets you select which account to use from the account dropdown. This is useful when different workflows need different identities or permissions." },
   { question: "What is a credential ID and when should I use it?", answer: "Each connection has a unique credential ID that you can use instead of the dropdown selector. This lets you pass the credential dynamically — for example, from a variable or a previous block's output — so the same workflow can use different accounts depending on the context. Copy the ID from the connection's detail view and use Switch to manual ID in any block to paste or reference it." },
   { question: "What happens if an OAuth token can no longer be refreshed?", answer: "If a refresh fails (e.g. the user revoked access or the refresh token expired), the workflow will fail at the block using that integration. Open Integrations in the sidebar, find the connection, and reconnect it to re-authorize." },

@@ -13,14 +13,14 @@ import { BlockInfoCard } from "@/components/ui/block-info-card"
 {/* MANUAL-CONTENT-START:intro */}
 [Temporal](https://temporal.io/) is an open-source durable execution platform that lets teams write workflows as code that survive crashes, retries, and outages. A Temporal cluster tracks every workflow execution's state and event history, so long-running business processes — order fulfillment, payment pipelines, infrastructure provisioning, human-in-the-loop approvals — run reliably for minutes or months at a time.
 
-With the Temporal integration in Sim, your agents can drive those durable workflows directly. Connect to any Temporal cluster that exposes the server's HTTP API (enabled by default on the frontend's HTTP port, 7243, in modern Temporal servers) and:
+With the Temporal integration in AACFlow, your agents can drive those durable workflows directly. Connect to any Temporal cluster that exposes the server's HTTP API (enabled by default on the frontend's HTTP port, 7243, in modern Temporal servers) and:
 
 - **Run workflows**: start executions with JSON input, use signal-with-start for exactly-once delivery, and set ID reuse policies, cron schedules, timeouts, memo fields, and search attributes.
 - **Communicate with running workflows**: send signals, invoke update handlers and wait for their results, and run queries against live workflow state.
 - **Observe executions**: describe a single execution (status, timing, pending activities), list and count executions with Temporal's visibility query language, and fetch full event histories — including just the close event to read a workflow's outcome.
 - **Operate the fleet**: cancel or terminate runaway executions, reset a workflow to a previous point in its history, and manage schedules — list, describe, pause, unpause, trigger, and delete them.
 
-Workflow inputs and results are encoded with Temporal's standard `json/plain` payload converter, so the integration interoperates with workers written in any Temporal SDK. If your server has authentication enabled, provide an API key and Sim sends it as a Bearer token on every request.
+Workflow inputs and results are encoded with Temporal's standard `json/plain` payload converter, so the integration interoperates with workers written in any Temporal SDK. If your server has authentication enabled, provide an API key and AACFlow sends it as a Bearer token on every request.
 {/* MANUAL-CONTENT-END */}
 
 

@@ -6,7 +6,7 @@ import { Callout } from 'fumadocs-ui/components/callout'
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
 import { Image } from '@/components/ui/image'
 
-Sim calcula automáticamente los costos de todas las ejecuciones de flujos de trabajo, proporcionando precios transparentes basados en el uso de modelos de IA y cargos de ejecución. Entender estos costos te ayuda a optimizar los flujos de trabajo y gestionar tu presupuesto de manera efectiva.
+AACFlow calcula automáticamente los costos de todas las ejecuciones de flujos de trabajo, proporcionando precios transparentes basados en el uso de modelos de IA y cargos de ejecución. Entender estos costos te ayuda a optimizar los flujos de trabajo y gestionar tu presupuesto de manera efectiva.
 
 ## Cómo se calculan los costos
 
@@ -49,7 +49,7 @@ El desglose del modelo muestra:
 
 <Tabs items={['Modelos alojados', 'Trae tu propia clave API']}>
   <Tab>
-    **Modelos alojados** - Sim proporciona claves API con un multiplicador de precios de 1.4x para bloques de agente:
+    **Modelos alojados** - AACFlow proporciona claves API con un multiplicador de precios de 1.4x para bloques de agente:
 
     **OpenAI**
     | Modelo | Precio base (entrada/salida) | Precio alojado (entrada/salida) |
@@ -107,7 +107,7 @@ El desglose del modelo muestra:
 
 ## Precios de herramientas alojadas
 
-Cuando los flujos de trabajo usan bloques de herramientas con las claves API alojadas de Sim, los costos se cobran por operación. Usa tus propias claves a través de BYOK para pagar directamente a los proveedores.
+Cuando los flujos de trabajo usan bloques de herramientas con las claves API alojadas de AACFlow, los costos se cobran por operación. Usa tus propias claves a través de BYOK para pagar directamente a los proveedores.
 
 <Tabs items={['Firecrawl', 'Exa', 'Serper', 'Perplexity', 'Linkup', 'Parallel AI', 'Jina AI', 'Google Cloud', 'Brandfetch']}>
   <Tab>
@@ -241,7 +241,7 @@ GET /api/users/me/usage-limits
 **Solicitud de ejemplo:**
 
 ```bash
-curl -X GET -H "X-API-Key: YOUR_API_KEY" -H "Content-Type: application/json" https://sim.ai/api/users/me/usage-limits
+curl -X GET -H "X-API-Key: YOUR_API_KEY" -H "Content-Type: application/json" https://aacflow.io/api/users/me/usage-limits
 ```
 
 **Respuesta de ejemplo:**
@@ -297,7 +297,7 @@ Los diferentes planes de suscripción tienen diferentes límites de uso:
 
 ## Modelo de facturación
 
-Sim utiliza un modelo de facturación de **suscripción base + excedente**:
+AACFlow utiliza un modelo de facturación de **suscripción base + excedente**:
 
 ### Cómo funciona
 
@@ -318,7 +318,7 @@ Sim utiliza un modelo de facturación de **suscripción base + excedente**:
 
 ### Facturación por umbral
 
-Cuando el excedente no facturado alcanza los $50, Sim factura automáticamente el monto total no facturado.
+Cuando el excedente no facturado alcanza los $50, AACFlow factura automáticamente el monto total no facturado.
 
 **Ejemplo:**
 - Día 10: $70 de excedente → Factura $70 inmediatamente
@@ -337,7 +337,7 @@ Esto distribuye los cargos por excedentes grandes a lo largo del mes en lugar de
 
 ## Próximos pasos
 
-- Revisa tu uso actual en [Configuración → Suscripción](https://sim.ai/settings/subscription)
+- Revisa tu uso actual en [Configuración → Suscripción](https://aacflow.io/settings/subscription)
 - Aprende sobre [Registro](/execution/logging) para rastrear detalles de ejecución
 - Explora la [API externa](/execution/api) para monitoreo programático de costos
 - Consulta las [técnicas de optimización de flujos de trabajo](/blocks) para reducir costos
@@ -359,7 +359,7 @@ Esto distribuye los cargos por excedentes grandes a lo largo del mes en lugar de
 
 ### Facturación por umbral
 
-Cuando el excedente no facturado alcanza $50, Sim factura automáticamente el monto total no facturado.
+Cuando el excedente no facturado alcanza $50, AACFlow factura automáticamente el monto total no facturado.
 
 **Ejemplo:**
 - Día 10: $70 de excedente → Factura $70 inmediatamente
@@ -378,7 +378,7 @@ Esto distribuye los cargos por excedentes grandes a lo largo del mes en lugar de
 
 ## Próximos pasos
 
-- Revisa tu uso actual en [Configuración → Suscripción](https://sim.ai/settings/subscription)
+- Revisa tu uso actual en [Configuración → Suscripción](https://aacflow.io/settings/subscription)
 - Aprende sobre [Registro](/execution/logging) para rastrear detalles de ejecución
 - Explora la [API externa](/execution/api) para monitoreo programático de costos
 - Consulta [técnicas de optimización de flujos de trabajo](/blocks) para reducir costos

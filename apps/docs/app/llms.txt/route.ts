@@ -37,11 +37,11 @@ export async function GET() {
       })
     })
 
-    const manifest = `# Sim Documentation
+    const manifest = `# AACFlow Documentation
 
 > The open-source AI workspace where teams build, deploy, and manage AI agents.
 
-Sim is the open-source AI workspace where teams build, deploy, and manage AI agents. Connect 1,000+ integrations and every major LLM to create agents that automate real work — visually, conversationally, or with code. Trusted by over 100,000 builders.
+AACFlow is the open-source AI workspace where teams build, deploy, and manage AI agents. Connect 1,000+ integrations and every major LLM to create agents that automate real work — visually, conversationally, or with code. Trusted by over 100,000 builders.
 
 ## Documentation Overview
 

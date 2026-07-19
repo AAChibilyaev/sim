@@ -5,7 +5,7 @@ title: Transmission de fichiers
 import { Callout } from 'fumadocs-ui/components/callout'
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
 
-Sim facilite le travail avec les fichiers tout au long de vos workflows. Les blocs peuvent recevoir des fichiers, les traiter et les transmettre à d'autres blocs de manière transparente.
+AACFlow facilite le travail avec les fichiers tout au long de vos workflows. Les blocs peuvent recevoir des fichiers, les traiter et les transmettre à d'autres blocs de manière transparente.
 
 ## Objets fichier
 
@@ -85,7 +85,7 @@ Lors de l'appel d'un workflow via API qui attend une entrée de fichier, incluez
   <Tab value="Base64">
 
     ```bash
-    curl -X POST "https://sim.ai/api/workflows/YOUR_WORKFLOW_ID/execute" \
+    curl -X POST "https://aacflow.io/api/workflows/YOUR_WORKFLOW_ID/execute" \
       -H "Content-Type: application/json" \
       -H "x-api-key: YOUR_API_KEY" \
       -d '{
@@ -101,7 +101,7 @@ Lors de l'appel d'un workflow via API qui attend une entrée de fichier, incluez
   <Tab value="URL">
 
     ```bash
-    curl -X POST "https://sim.ai/api/workflows/YOUR_WORKFLOW_ID/execute" \
+    curl -X POST "https://aacflow.io/api/workflows/YOUR_WORKFLOW_ID/execute" \
       -H "Content-Type: application/json" \
       -H "x-api-key: YOUR_API_KEY" \
       -d '{

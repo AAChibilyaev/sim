@@ -6,7 +6,7 @@ description: API key types, generation, and how to authenticate requests
 import { Callout } from 'fumadocs-ui/components/callout'
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
 
-To access the Sim API, you need an API key. Sim supports two types of API keys — **personal keys** and **workspace keys** — each with different billing and access behaviors.
+To access the AACFlow API, you need an API key. AACFlow supports two types of API keys — **personal keys** and **workspace keys** — each with different billing and access behaviors.
 
 ## Key Types
 
@@ -27,8 +27,8 @@ To access the Sim API, you need an API key. Sim supports two types of API keys �
 
 ## Generating API Keys
 
-To generate a personal key, open **Account settings** → **Sim API keys**. Workspace
-administrators can create shared keys from **Workspace settings** → **Sim API keys**.
+To generate a personal key, open **Account settings** → **AACFlow API keys**. Workspace
+administrators can create shared keys from **Workspace settings** → **AACFlow API keys**.
 
 <Callout type="warn">
   API keys are only shown once when generated. Store your key securely — you will not be able to view it again.
@@ -41,7 +41,7 @@ Pass your API key in the `X-API-Key` header with every request:
 <Tabs items={['curl', 'TypeScript', 'Python']}>
   <Tab value="curl">
     ```bash
-    curl -X POST https://www.sim.ai/api/workflows/{workflowId}/execute \
+    curl -X POST https://aacflow.io/api/workflows/{workflowId}/execute \
       -H "Content-Type: application/json" \
       -H "X-API-Key: YOUR_API_KEY" \
       -d '{"inputs": {}}'
@@ -50,7 +50,7 @@ Pass your API key in the `X-API-Key` header with every request:
   <Tab value="TypeScript">
     ```typescript
     const response = await fetch(
-      'https://www.sim.ai/api/workflows/{workflowId}/execute',
+      'https://aacflow.io/api/workflows/{workflowId}/execute',
       {
         method: 'POST',
         headers: {
@@ -67,7 +67,7 @@ Pass your API key in the `X-API-Key` header with every request:
     import requests
 
     response = requests.post(
-        "https://www.sim.ai/api/workflows/{workflowId}/execute",
+        "https://aacflow.io/api/workflows/{workflowId}/execute",
         headers={
             "Content-Type": "application/json",
             "X-API-Key": os.environ["SIM_API_KEY"],

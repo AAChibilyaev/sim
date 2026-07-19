@@ -1,6 +1,6 @@
 ---
 title: Kubernetes
-description: Deploy Sim with Helm
+description: Deploy AACFlow with Helm
 ---
 
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
@@ -17,7 +17,7 @@ import { FAQ } from '@/components/ui/faq'
 
 ```bash
 # Clone repo
-git clone https://github.com/simstudioai/sim.git && cd sim
+git clone https://github.com/AAChibilyaev/sim.git && cd sim
 
 # Generate secrets
 BETTER_AUTH_SECRET=$(openssl rand -hex 32)
@@ -128,7 +128,7 @@ helm uninstall sim --namespace simstudio
 ```
 
 <FAQ items={[
-  { question: "What are the default resource limits for the Sim app pod?", answer: "The Helm chart defaults to 8 Gi memory limit / 4 Gi request and 2000m CPU limit / 1000m request per app pod. The pod runs as non-root (UID 1001) with fsGroup 1001 for security." },
+  { question: "What are the default resource limits for the AACFlow app pod?", answer: "The Helm chart defaults to 8 Gi memory limit / 4 Gi request and 2000m CPU limit / 1000m request per app pod. The pod runs as non-root (UID 1001) with fsGroup 1001 for security." },
   { question: "Can I use an external database instead of the bundled PostgreSQL?", answer: "Yes. Set postgresql.enabled to false and configure the externalDatabase section with your host, port, username, password, database name, and sslMode. The external database must have the pgvector extension installed." },
   { question: "How do I manage secrets securely in Kubernetes?", answer: "The Helm chart supports pre-existing Kubernetes secrets via app.secrets.existingSecret. Set enabled to true and provide the secret name. This integrates with External Secrets Operator, HashiCorp Vault, Azure Key Vault, and similar tools. Key mappings can be customized if your secret uses different key names." },
   { question: "Can I scale the app to multiple replicas?", answer: "Yes. Set app.replicaCount in your values.yaml. The chart supports standard Kubernetes scaling. Ensure your database can handle the additional connections from multiple replicas." },

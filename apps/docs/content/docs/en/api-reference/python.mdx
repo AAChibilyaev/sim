@@ -7,7 +7,7 @@ import { Card, Cards } from 'fumadocs-ui/components/card'
 import { Step, Steps } from 'fumadocs-ui/components/steps'
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
 
-The official Python SDK for Sim allows you to execute workflows programmatically from your Python applications using the official Python SDK.
+The official Python SDK for AACFlow allows you to execute workflows programmatically from your Python applications using the official Python SDK.
 
 <Callout type="info">
   The Python SDK supports Python 3.8+ with async execution support, automatic rate limiting with exponential backoff, and usage tracking.
@@ -31,7 +31,7 @@ from simstudio import SimStudioClient
 # Initialize the client
 client = SimStudioClient(
     api_key="your-api-key-here",
-    base_url="https://sim.ai"  # optional, defaults to https://sim.ai
+    base_url="https://aacflow.io"  # optional, defaults to https://aacflow.io
 )
 
 # Execute a workflow
@@ -49,12 +49,12 @@ except Exception as error:
 #### Constructor
 
 ```python
-SimStudioClient(api_key: str, base_url: str = "https://sim.ai")
+SimStudioClient(api_key: str, base_url: str = "https://aacflow.io")
 ```
 
 **Parameters:**
-- `api_key` (str): Your Sim API key
-- `base_url` (str, optional): Base URL for the Sim API
+- `api_key` (str): Your AACFlow API key
+- `base_url` (str, optional): Base URL for the AACFlow API
 
 #### Methods
 
@@ -656,7 +656,7 @@ def stream_workflow():
 
     def generate():
         response = requests.post(
-            'https://sim.ai/api/workflows/WORKFLOW_ID/execute',
+            'https://aacflow.io/api/workflows/WORKFLOW_ID/execute',
             headers={
                 'Content-Type': 'application/json',
                 'X-API-Key': os.getenv('SIM_API_KEY')
@@ -710,7 +710,7 @@ Configure the client using environment variables:
     # Development configuration
     client = SimStudioClient(
         api_key=os.getenv("SIM_API_KEY")
-        base_url=os.getenv("SIM_BASE_URL", "https://sim.ai")
+        base_url=os.getenv("SIM_BASE_URL", "https://aacflow.io")
     )
     ```
   </Tab>
@@ -726,7 +726,7 @@ Configure the client using environment variables:
 
     client = SimStudioClient(
         api_key=api_key,
-        base_url=os.getenv("SIM_BASE_URL", "https://sim.ai")
+        base_url=os.getenv("SIM_BASE_URL", "https://aacflow.io")
     )
     ```
   </Tab>
@@ -735,8 +735,8 @@ Configure the client using environment variables:
 ## Getting Your API Key
 
 <Steps>
-  <Step title="Log in to Sim">
-    Navigate to [Sim](https://sim.ai) and log in to your account.
+  <Step title="Log in to AACFlow">
+    Navigate to [AACFlow](https://aacflow.io) and log in to your account.
   </Step>
   <Step title="Open your workflow">
     Navigate to the workflow you want to execute programmatically.
@@ -764,7 +764,7 @@ Apache-2.0
 import { FAQ } from '@/components/ui/faq'
 
 <FAQ items={[
-  { question: "Do I need to deploy a workflow before I can execute it via the SDK?", answer: "Yes. Workflows must be deployed before they can be executed through the SDK. You can use the validate_workflow() method to check whether a workflow is deployed and ready. If it returns False, deploy the workflow from the Sim UI first and create or select an API key during deployment." },
+  { question: "Do I need to deploy a workflow before I can execute it via the SDK?", answer: "Yes. Workflows must be deployed before they can be executed through the SDK. You can use the validate_workflow() method to check whether a workflow is deployed and ready. If it returns False, deploy the workflow from the AACFlow UI first and create or select an API key during deployment." },
   { question: "What is the difference between sync and async execution?", answer: "Sync execution (the default) blocks until the workflow completes and returns the full result. Async execution (async_execution=True) returns immediately with a job ID and status URL that you can poll using get_job_status(). Use async mode for long-running workflows to avoid request timeouts. Async job statuses include queued, processing, completed, failed, and cancelled." },
   { question: "How does the SDK handle rate limiting?", answer: "The SDK provides built-in rate limiting support through the execute_with_retry() method. It uses exponential backoff (1s, 2s, 4s, 8s...) with 25% jitter to avoid thundering herd problems. If the API returns a retry-after header, that value is used instead. You can configure max_retries, initial_delay, max_delay, and backoff_multiplier. Use get_rate_limit_info() to check your current rate limit status." },
   { question: "Can I use the Python SDK as a context manager?", answer: "Yes. The SimStudioClient supports Python's context manager protocol. Use it with the 'with' statement to automatically close the underlying HTTP session when you are done, which is especially useful for scripts that create and discard client instances." },

@@ -15,12 +15,12 @@ export const viewport: Viewport = {
 export const metadata = {
   metadataBase: new URL(DOCS_BASE_URL),
   title: {
-    default: 'Sim Documentation — The AI Workspace for Teams',
-    template: '%s | Sim Docs',
+    default: 'AACFlow Documentation — The AI Workspace for Teams',
+    template: '%s | AACFlow Docs',
   },
   description:
-    'Documentation for Sim — the open-source AI workspace where teams build, deploy, and manage AI agents. Connect 1,000+ integrations and every major LLM.',
-  applicationName: 'Sim Docs',
+    'Documentation for AACFlow — the open-source AI workspace where teams build, deploy, and manage AI agents. Connect 1,000+ integrations and every major LLM.',
+  applicationName: 'AACFlow Docs',
   generator: 'Next.js',
   referrer: 'origin-when-cross-origin' as const,
   keywords: [
@@ -38,9 +38,9 @@ export const metadata = {
     'AI agent deployment',
     'AI tools',
   ],
-  authors: [{ name: 'Sim Team', url: 'https://sim.ai' }],
-  creator: 'Sim',
-  publisher: 'Sim',
+  authors: [{ name: 'AACFlow Team', url: 'https://aacflow.io' }],
+  creator: 'AACFlow',
+  publisher: 'AACFlow',
   category: 'Developer Tools',
   classification: 'Developer Documentation',
   manifest: '/favicon/site.webmanifest',
@@ -51,7 +51,7 @@ export const metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'Sim Docs',
+    title: 'AACFlow Docs',
   },
   formatDetection: {
     telephone: false,
@@ -64,27 +64,27 @@ export const metadata = {
     locale: 'en_US',
     alternateLocale: ['es_ES', 'fr_FR', 'de_DE', 'ja_JP', 'zh_CN'],
     url: DOCS_BASE_URL,
-    siteName: 'Sim Documentation',
-    title: 'Sim Documentation — The AI Workspace for Teams',
+    siteName: 'AACFlow Documentation',
+    title: 'AACFlow Documentation — The AI Workspace for Teams',
     description:
-      'Documentation for Sim — the open-source AI workspace where teams build, deploy, and manage AI agents. Connect 1,000+ integrations and every major LLM.',
+      'Documentation for AACFlow — the open-source AI workspace where teams build, deploy, and manage AI agents. Connect 1,000+ integrations and every major LLM.',
     images: [
       {
-        url: `${DOCS_BASE_URL}/api/og?title=Sim%20Documentation`,
+        url: `${DOCS_BASE_URL}/api/og?title=AACFlow%20Documentation`,
         width: 1200,
         height: 675,
-        alt: 'Sim Documentation',
+        alt: 'AACFlow Documentation',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Sim Documentation — The AI Workspace for Teams',
+    title: 'AACFlow Documentation — The AI Workspace for Teams',
     description:
-      'Documentation for Sim — the open-source AI workspace where teams build, deploy, and manage AI agents. Connect 1,000+ integrations and every major LLM.',
+      'Documentation for AACFlow — the open-source AI workspace where teams build, deploy, and manage AI agents. Connect 1,000+ integrations and every major LLM.',
     creator: '@simdotai',
     site: '@simdotai',
-    images: [`${DOCS_BASE_URL}/api/og?title=Sim%20Documentation`],
+    images: [`${DOCS_BASE_URL}/api/og?title=AACFlow%20Documentation`],
   },
   robots: {
     index: true,

@@ -14,7 +14,7 @@ import { WorkflowPreview, ROUTER_TRIAGE_WORKFLOW } from '@/components/workflow-p
 <div className="mt-8 grid grid-cols-1 items-start gap-10 lg:grid-cols-[1fr_300px]">
 <div>
 
-Every time a workflow runs, Sim writes down exactly what happened: the trigger, every block in the order it ran, and for each block its input, its output, its timing, and any error. That record is a **log**, the ground truth for understanding and debugging a run.
+Every time a workflow runs, AACFlow writes down exactly what happened: the trigger, every block in the order it ran, and for each block its input, its output, its timing, and any error. That record is a **log**, the ground truth for understanding and debugging a run.
 
 <WhatYouWillLearn
   items={[
@@ -49,7 +49,7 @@ Every time a workflow runs, Sim writes down exactly what happened: the trigger, 
 
 ## Every run leaves a record
 
-When a workflow runs, the run isn't a black box. Sim records the **trigger** that started it, every **block** in the order it executed, and for each block its **input**, its **output**, its **timing**, and an error message if it failed. Nothing about a run is a mystery; it all gets written down.
+When a workflow runs, the run isn't a black box. AACFlow records the **trigger** that started it, every **block** in the order it executed, and for each block its **input**, its **output**, its **timing**, and an error message if it failed. Nothing about a run is a mystery; it all gets written down.
 
 Here's the kind of workflow whose runs you'll read: a trigger, an agent, and the branches it routes between:
 

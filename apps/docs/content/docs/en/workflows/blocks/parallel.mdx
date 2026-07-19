@@ -16,7 +16,7 @@ The **Parallel block** is a container that runs the block inside it concurrently
 
 <Tabs items={['Count-based', 'Collection-based']}>
   <Tab>
-    Runs a fixed number of identical instances at once. If the count is larger than the batch size, Sim runs serial batches and preserves the original result order.
+    Runs a fixed number of identical instances at once. If the count is larger than the batch size, AACFlow runs serial batches and preserves the original result order.
 
     <div className="flex justify-center">
       <Image src="/static/blocks/parallel-1.png" alt="Count-based parallel execution" width={500} height={400} className="my-6" />
@@ -63,7 +63,7 @@ References differ inside the parallel and after it.
     const all = <processtasks.results>; // [result1, result2, ...]
     ```
 
-    For large result sets, reference just the entry or field you need, like `<processtasks.results[10][0].id>` — Sim keeps results indexable and hydrates oversized entries only when an indexed path is referenced.
+    For large result sets, reference just the entry or field you need, like `<processtasks.results[10][0].id>` — AACFlow keeps results indexable and hydrates oversized entries only when an indexed path is referenced.
   </Tab>
 </Tabs>
 

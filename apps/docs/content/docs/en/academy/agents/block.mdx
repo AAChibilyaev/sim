@@ -62,7 +62,7 @@ Here is the workflow the video rides through: the Qualify agent between its inpu
 
 ## What's inside the block
 
-The first station is the message stack: your **system message** (the standing instructions), any **history** you preload, worked examples or an earlier conversation, and the newest **user message**, which usually arrives from an earlier block through a connection tag. The second station is the **model**: the brain that reads the whole stack. Sim supports the frontier providers, and because the block stays the same while the model changes, swapping brains never means rebuilding the step.
+The first station is the message stack: your **system message** (the standing instructions), any **history** you preload, worked examples or an earlier conversation, and the newest **user message**, which usually arrives from an earlier block through a connection tag. The second station is the **model**: the brain that reads the whole stack. AACFlow supports the frontier providers, and because the block stays the same while the model changes, swapping brains never means rebuilding the step.
 
 ## What a run costs and returns
 
@@ -70,10 +70,10 @@ When the run reaches the model, every message on the stack ships as input tokens
 
 ## Where it fits
 
-The Agent block is the reasoning step of an AI workflow. Everything else in Sim's workflow builder is deterministic: triggers fire, blocks transform data, tables store it. The Agent block is where a language model reads the conversation you configured and decides what to write. Most AI agents you build in Sim are ordinary workflows with one or more Agent blocks doing the thinking.
+The Agent block is the reasoning step of an AI workflow. Everything else in AACFlow's workflow builder is deterministic: triggers fire, blocks transform data, tables store it. The Agent block is where a language model reads the conversation you configured and decides what to write. Most AI agents you build in AACFlow are ordinary workflows with one or more Agent blocks doing the thinking.
 
 <FAQ items={[
-  { question: "What model providers can the Agent block use?", answer: "Sim supports the frontier AI model providers, including Anthropic Claude, OpenAI GPT, and Google Gemini. The Model field on the block picks which one runs, and you can change it at any time without rebuilding the workflow step." },
+  { question: "What model providers can the Agent block use?", answer: "AACFlow supports the frontier AI model providers, including Anthropic Claude, OpenAI GPT, and Google Gemini. The Model field on the block picks which one runs, and you can change it at any time without rebuilding the workflow step." },
   { question: "How is Agent block usage billed?", answer: "By tokens. Every message on the stack ships to the model as input tokens, and the reply is billed as output tokens. The block's output records the exact token counts for each run." },
   { question: "Can I preload conversation history into an agent?", answer: "Yes. The Messages section accepts user and assistant turns in addition to the system message, so a run can start from worked examples or an earlier conversation." },
   { question: "What does the Agent block output?", answer: "A structured bundle with the content it wrote, the model that ran, the input and output token counts, and any tool calls it made. Downstream blocks read these fields through connection tags like <agent.content>." },

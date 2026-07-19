@@ -35,7 +35,7 @@ Every strategy splits the document at boundaries, then packs adjacent splits tog
 
 ### Auto
 
-Sim inspects the file and routes to the right chunker:
+AACFlow inspects the file and routes to the right chunker:
 
 - `.json`, `.jsonl`, `.yaml`, `.yml` → structural chunking (records are never split mid-way; small records may still be batched together up to the chunk size)
 - `.csv`, `.xlsx`, `.xls`, `.tsv` → grouped by row, with headers preserved
@@ -98,7 +98,7 @@ Turn it on when each match is a discrete record (one QA pair, one log entry) and
 
 Each record (each QA pair, each log line, each row) as its own chunk is structural chunking, not regex chunking. Two paths:
 
-1. **Convert to JSONL** (one record per line) and upload. Sim's Auto strategy treats it as structured data and never splits a record mid-way. Small records may still be batched together up to the chunk size — to force one record per chunk, lower the max chunk size to roughly the size of one record. See [LlamaIndex's `JSONNodeParser`](https://docs.llamaindex.ai/en/stable/module_guides/loading/node_parsers/) and [Unstructured's element-based chunking](https://docs.unstructured.io/api-reference/partition/chunking-documents).
+1. **Convert to JSONL** (one record per line) and upload. AACFlow's Auto strategy treats it as structured data and never splits a record mid-way. Small records may still be batched together up to the chunk size — to force one record per chunk, lower the max chunk size to roughly the size of one record. See [LlamaIndex's `JSONNodeParser`](https://docs.llamaindex.ai/en/stable/module_guides/loading/node_parsers/) and [Unstructured's element-based chunking](https://docs.unstructured.io/api-reference/partition/chunking-documents).
 
 2. **Use Regex with strict boundaries enabled** when you can't restructure the source.
 
@@ -124,5 +124,5 @@ Prefer option 1. Structural parsers handle nested records, escaped delimiters, a
   { question: "How do I get one chunk per record?", answer: "Convert to JSONL and lower the max chunk size to roughly the size of one record — Auto handles the rest. If you can't restructure the source, use Regex with 'Each match is its own chunk' enabled." },
   { question: "Do larger chunks always retrieve better?", answer: "No. Larger chunks dilute relevance — the embedding represents the average of more content, so specific queries match worse. 256–1,024 tokens is a typical range; experiment for your data." },
   { question: "Can I change the chunking strategy on an existing knowledge base?", answer: "No. Chunking config is set at creation. To change it, create a new knowledge base and re-upload your documents." },
-  { question: "Why isn't my regex producing any splits?", answer: "Sim normalizes content before splitting: \\r\\n becomes \\n, runs of three or more newlines collapse to \\n\\n, and tabs become spaces. Patterns that depend on those characters won't match. Also: in non-strict mode, content that fits within the chunk size returns as a single chunk regardless of matches — enable strict boundaries to force splits." },
+  { question: "Why isn't my regex producing any splits?", answer: "AACFlow normalizes content before splitting: \\r\\n becomes \\n, runs of three or more newlines collapse to \\n\\n, and tabs become spaces. Patterns that depend on those characters won't match. Also: in non-strict mode, content that fits within the chunk size returns as a single chunk regardless of matches — enable strict boundaries to force splits." },
 ]} />

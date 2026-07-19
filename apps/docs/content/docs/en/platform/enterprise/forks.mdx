@@ -17,11 +17,11 @@ One workspace has at most one parent. A parent can have many children. You can o
 
 | Requirement | Detail |
 |-------------|--------|
-| **Plan** | Enterprise on Sim Cloud |
+| **Plan** | Enterprise on AACFlow Cloud |
 | **Role** | Workspace **admin** — non-admins never see the Forks tab |
 | **Self-hosted** | Set `FORKING_ENABLED` / `NEXT_PUBLIC_FORKING_ENABLED` (see [Self-hosted setup](#self-hosted-setup)) |
 
-On Sim Cloud, your organization may also need the feature turned on for your account before the tab appears.
+On AACFlow Cloud, your organization may also need the feature turned on for your account before the tab appears.
 
 ---
 
@@ -249,7 +249,7 @@ Only **deployed** workflows move. Deploy is the commit; sync is the force push/p
 
 | | Behavior |
 |---|----------|
-| **Fork** | Optional copy (default on). Skill content comes along. Links inside the skill to files or other Sim resources are updated when those resources were also copied. Deselect → skill fields on agents clear. |
+| **Fork** | Optional copy (default on). Skill content comes along. Links inside the skill to files or other AACFlow resources are updated when those resources were also copied. Deselect → skill fields on agents clear. |
 | **Sync** | Map or copy, same idea as custom tools. |
 
 **Example:** A “Support tone” skill on an agent. Deselecting it on fork clears the skill on the child’s agent until you attach one again.
@@ -330,7 +330,7 @@ These do not move at fork or sync time:
 
 - Undeployed workflows and local drafts
 - Execution / run history
-- Sim API keys
+- AACFlow API keys
 - Memory stores and scheduled jobs
 - BYOK provider keys
 - Permission groups (the child inherits the organization, but groups are not specially applied by forking)
@@ -372,4 +372,4 @@ Self-hosted deployments turn Forks on with an environment variable instead of th
 |----------|-------------|
 | `FORKING_ENABLED`, `NEXT_PUBLIC_FORKING_ENABLED` | Enables workspace forking when billing is not used as the entitlement gate |
 
-Once enabled, use the same **Settings → Enterprise → Workspace Forks** UI as Sim Cloud. Only workspace admins can manage forks.
+Once enabled, use the same **Settings → Enterprise → Workspace Forks** UI as AACFlow Cloud. Only workspace admins can manage forks.

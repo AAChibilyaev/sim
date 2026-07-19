@@ -1,13 +1,13 @@
 ---
 title: Руководство по настройке HubSpot
-description: Установите, настройте, используйте и отключите интеграцию Sim с HubSpot.
+description: Установите, настройте, используйте и отключите интеграцию AACFlow с HubSpot.
 pageType: guide
 ---
 
 import { Callout } from 'fumadocs-ui/components/callout'
 import { Image } from '@/components/ui/image'
 
-Sim связывает ваш CRM HubSpot с рабочими процессами ИИ. После подключения ваши рабочие процессы могут:
+AACFlow связывает ваш CRM HubSpot с рабочими процессами ИИ. После подключения ваши рабочие процессы могут:
 
 
 - Читать и записывать записи в CRM — создавать, искать, просматривать и обновлять контакты, компании, сделки и заявки из любого рабочего процесса.
@@ -26,7 +26,7 @@ Sim связывает ваш CRM HubSpot с рабочими процессам
 Вам потребуется:
 
 
-- Аккаунт Sim ([https://sim.ai](https://sim.ai)) и рабочий стол, где у вас есть права **Write** или **Admin**.
+- Аккаунт AACFlow ([https://aacflow.io](https://aacflow.io)) и рабочий стол, где у вас есть права **Write** или **Admin**.
 
 - Аккаунт HubSpot. Чтобы предоставить необходимые разрешения, пользователь HubSpot должен иметь право устанавливать приложения (обычно супер-админ).
 
@@ -34,25 +34,25 @@ Sim связывает ваш CRM HubSpot с рабочими процессам
 ## Установите приложение и подключите HubSpot
 
 
-1. Войдите в Sim, откройте свой рабочий стол и нажмите **Integrations** на боковой панели.
+1. Войдите в AACFlow, откройте свой рабочий стол и нажмите **Integrations** на боковой панели.
 
 2. Найдите **HubSpot** и откройте его.
 
 
 <Image
   src="/static/integrations/hubspot/integrations-page.png"
-  alt="The Integrations page in Sim, with the sidebar entry, a search box, connected accounts, and featured integrations"
+  alt="The Integrations page in AACFlow, with the sidebar entry, a search box, connected accounts, and featured integrations"
   width={800}
   height={664}
 />
 
 
-3. Страница HubSpot перечисляет его возможности и шаблоны. Нажмите **+ Add to Sim** в правом верхнем углу.
+3. Страница HubSpot перечисляет его возможности и шаблоны. Нажмите **+ Add to AACFlow** в правом верхнем углу.
 
 
 <Image
   src="/static/integrations/hubspot/hubspot-page-add-to-sim.png"
-  alt="The HubSpot integration page in Sim with the Add to Sim button in the top right"
+  alt="The HubSpot integration page in AACFlow with the Add to AACFlow button in the top right"
   width={800}
   height={550}
 />
@@ -74,7 +74,7 @@ Sim связывает ваш CRM HubSpot с рабочими процессам
 
 <Image
   src="/static/integrations/hubspot/hubspot-oauth-signin.png"
-  alt="HubSpot's screen for connecting your Sim account, with sign-in options"
+  alt="HubSpot's screen for connecting your AACFlow account, with sign-in options"
   width={600}
   height={494}
 />
@@ -83,10 +83,10 @@ Sim связывает ваш CRM HubSpot с рабочими процессам
 6. Просмотрите запрошенные разрешения на экране одобрения HubSpot и нажмите **Connect app**.
 
 
-{/* VISUAL: screenshot of the HubSpot scope approval screen for the Sim app. */}
+{/* VISUAL: screenshot of the HubSpot scope approval screen for the AACFlow app. */}
 
 
-7. Вас вернет в Sim. Подключение появится на странице **Connected** в разделе Integrations.
+7. Вас вернет в AACFlow. Подключение появится на странице **Connected** в разделе Integrations.
 
 
 Вы можете подключить несколько аккаунтов HubSpot — например, отдельные порталы для продаж и поддержки — и выбирать для каждого рабочего процесса, какой из них использовать.
@@ -119,7 +119,7 @@ Sim связывает ваш CRM HubSpot с рабочими процессам
 ### Запускайте рабочие процессы из событий HubSpot
 
 
-Блок HubSpot также может выступать в качестве триггера. Включите **Use as Trigger**, выберите подключение и укажите, какие события нужно отслеживать — контакты, компании, сделки или заявки, созданные или обновленные. Sim периодически опрашивает HubSpot на предмет изменений и запускает рабочий процесс один раз для каждой измененной записи, с возможностью доступа к полям записи в последующие блоки.
+Блок HubSpot также может выступать в качестве триггера. Включите **Use as Trigger**, выберите подключение и укажите, какие события нужно отслеживать — контакты, компании, сделки или заявки, созданные или обновленные. AACFlow периодически опрашивает HubSpot на предмет изменений и запускает рабочий процесс один раз для каждой измененной записи, с возможностью доступа к полям записи в последующие блоки.
 
 
 Триггеры работают от вашего активного [deployment](/workflows/deployment), поэтому необходимо активировать их.
@@ -139,15 +139,15 @@ Sim связывает ваш CRM HubSpot с рабочими процессам
 Каждый запуск записывается в [Logs](/logs-debugging), по блокам, чтобы вы могли точно проверить, что было прочитано из или записано в HubSpot.
 
 
-## Отключите HubSpot от Sim
+## Отключите HubSpot от AACFlow
 
 
 <Callout type="warn">
-When you disconnect, workflows that use this HubSpot connection will fail at the HubSpot block on their next run, and HubSpot triggers using it stop firing. Data already written to HubSpot or stored in Sim is not affected.
+When you disconnect, workflows that use this HubSpot connection will fail at the HubSpot block on their next run, and HubSpot triggers using it stop firing. Data already written to HubSpot or stored in AACFlow is not affected.
 </Callout>
 
 
-1. В Sim нажмите **Integrations** на боковой панели.
+1. В AACFlow нажмите **Integrations** на боковой панели.
 
 2. На странице **Connected** откройте ваше подключение к HubSpot.
 
@@ -160,15 +160,15 @@ When you disconnect, workflows that use this HubSpot connection will fail at the
 ## Удалите приложение из HubSpot
 
 
-Вы также можете удалить Sim из HubSpot, что полностью отменяет его доступ:
+Вы также можете удалить AACFlow из HubSpot, что полностью отменяет его доступ:
 
 
 1. В HubSpot перейдите в **Settings → Integrations → Connected apps**.
 
-2. Найдите **Sim** и выберите **Uninstall**.
+2. Найдите **AACFlow** и выберите **Uninstall**.
 
 
-Подробности можно найти в руководстве HubSpot [connecting and uninstalling apps](https://knowledge.hubspot.com/integrations/connect-apps-to-hubspot). Удаление отменяет токены Sim, поэтому подключенные рабочие процессы перестают работать в блоке HubSpot до тех пор, пока вы не переподключитесь и не обновите их. Ваши данные в HubSpot не изменяются или удаляются.
+Подробности можно найти в руководстве HubSpot [connecting and uninstalling apps](https://knowledge.hubspot.com/integrations/connect-apps-to-hubspot). Удаление отменяет токены AACFlow, поэтому подключенные рабочие процессы перестают работать в блоке HubSpot до тех пор, пока вы не переподключитесь и не обновите их. Ваши данные в HubSpot не изменяются или удаляются.
 
 
 ## Устранение неполадок
@@ -181,5 +181,5 @@ When you disconnect, workflows that use this HubSpot connection will fail at the
 - **У вас несколько порталов.** Подключите каждый аккаунт HubSpot отдельно и выберите правильное подключение для каждого блока.
 
 
-Нужна помощь? Свяжитесь с [help@sim.ai](mailto:help@sim.ai).
+Нужна помощь? Свяжитесь с [help@aacflow.io](mailto:help@aacflow.io).
 

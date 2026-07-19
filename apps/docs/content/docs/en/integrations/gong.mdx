@@ -11,9 +11,9 @@ import { BlockInfoCard } from "@/components/ui/block-info-card"
 />
 
 {/* MANUAL-CONTENT-START:intro */}
-[Gong](https://www.gong.io/) is a revenue intelligence platform that captures and analyzes customer interactions across calls, emails, and meetings. By integrating Gong with Sim, your agents can access conversation data, user analytics, coaching metrics, and more through automated workflows.
+[Gong](https://www.gong.io/) is a revenue intelligence platform that captures and analyzes customer interactions across calls, emails, and meetings. By integrating Gong with AACFlow, your agents can access conversation data, user analytics, coaching metrics, and more through automated workflows.
 
-The Gong integration in Sim provides tools to:
+The Gong integration in AACFlow provides tools to:
 
 - **List and retrieve calls:** Fetch calls by date range, get individual call details, or retrieve extensive call data including trackers, topics, interaction stats, and points of interest.
 - **Access call transcripts:** Retrieve full transcripts with speaker turns, topics, and sentence-level timestamps for any recorded call.
@@ -1151,7 +1151,7 @@ Trigger workflow when a call is completed and processed in Gong
 
 | Parameter | Type | Required | Description |
 | --------- | ---- | -------- | ----------- |
-| `gongJwtPublicKeyPem` | string | No | Required only when your Gong rule uses **Signed JWT header**. Sim verifies RS256, `webhook_url`, and `body_sha256` per Gong. If empty, only the webhook URL path authenticates the request. |
+| `gongJwtPublicKeyPem` | string | No | Required only when your Gong rule uses **Signed JWT header**. AACFlow verifies RS256, `webhook_url`, and `body_sha256` per Gong. If empty, only the webhook URL path authenticates the request. |
 
 #### Output
 
@@ -1199,7 +1199,7 @@ Generic webhook trigger for all Gong events
 
 | Parameter | Type | Required | Description |
 | --------- | ---- | -------- | ----------- |
-| `gongJwtPublicKeyPem` | string | No | Required only when your Gong rule uses **Signed JWT header**. Sim verifies RS256, `webhook_url`, and `body_sha256` per Gong. If empty, only the webhook URL path authenticates the request. |
+| `gongJwtPublicKeyPem` | string | No | Required only when your Gong rule uses **Signed JWT header**. AACFlow verifies RS256, `webhook_url`, and `body_sha256` per Gong. If empty, only the webhook URL path authenticates the request. |
 
 #### Output
 

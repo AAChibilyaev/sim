@@ -29,7 +29,7 @@ Use the search bar, event type filter, and date range selector to narrow results
 
 ### Via API
 
-Audit logs are also accessible through the Sim API for integration with external SIEM or log management tools.
+Audit logs are also accessible through the AACFlow API for integration with external SIEM or log management tools.
 
 ```http
 GET /api/v1/audit-logs
@@ -105,11 +105,11 @@ Workspace invitation events include whether the invite is for an internal organi
 <FAQ items={[
   {
     question: "Who can view audit logs?",
-    answer: "Organization owners and admins can view audit logs. On Sim Cloud, you must be on the Enterprise plan."
+    answer: "Organization owners and admins can view audit logs. On AACFlow Cloud, you must be on the Enterprise plan."
   },
   {
     question: "Are audit logs tamper-proof?",
-    answer: "Audit log entries are append-only and cannot be modified or deleted through the Sim interface or API. They represent a reliable record of actions taken in your organization."
+    answer: "Audit log entries are append-only and cannot be modified or deleted through the AACFlow interface or API. They represent a reliable record of actions taken in your organization."
   },
   {
     question: "Can I export audit logs?",

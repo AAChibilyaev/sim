@@ -7,7 +7,7 @@ import { Card, Cards } from 'fumadocs-ui/components/card'
 import { Step, Steps } from 'fumadocs-ui/components/steps'
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
 
-The official TypeScript/JavaScript SDK for Sim provides full type safety and supports both Node.js and browser environments, allowing you to execute workflows programmatically from your Node.js applications, web applications, and other JavaScript environments.
+The official TypeScript/JavaScript SDK for AACFlow provides full type safety and supports both Node.js and browser environments, allowing you to execute workflows programmatically from your Node.js applications, web applications, and other JavaScript environments.
 
 <Callout type="info">
   The TypeScript SDK provides full type safety, async execution support, automatic rate limiting with exponential backoff, and usage tracking.
@@ -45,7 +45,7 @@ import { SimStudioClient } from 'simstudio-ts-sdk';
 // Initialize the client
 const client = new SimStudioClient({
   apiKey: 'your-api-key-here',
-  baseUrl: 'https://sim.ai' // optional, defaults to https://sim.ai
+  baseUrl: 'https://aacflow.io' // optional, defaults to https://aacflow.io
 });
 
 // Execute a workflow
@@ -68,8 +68,8 @@ new SimStudioClient(config: SimStudioConfig)
 ```
 
 **Configuration:**
-- `config.apiKey` (string): Your Sim API key
-- `config.baseUrl` (string, optional): Base URL for the Sim API (defaults to `https://sim.ai`)
+- `config.apiKey` (string): Your AACFlow API key
+- `config.baseUrl` (string, optional): Base URL for the AACFlow API (defaults to `https://aacflow.io`)
 
 #### Methods
 
@@ -479,7 +479,7 @@ Configure the client using environment variables:
 
     const client = new SimStudioClient({
       apiKey,
-      baseUrl: process.env.SIM_BASE_URL || 'https://sim.ai'
+      baseUrl: process.env.SIM_BASE_URL || 'https://aacflow.io'
     });
     ```
   </Tab>
@@ -574,7 +574,7 @@ import { SimStudioClient } from 'simstudio-ts-sdk';
 // Note: In production, use a proxy server to avoid exposing API keys
 const client = new SimStudioClient({
   apiKey: 'your-public-api-key', // Use with caution in browser
-  baseUrl: 'https://sim.ai'
+  baseUrl: 'https://aacflow.io'
 });
 
 async function executeClientSideWorkflow() {
@@ -931,7 +931,7 @@ function StreamingWorkflow() {
 
     // IMPORTANT: Make this API call from your backend server, not the browser
     // Never expose your API key in client-side code
-    const response = await fetch('https://sim.ai/api/workflows/WORKFLOW_ID/execute', {
+    const response = await fetch('https://aacflow.io/api/workflows/WORKFLOW_ID/execute', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -991,8 +991,8 @@ function StreamingWorkflow() {
 ## Getting Your API Key
 
 <Steps>
-  <Step title="Log in to Sim">
-    Navigate to [Sim](https://sim.ai) and log in to your account.
+  <Step title="Log in to AACFlow">
+    Navigate to [AACFlow](https://aacflow.io) and log in to your account.
   </Step>
   <Step title="Open your workflow">
     Navigate to the workflow you want to execute programmatically.
@@ -1020,7 +1020,7 @@ Apache-2.0
 import { FAQ } from '@/components/ui/faq'
 
 <FAQ items={[
-  { question: "Do I need to deploy a workflow before I can execute it via the SDK?", answer: "Yes. Workflows must be deployed before they can be executed through the SDK. You can use the validateWorkflow() method to check whether a workflow is deployed and ready. If it returns false, deploy the workflow from the Sim UI first and create or select an API key during deployment." },
+  { question: "Do I need to deploy a workflow before I can execute it via the SDK?", answer: "Yes. Workflows must be deployed before they can be executed through the SDK. You can use the validateWorkflow() method to check whether a workflow is deployed and ready. If it returns false, deploy the workflow from the AACFlow UI first and create or select an API key during deployment." },
   { question: "What is the difference between sync and async execution?", answer: "Sync execution (the default) blocks until the workflow completes and returns the full result. Async execution returns immediately with a job ID and status URL that you can poll using getJobStatus(). Use async mode for long-running workflows to avoid request timeouts. Async job statuses include queued, processing, completed, failed, and cancelled." },
   { question: "How does streaming work with the SDK?", answer: "Enable streaming by setting stream: true and specifying selectedOutputs with block names and attributes in blockName.attribute format (e.g., ['agent1.content']). The response uses Server-Sent Events (SSE) format, sending incremental chunks as the workflow executes. Each chunk includes the blockId and the text content. A final done event includes the execution metadata." },
   { question: "How does the SDK handle rate limiting?", answer: "The SDK provides built-in rate limiting support through the executeWithRetry() method. It uses exponential backoff (1s, 2s, 4s, 8s...) with 25% jitter to avoid thundering herd problems. If the API returns a retry-after header, that value is used instead. You can configure maxRetries, initialDelay, maxDelay, and backoffMultiplier. Use getRateLimitInfo() to check your current rate limit status." },

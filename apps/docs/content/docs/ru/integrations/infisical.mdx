@@ -11,16 +11,16 @@ import { BlockInfoCard } from "@/components/ui/block-info-card"
 />
 
 
-[Infisical](https://infisical.com/) — это платформа для управления секретами с открытым исходным кодом, которая помогает командам централизованно управлять секретами приложений, переменными среды и конфиденциальными данными конфигурации в своей инфраструктуре. Эта интеграция позволяет использовать возможности Infisical для управления секретами непосредственно в рабочих процессах Sim.
+[Infisical](https://infisical.com/) — это платформа для управления секретами с открытым исходным кодом, которая помогает командам централизованно управлять секретами приложений, переменными среды и конфиденциальными данными конфигурации в своей инфраструктуре. Эта интеграция позволяет использовать возможности Infisical для управления секретами непосредственно в рабочих процессах AACFlow.
 
-С помощью Infisical в Sim вы можете:
+С помощью Infisical в AACFlow вы можете:
 - **Перечислить секреты**: Получить все секреты из проекта, отфильтровав по пути, тегам и поддерживая рекурсивные поддиректории.
 - **Получить секрет**: Извлечь конкретный секрет по имени, с необязательной фиксацией версии и расширением ссылки на секрет.
 - **Создать секреты**: Добавить новые секреты в любую среду проекта, поддерживая комментарии, пути и назначение тегов.
 - **Обновить секреты**: Изменить существующие значения секретов, комментарии, имена и теги.
 - **Удалить секреты**: Удалить секреты из среды проекта.
 
-В Sim интеграция Infisical позволяет вашим агентам программно управлять секретами в рамках автоматизированных рабочих процессов — например, для ротации учетных данных, синхронизации переменных среды между средами или аудита использования секретов. Чтобы начать работу, просто настройте блок Infisical с вашим API-ключом, выберите операцию и предоставьте идентификатор проекта и slug среды.
+В AACFlow интеграция Infisical позволяет вашим агентам программно управлять секретами в рамках автоматизированных рабочих процессов — например, для ротации учетных данных, синхронизации переменных среды между средами или аудита использования секретов. Чтобы начать работу, просто настройте блок Infisical с вашим API-ключом, выберите операцию и предоставьте идентификатор проекта и slug среды.
 
 ## Инструкции по использованию
 Интегрируйте Infisical в свой рабочий процесс. Перечисляйте, получайте, создавайте, обновляйте и удаляйте секреты в средах проектов.
@@ -231,10 +231,10 @@ import { BlockInfoCard } from "@/components/ui/block-info-card"
 |     ↳ `membershipId` | string | ID членства |
 |     ↳ `groupId` | string | ID группы |
 
-[Infisical](https://infisical.com/) is an open-source secrets management platform that helps teams centralize and manage application secrets, environment variables, and sensitive configuration data across their infrastructure. This integration brings Infisical's secrets management capabilities directly into Sim workflows.
+[Infisical](https://infisical.com/) is an open-source secrets management platform that helps teams centralize and manage application secrets, environment variables, and sensitive configuration data across their infrastructure. This integration brings Infisical's secrets management capabilities directly into AACFlow workflows.
 
 
-With Infisical in Sim, you can:
+With Infisical in AACFlow, you can:
 
 
 - **List secrets**: Retrieve all secrets from a project environment with filtering by path, tags, and recursive subdirectory support
@@ -248,7 +248,7 @@ With Infisical in Sim, you can:
 - **Delete secrets**: Remove secrets from a project environment
 
 
-In Sim, the Infisical integration enables your agents to programmatically manage secrets as part of automated workflows — for example, rotating credentials, syncing environment variables across environments, or auditing secret usage. Simply configure the Infisical block with your API key, select the operation, and provide the project ID and environment slug to get started.
+In AACFlow, the Infisical integration enables your agents to programmatically manage secrets as part of automated workflows — for example, rotating credentials, syncing environment variables across environments, or auditing secret usage. Simply configure the Infisical block with your API key, select the operation, and provide the project ID and environment slug to get started.
 
 {/* MANUAL-CONTENT-END */}
 

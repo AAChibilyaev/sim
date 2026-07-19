@@ -1,6 +1,6 @@
 ---
 title: Aperçu
-description: Les déclencheurs sont les moyens essentiels pour lancer les flux de travail Sim
+description: Les déclencheurs sont les moyens essentiels pour lancer les flux de travail AACFlow
 ---
 
 import { Card, Cards } from 'fumadocs-ui/components/card'
@@ -56,7 +56,7 @@ Utilisez le bloc Démarrer pour tout ce qui provient de l'éditeur, du déploiem
 
 ## Priorité d'exécution manuelle
 
-Lorsque vous cliquez sur **Exécuter** dans l'éditeur, Sim sélectionne automatiquement quel déclencheur exécuter selon l'ordre de priorité suivant :
+Lorsque vous cliquez sur **Exécuter** dans l'éditeur, AACFlow sélectionne automatiquement quel déclencheur exécuter selon l'ordre de priorité suivant :
 
 1. **Bloc Démarrer** (priorité la plus élevée)
 2. **Déclencheurs de planification**
@@ -64,7 +64,7 @@ Lorsque vous cliquez sur **Exécuter** dans l'éditeur, Sim sélectionne automat
 
 Si votre flux de travail comporte plusieurs déclencheurs, le déclencheur de priorité la plus élevée sera exécuté. Par exemple, si vous avez à la fois un bloc Démarrer et un déclencheur Webhook, cliquer sur Exécuter exécutera le bloc Démarrer.
 
-**Déclencheurs externes avec charges utiles simulées** : lorsque des déclencheurs externes (webhooks et intégrations) sont exécutés manuellement, Sim génère automatiquement des charges utiles simulées basées sur la structure de données attendue du déclencheur. Cela garantit que les blocs en aval peuvent résoudre correctement les variables pendant les tests.
+**Déclencheurs externes avec charges utiles simulées** : lorsque des déclencheurs externes (webhooks et intégrations) sont exécutés manuellement, AACFlow génère automatiquement des charges utiles simulées basées sur la structure de données attendue du déclencheur. Cela garantit que les blocs en aval peuvent résoudre correctement les variables pendant les tests.
 
 ## Groupes de surveillance d'e-mails
 
@@ -82,7 +82,7 @@ Les groupes de surveillance vous permettent de surveiller les boîtes de récept
 2. Entrez les adresses e-mail (séparées par des virgules ou des sauts de ligne, ou glissez-déposez un fichier CSV)
 3. Cliquez sur **Envoyer les invitations**
 
-Les personnes invitées reçoivent un e-mail avec un lien pour connecter leur compte. Une fois connectée, leur boîte de réception est automatiquement incluse dans le groupe de surveillance. Les personnes invitées n'ont pas besoin d'être membres de votre organisation Sim.
+Les personnes invitées reçoivent un e-mail avec un lien pour connecter leur compte. Une fois connectée, leur boîte de réception est automatiquement incluse dans le groupe de surveillance. Les personnes invitées n'ont pas besoin d'être membres de votre organisation AACFlow.
 
 **Utiliser dans un workflow**
 

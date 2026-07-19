@@ -1,6 +1,6 @@
 ---
 title: Object Storage
-description: Configure where Sim stores uploaded files — local disk, AWS S3, or Azure Blob
+description: Configure where AACFlow stores uploaded files — local disk, AWS S3, or Azure Blob
 ---
 
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
@@ -8,7 +8,7 @@ import { Callout } from 'fumadocs-ui/components/callout'
 import { Step, Steps } from 'fumadocs-ui/components/steps'
 import { FAQ } from '@/components/ui/faq'
 
-Sim stores every uploaded file — knowledge base documents, chat attachments, execution outputs, profile pictures, and more — in object storage. Three backends are supported:
+AACFlow stores every uploaded file — knowledge base documents, chat attachments, execution outputs, profile pictures, and more — in object storage. Three backends are supported:
 
 | Backend | When to use |
 |---------|-------------|
@@ -22,7 +22,7 @@ Sim stores every uploaded file — knowledge base documents, chat attachments, e
 
 ## How the backend is selected
 
-Sim picks the backend automatically from environment variables — there is no explicit "provider" flag. The logic, in order of precedence:
+AACFlow picks the backend automatically from environment variables — there is no explicit "provider" flag. The logic, in order of precedence:
 
 1. **Azure Blob** — used if `AZURE_STORAGE_CONTAINER_NAME` is set **and** either (`AZURE_ACCOUNT_NAME` + `AZURE_ACCOUNT_KEY`) or `AZURE_CONNECTION_STRING` is set.
 2. **AWS S3** — used if `S3_BUCKET_NAME` **and** `AWS_REGION` are set (and Azure is not configured).
@@ -38,7 +38,7 @@ If both Azure and S3 are configured, **Azure wins**. Set only the variables for 
 
 ### Create the buckets
 
-Sim separates files into purpose-specific buckets. At minimum you need the general workspace bucket; the rest are created on demand based on which env vars you set. A bucket that isn't configured falls back to the general bucket where the code allows it, but the recommended setup is one bucket per purpose.
+AACFlow separates files into purpose-specific buckets. At minimum you need the general workspace bucket; the rest are created on demand based on which env vars you set. A bucket that isn't configured falls back to the general bucket where the code allows it, but the recommended setup is one bucket per purpose.
 
 ```bash
 # Set your region once
@@ -58,7 +58,7 @@ done
   In `us-east-1`, omit the `--create-bucket-configuration` flag — that region rejects an explicit `LocationConstraint`.
 </Callout>
 
-Keep all buckets **private** (block public access). Sim serves files through short-lived presigned URLs, so the buckets never need public read access.
+Keep all buckets **private** (block public access). AACFlow serves files through short-lived presigned URLs, so the buckets never need public read access.
 
 </Step>
 
@@ -66,7 +66,7 @@ Keep all buckets **private** (block public access). Sim serves files through sho
 
 ### Grant access with an IAM policy
 
-Create an IAM policy scoped to your buckets and attach it to the user (or role) Sim runs as:
+Create an IAM policy scoped to your buckets and attach it to the user (or role) AACFlow runs as:
 
 ```json
 {
@@ -92,7 +92,7 @@ Create an IAM policy scoped to your buckets and attach it to the user (or role) 
 You then have two ways to supply credentials:
 
 - **Static keys** — create an IAM user with this policy and set `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY`.
-- **Instance/role credentials (recommended)** — attach the policy to the EC2 instance role, ECS task role, or EKS IRSA role. Leave `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` unset and Sim falls back to the default AWS credential chain automatically.
+- **Instance/role credentials (recommended)** — attach the policy to the EC2 instance role, ECS task role, or EKS IRSA role. Leave `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` unset and AACFlow falls back to the default AWS credential chain automatically.
 
 </Step>
 
@@ -119,7 +119,7 @@ S3_OG_IMAGES_BUCKET_NAME=myorg-sim-og-images
 S3_WORKSPACE_LOGOS_BUCKET_NAME=myorg-sim-workspace-logos
 ```
 
-Only `AWS_REGION` and `S3_BUCKET_NAME` are strictly required to switch Sim into S3 mode. Add the others so each file type lands in its own bucket.
+Only `AWS_REGION` and `S3_BUCKET_NAME` are strictly required to switch AACFlow into S3 mode. Add the others so each file type lands in its own bucket.
 
 </Step>
 
@@ -203,7 +203,7 @@ A full Helm example lives at `helm/sim/examples/values-azure.yaml`.
 
 ## Set up an S3-compatible provider (R2, MinIO, B2)
 
-Sim works with any S3-compatible store by pointing the S3 client at a custom endpoint. Configure it exactly like AWS S3 (buckets, access key, secret), then add `S3_ENDPOINT` — and `S3_FORCE_PATH_STYLE` where the provider requires path-style addressing. Verified with [Cloudflare R2](https://developers.cloudflare.com/r2/), [MinIO](https://min.io/), [Backblaze B2](https://www.backblaze.com/cloud-storage), and [RustFS](https://rustfs.com/).
+AACFlow works with any S3-compatible store by pointing the S3 client at a custom endpoint. Configure it exactly like AWS S3 (buckets, access key, secret), then add `S3_ENDPOINT` — and `S3_FORCE_PATH_STYLE` where the provider requires path-style addressing. Verified with [Cloudflare R2](https://developers.cloudflare.com/r2/), [MinIO](https://min.io/), [Backblaze B2](https://www.backblaze.com/cloud-storage), and [RustFS](https://rustfs.com/).
 
 <Callout type="info">
   `S3_ENDPOINT` is trusted operator configuration, so it is used as-is — `http://` and private hosts are accepted (no SSRF/HTTPS gate). Don't wire it to untrusted input.
@@ -213,7 +213,7 @@ Sim works with any S3-compatible store by pointing the S3 client at a custom end
   **The endpoint must be reachable from your users' browsers, and the bucket needs CORS.** Uploads use presigned `PUT` requests sent **directly from the browser** to `S3_ENDPOINT` (downloads are proxied back through the app, so they only need server-side reachability). This means:
 
   - A purely internal endpoint (e.g. `https://minio.internal:9000` that only the app pods can resolve) will let the server start cleanly but **uploads will fail in the browser**. Use an endpoint your users can reach.
-  - Configure a **CORS policy** on the bucket that allows your Sim origin (`PUT`, `GET`, and the `Authorization` / `Content-Type` / `x-amz-*` headers). This applies to AWS S3 too — R2 and MinIO are no different.
+  - Configure a **CORS policy** on the bucket that allows your AACFlow origin (`PUT`, `GET`, and the `Authorization` / `Content-Type` / `x-amz-*` headers). This applies to AWS S3 too — R2 and MinIO are no different.
 </Callout>
 
 <Tabs items={['Cloudflare R2', 'MinIO', 'RustFS']}>
@@ -247,7 +247,7 @@ S3_BUCKET_NAME=myorg-sim-workspace-files
 # ...remaining S3_*_BUCKET_NAME vars, one bucket each
 ```
 
-`http://` works server-side, but since the browser uploads directly to this endpoint, prefer a TLS endpoint your users can reach (a mixed-content `http://` target will be blocked on an `https://` Sim origin).
+`http://` works server-side, but since the browser uploads directly to this endpoint, prefer a TLS endpoint your users can reach (a mixed-content `http://` target will be blocked on an `https://` AACFlow origin).
 
   </Tab>
   <Tab value="RustFS">
@@ -280,10 +280,10 @@ After restarting with the new configuration:
 If uploads fail, check the app logs for credential or permission errors (see [Troubleshooting](/platform/self-hosting/troubleshooting)).
 
 <FAQ items={[
-  { question: "What happens if I do not configure any storage variables?", answer: "Sim falls back to local disk, writing files to the /uploads directory inside the app container. This is fine for evaluation but not durable across container recreation and not shared across replicas — use S3 or Azure Blob for production." },
+  { question: "What happens if I do not configure any storage variables?", answer: "AACFlow falls back to local disk, writing files to the /uploads directory inside the app container. This is fine for evaluation but not durable across container recreation and not shared across replicas — use S3 or Azure Blob for production." },
   { question: "Do I have to create all eight S3 buckets?", answer: "No. Only AWS_REGION and S3_BUCKET_NAME are required to enable S3 mode. The purpose-specific buckets are recommended so each file type is isolated; og-images and workspace-logos fall back to the general bucket if their variables are unset." },
-  { question: "How do I avoid storing AWS keys in plaintext?", answer: "On EC2/ECS/EKS, attach the IAM policy to the instance role, task role, or IRSA service-account role and leave AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY unset. Sim resolves credentials through the default AWS SDK provider chain automatically." },
-  { question: "Can I use both S3 and Azure Blob at the same time?", answer: "No. Sim selects a single backend. If both are configured, Azure Blob takes precedence. Set only the variables for the backend you want." },
-  { question: "Are the buckets exposed publicly?", answer: "No, and they should not be. Keep them private with public access blocked. Sim serves files to users through short-lived presigned URLs, so the buckets never need public read permissions." },
+  { question: "How do I avoid storing AWS keys in plaintext?", answer: "On EC2/ECS/EKS, attach the IAM policy to the instance role, task role, or IRSA service-account role and leave AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY unset. AACFlow resolves credentials through the default AWS SDK provider chain automatically." },
+  { question: "Can I use both S3 and Azure Blob at the same time?", answer: "No. AACFlow selects a single backend. If both are configured, Azure Blob takes precedence. Set only the variables for the backend you want." },
+  { question: "Are the buckets exposed publicly?", answer: "No, and they should not be. Keep them private with public access blocked. AACFlow serves files to users through short-lived presigned URLs, so the buckets never need public read permissions." },
   { question: "Can I use MinIO or Cloudflare R2?", answer: "Yes. Configure it like AWS S3, then set S3_ENDPOINT to your provider's endpoint. For R2, set AWS_REGION=auto and leave S3_FORCE_PATH_STYLE unset. For MinIO/Ceph, set S3_FORCE_PATH_STYLE=true. See the S3-compatible provider section above." },
 ]} />

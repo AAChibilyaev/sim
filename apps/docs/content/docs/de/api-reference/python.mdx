@@ -7,7 +7,7 @@ import { Card, Cards } from 'fumadocs-ui/components/card'
 import { Step, Steps } from 'fumadocs-ui/components/steps'
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
 
-Das offizielle Python SDK für Sim ermöglicht es Ihnen, Workflows programmatisch aus Ihren Python-Anwendungen heraus mit dem offiziellen Python SDK auszuführen.
+Das offizielle Python SDK für AACFlow ermöglicht es Ihnen, Workflows programmatisch aus Ihren Python-Anwendungen heraus mit dem offiziellen Python SDK auszuführen.
 
 <Callout type="info">
   Das Python SDK unterstützt Python 3.8+ mit Unterstützung für asynchrone Ausführung, automatischer Ratenbegrenzung mit exponentiellem Backoff und Nutzungsverfolgung.
@@ -31,7 +31,7 @@ from simstudio import SimStudioClient
 # Initialize the client
 client = SimStudioClient(
     api_key="your-api-key-here",
-    base_url="https://sim.ai"  # optional, defaults to https://sim.ai
+    base_url="https://aacflow.io"  # optional, defaults to https://aacflow.io
 )
 
 # Execute a workflow
@@ -49,12 +49,12 @@ except Exception as error:
 #### Konstruktor
 
 ```python
-SimStudioClient(api_key: str, base_url: str = "https://sim.ai")
+SimStudioClient(api_key: str, base_url: str = "https://aacflow.io")
 ```
 
 **Parameter:**
-- `api_key` (str): Ihr Sim API-Schlüssel
-- `base_url` (str, optional): Basis-URL für die Sim API
+- `api_key` (str): Ihr AACFlow API-Schlüssel
+- `base_url` (str, optional): Basis-URL für die AACFlow API
 
 #### Methoden
 
@@ -656,7 +656,7 @@ def stream_workflow():
 
     def generate():
         response = requests.post(
-            'https://sim.ai/api/workflows/WORKFLOW_ID/execute',
+            'https://aacflow.io/api/workflows/WORKFLOW_ID/execute',
             headers={
                 'Content-Type': 'application/json',
                 'X-API-Key': os.getenv('SIM_API_KEY')
@@ -711,7 +711,7 @@ Konfigurieren Sie den Client mit Umgebungsvariablen:
     # Development configuration
     client = SimStudioClient(
         api_key=os.getenv("SIM_API_KEY")
-        base_url=os.getenv("SIM_BASE_URL", "https://sim.ai")
+        base_url=os.getenv("SIM_BASE_URL", "https://aacflow.io")
     )
     ```
 
@@ -729,7 +729,7 @@ Konfigurieren Sie den Client mit Umgebungsvariablen:
 
     client = SimStudioClient(
         api_key=api_key,
-        base_url=os.getenv("SIM_BASE_URL", "https://sim.ai")
+        base_url=os.getenv("SIM_BASE_URL", "https://aacflow.io")
     )
     ```
 
@@ -739,8 +739,8 @@ Konfigurieren Sie den Client mit Umgebungsvariablen:
 ## Ihren API-Schlüssel erhalten
 
 <Steps>
-  <Step title="Bei Sim anmelden">
-    Navigieren Sie zu [Sim](https://sim.ai) und melden Sie sich in Ihrem Konto an.
+  <Step title="Bei AACFlow anmelden">
+    Navigieren Sie zu [AACFlow](https://aacflow.io) und melden Sie sich in Ihrem Konto an.
   </Step>
   <Step title="Workflow öffnen">
     Navigieren Sie zu dem Workflow, den Sie programmatisch ausführen möchten.

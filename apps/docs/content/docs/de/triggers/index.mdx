@@ -1,6 +1,6 @@
 ---
 title: Übersicht
-description: Trigger sind die grundlegenden Möglichkeiten, um Sim-Workflows zu starten
+description: Trigger sind die grundlegenden Möglichkeiten, um AACFlow-Workflows zu starten
 ---
 
 import { Card, Cards } from 'fumadocs-ui/components/card'
@@ -56,7 +56,7 @@ Verwende den Start-Block für alles, was aus dem Editor, deploy-to-API oder depl
 
 ## Priorität bei manueller Ausführung
 
-Wenn du im Editor auf **Run** klickst, wählt Sim automatisch aus, welcher Trigger basierend auf der folgenden Prioritätsreihenfolge ausgeführt wird:
+Wenn du im Editor auf **Run** klickst, wählt AACFlow automatisch aus, welcher Trigger basierend auf der folgenden Prioritätsreihenfolge ausgeführt wird:
 
 1. **Start-Block** (höchste Priorität)
 2. **Schedule-Trigger**
@@ -64,7 +64,7 @@ Wenn du im Editor auf **Run** klickst, wählt Sim automatisch aus, welcher Trigg
 
 Wenn dein Workflow mehrere Trigger hat, wird der Trigger mit der höchsten Priorität ausgeführt. Wenn du beispielsweise sowohl einen Start-Block als auch einen Webhook-Trigger hast, wird beim Klicken auf Run der Start-Block ausgeführt.
 
-**Externe Auslöser mit Mock-Payloads**: Wenn externe Auslöser (Webhooks und Integrationen) manuell ausgeführt werden, generiert Sim automatisch Mock-Payloads basierend auf der erwarteten Datenstruktur des Auslösers. Dies stellt sicher, dass nachgelagerte Blöcke während des Testens Variablen korrekt auflösen können.
+**Externe Auslöser mit Mock-Payloads**: Wenn externe Auslöser (Webhooks und Integrationen) manuell ausgeführt werden, generiert AACFlow automatisch Mock-Payloads basierend auf der erwarteten Datenstruktur des Auslösers. Dies stellt sicher, dass nachgelagerte Blöcke während des Testens Variablen korrekt auflösen können.
 
 ## E-Mail-Polling-Gruppen
 
@@ -82,7 +82,7 @@ Polling-Gruppen ermöglichen es Ihnen, die Gmail- oder Outlook-Postfächer mehre
 2. Geben Sie E-Mail-Adressen ein (durch Komma oder Zeilenumbruch getrennt oder ziehen Sie eine CSV-Datei per Drag & Drop)
 3. Klicken Sie auf **Einladungen senden**
 
-Eingeladene erhalten eine E-Mail mit einem Link, um ihr Konto zu verbinden. Sobald die Verbindung hergestellt ist, wird ihr Postfach automatisch in die Polling-Gruppe aufgenommen. Eingeladene müssen keine Mitglieder Ihrer Sim-Organisation sein.
+Eingeladene erhalten eine E-Mail mit einem Link, um ihr Konto zu verbinden. Sobald die Verbindung hergestellt ist, wird ihr Postfach automatisch in die Polling-Gruppe aufgenommen. Eingeladene müssen keine Mitglieder Ihrer AACFlow-Organisation sein.
 
 **Verwendung in einem Workflow**
 

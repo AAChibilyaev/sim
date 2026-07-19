@@ -6,7 +6,7 @@ import { Callout } from 'fumadocs-ui/components/callout'
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
 import { Video } from '@/components/ui/video'
 
-Sim bietet eine umfassende externe API zum Abfragen von Workflow-Ausführungsprotokollen und zum Einrichten von Webhooks für Echtzeit-Benachrichtigungen, wenn Workflows abgeschlossen werden.
+AACFlow bietet eine umfassende externe API zum Abfragen von Workflow-Ausführungsprotokollen und zum Einrichten von Webhooks für Echtzeit-Benachrichtigungen, wenn Workflows abgeschlossen werden.
 
 ## Authentifizierung
 
@@ -14,10 +14,10 @@ Alle API-Anfragen erfordern einen API-Schlüssel, der im Header `x-api-key` übe
 
 ```bash
 curl -H "x-api-key: YOUR_API_KEY" \
-  https://sim.ai/api/v1/logs?workspaceId=YOUR_WORKSPACE_ID
+  https://aacflow.io/api/v1/logs?workspaceId=YOUR_WORKSPACE_ID
 ```
 
-Sie können API-Schlüssel in Ihren Benutzereinstellungen im Sim-Dashboard generieren.
+Sie können API-Schlüssel in Ihren Benutzereinstellungen im AACFlow-Dashboard generieren.
 
 ## Logs-API
 
@@ -328,7 +328,7 @@ Für Webhooks stehen zusätzliche Optionen zur Verfügung:
 
 ### Payload-Struktur
 
-Wenn eine Workflow-Ausführung abgeschlossen ist, sendet Sim die folgende Payload (über Webhook POST, E-Mail oder Slack):
+Wenn eine Workflow-Ausführung abgeschlossen ist, sendet AACFlow die folgende Payload (über Webhook POST, E-Mail oder Slack):
 
 ```json
 {
@@ -389,7 +389,7 @@ Jede Webhook-Anfrage enthält diese Header (nur Webhook-Kanal):
 
 ### Signaturverifizierung
 
-Wenn Sie ein Webhook-Geheimnis konfigurieren, überprüfen Sie die Signatur, um sicherzustellen, dass der Webhook von Sim stammt:
+Wenn Sie ein Webhook-Geheimnis konfigurieren, überprüfen Sie die Signatur, um sicherzustellen, dass der Webhook von AACFlow stammt:
 
 <Tabs items={['Node.js', 'Python']}>
   <Tab value="Node.js">
@@ -478,7 +478,7 @@ Fehlgeschlagene Webhook-Zustellungen werden mit exponentiellem Backoff und Jitte
 
 1. **Polling-Strategie**: Verwende bei der Abfrage von Logs eine cursor-basierte Paginierung mit `order=asc` und `startDate`, um neue Logs effizient abzurufen.
 
-2. **Webhook-Sicherheit**: Konfiguriere immer ein Webhook-Secret und überprüfe Signaturen, um sicherzustellen, dass Anfragen von Sim stammen.
+2. **Webhook-Sicherheit**: Konfiguriere immer ein Webhook-Secret und überprüfe Signaturen, um sicherzustellen, dass Anfragen von AACFlow stammen.
 
 3. **Idempotenz**: Verwende den `Idempotency-Key`Header, um doppelte Webhook-Zustellungen zu erkennen und zu behandeln.
 
@@ -528,7 +528,7 @@ async function pollLogs() {
   }
   
   const response = await fetch(
-    `https://sim.ai/api/v1/logs?${params}`,
+    `https://aacflow.io/api/v1/logs?${params}`,
     {
       headers: {
         'x-api-key': 'YOUR_API_KEY'

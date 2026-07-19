@@ -6,7 +6,7 @@ import { Callout } from 'fumadocs-ui/components/callout'
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
 import { Image } from '@/components/ui/image'
 
-El bloque Inicio es el disparador predeterminado para los flujos de trabajo creados en Sim. Recopila entradas estructuradas y se distribuye al resto de tu gráfico para pruebas de editor, implementaciones de API y experiencias de chat.
+El bloque Inicio es el disparador predeterminado para los flujos de trabajo creados en AACFlow. Recopila entradas estructuradas y se distribuye al resto de tu gráfico para pruebas de editor, implementaciones de API y experiencias de chat.
 
 <div className="flex justify-center">
   <Image
@@ -27,7 +27,7 @@ El bloque Inicio se sitúa en la posición inicial cuando creas un flujo de trab
 El bloque Inicio emite diferentes datos dependiendo de la superficie de ejecución:
 
 - **Campos de formato de entrada** — Cada campo que añadas estará disponible como <code>&lt;start.fieldName&gt;</code>. Por ejemplo, un campo `customerId` aparecerá como <code>&lt;start.customerId&gt;</code> en bloques y plantillas posteriores.
-- **Campos exclusivos de chat** — Cuando el flujo de trabajo se ejecuta desde el panel lateral de chat o una experiencia de chat implementada, Sim también proporciona <code>&lt;start.input&gt;</code> (último mensaje del usuario), <code>&lt;start.conversationId&gt;</code> (id de sesión activa), y <code>&lt;start.files&gt;</code> (archivos adjuntos del chat).
+- **Campos exclusivos de chat** — Cuando el flujo de trabajo se ejecuta desde el panel lateral de chat o una experiencia de chat implementada, AACFlow también proporciona <code>&lt;start.input&gt;</code> (último mensaje del usuario), <code>&lt;start.conversationId&gt;</code> (id de sesión activa), y <code>&lt;start.files&gt;</code> (archivos adjuntos del chat).
 
 Mantén los campos de formato de entrada limitados a los nombres que esperas referenciar más tarde—esos valores son los únicos campos estructurados compartidos entre ejecuciones de editor, API y chat.
 
@@ -60,7 +60,7 @@ Haz referencia a valores estructurados posteriores con expresiones como <code>&l
   <Tab>
     <div className="space-y-3">
       <p>
-        Desplegar a API convierte el Formato de Entrada en un contrato JSON para los clientes. Cada campo se convierte en parte del cuerpo de la solicitud, y Sim fuerza los tipos primitivos durante la ingesta. Los campos de archivo esperan objetos que hagan referencia a archivos cargados; utiliza el punto de conexión de carga de archivos de ejecución antes de invocar el flujo de trabajo.
+        Desplegar a API convierte el Formato de Entrada en un contrato JSON para los clientes. Cada campo se convierte en parte del cuerpo de la solicitud, y AACFlow fuerza los tipos primitivos durante la ingesta. Los campos de archivo esperan objetos que hagan referencia a archivos cargados; utiliza el punto de conexión de carga de archivos de ejecución antes de invocar el flujo de trabajo.
       </p>
       <p>
         Los que llaman a la API pueden incluir propiedades opcionales adicionales.

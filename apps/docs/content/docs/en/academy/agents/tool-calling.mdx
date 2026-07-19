@@ -70,7 +70,7 @@ Anything you'd use as a workflow step can be handed to an agent as a tool. In th
 Every agent run records its tool calls in order. Open the log and walk them: the name of each tool, the exact arguments the model chose, the result that returned into context. Debugging an agent is reading that sequence, not guessing at what the model was thinking.
 
 <FAQ items={[
-  { question: "What can an agent use as a tool?", answer: "Any Sim integration or block: web search, GitHub, HubSpot, Slack, database queries, other workflows. You can also define custom tools with a schema and description, or connect whole external toolsets over MCP." },
+  { question: "What can an agent use as a tool?", answer: "Any AACFlow integration or block: web search, GitHub, HubSpot, Slack, database queries, other workflows. You can also define custom tools with a schema and description, or connect whole external toolsets over MCP." },
   { question: "How does the model decide which tool to call?", answer: "From each tool's name and description, judged against the task in its context. That is why a clear description matters: it is the only signal the model has for when to reach for the tool." },
   { question: "Can the agent call several tools at once?", answer: "Yes. When calls do not depend on each other, the model issues them in parallel and reads all the results together on the next turn of the loop." },
   { question: "Can I force a tool to run?", answer: "Yes. Each tool entry has a usage control: Auto lets the model decide, and Force guarantees the tool runs during the loop." },

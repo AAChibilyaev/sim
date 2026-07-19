@@ -5,7 +5,7 @@ description: Continuously export workflow logs, audit logs, and Mothership data 
 
 import { FAQ } from '@/components/ui/faq'
 
-Data Drains let organization owners and admins on Enterprise plans continuously export Sim data to a destination they control — a customer-owned S3 bucket, Google Cloud Storage bucket, Azure Blob container, BigQuery table, Snowflake table, Datadog logs intake, or an HTTPS webhook. A drain runs on a schedule, picks up only new rows since its last successful run, and writes them to the destination. Viewing drain configuration and run history is restricted to owners and admins as well, since destinations expose internal bucket names, table identifiers, and webhook URLs.
+Data Drains let organization owners and admins on Enterprise plans continuously export AACFlow data to a destination they control — a customer-owned S3 bucket, Google Cloud Storage bucket, Azure Blob container, BigQuery table, Snowflake table, Datadog logs intake, or an HTTPS webhook. A drain runs on a schedule, picks up only new rows since its last successful run, and writes them to the destination. Viewing drain configuration and run history is restricted to owners and admins as well, since destinations expose internal bucket names, table identifiers, and webhook URLs.
 
 Drains are independent of [Data Retention](/platform/enterprise/data-retention) but designed to compose with it — see [Pairing with Data Retention](#pairing-with-data-retention) below.
 
@@ -52,7 +52,7 @@ Drains export each row exactly once based on its creation cursor. Mutable fields
 
 Writes one NDJSON object per delivered chunk to your bucket.
 
-- **Bucket** — the bucket name. Must already exist; Sim does not create buckets.
+- **Bucket** — the bucket name. Must already exist; AACFlow does not create buckets.
 - **Region** — AWS region (e.g. `us-east-1`).
 - **Prefix** *(optional)* — folder path inside the bucket. Trailing slash optional.
 - **Access key ID / Secret access key** — IAM credentials with `s3:PutObject` on the bucket. The "Test connection" button performs a real write probe to verify, then deletes it.
@@ -71,9 +71,9 @@ Objects are written with `AES256` server-side encryption.
 
 Writes one NDJSON object per delivered chunk to your GCS bucket.
 
-- **Bucket** — the bucket name. Must already exist; Sim does not create buckets.
+- **Bucket** — the bucket name. Must already exist; AACFlow does not create buckets.
 - **Prefix** *(optional)* — folder path inside the bucket. Trailing slash optional.
-- **Service account JSON key** — paste the full JSON key for a service account with `storage.objects.create` (and `storage.objects.delete` if you want "Test connection" to clean up its probe). Sim authenticates via OAuth2 service-account JWT and uploads through the GCS JSON API.
+- **Service account JSON key** — paste the full JSON key for a service account with `storage.objects.create` (and `storage.objects.delete` if you want "Test connection" to clean up its probe). AACFlow authenticates via OAuth2 service-account JWT and uploads through the GCS JSON API.
 
 Object names follow the same `{prefix}/{source}/{drainId}/{yyyy}/{mm}/{dd}/{runId}-{seq}.ndjson` layout as S3. Object metadata mirrors the S3 destination's `sim-*` keys via `x-goog-meta-*` headers.
 
@@ -82,7 +82,7 @@ Object names follow the same `{prefix}/{source}/{drainId}/{yyyy}/{mm}/{dd}/{runI
 Writes one NDJSON block blob per delivered chunk to your container.
 
 - **Account name** — your storage account (3–24 lowercase chars).
-- **Container** — must already exist; Sim does not create containers.
+- **Container** — must already exist; AACFlow does not create containers.
 - **Prefix** *(optional)* — folder path inside the container.
 - **Account key** — a storage account access key with write access to the container.
 
@@ -95,8 +95,8 @@ For sovereign clouds, set **Endpoint suffix** to `blob.core.usgovcloudapi.net` (
 Streams each row into a target table via the `tabledata.insertAll` API, with per-row insertId dedup.
 
 - **Project ID** — your GCP project (supports domain-scoped IDs like `example.com:my-project`).
-- **Dataset ID / Table ID** — must already exist; Sim does not create tables. The table schema must accommodate the source's row shape (one column per top-level field, or a single `JSON`/`STRING` column with the rest as `ignoreUnknownValues`).
-- **Service account JSON key** — needs `roles/bigquery.dataEditor` (insert) and `roles/bigquery.metadataViewer` (for the `tables.get` probe used by "Test connection"). Sim authenticates via OAuth2 service-account JWT.
+- **Dataset ID / Table ID** — must already exist; AACFlow does not create tables. The table schema must accommodate the source's row shape (one column per top-level field, or a single `JSON`/`STRING` column with the rest as `ignoreUnknownValues`).
+- **Service account JSON key** — needs `roles/bigquery.dataEditor` (insert) and `roles/bigquery.metadataViewer` (for the `tables.get` probe used by "Test connection"). AACFlow authenticates via OAuth2 service-account JWT.
 
 Each row is sent with an `insertId` of `{drainId}-{runId}-{sequence}-{index}`. BigQuery dedupes inserts with the same `insertId` for ~60 seconds, so retries inside that window won't duplicate. If a chunk reports partial failure (`insertErrors`), the run fails with the offending row indices and an outer-driver retry may duplicate rows that already succeeded — the dispatcher's bounded retry minimizes this risk. Enforced per-request limits: 10 MB body, 50,000 rows.
 
@@ -121,13 +121,13 @@ POSTs each row as a log entry to Datadog's v2 logs intake.
 - **Tags** *(optional)* — comma-separated `ddtags` appended to every entry alongside auto-injected `sim_drain_id:`, `sim_run_id:`, and `sim_source:` tags.
 - **API key** — a Datadog API key (not an Application key) with logs-write permission.
 
-Top-level row fields are auto-indexed as Datadog log attributes. The reserved fields `ddsource`, `service`, `ddtags`, and `message` are always set by Sim and override anything in the row. Payloads above 1 KB are gzip-compressed. Enforced limits match Datadog's intake: 5 MB per request (post-compression), 1000 entries per request, 1 MB per entry.
+Top-level row fields are auto-indexed as Datadog log attributes. The reserved fields `ddsource`, `service`, `ddtags`, and `message` are always set by AACFlow and override anything in the row. Payloads above 1 KB are gzip-compressed. Enforced limits match Datadog's intake: 5 MB per request (post-compression), 1000 entries per request, 1 MB per entry.
 
 ### HTTPS Webhook
 
 POSTs each chunk as NDJSON to your endpoint.
 
-- **URL** — must be HTTPS. Sim resolves the hostname and refuses to deliver to private, loopback, or cloud-metadata IPs. The resolved IP is pinned for the duration of a run to prevent DNS rebinding.
+- **URL** — must be HTTPS. AACFlow resolves the hostname and refuses to deliver to private, loopback, or cloud-metadata IPs. The resolved IP is pinned for the duration of a run to prevent DNS rebinding.
 - **Signing secret** — shared secret used for HMAC-SHA256 signing.
 - **Bearer token** *(optional)* — sent as `Authorization: Bearer <token>`.
 - **Signature header name** *(optional)* — defaults to `X-Sim-Signature`.
@@ -178,7 +178,7 @@ The **last 10 runs** for each drain are visible by expanding its row in the sett
 ## Security
 
 - Destination credentials are encrypted at rest using the same key-rotation–aware encryption that protects OAuth tokens.
-- Credentials are **never** returned by the Sim API after creation. Updates accept new credentials; omitting them leaves the existing encrypted blob in place.
+- Credentials are **never** returned by the AACFlow API after creation. Updates accept new credentials; omitting them leaves the existing encrypted blob in place.
 - Webhook URLs are SSRF-validated: HTTPS-only, no private/loopback/metadata IPs, with the resolved IP pinned to defeat DNS rebinding.
 - Every create, update, delete, manual run, and test-connection call is recorded in the [Audit Log](/platform/enterprise/audit-logs).
 
@@ -186,7 +186,7 @@ The **last 10 runs** for each drain are visible by expanding its row in the sett
 
 ## Pairing with Data Retention
 
-Drains and [Data Retention](/platform/enterprise/data-retention) are independent modules. Sim does **not** gate retention on drain progress — if a drain is failing, retention will still purge data on its own schedule. This matches the model used by Datadog Archives and AWS CloudWatch + S3 Export: keep the two configurations orthogonal and let the customer pair them deliberately.
+Drains and [Data Retention](/platform/enterprise/data-retention) are independent modules. AACFlow does **not** gate retention on drain progress — if a drain is failing, retention will still purge data on its own schedule. This matches the model used by Datadog Archives and AWS CloudWatch + S3 Export: keep the two configurations orthogonal and let the customer pair them deliberately.
 
 To safely use both together, set the drain cadence shorter than the retention period for the same data category:
 
@@ -196,16 +196,16 @@ To safely use both together, set the drain cadence shorter than the retention pe
 | Copilot chats, Copilot runs | **Task cleanup** |
 | Audit logs | *(no retention setting today — audit logs are kept indefinitely)* |
 
-For example, with **Log retention** set to 30 days, set the workflow-logs drain to **Hourly** or **Daily** so every row is exported well before retention purges it from Sim. Monitor recent drain runs in the settings page; if a drain has been failing for longer than your retention window, you may lose rows that retention purges before they are exported.
+For example, with **Log retention** set to 30 days, set the workflow-logs drain to **Hourly** or **Daily** so every row is exported well before retention purges it from AACFlow. Monitor recent drain runs in the settings page; if a drain has been failing for longer than your retention window, you may lose rows that retention purges before they are exported.
 
-After data lands in your bucket or webhook system, archive lifecycle (transitions to Glacier, expiration, GDPR right-to-erasure propagation) is governed by your own infrastructure — Sim has no further visibility into that data once delivery succeeds.
+After data lands in your bucket or webhook system, archive lifecycle (transitions to Glacier, expiration, GDPR right-to-erasure propagation) is governed by your own infrastructure — AACFlow has no further visibility into that data once delivery succeeds.
 
 ---
 
 <FAQ items={[
   {
     question: "Who can configure data drains?",
-    answer: "Only organization owners and admins can view, create, edit, run, or delete drains. On Sim Cloud, the organization must be on an Enterprise plan."
+    answer: "Only organization owners and admins can view, create, edit, run, or delete drains. On AACFlow Cloud, the organization must be on an Enterprise plan."
   },
   {
     question: "Will drained data be duplicated if a run fails?",
@@ -217,7 +217,7 @@ After data lands in your bucket or webhook system, archive lifecycle (transition
   },
   {
     question: "Does deleting a drain delete the data already exported?",
-    answer: "No. Deletion only removes the drain's configuration and its run history from Sim. Data already written to your bucket or sent to your webhook is yours and is unaffected."
+    answer: "No. Deletion only removes the drain's configuration and its run history from AACFlow. Data already written to your bucket or sent to your webhook is yours and is unaffected."
   },
   {
     question: "What happens if my credentials stop working mid-run?",
@@ -242,4 +242,4 @@ NEXT_PUBLIC_DATA_DRAINS_ENABLED=true
 
 `NEXT_PUBLIC_DATA_DRAINS_ENABLED` shows the **Settings → Enterprise → Data Drains** page in the UI. `DATA_DRAINS_ENABLED` gates the server-side mutating endpoints and the cron dispatcher — when unset on a self-hosted deployment, drain create/update/delete/run requests return `404` and the dispatcher is a no-op. Both should be set to `true` together.
 
-Data Drains otherwise rely on the standard Trigger.dev background job infrastructure used elsewhere in Sim — no additional setup is required. The cron dispatcher runs hourly and fans out due drains as background jobs.
+Data Drains otherwise rely on the standard Trigger.dev background job infrastructure used elsewhere in AACFlow — no additional setup is required. The cron dispatcher runs hourly and fans out due drains as background jobs.

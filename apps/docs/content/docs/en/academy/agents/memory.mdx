@@ -76,7 +76,7 @@ Any agent that talks to the same person or process more than once needs memory: 
   { question: "What memory modes does the Agent block support?", answer: "Conversation keeps every turn under a conversation ID. Sliding window (messages) keeps the most recent messages, and sliding window (tokens) keeps as much recent history as fits a token budget." },
   { question: "What should I use as a conversation ID?", answer: "Any stable key that identifies the thread: a customer ID, a ticket number, a channel ID. Runs that share the key share the conversation; runs with different keys never see each other's history." },
   { question: "Does agent memory cost extra tokens?", answer: "Recalled history is loaded into the model's context, so it is billed as input tokens like any other message. Sliding-window modes exist to cap that cost on long-running conversations." },
-  { question: "Where is the conversation stored?", answer: "In your Sim workspace, as a stored transcript per conversation ID. You can inspect it, and the agent reads from it automatically before each run." },
+  { question: "Where is the conversation stored?", answer: "In your AACFlow workspace, as a stored transcript per conversation ID. You can inspect it, and the agent reads from it automatically before each run." },
 ]} />
 
 ## Related documentation

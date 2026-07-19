@@ -7,7 +7,7 @@ import { Card, Cards } from 'fumadocs-ui/components/card'
 import { Step, Steps } from 'fumadocs-ui/components/steps'
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
 
-Le SDK officiel TypeScript/JavaScript pour Sim offre une sécurité de type complète et prend en charge les environnements Node.js et navigateur, vous permettant d'exécuter des flux de travail par programmation depuis vos applications Node.js, applications web et autres environnements JavaScript.
+Le SDK officiel TypeScript/JavaScript pour AACFlow offre une sécurité de type complète et prend en charge les environnements Node.js et navigateur, vous permettant d'exécuter des flux de travail par programmation depuis vos applications Node.js, applications web et autres environnements JavaScript.
 
 <Callout type="info">
   Le SDK TypeScript fournit une sécurité de type complète, une prise en charge de l'exécution asynchrone, une limitation automatique du débit avec backoff exponentiel et un suivi d'utilisation.
@@ -51,7 +51,7 @@ import { SimStudioClient } from 'simstudio-ts-sdk';
 // Initialize the client
 const client = new SimStudioClient({
   apiKey: 'your-api-key-here',
-  baseUrl: 'https://sim.ai' // optional, defaults to https://sim.ai
+  baseUrl: 'https://aacflow.io' // optional, defaults to https://aacflow.io
 });
 
 // Execute a workflow
@@ -74,8 +74,8 @@ new SimStudioClient(config: SimStudioConfig)
 ```
 
 **Configuration :**
-- `config.apiKey` (string) : Votre clé API Sim
-- `config.baseUrl` (string, optionnel) : URL de base pour l'API Sim (par défaut `https://sim.ai`)
+- `config.apiKey` (string) : Votre clé API AACFlow
+- `config.baseUrl` (string, optionnel) : URL de base pour l'API AACFlow (par défaut `https://aacflow.io`)
 
 #### Méthodes
 
@@ -493,7 +493,7 @@ Configurez le client en utilisant des variables d'environnement :
 
     const client = new SimStudioClient({
       apiKey,
-      baseUrl: process.env.SIM_BASE_URL || 'https://sim.ai'
+      baseUrl: process.env.SIM_BASE_URL || 'https://aacflow.io'
     });
     ```
 
@@ -591,7 +591,7 @@ import { SimStudioClient } from 'simstudio-ts-sdk';
 // Note: In production, use a proxy server to avoid exposing API keys
 const client = new SimStudioClient({
   apiKey: 'your-public-api-key', // Use with caution in browser
-  baseUrl: 'https://sim.ai'
+  baseUrl: 'https://aacflow.io'
 });
 
 async function executeClientSideWorkflow() {
@@ -965,7 +965,7 @@ function StreamingWorkflow() {
 
     // IMPORTANT: Make this API call from your backend server, not the browser
     // Never expose your API key in client-side code
-    const response = await fetch('https://sim.ai/api/workflows/WORKFLOW_ID/execute', {
+    const response = await fetch('https://aacflow.io/api/workflows/WORKFLOW_ID/execute', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -1025,8 +1025,8 @@ function StreamingWorkflow() {
 ## Obtenir votre clé API
 
 <Steps>
-  <Step title="Connectez-vous à Sim">
-    Accédez à [Sim](https://sim.ai) et connectez-vous à votre compte.
+  <Step title="Connectez-vous à AACFlow">
+    Accédez à [AACFlow](https://aacflow.io) et connectez-vous à votre compte.
   </Step>
   <Step title="Ouvrez votre workflow">
     Accédez au workflow que vous souhaitez exécuter par programmation.

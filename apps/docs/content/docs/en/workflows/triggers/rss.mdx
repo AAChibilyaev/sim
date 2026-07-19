@@ -18,7 +18,7 @@ The **RSS trigger** watches an RSS or Atom feed and runs a workflow when a new i
 2. Paste any RSS or Atom feed URL.
 3. Deploy the workflow to start polling.
 
-Once deployed, Sim checks the feed every minute and runs the workflow for each new item.
+Once deployed, AACFlow checks the feed every minute and runs the workflow for each new item.
 
 ## Outputs
 
@@ -43,7 +43,7 @@ RSS triggers only fire for items published after you save the trigger. Existing 
 </Callout>
 
 <FAQ items={[
-  { question: "How often is the RSS feed checked for new items?", answer: "Every minute. On each poll, Sim fetches the feed, compares items against the last checked timestamp and a list of previously seen GUIDs, and runs your workflow only for genuinely new items." },
+  { question: "How often is the RSS feed checked for new items?", answer: "Every minute. On each poll, AACFlow fetches the feed, compares items against the last checked timestamp and a list of previously seen GUIDs, and runs your workflow only for genuinely new items." },
   { question: "How does the poller avoid processing the same item twice?", answer: "It tracks up to 100 recent item GUIDs and the last checked timestamp. An item is new only if its GUID hasn't been seen and its publication date is after the last check. An idempotency layer also prevents duplicate runs for the same item." },
   { question: "Is there a limit on how many new items are processed per poll?", answer: "Yes — at most 25 new items per poll, newest first. If a feed publishes more than 25 between polls, only the 25 most recent run." },
   { question: "What output fields are available from the RSS trigger?", answer: "title, link, and pubDate as top-level convenience fields, plus a full item object (guid, summary, content, contentSnippet, author, categories, enclosure, isoDate), a feed object (title, link, description), and a processed timestamp." },

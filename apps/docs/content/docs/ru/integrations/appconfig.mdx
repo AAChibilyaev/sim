@@ -32,7 +32,7 @@ With the AppConfig integration, you can:
 - **Run Deployments**: Start a deployment of a configuration version to an environment with a chosen deployment strategy, inspect deployment status and history, and stop an in-progress deployment
 
 
-In Sim, the AppConfig integration lets your agents read live configuration to branch behavior, publish new configuration versions, and orchestrate safe, gradual rollouts. This pairs naturally with CloudWatch for monitoring deployment health and Slack for approval gates and rollout alerts, enabling end-to-end configuration and feature-flag automation.
+In AACFlow, the AppConfig integration lets your agents read live configuration to branch behavior, publish new configuration versions, and orchestrate safe, gradual rollouts. This pairs naturally with CloudWatch for monitoring deployment health and Slack for approval gates and rollout alerts, enabling end-to-end configuration and feature-flag automation.
 
 
 Authentication uses an AWS access key ID and secret access key. The associated IAM principal needs the relevant `appconfig:*` permissions (for example `appconfig:GetLatestConfiguration` and `appconfig:StartConfigurationSession` for retrieval, and `appconfig:StartDeployment` for rollouts).

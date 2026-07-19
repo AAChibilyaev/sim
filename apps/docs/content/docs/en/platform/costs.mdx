@@ -6,13 +6,13 @@ import { Callout } from 'fumadocs-ui/components/callout'
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
 import { Image } from '@/components/ui/image'
 
-Sim automatically calculates the cost of every workflow run from AI model usage plus a base run charge.
+AACFlow automatically calculates the cost of every workflow run from AI model usage plus a base run charge.
 
 ## Credits
 
-Sim uses **credits** as the unit of measurement for all usage. **1 credit = $0.005**.
+AACFlow uses **credits** as the unit of measurement for all usage. **1 credit = $0.005**.
 
-All plan limits, usage meters, and billing thresholds are displayed in credits throughout the Sim UI. Dollar amounts in this documentation are provided for reference.
+All plan limits, usage meters, and billing thresholds are displayed in credits throughout the AACFlow UI. Dollar amounts in this documentation are provided for reference.
 
 ## How Costs Are Calculated
 
@@ -54,7 +54,7 @@ The model breakdown shows:
 
 <Tabs items={['Hosted Models', 'Bring Your Own API Key']}>
   <Tab>
-    **Hosted Models** - Sim provides API keys with a 1.1x pricing multiplier for Agent blocks:
+    **Hosted Models** - AACFlow provides API keys with a 1.1x pricing multiplier for Agent blocks:
 
     **OpenAI**
     | Model | Base Price (Input/Output) | Hosted Price (Input/Output) |
@@ -112,7 +112,7 @@ The model breakdown shows:
 
 ## Hosted Tool Pricing
 
-When workflows use tool blocks with Sim's hosted API keys, costs are charged per operation. Use your own keys via BYOK to pay providers directly instead.
+When workflows use tool blocks with AACFlow's hosted API keys, costs are charged per operation. Use your own keys via BYOK to pay providers directly instead.
 
 <Tabs items={['Firecrawl', 'Exa', 'Serper', 'Perplexity', 'Linkup', 'Parallel AI', 'Jina AI', 'Google Cloud', 'Brandfetch']}>
   <Tab>
@@ -211,7 +211,7 @@ When workflows use tool blocks with Sim's hosted API keys, costs are charged per
 
 ## Bring Your Own Key (BYOK)
 
-Use your own API keys for supported providers instead of Sim's hosted keys to pay base prices with no markup.
+Use your own API keys for supported providers instead of AACFlow's hosted keys to pay base prices with no markup.
 
 ### Supported Providers
 
@@ -242,7 +242,7 @@ Use your own API keys for supported providers instead of Sim's hosted keys to pa
   BYOK keys are encrypted at rest. Only workspace admins can manage keys.
 </Callout>
 
-When configured, workflows use your key instead of Sim's hosted keys. If removed, workflows automatically fall back to hosted keys with the multiplier.
+When configured, workflows use your key instead of AACFlow's hosted keys. If removed, workflows automatically fall back to hosted keys with the multiplier.
 
 ## Voice Input
 
@@ -261,7 +261,7 @@ Each voice session is billed when it starts. In deployed chat voice mode, each c
 
 ## Plans
 
-Sim has two paid plan tiers - **Pro** and **Max**. Either can be used individually or with a team. Team plans pool credits across all seats in the organization.
+AACFlow has two paid plan tiers - **Pro** and **Max**. Either can be used individually or with a team. Team plans pool credits across all seats in the organization.
 
 | Plan | Price | Credits Included | Daily Refresh |
 |------|-------|------------------|---------------|
@@ -321,7 +321,7 @@ By default, your usage is capped at the credits included in your plan. To allow 
 | **Max** | Up to 10 | — |
 | **Team / Enterprise** | — | Unlimited (Owners and Admins) |
 
-Team and Enterprise plans unlock shared workspaces that belong to your organization. Every workspace created under a Team or Enterprise plan is organization-owned: Owners and Admins can create unlimited shared workspaces, while organization Members cannot create workspaces (personal workspaces created before joining the organization remain accessible). Internal members invited to a shared workspace join the organization and count toward your seat total — Enterprise invites require an available seat at invite time, while Team plans add a seat automatically when the invitee accepts. Existing Sim users who already belong to another organization can be added as external workspace members; they get workspace access without joining your organization or using one of your seats. When a Team or Enterprise subscription is cancelled or downgraded, existing shared workspaces remain accessible to current members but new invites are disabled until the organization is upgraded again.
+Team and Enterprise plans unlock shared workspaces that belong to your organization. Every workspace created under a Team or Enterprise plan is organization-owned: Owners and Admins can create unlimited shared workspaces, while organization Members cannot create workspaces (personal workspaces created before joining the organization remain accessible). Internal members invited to a shared workspace join the organization and count toward your seat total — Enterprise invites require an available seat at invite time, while Team plans add a seat automatically when the invitee accepts. Existing AACFlow users who already belong to another organization can be added as external workspace members; they get workspace access without joining your organization or using one of your seats. When a Team or Enterprise subscription is cancelled or downgraded, existing shared workspaces remain accessible to current members but new invites are disabled until the organization is upgraded again.
 
 ### Rate Limits
 
@@ -372,7 +372,7 @@ Storage follows the paid tier: Pro and Pro for Teams share the Pro limit, while 
 
 ## Billing Model
 
-Sim uses a **base subscription + overage** billing model:
+AACFlow uses a **base subscription + overage** billing model:
 
 ### How It Works
 
@@ -395,7 +395,7 @@ Sim uses a **base subscription + overage** billing model:
 
 ### Threshold Billing
 
-When on-demand is enabled and unbilled overage reaches $100, Sim automatically bills the full unbilled amount.
+When on-demand is enabled and unbilled overage reaches $100, AACFlow automatically bills the full unbilled amount.
 
 **Example:**
 - Day 10: $120 overage → Bill $120 immediately
@@ -427,7 +427,7 @@ GET /api/users/me/usage-limits
 
 **Example Request:**
 ```bash
-curl -X GET -H "X-API-Key: YOUR_API_KEY" -H "Content-Type: application/json" https://sim.ai/api/users/me/usage-limits
+curl -X GET -H "X-API-Key: YOUR_API_KEY" -H "Content-Type: application/json" https://aacflow.io/api/users/me/usage-limits
 ```
 
 **Example Response:**
@@ -494,7 +494,7 @@ Pro and Team plan users can buy additional credits at any time in **Settings →
 
 ## Next Steps
 
-- Review your current usage in [Settings → Subscription](https://sim.ai/settings/subscription)
+- Review your current usage in [Settings → Subscription](https://aacflow.io/settings/subscription)
 - Learn about [Logging](/logs-debugging/logging) to track run details
 - Explore the [External API](/api-reference/getting-started) for programmatic cost monitoring
 - Check out [workflow optimization techniques](/workflows#blocks) to reduce costs
@@ -503,10 +503,10 @@ import { FAQ } from '@/components/ui/faq'
 
 <FAQ items={[
   { question: "How much does a single workflow run cost?", answer: "Every run incurs a base charge of 1 credit ($0.005). On top of that, any AI model usage is billed based on token consumption. Workflows that do not use AI blocks only pay the base run charge." },
-  { question: "What is the credit-to-dollar conversion rate?", answer: "1 credit equals $0.005. All plan limits, usage meters, and billing thresholds in the Sim UI are displayed in credits." },
+  { question: "What is the credit-to-dollar conversion rate?", answer: "1 credit equals $0.005. All plan limits, usage meters, and billing thresholds in the AACFlow UI are displayed in credits." },
   { question: "Do unused daily refresh credits carry over?", answer: "No. Daily refresh credits reset every 24 hours and do not accumulate. If you do not use them within the day, they are lost." },
   { question: "What happens when I exceed my plan's credit limit?", answer: "By default, your usage is capped at your plan's included credits and runs will stop. If you enable on-demand billing or manually raise your usage limit in Settings, you can continue running workflows and pay for the overage at the end of the billing period." },
-  { question: "How does the 1.1x hosted model multiplier work?", answer: "When you use Sim's hosted API keys (instead of bringing your own), a 1.1x multiplier is applied to the base model pricing for Agent blocks. This covers infrastructure and API management costs. You can avoid this multiplier by using your own API keys via the BYOK feature." },
+  { question: "How does the 1.1x hosted model multiplier work?", answer: "When you use AACFlow's hosted API keys (instead of bringing your own), a 1.1x multiplier is applied to the base model pricing for Agent blocks. This covers infrastructure and API management costs. You can avoid this multiplier by using your own API keys via the BYOK feature." },
   { question: "Are there any free options for AI models?", answer: "Yes. If you run local models through Ollama or VLLM, there are no API costs for those model calls. You still pay the base run charge of 1 credit per run." },
-  { question: "When does threshold billing trigger?", answer: "When on-demand billing is enabled and your unbilled overage reaches $100, Sim automatically bills the full unbilled amount. This spreads large charges throughout the month instead of accumulating one large bill at period end." },
+  { question: "When does threshold billing trigger?", answer: "When on-demand billing is enabled and your unbilled overage reaches $100, AACFlow automatically bills the full unbilled amount. This spreads large charges throughout the month instead of accumulating one large bill at period end." },
 ]} />

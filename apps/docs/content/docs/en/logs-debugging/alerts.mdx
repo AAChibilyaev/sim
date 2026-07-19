@@ -63,7 +63,7 @@ You can also include the run's `finalOutput`, its `traceSpans` (webhook only), r
 
 ## Verifying a webhook
 
-Each delivery is signed so you can confirm it came from Sim. The signature is in the `sim-signature` header:
+Each delivery is signed so you can confirm it came from AACFlow. The signature is in the `sim-signature` header:
 
 ```
 sim-signature: t=1719907200000,v1=<hex>
@@ -81,11 +81,11 @@ function verify(rawBody, signatureHeader, secret) {
 }
 ```
 
-Sim also sends `sim-event`, `sim-timestamp`, and an `Idempotency-Key` header on each delivery, so a receiver can dedupe retries.
+AACFlow also sends `sim-event`, `sim-timestamp`, and an `Idempotency-Key` header on each delivery, so a receiver can dedupe retries.
 
 ## Retries
 
-If your endpoint does not return a 2xx, Sim retries up to 5 times with increasing delays of 5s, 15s, 60s, 3m, then 10m, each with a little jitter. After the fifth failure the delivery is marked failed.
+If your endpoint does not return a 2xx, AACFlow retries up to 5 times with increasing delays of 5s, 15s, 60s, 3m, then 10m, each with a little jitter. After the fifth failure the delivery is marked failed.
 
 ## Setting up an alert
 

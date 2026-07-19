@@ -5,7 +5,7 @@ title: Dateien übergeben
 import { Callout } from 'fumadocs-ui/components/callout'
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
 
-Sim macht es einfach, mit Dateien in Ihren Workflows zu arbeiten. Blöcke können Dateien empfangen, verarbeiten und nahtlos an andere Blöcke weitergeben.
+AACFlow macht es einfach, mit Dateien in Ihren Workflows zu arbeiten. Blöcke können Dateien empfangen, verarbeiten und nahtlos an andere Blöcke weitergeben.
 
 ## Dateiobjekte
 
@@ -85,7 +85,7 @@ Wenn Sie einen Workflow über die API aufrufen, der Dateieingaben erwartet, füg
   <Tab value="Base64">
 
     ```bash
-    curl -X POST "https://sim.ai/api/workflows/YOUR_WORKFLOW_ID/execute" \
+    curl -X POST "https://aacflow.io/api/workflows/YOUR_WORKFLOW_ID/execute" \
       -H "Content-Type: application/json" \
       -H "x-api-key: YOUR_API_KEY" \
       -d '{
@@ -101,7 +101,7 @@ Wenn Sie einen Workflow über die API aufrufen, der Dateieingaben erwartet, füg
   <Tab value="URL">
 
     ```bash
-    curl -X POST "https://sim.ai/api/workflows/YOUR_WORKFLOW_ID/execute" \
+    curl -X POST "https://aacflow.io/api/workflows/YOUR_WORKFLOW_ID/execute" \
       -H "Content-Type: application/json" \
       -H "x-api-key: YOUR_API_KEY" \
       -d '{

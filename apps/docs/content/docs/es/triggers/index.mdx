@@ -1,6 +1,6 @@
 ---
 title: Descripción general
-description: Los disparadores son las formas principales de iniciar flujos de trabajo de Sim
+description: Los disparadores son las formas principales de iniciar flujos de trabajo de AACFlow
 ---
 
 import { Card, Cards } from 'fumadocs-ui/components/card'
@@ -56,7 +56,7 @@ Utiliza el bloque Start para todo lo que se origina desde el editor, despliegue 
 
 ## Prioridad de ejecución manual
 
-Cuando haces clic en **Ejecutar** en el editor, Sim selecciona automáticamente qué disparador ejecutar según el siguiente orden de prioridad:
+Cuando haces clic en **Ejecutar** en el editor, AACFlow selecciona automáticamente qué disparador ejecutar según el siguiente orden de prioridad:
 
 1. **Bloque Start** (prioridad más alta)
 2. **Disparadores de programación**
@@ -64,7 +64,7 @@ Cuando haces clic en **Ejecutar** en el editor, Sim selecciona automáticamente 
 
 Si tu flujo de trabajo tiene múltiples disparadores, se ejecutará el disparador de mayor prioridad. Por ejemplo, si tienes tanto un bloque Start como un disparador Webhook, al hacer clic en Ejecutar se ejecutará el bloque Start.
 
-**Disparadores externos con cargas útiles simuladas**: Cuando los disparadores externos (webhooks e integraciones) se ejecutan manualmente, Sim genera automáticamente cargas útiles simuladas basadas en la estructura de datos esperada del disparador. Esto asegura que los bloques posteriores puedan resolver las variables correctamente durante las pruebas.
+**Disparadores externos con cargas útiles simuladas**: Cuando los disparadores externos (webhooks e integraciones) se ejecutan manualmente, AACFlow genera automáticamente cargas útiles simuladas basadas en la estructura de datos esperada del disparador. Esto asegura que los bloques posteriores puedan resolver las variables correctamente durante las pruebas.
 
 ## Grupos de sondeo de correo electrónico
 
@@ -82,7 +82,7 @@ Los grupos de sondeo te permiten monitorear las bandejas de entrada de Gmail o O
 2. Ingresa direcciones de correo electrónico (separadas por comas o saltos de línea, o arrastra y suelta un CSV)
 3. Haz clic en **Enviar invitaciones**
 
-Los invitados reciben un correo electrónico con un enlace para conectar su cuenta. Una vez conectada, su bandeja de entrada se incluye automáticamente en el grupo de sondeo. Los invitados no necesitan ser miembros de tu organización Sim.
+Los invitados reciben un correo electrónico con un enlace para conectar su cuenta. Una vez conectada, su bandeja de entrada se incluye automáticamente en el grupo de sondeo. Los invitados no necesitan ser miembros de tu organización AACFlow.
 
 **Usar en un flujo de trabajo**
 

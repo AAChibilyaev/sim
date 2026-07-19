@@ -15,7 +15,7 @@ Access Control lets organization admins define permission groups that restrict w
 
 Access control is built around **permission groups**. Each group belongs to a specific organization and has a name, an optional description, a **workspace scope**, an optional **member** list, and a configuration that defines what its members can and cannot do. The organization's single **default group** is org-wide; every other group targets a **specific set of workspaces**. A non-default group with **no members** governs **all members** of its workspaces (including external members); adding members narrows it to only those people. Personal workspaces that do not belong to an organization have no permission groups.
 
-Sim resolves the governing group for a user in a workspace deterministically:
+AACFlow resolves the governing group for a user in a workspace deterministically:
 
 1. a non-default group targeting that workspace that the user is an **explicit member** of takes precedence; otherwise
 2. a non-default group targeting that workspace that has **no members** (so it governs all members of the workspace, including external members) applies; otherwise
@@ -24,7 +24,7 @@ Sim resolves the governing group for a user in a workspace deterministically:
 
 Assignment-time checks keep this unambiguous: a workspace has at most one all-members group, and a user is an explicit member of at most one group per workspace.
 
-When a user runs a workflow or uses Mothership, Sim reads the resolved group's configuration and applies it:
+When a user runs a workflow or uses Mothership, AACFlow reads the resolved group's configuration and applies it:
 
 - **In the executor:** If a workflow uses a disallowed block type or model provider, execution halts immediately with an error. This applies to both manual runs and scheduled or API-triggered deployments.
 - **In Mothership:** Disallowed blocks are filtered out of the block list so they cannot be added to a workflow. Disallowed tool types (MCP, custom tools, skills) are skipped if Mothership attempts to use them.
@@ -55,7 +55,7 @@ A workspace-scoped group with **no members** applies to everyone in its workspac
 
 Controls which AI model providers members of this group can use.
 
-<Image src="/static/enterprise/access-control-model-providers.png" alt="Model Providers tab showing a grid of AI providers including Ollama, vLLM, OpenAI, Anthropic, Google, Azure OpenAI, and others with checkboxes to allow or restrict access" width={900} height={500} /> The list shows all providers available in Sim.
+<Image src="/static/enterprise/access-control-model-providers.png" alt="Model Providers tab showing a grid of AI providers including Ollama, vLLM, OpenAI, Anthropic, Google, Azure OpenAI, and others with checkboxes to allow or restrict access" width={900} height={500} /> The list shows all providers available in AACFlow.
 
 - **All checked (default):** All providers are allowed.
 - **Subset checked:** Only the selected providers are allowed. Any workflow block or agent using a provider not on the list will fail at execution time.
@@ -99,7 +99,7 @@ Controls visibility of platform features and modules.
 |---------|-------------------|
 | Integrations | Hides the Integrations tab in Settings |
 | Secrets | Hides the Secrets tab in Settings |
-| API Keys | Hides the Sim Keys tab in Settings |
+| API Keys | Hides the AACFlow Keys tab in Settings |
 | Files | Hides the Files tab in Settings |
 
 **Tools**
@@ -108,7 +108,7 @@ Controls visibility of platform features and modules.
 |---------|-------------------|
 | MCP Tools | Disables the use of MCP tools in workflows and agents |
 | Custom Tools | Disables the use of custom tools in workflows and agents |
-| Skills | Disables the use of Sim Skills in workflows and agents |
+| Skills | Disables the use of AACFlow Skills in workflows and agents |
 
 **Deploy Tabs**
 
@@ -124,7 +124,7 @@ Controls visibility of platform features and modules.
 
 | Feature | Effect when checked |
 |---------|-------------------|
-| Sim Mailer | Hides the Sim Mailer (Inbox) feature |
+| AACFlow Mailer | Hides the AACFlow Mailer (Inbox) feature |
 | Public API | Disables public API access for deployed workflows |
 
 **Logs**
@@ -243,4 +243,4 @@ You can also set a server-level block allowlist using the `ALLOWED_INTEGRATIONS`
 ALLOWED_INTEGRATIONS=slack,gmail,agent,function,condition
 ```
 
-Once enabled, permission groups are managed through **Settings → Enterprise → Access Control** the same way as Sim Cloud.
+Once enabled, permission groups are managed through **Settings → Enterprise → Access Control** the same way as AACFlow Cloud.

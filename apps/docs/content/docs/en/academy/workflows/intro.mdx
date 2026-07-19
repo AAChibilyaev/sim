@@ -14,7 +14,7 @@ import { WorkflowPreview, CLASSIFY_REPLY_WORKFLOW } from '@/components/workflow-
 <div className="mt-8 grid grid-cols-1 items-start gap-10 lg:grid-cols-[1fr_300px]">
 <div>
 
-A **workflow** is a visual program made of blocks. It's where you compose everything else in Sim, data, operations, integrations, and AI agents, into a process, and bind it to a trigger so it runs.
+A **workflow** is a visual program made of blocks. It's where you compose everything else in AACFlow, data, operations, integrations, and AI agents, into a process, and bind it to a trigger so it runs.
 
 <WhatYouWillLearn
   items={[
@@ -58,7 +58,7 @@ A **workflow** is a visual program made of blocks. It's where you compose everyt
 - It's made of **blocks**, each one a step. Some blocks are **triggers**: they decide what starts the run and what it receives.
 - **Connections** link blocks together. They set the order: a block runs after the blocks wired into it finish.
 - Blocks have **parameters** that configure how they work. A Fetch Webpage block takes a URL; an Agent block takes a model and a prompt.
-- When a workflow runs, Sim records what each block produced. Any later block can read an earlier block's output through a **connection tag**, like `<fetch.content>`.
+- When a workflow runs, AACFlow records what each block produced. Any later block can read an earlier block's output through a **connection tag**, like `<fetch.content>`.
 - Everything that happened is saved in the **logs**, the trigger, every block, and each block's input and output, so you can see exactly where a value came from.
 
 Here's a small workflow you can read top to bottom, blocks wired in order, each one a step. The highlighted block reads an earlier block's output through a connection tag:
@@ -75,10 +75,10 @@ So if `A` feeds both `B` and `C`, then `B` and `C` start at the same moment `A` 
 
 From those primitives you get expressive control flow: **branch** down one path or another with a Condition or Router, **loop** over a list, run work in **parallel** across many items. These are the expressive core of what you'll build, and they're all just blocks and connections.
 
-Everything complicated: an automated software factory, an autonomous triage system that takes action on its own, is built from these same simple primitives. You start with a few blocks; the platform scales to your ambition. As you get more comfortable, the workflows you compose get richer, more branches, more agents, more reach, without ever leaving the same model you learned here. We're glad you're on this journey: Sim is built of simple primitives that compose into anything you can imagine.
+Everything complicated: an automated software factory, an autonomous triage system that takes action on its own, is built from these same simple primitives. You start with a few blocks; the platform scales to your ambition. As you get more comfortable, the workflows you compose get richer, more branches, more agents, more reach, without ever leaving the same model you learned here. We're glad you're on this journey: AACFlow is built of simple primitives that compose into anything you can imagine.
 
 <FAQ items={[
-  { question: "What is a workflow in Sim?", answer: "A visual program made of blocks on a canvas. Each block does one job, such as running an AI agent, calling an integration, or writing to a table, and connections carry data between them left to right." },
+  { question: "What is a workflow in AACFlow?", answer: "A visual program made of blocks on a canvas. Each block does one job, such as running an AI agent, calling an integration, or writing to a table, and connections carry data between them left to right." },
   { question: "Do I need to code to build workflows?", answer: "No. Workflows are built visually with no-code blocks and plain-language configuration. When you do want code, a Function block accepts it, but nothing requires it." },
   { question: "How does data move between blocks?", answer: "Through connection tags like <start.input>: a block's parameter references the output of an earlier block, and the value resolves when the run reaches it." },
   { question: "When does a block run?", answer: "When every block it depends on has finished. Independent branches run in parallel automatically, and a block waits for all of its inputs." },

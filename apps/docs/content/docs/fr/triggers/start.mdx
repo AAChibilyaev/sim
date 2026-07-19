@@ -6,7 +6,7 @@ import { Callout } from 'fumadocs-ui/components/callout'
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
 import { Image } from '@/components/ui/image'
 
-Le bloc Démarrer est le déclencheur par défaut pour les flux de travail créés dans Sim. Il collecte des entrées structurées et les distribue au reste de votre graphe pour les tests d'éditeur, les déploiements d'API et les expériences de chat.
+Le bloc Démarrer est le déclencheur par défaut pour les flux de travail créés dans AACFlow. Il collecte des entrées structurées et les distribue au reste de votre graphe pour les tests d'éditeur, les déploiements d'API et les expériences de chat.
 
 <div className="flex justify-center">
   <Image
@@ -27,7 +27,7 @@ Le bloc Démarrer se trouve dans l'emplacement de départ lorsque vous créez un
 Le bloc Démarrer émet différentes données selon la surface d'exécution :
 
 - **Champs de format d'entrée** — Chaque champ que vous ajoutez devient disponible comme <code>&lt;start.fieldName&gt;</code>. Par exemple, un champ `customerId` apparaît comme <code>&lt;start.customerId&gt;</code> dans les blocs et modèles en aval.
-- **Champs spécifiques au chat** — Lorsque le flux de travail s'exécute depuis le panneau latéral de chat ou une expérience de chat déployée, Sim fournit également <code>&lt;start.input&gt;</code> (dernier message de l'utilisateur), <code>&lt;start.conversationId&gt;</code> (ID de session active) et <code>&lt;start.files&gt;</code> (pièces jointes du chat).
+- **Champs spécifiques au chat** — Lorsque le flux de travail s'exécute depuis le panneau latéral de chat ou une expérience de chat déployée, AACFlow fournit également <code>&lt;start.input&gt;</code> (dernier message de l'utilisateur), <code>&lt;start.conversationId&gt;</code> (ID de session active) et <code>&lt;start.files&gt;</code> (pièces jointes du chat).
 
 Limitez les champs de format d'entrée aux noms que vous prévoyez de référencer ultérieurement — ces valeurs sont les seuls champs structurés partagés entre les exécutions de l'éditeur, de l'API et du chat.
 
@@ -60,7 +60,7 @@ Référencez les valeurs structurées en aval avec des expressions telles que <c
   <Tab>
     <div className="space-y-3">
       <p>
-        Le déploiement vers l'API transforme le format d'entrée en un contrat JSON pour les clients. Chaque champ devient une partie du corps de la requête, et Sim convertit les types primitifs lors de l'ingestion. Les champs de fichiers attendent des objets qui référencent des fichiers téléchargés ; utilisez le point de terminaison de téléchargement de fichiers d'exécution avant d'invoquer le flux de travail.
+        Le déploiement vers l'API transforme le format d'entrée en un contrat JSON pour les clients. Chaque champ devient une partie du corps de la requête, et AACFlow convertit les types primitifs lors de l'ingestion. Les champs de fichiers attendent des objets qui référencent des fichiers téléchargés ; utilisez le point de terminaison de téléchargement de fichiers d'exécution avant d'invoquer le flux de travail.
       </p>
       <p>
         Les appelants de l'API peuvent inclure des propriétés optionnelles supplémentaires.

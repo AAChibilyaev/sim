@@ -6,7 +6,7 @@ import { Callout } from 'fumadocs-ui/components/callout'
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
 import { Video } from '@/components/ui/video'
 
-Sim proporciona una API externa completa para consultar registros de ejecución de flujos de trabajo y configurar webhooks para notificaciones en tiempo real cuando los flujos de trabajo se completan.
+AACFlow proporciona una API externa completa para consultar registros de ejecución de flujos de trabajo y configurar webhooks para notificaciones en tiempo real cuando los flujos de trabajo se completan.
 
 ## Autenticación
 
@@ -14,10 +14,10 @@ Todas las solicitudes a la API requieren una clave de API pasada en el encabezad
 
 ```bash
 curl -H "x-api-key: YOUR_API_KEY" \
-  https://sim.ai/api/v1/logs?workspaceId=YOUR_WORKSPACE_ID
+  https://aacflow.io/api/v1/logs?workspaceId=YOUR_WORKSPACE_ID
 ```
 
-Puedes generar claves de API desde la configuración de usuario en el panel de control de Sim.
+Puedes generar claves de API desde la configuración de usuario en el panel de control de AACFlow.
 
 ## API de registros
 
@@ -328,7 +328,7 @@ Para webhooks, hay opciones adicionales disponibles:
 
 ### Estructura de carga útil
 
-Cuando se completa la ejecución de un flujo de trabajo, Sim envía la siguiente carga útil (vía webhook POST, correo electrónico o Slack):
+Cuando se completa la ejecución de un flujo de trabajo, AACFlow envía la siguiente carga útil (vía webhook POST, correo electrónico o Slack):
 
 ```json
 {
@@ -389,7 +389,7 @@ Cada solicitud de webhook incluye estos encabezados (solo canal webhook):
 
 ### Verificación de firma
 
-Si configuras un secreto de webhook, verifica la firma para asegurar que el webhook proviene de Sim:
+Si configuras un secreto de webhook, verifica la firma para asegurar que el webhook proviene de AACFlow:
 
 <Tabs items={['Node.js', 'Python']}>
   <Tab value="Node.js">
@@ -478,7 +478,7 @@ Las entregas de webhook fallidas se reintentan con retroceso exponencial y fluct
 
 1. **Estrategia de sondeo**: Cuando consultes registros, utiliza paginación basada en cursores con `order=asc` y `startDate` para obtener nuevos registros de manera eficiente.
 
-2. **Seguridad de webhook**: Siempre configura un secreto de webhook y verifica las firmas para asegurar que las solicitudes provienen de Sim.
+2. **Seguridad de webhook**: Siempre configura un secreto de webhook y verifica las firmas para asegurar que las solicitudes provienen de AACFlow.
 
 3. **Idempotencia**: Utiliza la cabecera `Idempotency-Key` para detectar y manejar entregas duplicadas de webhook.
 
@@ -528,7 +528,7 @@ async function pollLogs() {
   }
   
   const response = await fetch(
-    `https://sim.ai/api/v1/logs?${params}`,
+    `https://aacflow.io/api/v1/logs?${params}`,
     {
       headers: {
         'x-api-key': 'YOUR_API_KEY'

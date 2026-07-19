@@ -5,7 +5,7 @@ title: Pasar archivos
 import { Callout } from 'fumadocs-ui/components/callout'
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
 
-Sim facilita el trabajo con archivos a lo largo de tus flujos de trabajo. Los bloques pueden recibir archivos, procesarlos y pasarlos a otros bloques sin problemas.
+AACFlow facilita el trabajo con archivos a lo largo de tus flujos de trabajo. Los bloques pueden recibir archivos, procesarlos y pasarlos a otros bloques sin problemas.
 
 ## Objetos de archivo
 
@@ -85,7 +85,7 @@ Al llamar a un flujo de trabajo a través de la API que espera entrada de archiv
   <Tab value="Base64">
 
     ```bash
-    curl -X POST "https://sim.ai/api/workflows/YOUR_WORKFLOW_ID/execute" \
+    curl -X POST "https://aacflow.io/api/workflows/YOUR_WORKFLOW_ID/execute" \
       -H "Content-Type: application/json" \
       -H "x-api-key: YOUR_API_KEY" \
       -d '{
@@ -101,7 +101,7 @@ Al llamar a un flujo de trabajo a través de la API que espera entrada de archiv
   <Tab value="URL">
 
     ```bash
-    curl -X POST "https://sim.ai/api/workflows/YOUR_WORKFLOW_ID/execute" \
+    curl -X POST "https://aacflow.io/api/workflows/YOUR_WORKFLOW_ID/execute" \
       -H "Content-Type: application/json" \
       -H "x-api-key: YOUR_API_KEY" \
       -d '{

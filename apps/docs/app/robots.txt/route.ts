@@ -5,7 +5,7 @@ export const revalidate = false
 export async function GET() {
   const baseUrl = DOCS_BASE_URL
 
-  const robotsTxt = `# Robots.txt for Sim Documentation
+  const robotsTxt = `# Robots.txt for AACFlow Documentation
 
 User-agent: *
 Disallow: /.next/

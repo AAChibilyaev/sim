@@ -16,7 +16,7 @@ import { BlockInfoCard } from "@/components/ui/block-info-card"
 [HubSpot](https://www.hubspot.com) is a comprehensive CRM platform that provides a full suite of marketing, sales, and customer service tools to help businesses grow. With powerful automation capabilities and an extensive API, HubSpot serves businesses of all sizes across industries.
 
 
-With the HubSpot integration in Sim, you can:
+With the HubSpot integration in AACFlow, you can:
 
 
 - **Manage contacts**: List, get, create, update, and search contacts in your CRM
@@ -28,7 +28,7 @@ With the HubSpot integration in Sim, you can:
 - **Access users**: Retrieve user information from your HubSpot account
 
 
-In Sim, the HubSpot integration enables your agents to interact with your CRM data as part of automated workflows. Agents can qualify leads, enrich contact records, track deals, and synchronize data across your tech stack—enabling intelligent sales and marketing automation.
+In AACFlow, the HubSpot integration enables your agents to interact with your CRM data as part of automated workflows. Agents can qualify leads, enrich contact records, track deals, and synchronize data across your tech stack—enabling intelligent sales and marketing automation.
 
 
 New to the integration? Follow the [HubSpot setup guide](/integrations/hubspot-setup) to install it, connect your account, and configure your first workflow.
@@ -3236,7 +3236,7 @@ Triggers when HubSpot CRM records (contacts, companies, deals, tickets, custom o
 
 | --------- | ---- | -------- | ----------- |
 
-| `triggerCredentials` | string | Yes | Connect a HubSpot account so Sim can poll your CRM on your behalf. |
+| `triggerCredentials` | string | Yes | Connect a HubSpot account so AACFlow can poll your CRM on your behalf. |
 
 | `objectType` | string | Yes | What you want to watch. |
 
@@ -3248,7 +3248,7 @@ Triggers when HubSpot CRM records (contacts, companies, deals, tickets, custom o
 
 | `targetPropertyName` | string | No | Fires only when this specific property changes value on a record. |
 
-| `properties` | string | No | Properties to include on each record. Leave empty to use sensible defaults. Sim always includes the timestamps it needs internally. |
+| `properties` | string | No | Properties to include on each record. Leave empty to use sensible defaults. AACFlow always includes the timestamps it needs internally. |
 
 | `pipelineId` | string | No | Restrict to a single pipeline. |
 
@@ -3292,6 +3292,6 @@ Triggers when HubSpot CRM records (contacts, companies, deals, tickets, custom o
 
 | `listId` | string | HubSpot list ID \(list_membership events only\) |
 
-| `timestamp` | string | ISO timestamp when Sim emitted the event |
+| `timestamp` | string | ISO timestamp when AACFlow emitted the event |
 
 

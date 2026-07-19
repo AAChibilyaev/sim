@@ -42,7 +42,7 @@ Query for the runs you care about, then loop over the returned IDs and fetch det
 2. Loop over the IDs and call **Get Run Details** → inspect `<logs2.traceSpans>` to find the failing block
 3. Act on it — post a summary to Slack, file a ticket, or feed the trace to an Agent block for diagnosis
 
-This pairs naturally with the [Sim trigger](/workflows/triggers/sim): the trigger hands you the `runId` that fired the event, and Get Run Details gives you the full trace.
+This pairs naturally with the [AACFlow trigger](/workflows/triggers/sim): the trigger hands you the `runId` that fired the event, and Get Run Details gives you the full trace.
 
 <Callout type="info">
   The block always operates on the current workspace. Costs are denominated in credits, both for

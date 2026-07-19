@@ -108,12 +108,12 @@ Parameter descriptions live on your Start block inputs. A deployed tool picks up
 
 ## Connecting MCP Clients
 
-Sim generates a ready-to-paste configuration for every supported client. To get it:
+AACFlow generates a ready-to-paste configuration for every supported client. To get it:
 
 1. Navigate to **Settings → MCP Servers**
 2. Click **Details** on your server
-3. Under **MCP Client**, select your client — **Cursor**, **Claude Code**, **Claude Desktop**, **VS Code**, or **Sim**
-4. Copy the configuration, replacing `$SIM_API_KEY` with your Sim API key
+3. Under **MCP Client**, select your client — **Cursor**, **Claude Code**, **Claude Desktop**, **VS Code**, or **AACFlow**
+4. Copy the configuration, replacing `$SIM_API_KEY` with your AACFlow API key
 
 <div className="flex justify-center">
   <Image
@@ -203,7 +203,7 @@ From the server detail view in **Settings → MCP Servers**, you can:
 When an MCP client calls your tool:
 
 1. The request is received at your MCP server URL
-2. Sim validates the request and maps parameters to workflow inputs
+2. AACFlow validates the request and maps parameters to workflow inputs
 3. The deployed workflow executes with the provided inputs
 4. Results are returned to the MCP client
 
@@ -220,7 +220,7 @@ Workflows execute using the same deployment version as API calls, ensuring consi
 
 <FAQ items={[
   { question: "Does my workflow need to be deployed before adding it as an MCP tool?", answer: "Yes. Only deployed workflows can be added as MCP tools. The MCP tool executes the same deployment version as API calls, ensuring consistent behavior between both access methods." },
-  { question: "What MCP protocol does Sim implement?", answer: "Sim implements the standard MCP protocol using the official @modelcontextprotocol/sdk types, supporting JSON-RPC 2.0 messages including tools/list and tools/call methods. It handles both requests and notifications per the MCP specification." },
+  { question: "What MCP protocol does AACFlow implement?", answer: "AACFlow implements the standard MCP protocol using the official @modelcontextprotocol/sdk types, supporting JSON-RPC 2.0 messages including tools/list and tools/call methods. It handles both requests and notifications per the MCP specification." },
   { question: "How do I authenticate MCP client connections?", answer: "Include your API key in the X-API-Key header when connecting via mcp-remote or other HTTP-based MCP transports. The server validates authentication using hybrid auth that supports both session-based and API key-based access." },
   { question: "Can I add the same workflow to multiple MCP servers?", answer: "Yes. When configuring a workflow as an MCP tool, you can select multiple MCP servers to add it to. Each server exposes its own URL, so you can organize tools into different servers for different use cases or clients." },
   { question: "What naming conventions should I follow for tool names?", answer: "Use lowercase letters, numbers, and underscores only. The name should be descriptive and follow MCP naming conventions, such as search_documents or send_email. This helps AI assistants understand and correctly invoke your tools." },

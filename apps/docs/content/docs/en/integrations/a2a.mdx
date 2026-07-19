@@ -11,7 +11,7 @@ import { BlockInfoCard } from "@/components/ui/block-info-card"
 />
 
 {/* MANUAL-CONTENT-START:intro */}
-The A2A (Agent-to-Agent) protocol lets Sim call external AI agents that expose an A2A-compatible endpoint. Use it to connect your workflows to remote agents — LLM-powered bots, microservices, and other AI systems — through a standardized message format.
+The A2A (Agent-to-Agent) protocol lets AACFlow call external AI agents that expose an A2A-compatible endpoint. Use it to connect your workflows to remote agents — LLM-powered bots, microservices, and other AI systems — through a standardized message format.
 
 With the A2A block you can:
 
@@ -127,4 +127,4 @@ Fetch the Agent Card (discovery document) for an external A2A agent.
 - Category: `blocks`
 - Type: `a2a`
 - Send Message blocks until the agent reaches a terminal (`completed`, `failed`, `canceled`, `rejected`) or interrupted (`input-required`, `auth-required`) state. Use Get Task to poll a task you continue later, and branch on `state`.
-- Task IDs are scoped to the external agent, not to Sim. Anyone who knows an agent URL and task ID can read or cancel that task unless the agent enforces its own authentication — set an API key for agents that require one.
+- Task IDs are scoped to the external agent, not to AACFlow. Anyone who knows an agent URL and task ID can read or cancel that task unless the agent enforces its own authentication — set an API key for agents that require one.

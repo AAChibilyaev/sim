@@ -1,6 +1,6 @@
 ---
 title: Введение
-description: Sim is the open-source AI workspace where teams build, deploy, and manage AI agents.
+description: AACFlow is the open-source AI workspace where teams build, deploy, and manage AI agents.
 ---
 
 import { Card, Cards } from 'fumadocs-ui/components/card'
@@ -18,7 +18,7 @@ import { FAQ } from '@/components/ui/faq'
 
 src="/static/introduction.png"
 
-alt="Конструктор рабочих процессов Sim"
+alt="Конструктор рабочих процессов AACFlow"
 
 width={700}
 
@@ -34,7 +34,7 @@ className="w-full"
 ## Как вы создаете
 
 
-Когда вы открываете Sim, первое, что вы видите — это **Mothership**, чат-бот в вашем рабочем пространстве. Вы описываете систему, которую хотите создать, и Mothership создает ее: рабочие процессы, таблицы, базы знаний и их взаимосвязи. Затем вы запускаете то, что создала Mothership, настраиваете и улучшаете его.
+Когда вы открываете AACFlow, первое, что вы видите — это **Mothership**, чат-бот в вашем рабочем пространстве. Вы описываете систему, которую хотите создать, и Mothership создает ее: рабочие процессы, таблицы, базы знаний и их взаимосвязи. Затем вы запускаете то, что создала Mothership, настраиваете и улучшаете его.
 
 
 - **Mothership.** Опишите систему естественным языком, и она создаст и отредактирует ресурсы для вас. Самый быстрый способ начать.
@@ -55,7 +55,7 @@ Mothership generates the architecture, and you verify the execution. Even when y
 ## Анатомия рабочего пространства
 
 
-Система Sim — это не просто ответ чата. Это набор ресурсов, живущих в **рабочем пространстве** и связанных друг с другом. Боковая панель отражает эту анатомию, и эти ее части.
+Система AACFlow — это не просто ответ чата. Это набор ресурсов, живущих в **рабочем пространстве** и связанных друг с другом. Боковая панель отражает эту анатомию, и эти ее части.
 
 
 - **[Mothership](/mothership)** — это естественный языковой контрольный план. Вы описываете то, что хотите, и она создает и редактирует ресурсы для вас.
@@ -97,7 +97,7 @@ Mothership generates the architecture, and you verify the execution. Even when y
 ## Интеграции
 
 
-Sim предоставляет встроенную интеграцию с более чем 1000 сервисами:
+AACFlow предоставляет встроенную интеграцию с более чем 1000 сервисами:
 
 
 - **Модели ИИ.** OpenAI, Anthropic, Google Gemini, Groq, Cerebras и локальные модели через Ollama или VLLM.
@@ -119,7 +119,7 @@ Sim предоставляет встроенную интеграцию с бо
 ## Варианты развертывания
 
 
-- **Облачное.** Запустите сразу на [sim.ai](https://sim.ai) с управляемой инфраструктурой, масштабированием и мониторингом.
+- **Облачное.** Запустите сразу на [aacflow.io](https://aacflow.io) с управляемой инфраструктурой, масштабированием и мониторингом.
 
 - **Самостоятельное.** Разверните на своей собственной инфраструктуре с помощью Docker Compose или Kubernetes, с поддержкой локальных моделей.
 
@@ -144,13 +144,13 @@ Sim предоставляет встроенную интеграцию с бо
 
 
 <FAQ items={[
-  { question: "Is Sim free to use?", answer: "Sim offers a free Community plan with 1,000 one-time credits to get started. Paid plans start at $25/month (Pro) with 5,000 credits and go up to $100/month (Max) with 20,000 credits. Annual billing is available at a 15% discount. You can also self-host Sim for free on your own infrastructure." },
-  { question: "Is Sim open source?", answer: "Yes. Sim is open source under the Apache 2.0 license. The full source code is available on GitHub and you can self-host it, contribute to development, or modify it for your own needs. Enterprise features (SSO, access control) have a separate license that requires a subscription for production use." },
-  { question: "Which AI models and providers are supported?", answer: "Sim supports 15+ providers including OpenAI, Anthropic, Google Gemini, Groq, Cerebras, DeepSeek, Mistral, xAI, and OpenRouter. You can also run local models through Ollama or VLLM at no API cost. Bring Your Own Key (BYOK) is supported so you can use your own API keys at base provider pricing with no markup." },
-  { question: "Do I need coding experience to use Sim?", answer: "No. Sim lets you build agents conversationally through Mothership using natural language, or visually by connecting blocks in the workflow builder. For advanced use cases, the Function block lets you write custom JavaScript, and the full API/SDK is available for programmatic access." },
-  { question: "Can I self-host Sim?", answer: "Yes. Sim provides Docker Compose configurations for self-hosted deployments. The stack includes the Sim application, a PostgreSQL database with pgvector, and a realtime collaboration server. You can also integrate local AI models via Ollama for a fully offline setup." },
+  { question: "Is AACFlow free to use?", answer: "AACFlow offers a free Community plan with 1,000 one-time credits to get started. Paid plans start at $25/month (Pro) with 5,000 credits and go up to $100/month (Max) with 20,000 credits. Annual billing is available at a 15% discount. You can also self-host AACFlow for free on your own infrastructure." },
+  { question: "Is AACFlow open source?", answer: "Yes. AACFlow is open source under the Apache 2.0 license. The full source code is available on GitHub and you can self-host it, contribute to development, or modify it for your own needs. Enterprise features (SSO, access control) have a separate license that requires a subscription for production use." },
+  { question: "Which AI models and providers are supported?", answer: "AACFlow supports 15+ providers including OpenAI, Anthropic, Google Gemini, Groq, Cerebras, DeepSeek, Mistral, xAI, and OpenRouter. You can also run local models through Ollama or VLLM at no API cost. Bring Your Own Key (BYOK) is supported so you can use your own API keys at base provider pricing with no markup." },
+  { question: "Do I need coding experience to use AACFlow?", answer: "No. AACFlow lets you build agents conversationally through Mothership using natural language, or visually by connecting blocks in the workflow builder. For advanced use cases, the Function block lets you write custom JavaScript, and the full API/SDK is available for programmatic access." },
+  { question: "Can I self-host AACFlow?", answer: "Yes. AACFlow provides Docker Compose configurations for self-hosted deployments. The stack includes the AACFlow application, a PostgreSQL database with pgvector, and a realtime collaboration server. You can also integrate local AI models via Ollama for a fully offline setup." },
   { question: "Is there a limit on how many workflows I can create?", answer: "There is no limit on the number of workflows you can create on any plan. Usage limits apply to execution credits, rate limits, and file storage, which vary by plan tier." },
-  { question: "What integrations are available?", answer: "Sim offers 1,000+ native integrations across categories including AI models, communication tools (Gmail, Slack, Teams, Telegram), productivity apps (Notion, Google Workspace, Airtable), development tools (GitHub, Jira, Linear), search services (Google Search, Perplexity, Exa), and databases (PostgreSQL, Supabase, Pinecone). For anything not built in, you can use the MCP (Model Context Protocol) support to connect custom services." },
-  { question: "How does Sim compare to other AI agent builders?", answer: "Sim is an AI workspace, not just a workflow tool or an agent framework. It combines Mothership for natural-language agent creation, a visual workflow builder, knowledge bases, tables, and full observability in one environment. Teams build agents visually, conversationally, or with code, then deploy and manage them with enterprise governance, real-time collaboration, and staging-to-production workflows." },
+  { question: "What integrations are available?", answer: "AACFlow offers 1,000+ native integrations across categories including AI models, communication tools (Gmail, Slack, Teams, Telegram), productivity apps (Notion, Google Workspace, Airtable), development tools (GitHub, Jira, Linear), search services (Google Search, Perplexity, Exa), and databases (PostgreSQL, Supabase, Pinecone). For anything not built in, you can use the MCP (Model Context Protocol) support to connect custom services." },
+  { question: "How does AACFlow compare to other AI agent builders?", answer: "AACFlow is an AI workspace, not just a workflow tool or an agent framework. It combines Mothership for natural-language agent creation, a visual workflow builder, knowledge bases, tables, and full observability in one environment. Teams build agents visually, conversationally, or with code, then deploy and manage them with enterprise governance, real-time collaboration, and staging-to-production workflows." },
 ]} />
 

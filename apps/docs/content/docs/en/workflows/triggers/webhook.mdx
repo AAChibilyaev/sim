@@ -1,6 +1,6 @@
 ---
 title: Webhook
-description: The Webhook trigger runs a workflow on any inbound HTTP request to a URL Sim generates.
+description: The Webhook trigger runs a workflow on any inbound HTTP request to a URL AACFlow generates.
 pageType: reference
 ---
 
@@ -10,14 +10,14 @@ import { BlockPreview } from '@/components/workflow-preview'
 import { Video } from '@/components/ui/video'
 import { FAQ } from '@/components/ui/faq'
 
-The **Webhook trigger** runs a workflow whenever an inbound HTTP request reaches a URL Sim generates for it. Use it to start a workflow from any external service or custom app that can send an HTTP request — when no dedicated [integration trigger](/workflows#triggers) exists.
+The **Webhook trigger** runs a workflow whenever an inbound HTTP request reaches a URL AACFlow generates for it. Use it to start a workflow from any external service or custom app that can send an HTTP request — when no dedicated [integration trigger](/workflows#triggers) exists.
 
 <BlockPreview type="webhook_trigger" />
 
 ## How it works
 
 1. Add the Webhook trigger as the workflow's entry point.
-2. Copy the unique webhook URL Sim generates.
+2. Copy the unique webhook URL AACFlow generates.
 3. Point your external service at it with a `POST`.
 4. Every request to the URL runs the workflow, with the request payload available downstream.
 

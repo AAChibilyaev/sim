@@ -68,7 +68,7 @@ A surprising amount of real business work decomposes into a few operations over 
 - **An update**, "mark these rows handled."
 - **A combination with logic**, "for each new signup, score it, then write the score back."
 
-Once you see a use case that way, building it in Sim is mostly wiring those operations together.
+Once you see a use case that way, building it in AACFlow is mostly wiring those operations together.
 
 ## A surface for scale
 
@@ -77,7 +77,7 @@ Tables aren't only storage, they're a working surface for your AI systems. **Wor
 That makes a table a powerful interface for automation: the place you manage and operate agentic processes at scale.
 
 <FAQ items={[
-  { question: "How is a Sim table different from a spreadsheet?", answer: "Every column has a declared type, so records keep a reliable shape: numbers sort as numbers, dates as dates, and booleans render as real checkboxes. It behaves like a lightweight database inside your workspace." },
+  { question: "How is a AACFlow table different from a spreadsheet?", answer: "Every column has a declared type, so records keep a reliable shape: numbers sort as numbers, dates as dates, and booleans render as real checkboxes. It behaves like a lightweight database inside your workspace." },
   { question: "What column types are available?", answer: "Text, Number, Boolean, Date, and JSON, plus workflow columns, which are filled by a workflow you attach rather than typed in." },
   { question: "Can I add columns after the table has data?", answer: "Yes. New columns are added from the table header at any time, and existing rows simply gain the new field." },
   { question: "What do teams use tables for?", answer: "Leads, support tickets, orders, inventory, evaluation scores: any structured record your workflows read from or write to. Tables are the working memory of an automated workspace." },

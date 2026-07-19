@@ -28,7 +28,7 @@ The operations fall into three groups:
 - **Write:** Insert Row, Batch Insert Rows, Upsert Row.
 - **Update and delete:** Update Row by ID, Update Rows by Filter, Delete Row by ID, Delete Rows by Filter.
 
-Every row carries three built-in columns alongside your own: `id` (the row's unique identifier), `createdAt`, and `updatedAt`. Sim manages these for you, so you never include them when inserting. You can still filter and sort on them.
+Every row carries three built-in columns alongside your own: `id` (the row's unique identifier), `createdAt`, and `updatedAt`. AACFlow manages these for you, so you never include them when inserting. You can still filter and sort on them.
 
 ## Reading rows
 
@@ -86,7 +86,7 @@ For a one-off point lookup, use **Get Row by ID** with a single `Row ID`. **Get 
 { company: "Acme", email: "deals@acme.com", description: "...", status: "unprocessed" }
 ```
 
-The output is the inserted row, including the `id` and timestamps Sim generated for it.
+The output is the inserted row, including the `id` and timestamps AACFlow generated for it.
 
 **Batch Insert Rows** adds many rows in one operation (up to 1000) from a **Rows Data** array. Use it instead of looping Insert Row when you have a set of results to load at once. Its output reports `insertedCount`.
 

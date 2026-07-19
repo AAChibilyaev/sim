@@ -1,6 +1,6 @@
 ---
 title: Building with Chat
-description: Describe the system you want in plain language, and Sim builds it, then tests it, debugs it, shows you the evidence, and deploys it, all inside one conversation.
+description: Describe the system you want in plain language, and AACFlow builds it, then tests it, debugs it, shows you the evidence, and deploys it, all inside one conversation.
 ---
 
 import { VideoPlaceholder } from '@/components/ui/video-placeholder'
@@ -15,7 +15,7 @@ import { AV_CONTENT_AGENT_WORKFLOW } from '@/components/workflow-preview/academy
 <div className="mt-8 grid grid-cols-1 items-start gap-10 lg:grid-cols-[1fr_300px]">
 <div>
 
-You can build a whole workflow without dragging a single block. Describe the system you want: an agent that turns an idea into a finished post, with a draft, a hero image, a slide deck, and a voiceover, and Sim lays out every block, wired and parameterized, in front of you.
+You can build a whole workflow without dragging a single block. Describe the system you want: an agent that turns an idea into a finished post, with a draft, a hero image, a slide deck, and a voiceover, and AACFlow lays out every block, wired and parameterized, in front of you.
 
 <WhatYouWillLearn
   items={[
@@ -25,7 +25,7 @@ You can build a whole workflow without dragging a single block. Describe the sys
     },
     {
       title: 'It tests and fixes itself',
-      body: "Before you ask, Sim runs the build to see if it holds together. When the image step fails on a missing parameter, it catches the error, fixes the block, and re-runs clean.",
+      body: "Before you ask, AACFlow runs the build to see if it holds together. When the image step fails on a missing parameter, it catches the error, fixes the block, and re-runs clean.",
     },
     {
       title: 'You inspect before you trust',
@@ -66,7 +66,7 @@ Here is the shape of the workflow the chat builds in the video, candidates draft
 
 ## It tests and fixes itself
 
-Sim doesn't hand you an untested guess. It runs the workflow immediately, and when a step fails (here, the image block missing an aspect ratio), it reads the error, patches the parameter, and runs again. You watch the failure and the fix happen on the canvas, in the log, and in the conversation at once.
+AACFlow doesn't hand you an untested guess. It runs the workflow immediately, and when a step fails (here, the image block missing an aspect ratio), it reads the error, patches the parameter, and runs again. You watch the failure and the fix happen on the canvas, in the log, and in the conversation at once.
 
 ## Inspecting the run
 
@@ -77,8 +77,8 @@ The run record shows every step with its timing and output: the draft, the image
 Deploying is one more message in the conversation. The workflow deploys behind a live endpoint, ready for whatever you send it, and it remains a workflow in your workspace: inspectable, schedulable, and callable from everything else you build.
 
 <FAQ items={[
-  { question: "Can I really build a workflow without touching the canvas?", answer: "Yes. Describe the system you want and the chat lays out the blocks, wires the connections, and fills the parameters. The result is a normal Sim workflow you can open and edit by hand afterwards." },
-  { question: "How do I know the generated workflow works?", answer: "Sim runs it immediately and shows you the run record: every step, its timing, and its output. In the video, a failing image step is caught and fixed automatically before you ever test it." },
+  { question: "Can I really build a workflow without touching the canvas?", answer: "Yes. Describe the system you want and the chat lays out the blocks, wires the connections, and fills the parameters. The result is a normal AACFlow workflow you can open and edit by hand afterwards." },
+  { question: "How do I know the generated workflow works?", answer: "AACFlow runs it immediately and shows you the run record: every step, its timing, and its output. In the video, a failing image step is caught and fixed automatically before you ever test it." },
   { question: "Can I edit a chat-built workflow manually?", answer: "Yes. Nothing about it is special: it is blocks and connections on the canvas, so you can adjust a prompt, swap a model, or add steps like on any workflow you built yourself." },
   { question: "How does deployment from chat work?", answer: "One message deploys the workflow behind a live API endpoint. It stays a workspace workflow, so it is inspectable, schedulable, and callable from other workflows." },
 ]} />

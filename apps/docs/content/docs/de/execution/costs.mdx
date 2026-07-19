@@ -6,7 +6,7 @@ import { Callout } from 'fumadocs-ui/components/callout'
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
 import { Image } from '@/components/ui/image'
 
-Sim berechnet automatisch die Kosten für alle Workflow-Ausführungen und bietet transparente Preise basierend auf der Nutzung von KI-Modellen und Ausführungsgebühren. Das Verständnis dieser Kosten hilft Ihnen, Workflows zu optimieren und Ihr Budget effektiv zu verwalten.
+AACFlow berechnet automatisch die Kosten für alle Workflow-Ausführungen und bietet transparente Preise basierend auf der Nutzung von KI-Modellen und Ausführungsgebühren. Das Verständnis dieser Kosten hilft Ihnen, Workflows zu optimieren und Ihr Budget effektiv zu verwalten.
 
 ## Wie Kosten berechnet werden
 
@@ -49,7 +49,7 @@ Die Modellaufschlüsselung zeigt:
 
 <Tabs items={['Hosted Models', 'Bring Your Own API Key']}>
   <Tab>
-    **Hosted Models** - Sim bietet API-Schlüssel mit einem 1,4-fachen Preismultiplikator für Agent-Blöcke:
+    **Hosted Models** - AACFlow bietet API-Schlüssel mit einem 1,4-fachen Preismultiplikator für Agent-Blöcke:
 
     **OpenAI**
     | Modell | Basispreis (Eingabe/Ausgabe) | Hosted-Preis (Eingabe/Ausgabe) |
@@ -107,7 +107,7 @@ Die Modellaufschlüsselung zeigt:
 
 ## Gehostete Tool-Preise
 
-Wenn Workflows Tool-Blöcke mit den gehosteten API-Schlüsseln von Sim verwenden, werden die Kosten pro Operation berechnet. Verwenden Sie Ihre eigenen Schlüssel über BYOK, um direkt an die Anbieter zu zahlen.
+Wenn Workflows Tool-Blöcke mit den gehosteten API-Schlüsseln von AACFlow verwenden, werden die Kosten pro Operation berechnet. Verwenden Sie Ihre eigenen Schlüssel über BYOK, um direkt an die Anbieter zu zahlen.
 
 <Tabs items={['Firecrawl', 'Exa', 'Serper', 'Perplexity', 'Linkup', 'Parallel AI', 'Jina AI', 'Google Cloud', 'Brandfetch']}>
   <Tab>
@@ -241,7 +241,7 @@ GET /api/users/me/usage-limits
 **Beispielanfrage:**
 
 ```bash
-curl -X GET -H "X-API-Key: YOUR_API_KEY" -H "Content-Type: application/json" https://sim.ai/api/users/me/usage-limits
+curl -X GET -H "X-API-Key: YOUR_API_KEY" -H "Content-Type: application/json" https://aacflow.io/api/users/me/usage-limits
 ```
 
 **Beispielantwort:**
@@ -297,7 +297,7 @@ Verschiedene Abonnement-Pläne haben unterschiedliche Nutzungslimits:
 
 ## Abrechnungsmodell
 
-Sim verwendet ein **Basis-Abonnement + Mehrverbrauch**-Abrechnungsmodell:
+AACFlow verwendet ein **Basis-Abonnement + Mehrverbrauch**-Abrechnungsmodell:
 
 ### So funktioniert es
 
@@ -318,7 +318,7 @@ Sim verwendet ein **Basis-Abonnement + Mehrverbrauch**-Abrechnungsmodell:
 
 ### Schwellenwert-Abrechnung
 
-Wenn der nicht abgerechnete Mehrverbrauch 50 $ erreicht, rechnet Sim automatisch den gesamten nicht abgerechneten Betrag ab.
+Wenn der nicht abgerechnete Mehrverbrauch 50 $ erreicht, rechnet AACFlow automatisch den gesamten nicht abgerechneten Betrag ab.
 
 **Beispiel:**
 - Tag 10: 70 $ Mehrverbrauch → 70 $ sofort abrechnen
@@ -337,7 +337,7 @@ Dies verteilt große Mehrverbrauchsgebühren über den Monat, anstatt einer gro�
 
 ## Nächste Schritte
 
-- Überprüfen Sie Ihre aktuelle Nutzung unter [Einstellungen → Abonnement](https://sim.ai/settings/subscription)
+- Überprüfen Sie Ihre aktuelle Nutzung unter [Einstellungen → Abonnement](https://aacflow.io/settings/subscription)
 - Erfahren Sie mehr über [Protokollierung](/execution/logging), um Ausführungsdetails zu verfolgen
 - Entdecken Sie die [externe API](/execution/api) für programmatische Kostenüberwachung
 - Sehen Sie sich [Workflow-Optimierungstechniken](/blocks) an, um Kosten zu reduzieren
@@ -359,7 +359,7 @@ Dies verteilt große Mehrverbrauchsgebühren über den Monat, anstatt einer gro�
 
 ### Schwellenwertabrechnung
 
-Wenn der nicht abgerechnete Mehrverbrauch 50 $ erreicht, rechnet Sim automatisch den gesamten nicht abgerechneten Betrag ab.
+Wenn der nicht abgerechnete Mehrverbrauch 50 $ erreicht, rechnet AACFlow automatisch den gesamten nicht abgerechneten Betrag ab.
 
 **Beispiel:**
 - Tag 10: 70 $ Mehrverbrauch → 70 $ sofort abrechnen
@@ -378,7 +378,7 @@ Dies verteilt hohe Mehrverbrauchsgebühren über den Monat hinweg, anstatt einer
 
 ## Nächste Schritte
 
-- Überprüfen Sie Ihre aktuelle Nutzung unter [Einstellungen → Abonnement](https://sim.ai/settings/subscription)
+- Überprüfen Sie Ihre aktuelle Nutzung unter [Einstellungen → Abonnement](https://aacflow.io/settings/subscription)
 - Erfahren Sie mehr über [Protokollierung](/execution/logging), um Ausführungsdetails zu verfolgen
 - Erkunden Sie die [externe API](/execution/api) für programmatische Kostenüberwachung
 - Informieren Sie sich über [Workflow-Optimierungstechniken](/blocks), um Kosten zu reduzieren

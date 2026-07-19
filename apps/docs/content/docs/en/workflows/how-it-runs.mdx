@@ -1,6 +1,6 @@
 ---
 title: How workflows run
-description: How Sim orders the blocks, runs independent ones in parallel, and follows branches.
+description: How AACFlow orders the blocks, runs independent ones in parallel, and follows branches.
 pageType: concept
 ---
 
@@ -14,7 +14,7 @@ import {
   WorkflowPreview,
 } from '@/components/workflow-preview'
 
-When you run a workflow, Sim works out the order from the [connections](/workflows/connections): a block runs as soon as the blocks it depends on have finished.
+When you run a workflow, AACFlow works out the order from the [connections](/workflows/connections): a block runs as soon as the blocks it depends on have finished.
 
 ## Blocks run as soon as they can
 
@@ -41,7 +41,7 @@ A workflow can split. A [Condition](/workflows/blocks/condition) block branches 
 To repeat work, a [Loop](/workflows/blocks/loop) block runs its inner blocks over a list, a count, or while a condition holds, and a [Parallel](/workflows/blocks/parallel) block runs them for several items at once.
 
 <Callout type="info">
-A workflow can call other workflows, through a Workflow block, an MCP tool, or an API block. Sim tracks the call chain and stops a run that exceeds 25 hops, so workflows that call each other can't loop forever.
+A workflow can call other workflows, through a Workflow block, an MCP tool, or an API block. AACFlow tracks the call chain and stops a run that exceeds 25 hops, so workflows that call each other can't loop forever.
 </Callout>
 
 ## When a block fails
