@@ -3,9 +3,8 @@ import Privacy from '@/app/(landing)/privacy/privacy'
 
 export const revalidate = 3600
 
-const TITLE = 'Privacy Policy | Sim, the AI Workspace'
-const DESCRIPTION =
-  'How Sim, the open-source AI workspace, collects, uses, and protects your data, including data obtained from Google APIs, and the controls you have over it.'
+const TITLE = 'Политика конфиденциальности | AACFlow'
+const DESCRIPTION = 'Политика обработки персональных данных сервиса AACFlow по 152-ФЗ.'
 
 export const metadata = buildLandingMetadata({
   title: TITLE,

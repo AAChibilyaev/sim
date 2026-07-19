@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { companyReqLineRu } from '@/lib/legal/company'
 import { ALL_COMPETITORS } from '@/app/(landing)/comparisons/utils'
 import { SimWordmark } from '@/app/(landing)/components/navbar/components/sim-wordmark'
 import { MODEL_PROVIDERS_WITH_CATALOGS } from '@/app/(landing)/models/utils'
@@ -108,8 +109,11 @@ const SOCIAL_LINKS: FooterItem[] = [
 ]
 
 const LEGAL_LINKS: FooterItem[] = [
+  { label: 'Публичная оферта', href: '/oferta' },
+  { label: 'Политика конфиденциальности', href: '/privacy' },
+  { label: 'Политика cookie', href: '/cookie' },
+  { label: 'Контакты и реквизиты', href: '/contacts' },
   { label: 'Terms of Service', href: '/terms' },
-  { label: 'Privacy Policy', href: '/privacy' },
 ]
 
 function FooterColumn({ title, items }: { title: string; items: FooterItem[] }) {
@@ -195,9 +199,14 @@ export function Footer() {
           <FooterColumn title='Legal' items={LEGAL_LINKS} />
         </nav>
 
-        <p className='mt-16 text-[var(--text-muted)] text-sm'>
-          © 2026 {brand.name}. All rights reserved.
-        </p>
+        <div className='mt-16 flex flex-col gap-1.5 text-[var(--text-muted)] text-sm'>
+          <p>© 2026 {brand.name}. All rights reserved.</p>
+          <p className='text-caption'>{companyReqLineRu()}</p>
+          <p className='text-caption'>
+            Оплата банковскими картами Мир, Visa, Mastercard через Банк Точка (Т‑Банк) и Робокассу.
+            Данные карт обрабатываются платёжным провайдером в защищённой среде.
+          </p>
+        </div>
       </div>
     </footer>
   )
