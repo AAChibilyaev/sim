@@ -57,7 +57,7 @@ async function fetchPreview(url: string): Promise<LinkPreview> {
     maxRedirects: MAX_REDIRECTS,
     maxResponseBytes: MAX_RESPONSE_BYTES,
     headers: {
-      'User-Agent': 'Simbot/1.0 (+https://sim.ai)',
+      'User-Agent': 'AACFlowbot/1.0 (+https://aacflow.io)',
       Accept: 'text/html,application/xhtml+xml',
     },
   })

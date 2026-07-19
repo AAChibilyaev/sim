@@ -28,7 +28,7 @@ export const pageContentTool: ToolConfig<WikipediaPageContentParams, WikipediaPa
       },
       method: 'GET',
       headers: () => ({
-        'User-Agent': 'Sim/1.0 (https://sim.ai)',
+        'User-Agent': 'AACFlow/1.0 (+https://aacflow.io)',
         Accept:
           'text/html; charset=utf-8; profile="https://www.mediawiki.org/wiki/Specs/HTML/2.1.0"',
       }),

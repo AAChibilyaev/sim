@@ -17,7 +17,7 @@ export const INTEGRATION_LANDING_CONTENT: Record<string, IntegrationLandingConte
       steps: [
         {
           title: 'Create your free Sim account',
-          body: 'Sign up at sim.ai — no credit card required.',
+          body: 'Sign up at aacflow.io — no credit card required.',
         },
         {
           title: 'Add a Slack block',

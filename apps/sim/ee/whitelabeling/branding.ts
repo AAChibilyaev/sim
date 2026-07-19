@@ -52,3 +52,19 @@ export const getBrandConfig = (): BrandConfig => {
 export const useBrandConfig = () => {
   return getBrandConfig()
 }
+
+/**
+ * Rewrites a `docs.sim.ai` documentation URL to the configured brand
+ * documentation host when whitelabeled, so the ~260 block/trigger `docsLink`
+ * values (all hardcoded at `https://docs.sim.ai/...`) point at the brand docs
+ * without touching every block definition. Non-docs.sim.ai URLs and the
+ * default (non-whitelabeled) brand pass through unchanged.
+ */
+export const resolveDocsUrl = (url: string | undefined | null): string | undefined => {
+  if (!url) return url ?? undefined
+  const brand = getBrandConfig()
+  if (!brand.isWhitelabeled || !brand.documentationUrl) return url
+  if (!url.startsWith('https://docs.sim.ai')) return url
+  const base = brand.documentationUrl.replace(/\/$/, '')
+  return url.replace('https://docs.sim.ai', base)
+}

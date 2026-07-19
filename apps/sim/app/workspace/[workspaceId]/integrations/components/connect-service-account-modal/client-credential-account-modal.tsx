@@ -16,6 +16,7 @@ import type {
   ClientCredentialAccountDescriptor,
   ClientCredentialAccountField,
 } from '@/lib/credentials/client-credential-accounts/descriptors'
+import { resolveDocsUrl } from '@/ee/whitelabeling/branding'
 import {
   useCreateWorkspaceCredential,
   useUpdateWorkspaceCredential,
@@ -53,7 +54,7 @@ function messageForClientCredentialError(
 }
 
 function openDocs(url: string): void {
-  window.open(url, '_blank', 'noopener,noreferrer')
+  window.open(resolveDocsUrl(url) ?? url, '_blank', 'noopener,noreferrer')
 }
 
 interface ClientCredentialAccountModalProps {

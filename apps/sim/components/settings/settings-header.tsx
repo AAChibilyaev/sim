@@ -14,6 +14,7 @@ import {
   useState,
 } from 'react'
 import { Chip, ChipInput, ChipLink, Search, Tooltip } from '@sim/emcn'
+import { resolveDocsUrl } from '@/ee/whitelabeling/branding'
 
 const useIsomorphicLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect
 
@@ -133,7 +134,11 @@ export function SettingsHeaderShell({ children }: { children: ReactNode }) {
         )}
         <div className='flex h-[30px] items-center gap-1'>
           {docsLink && (
-            <ChipLink href={docsLink} target='_blank' rel='noopener noreferrer'>
+            <ChipLink
+              href={resolveDocsUrl(docsLink) ?? docsLink}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
               Docs
             </ChipLink>
           )}

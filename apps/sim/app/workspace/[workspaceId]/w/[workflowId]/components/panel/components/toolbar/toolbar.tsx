@@ -40,6 +40,7 @@ import { getCustomBlockIcon } from '@/blocks/custom/custom-block-icon'
 import { getTileIconColorClass } from '@/blocks/icon-color'
 import { getCanonicalBlocksByCategory } from '@/blocks/registry'
 import type { BlockConfig } from '@/blocks/types'
+import { resolveDocsUrl } from '@/ee/whitelabeling/branding'
 import { useOrgBrandConfig } from '@/ee/whitelabeling/components/branding-provider'
 import { useCustomBlocks } from '@/hooks/queries/custom-blocks'
 import { usePermissionConfig } from '@/hooks/use-permission-config'
@@ -637,7 +638,7 @@ export const Toolbar = memo(
 
     const handleViewDocumentation = useCallback(() => {
       if (activeItemInfo?.docsLink) {
-        window.open(activeItemInfo.docsLink, '_blank', 'noopener,noreferrer')
+        window.open(resolveDocsUrl(activeItemInfo.docsLink), '_blank', 'noopener,noreferrer')
         captureEvent(posthog, 'docs_opened', {
           source: 'toolbar_context_menu',
           block_type: activeItemInfo.type,

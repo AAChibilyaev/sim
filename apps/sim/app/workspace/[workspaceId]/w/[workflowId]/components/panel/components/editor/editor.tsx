@@ -53,6 +53,7 @@ import {
 import { PreviewWorkflow } from '@/app/workspace/[workspaceId]/w/components/preview'
 import { getTileIconColorClass } from '@/blocks/icon-color'
 import { getBlock } from '@/blocks/registry'
+import { resolveDocsUrl } from '@/ee/whitelabeling/branding'
 import { useFolderMap } from '@/hooks/queries/folders'
 import { isWorkflowEffectivelyLocked } from '@/hooks/queries/utils/folder-tree'
 import { useWorkflowMap, useWorkflowState } from '@/hooks/queries/workflows'
@@ -345,7 +346,11 @@ export function Editor() {
    */
   const handleOpenDocs = useCallback(() => {
     const docsLink = isSubflow ? subflowConfig?.docsLink : blockConfig?.docsLink
-    window.open(docsLink || 'https://docs.sim.ai/quick-reference', '_blank', 'noopener,noreferrer')
+    window.open(
+      resolveDocsUrl(docsLink) || resolveDocsUrl('https://docs.sim.ai/quick-reference'),
+      '_blank',
+      'noopener,noreferrer'
+    )
     captureEvent(posthog, 'docs_opened', {
       source: 'editor_button',
       block_type: currentBlock?.type,

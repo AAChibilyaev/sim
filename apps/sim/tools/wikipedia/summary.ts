@@ -28,7 +28,7 @@ export const pageSummaryTool: ToolConfig<WikipediaPageSummaryParams, WikipediaPa
       },
       method: 'GET',
       headers: () => ({
-        'User-Agent': 'Sim/1.0 (https://sim.ai)',
+        'User-Agent': 'AACFlow/1.0 (https://aacflow.io)',
         Accept: 'application/json',
       }),
     },

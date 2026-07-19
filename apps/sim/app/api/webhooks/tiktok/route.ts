@@ -37,7 +37,7 @@ async function readTikTokBody(req: Request): Promise<string> {
 
 /**
  * App-level TikTok webhook Callback URL.
- * Portal: `{APP_URL}/api/webhooks/tiktok` (e.g. https://www.sim.ai/api/webhooks/tiktok).
+ * Portal: `{APP_URL}/api/webhooks/tiktok` (e.g. https://aacflow.io/api/webhooks/tiktok).
  * Verifies TikTok-Signature and durably accepts the delivery before background target fanout.
  */
 export const POST = withRouteHandler(async (request: NextRequest) => {

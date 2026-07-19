@@ -18,7 +18,7 @@ export const getDefaultHeaders = (
   url?: string
 ): Record<string, string> => {
   const headers: Record<string, string> = {
-    'User-Agent': 'Sim/1.0 (+https://sim.ai)',
+    'User-Agent': 'AACFlow/1.0 (+https://aacflow.io)',
     Accept: '*/*',
     'Accept-Encoding': 'gzip, deflate, br',
     'Cache-Control': 'no-cache',

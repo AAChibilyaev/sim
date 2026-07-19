@@ -16,6 +16,7 @@ import type {
   TokenServiceAccountDescriptor,
   TokenServiceAccountField,
 } from '@/lib/credentials/token-service-accounts/descriptors'
+import { resolveDocsUrl } from '@/ee/whitelabeling/branding'
 import {
   useCreateWorkspaceCredential,
   useUpdateWorkspaceCredential,
@@ -58,7 +59,7 @@ function normalizeDomainInput(raw: string): string {
 }
 
 function openDocs(url: string): void {
-  window.open(url, '_blank', 'noopener,noreferrer')
+  window.open(resolveDocsUrl(url) ?? url, '_blank', 'noopener,noreferrer')
 }
 
 interface TokenServiceAccountModalProps {

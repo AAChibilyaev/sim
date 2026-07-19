@@ -93,7 +93,7 @@ export function NoOrganizationView({
               </Label>
               <div className='mt-1 flex items-center'>
                 <div className='rounded-l-[6px] border border-[var(--border-1)] border-r-0 bg-[var(--surface-4)] px-3 py-1.5 text-[var(--text-muted)] text-small'>
-                  sim.ai/team/
+                  aacflow.io/team/
                 </div>
                 <ChipInput
                   id='orgSlug'
