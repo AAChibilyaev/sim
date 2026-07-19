@@ -2,10 +2,11 @@ import { buildLandingMetadata } from '@/lib/landing/seo'
 import ComplianceSolution, {
   COMPLIANCE_PAGE_DESCRIPTION,
 } from '@/app/(landing)/solutions/compliance/compliance'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 export const revalidate = 3600
 
-const TITLE = 'AI Agents for Compliance: Evidence & Audit Reports | Sim'
+const TITLE = `AI Agents for Compliance: Evidence & Audit Reports | ${getBrandConfig().name}`
 
 export const metadata = buildLandingMetadata({
   title: TITLE,

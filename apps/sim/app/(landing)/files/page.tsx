@@ -1,9 +1,10 @@
 import { buildLandingMetadata } from '@/lib/landing/seo'
 import Files, { FILES_PAGE_DESCRIPTION } from '@/app/(landing)/files/files'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 export const revalidate = 3600
 
-const TITLE = 'File Storage for AI Agents and Your Team | Sim'
+const TITLE = `File Storage for AI Agents and Your Team | ${getBrandConfig().name}`
 
 export const metadata = buildLandingMetadata({
   title: TITLE,

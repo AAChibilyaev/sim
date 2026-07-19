@@ -1,9 +1,10 @@
 import { buildLandingMetadata } from '@/lib/landing/seo'
 import Workflows, { WORKFLOWS_PAGE_DESCRIPTION } from '@/app/(landing)/workflows/workflows'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 export const revalidate = 3600
 
-const TITLE = 'AI Workflow Builder for Agents and Teams | Sim'
+const TITLE = `AI Workflow Builder for Agents and Teams | ${getBrandConfig().name}`
 
 export const metadata = buildLandingMetadata({
   title: TITLE,

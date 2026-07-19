@@ -12,10 +12,11 @@
  */
 
 import type { IntegrationSeoContent } from '@/app/(landing)/integrations/data/types'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 export const INTEGRATION_SEO: Record<string, IntegrationSeoContent> = {
   github: {
-    title: 'GitHub Workflow Automation | Sim',
+    title: `GitHub Workflow Automation | ${getBrandConfig().name}`,
     description:
       'Build GitHub automation in Sim. Use GitHub workflow automation for pull requests, pushes, issues, and releases with AI agents.',
     keywords: ['github automation', 'github workflow automation', 'github integration'],

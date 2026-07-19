@@ -1,9 +1,10 @@
 import { buildLandingMetadata } from '@/lib/landing/seo'
 import SalesSolution, { SALES_PAGE_DESCRIPTION } from '@/app/(landing)/solutions/sales/sales'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 export const revalidate = 3600
 
-const TITLE = 'AI Agents for Sales: Lead Research & CRM Updates | Sim'
+const TITLE = `AI Agents for Sales: Lead Research & CRM Updates | ${getBrandConfig().name}`
 
 export const metadata = buildLandingMetadata({
   title: TITLE,

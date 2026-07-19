@@ -19,6 +19,7 @@ import {
   TOTAL_MODEL_PROVIDERS,
   TOTAL_MODELS,
 } from '@/app/(landing)/models/utils'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 const baseUrl = SITE_URL
 
@@ -95,14 +96,14 @@ export async function generateMetadata({
       // og:image/twitter:image come from the sibling opengraph-image.tsx -
       // Next serves it at a hash-suffixed URL, so hardcoding it here 404s.
       openGraph: {
-        title: 'AI Models Directory | Sim',
+        title: `AI Models Directory | ${getBrandConfig().name}`,
         description: `Explore ${TOTAL_MODELS}+ AI models across ${TOTAL_MODEL_PROVIDERS} providers with pricing, context windows, and capability details.`,
         url: `${baseUrl}/models`,
         type: 'website',
       },
       twitter: {
         card: 'summary_large_image',
-        title: 'AI Models Directory | Sim',
+        title: `AI Models Directory | ${getBrandConfig().name}`,
         description: `Search ${TOTAL_MODELS}+ AI models across ${TOTAL_MODEL_PROVIDERS} providers.`,
       },
       alternates: {

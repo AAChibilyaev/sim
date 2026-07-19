@@ -2,10 +2,11 @@ import { buildLandingMetadata } from '@/lib/landing/seo'
 import FinanceSolution, {
   FINANCE_PAGE_DESCRIPTION,
 } from '@/app/(landing)/solutions/finance/finance'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 export const revalidate = 3600
 
-const TITLE = 'AI Agents for Finance: Invoicing & Reconciliation | Sim'
+const TITLE = `AI Agents for Finance: Invoicing & Reconciliation | ${getBrandConfig().name}`
 
 export const metadata = buildLandingMetadata({
   title: TITLE,

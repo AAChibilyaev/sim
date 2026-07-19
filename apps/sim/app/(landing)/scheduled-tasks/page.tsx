@@ -2,10 +2,11 @@ import { buildLandingMetadata } from '@/lib/landing/seo'
 import ScheduledTasks, {
   SCHEDULED_TASKS_PAGE_DESCRIPTION,
 } from '@/app/(landing)/scheduled-tasks/scheduled-tasks'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 export const revalidate = 3600
 
-const TITLE = 'Schedule AI Agents: Cron & Recurring Runs | Sim'
+const TITLE = `Schedule AI Agents: Cron & Recurring Runs | ${getBrandConfig().name}`
 
 export const metadata = buildLandingMetadata({
   title: TITLE,

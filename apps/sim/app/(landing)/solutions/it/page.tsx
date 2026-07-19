@@ -1,9 +1,10 @@
 import { buildLandingMetadata } from '@/lib/landing/seo'
 import ItSolution, { IT_PAGE_DESCRIPTION } from '@/app/(landing)/solutions/it/it'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 export const revalidate = 3600
 
-const TITLE = 'AI Agents for IT: Ticket Triage & Access Provisioning | Sim'
+const TITLE = `AI Agents for IT: Ticket Triage & Access Provisioning | ${getBrandConfig().name}`
 
 export const metadata = buildLandingMetadata({
   title: TITLE,

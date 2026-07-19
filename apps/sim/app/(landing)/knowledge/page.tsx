@@ -1,9 +1,10 @@
 import { buildLandingMetadata } from '@/lib/landing/seo'
 import Knowledge, { KNOWLEDGE_PAGE_DESCRIPTION } from '@/app/(landing)/knowledge/knowledge'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 export const revalidate = 3600
 
-const TITLE = 'Knowledge Base for AI Agents: Memory & Citations | Sim'
+const TITLE = `Knowledge Base for AI Agents: Memory & Citations | ${getBrandConfig().name}`
 
 export const metadata = buildLandingMetadata({
   title: TITLE,

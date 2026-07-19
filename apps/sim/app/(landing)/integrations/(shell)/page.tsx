@@ -16,6 +16,7 @@ import { IntegrationCard } from '@/app/(landing)/integrations/components/integra
 import { IntegrationGrid } from '@/app/(landing)/integrations/components/integration-grid'
 import { RequestIntegrationModal } from '@/app/(landing)/integrations/components/request-integration-modal'
 import { integrationsSearchParamsCache } from '@/app/(landing)/integrations/search-params'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 const allIntegrations = INTEGRATIONS
 const integrationSummaries = allIntegrations.map(toIntegrationSummary)
@@ -116,7 +117,7 @@ export async function generateMetadata({
       },
       twitter: {
         card: 'summary_large_image',
-        title: 'Integrations | Sim',
+        title: `Integrations | ${getBrandConfig().name}`,
         description: `Connect ${INTEGRATION_COUNT}+ apps in Sim's AI workspace.`,
       },
       alternates: { canonical: `${baseUrl}/integrations` },

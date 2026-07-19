@@ -1,9 +1,10 @@
 import { buildLandingMetadata } from '@/lib/landing/seo'
 import HrSolution, { HR_PAGE_DESCRIPTION } from '@/app/(landing)/solutions/hr/hr'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 export const revalidate = 3600
 
-const TITLE = 'AI Agents for HR: Onboarding & Employee Operations | Sim'
+const TITLE = `AI Agents for HR: Onboarding & Employee Operations | ${getBrandConfig().name}`
 
 export const metadata = buildLandingMetadata({
   title: TITLE,

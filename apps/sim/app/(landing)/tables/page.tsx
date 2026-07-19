@@ -1,9 +1,10 @@
 import { buildLandingMetadata } from '@/lib/landing/seo'
 import Tables, { TABLES_PAGE_DESCRIPTION } from '@/app/(landing)/tables/tables'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 export const revalidate = 3600
 
-const TITLE = 'AI Agent Database: Tables for Structured Data | Sim'
+const TITLE = `AI Agent Database: Tables for Structured Data | ${getBrandConfig().name}`
 
 export const metadata = buildLandingMetadata({
   title: TITLE,

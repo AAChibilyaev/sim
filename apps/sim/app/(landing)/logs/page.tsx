@@ -1,9 +1,10 @@
 import { buildLandingMetadata } from '@/lib/landing/seo'
 import Logs, { LOGS_PAGE_DESCRIPTION } from '@/app/(landing)/logs/logs'
+import { getBrandConfig } from '@/ee/whitelabeling/branding'
 
 export const revalidate = 3600
 
-const TITLE = 'AI Agent Observability & Logs: Trace Every Run | Sim'
+const TITLE = `AI Agent Observability & Logs: Trace Every Run | ${getBrandConfig().name}`
 
 export const metadata = buildLandingMetadata({
   title: TITLE,
