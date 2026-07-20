@@ -224,7 +224,10 @@ function toNativeTools(payload: NativeChatPayload): NativeToolDef[] {
         tool.input_schema && typeof tool.input_schema === 'object'
           ? (tool.input_schema as Record<string, unknown>)
           : { type: 'object', properties: {} },
-      clientExecutable: tool.executeLocally !== true,
+      // executeLocally=true marks true browser-side tools; everything else is
+      // executed server-side by the Sim orchestrator (executeTool falls back to
+      // the app integration runner for non-catalog tools).
+      clientExecutable: tool.executeLocally === true,
     })
   }
   return tools
@@ -499,7 +502,16 @@ export function runNativeLeg({
                 mode: 'sync',
                 arguments: args,
                 partial: false,
-                ui: { clientExecutable, hidden: false, internal: false },
+                // simExecutable drives the orchestrator's server-side dispatch
+                // (executeToolAndReport → executeTool); without it the
+                // lifecycle waits for a browser completion that never comes and
+                // every integration tool call hangs into the 90s force-fail.
+                ui: {
+                  clientExecutable,
+                  simExecutable: !clientExecutable,
+                  hidden: false,
+                  internal: false,
+                },
               })
             )
             pending.push({ id: call.id, name: call.name })
