@@ -604,6 +604,11 @@ Return ONLY the sort JSON:`,
       'table_query_rows',
       'table_get_row',
       'table_get_schema',
+      // Not block operations (no toolMap entry) — listed so the copilot tool
+      // catalog exposes table creation/discovery and the chat can actually
+      // create a table instead of only reporting that it does not exist.
+      'table_create',
+      'table_list',
     ],
     config: {
       tool: (params) => {
