@@ -110,17 +110,15 @@ function buildUserMessage(payload: NativeChatPayload): string {
 }
 
 /**
- * Upper bound on the integration tools handed to the model per turn. OpenAI's
- * function-calling API hard-rejects a `tools` array over 128 entries, but 128 is
- * a ceiling, not a good working set: AACFlow.io exposes a very large connector
- * catalog, and dumping ~128 full tool schemas into every request floods the
- * context, inflates cost/latency, and pushes the model toward unfocused,
- * sprawling answers. We instead rank the catalog by relevance to the current
- * message and keep only the top {@link MAX_NATIVE_TOOLS}. Because each user
- * message opens a fresh session, ranking is re-run per message, so the exposed
- * connectors track what the user is actually asking for.
+ * Upper bound on the integration tools handed to the model per turn — OpenAI's
+ * function-calling API hard-rejects a `tools` array over 128 entries. The
+ * catalog is ranked by relevance to the current message so the most useful
+ * tools sort first, but the cap stays at the API maximum: a smaller cap proved
+ * lossy — non-English prompts score every tool 0, and a tighter cut silently
+ * dropped the workspace tools (tables, workflows) the user was asking for.
+ * Because each user message opens a fresh session, ranking re-runs per message.
  */
-const MAX_NATIVE_TOOLS = 64
+const MAX_NATIVE_TOOLS = 128
 
 /**
  * Tokens ignored when scoring tool relevance — generic verbs and function words
@@ -420,7 +418,11 @@ export function runNativeLeg({
           if (!choice) continue
           if (choice.delta?.content) {
             accumulated += choice.delta.content
-            emit(nextEvent('text', { channel: 'assistant', text: accumulated }))
+            // The client's text handler appends each frame (`accumulatedContent
+            // += chunk`), so frames must carry the DELTA only — emitting the
+            // accumulated text here duplicates every prefix ("II cannotI cannot
+            // directly…" stutter).
+            emit(nextEvent('text', { channel: 'assistant', text: choice.delta.content }))
           }
           for (const tc of choice.delta?.tool_calls ?? []) {
             const existing = partialCalls.get(tc.index)
