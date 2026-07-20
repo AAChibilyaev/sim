@@ -181,17 +181,37 @@ function scoreToolRelevance(tool: IncomingToolDef, terms: Set<string>): number {
 }
 
 /**
- * Rank the incoming integration tools by relevance to the current message and
- * keep the top {@link MAX_NATIVE_TOOLS}. When the message has no distinctive
- * terms (e.g. a greeting) every tool scores 0 and original order is preserved,
- * so the behavior degrades to a simple capped list rather than an empty one.
+ * Workspace-native tool prefixes that must always be available to the model —
+ * tables, files, knowledge, memory, and workflow management are what users ask
+ * the chat to do most, and under a capped catalog they'd otherwise lose their
+ * slots to whichever integrations happen to sit first (e.g. a Russian prompt
+ * scores every tool 0, so the cut used to keep the head of the catalog and the
+ * model answered "I cannot create a table").
+ */
+const PLATFORM_TOOL_PREFIXES = ['table_', 'file_', 'knowledge_', 'memory_', 'workflow_'] as const
+
+function isPlatformTool(name: unknown): boolean {
+  return typeof name === 'string' && PLATFORM_TOOL_PREFIXES.some((p) => name.startsWith(p))
+}
+
+/**
+ * Order the incoming integration tools for the model: workspace-native tools
+ * first (always retained), then the rest ranked by relevance to the current
+ * message, truncated to {@link MAX_NATIVE_TOOLS}. When the message has no
+ * distinctive terms (e.g. a greeting or a non-English prompt) every score is 0
+ * and catalog order is preserved within each group.
  */
 function toNativeTools(payload: NativeChatPayload): NativeToolDef[] {
   const incoming = payload.integrationTools ?? []
   const terms = extractQueryTerms(buildUserMessage(payload))
   const ranked = incoming
     .map((tool, index) => ({ tool, index, score: scoreToolRelevance(tool, terms) }))
-    .sort((a, b) => b.score - a.score || a.index - b.index)
+    .sort(
+      (a, b) =>
+        Number(isPlatformTool(b.tool.name)) - Number(isPlatformTool(a.tool.name)) ||
+        b.score - a.score ||
+        a.index - b.index
+    )
 
   const tools: NativeToolDef[] = []
   for (const { tool } of ranked) {
